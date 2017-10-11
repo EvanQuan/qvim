@@ -26,12 +26,7 @@ git submodule update --init
    `.vimrc` file in your `.vim` directory:
 ```
 cd ~
-vim .vimrc
+echo "source ~/.vim/.vimrc" >> .vimrc
 ```
-4. In your dummy `.vimrc` file, write:
-```
-source ~/.vim/.vimrc
-```
-5. Save the file.
-6. Ponder your putrid, insignificant existence as the heat death of the universe
-creeps forward one second at a time.
+4. Ponder your putrid, insignificant existence as the heat death of the universe
+inevitably creeps closer.
