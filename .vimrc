@@ -48,6 +48,10 @@ set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
 
+autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
 " Autocomplete
 " inoremap ( ()<Esc>i " parentheses
 " inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a " brackets/braces
