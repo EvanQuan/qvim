@@ -16,7 +16,6 @@
 [submodule "bundle/vim-gitbranch"]
 	path = bundle/vim-gitbranch
 	url = https://github.com/itchyny/vim-gitbranch
-	branch = master
 [submodule "bundle/vim-gitgutter"]
 	path = bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
@@ -29,3 +28,7 @@
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/vim-syntastic/syntastic
+	branch = master
