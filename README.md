@@ -27,7 +27,7 @@ git clone https://github.com/EvanQuan/.vim ~/.vim
 3. Update the submodules:
 ```
 cd ~/.vim
-git submodule update --init
+git submodule update --init --recursive
 ```
 4. Create a dummy `.vimrc` file in your home directory that links to the "real"
    `.vimrc` file in your `.vim` directory:
@@ -45,11 +45,15 @@ Colour Scheme
 Plugins
 -------
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
+- [ctrlp.vim](https://github.com/kien/ctrlp.vim)
+- [html5.vim](https://github.com/othree/html5.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [lineline.vim](https://github.com/itchyny/lightline.vim)
+- [jedi-vim](https://github.com/davidhalter/jedi-vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
+- [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
