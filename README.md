@@ -52,6 +52,7 @@ Plugins
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
+- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)

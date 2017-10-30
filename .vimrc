@@ -237,8 +237,8 @@ if (empty($TMUX))
 endif
 
 " Color scheme (terminal)
-" set t_Co=256 " 256
-" set background=dark
+set t_Co=256 " 256
+set background=dark
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
 " put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
