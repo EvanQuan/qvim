@@ -11,7 +11,7 @@ filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
 " Pathogen https://github.com/tpope/vim-pathogen
-" execute pathogen#infect()
+execute pathogen#infect()
 
 " Turn on syntax highlighting
 syntax on
@@ -37,7 +37,18 @@ set ruler
 set visualbell
 
 " Encoding
-set encoding=utf-8
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+" set encoding=utf-8
+" set fileencoding=utf-8
+" scriptencoding utf-8
 
 " Whitespace
 " set wrap
@@ -203,8 +214,8 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (empty($TMUX))
   if (has("nvim"))
-   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   endif
   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
   "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
@@ -226,12 +237,20 @@ let g:onedark_terminal_italics=1
 " https://github.com/itchyny/lightline.vim 
 "lightline
 let g:lightline = {
-  \'colorscheme': 'onedark',
-  \'separator': {'left': "\u25B6", 'right': ''},
-  \ 'subseparator': { 'left': '', 'right': ''}
-  \}
-"airline
-" let g:airline_theme='onedark'
+  \ 'colorscheme': 'onedark',
+  \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+  \ 'component_function': {
+    \   'gitbranch': 'gitbranch#name'
+    \ },
+                    \ 'enable': { 'tabline': 0 },
+  \ }
+" Symbols for lightline separators
+" \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
+  " \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
+
 colorscheme onedark
 
 
