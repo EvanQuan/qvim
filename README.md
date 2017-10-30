@@ -54,6 +54,7 @@ Plugins
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
+- [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
