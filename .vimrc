@@ -2,7 +2,7 @@
 set nocompatible
 
 " if has('win32') || has('win64')
-"     set runtimepath=path/to/home.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,path/to/home.vim/after
+"  set runtimepath=path/to/home.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,path/to/home.vim/after
 " endif
 
 
@@ -11,6 +11,7 @@ filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
 " Pathogen https://github.com/tpope/vim-pathogen
+" execute pathogen#infect()
 
 " Turn on syntax highlighting
 syntax on
@@ -39,8 +40,8 @@ set visualbell
 set encoding=utf-8
 
 " Whitespace
-set wrap
-set textwidth=79
+" set wrap
+" set textwidth=79
 set formatoptions=tcqrn1
 set tabstop=4 " 2
 set shiftwidth=4 " 2
@@ -51,6 +52,7 @@ set noshiftround
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " Autocomplete
 " inoremap ( ()<Esc>i " parentheses
@@ -225,6 +227,8 @@ let g:onedark_terminal_italics=1
 "lightline
 let g:lightline = {
   \'colorscheme': 'onedark',
+  \'separator': {'left': "\u25B6", 'right': ''},
+  \ 'subseparator': { 'left': '', 'right': ''}
   \}
 "airline
 " let g:airline_theme='onedark'

@@ -14,9 +14,9 @@ know what they're doing.
 
 Installation
 -----------
-1. Clone this repository in your `.vim` directory:
+1. If you do not have a .vim directory, clone this repository:
 ```
-git clone https://github.com/EvanQuan/Vim ~/.vim
+git clone https://github.com/EvanQuan/.vim ~/.vim
 ```
 2. Update the submodules:
 ```
