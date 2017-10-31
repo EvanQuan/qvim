@@ -35,7 +35,15 @@ git submodule update --init --recursive
 cd ~
 echo "source ~/.vim/.vimrc" >> .vimrc
 ```
-5. Ponder your putrid, insignificant existence as the heat death of the universe
+5. If you are on Windows and are using gVim, clone for corresponding `vimfiles` and `_vimrc`:
+```
+cd ~
+git clone https://github.com/EvanQuan/.vim ~/vimfiles
+echo "source ~/vimfiles/_vimrc" >> _vimrc
+cd ~/vimfiles
+git submodule update --init --recursive
+```
+6. Ponder your putrid, insignificant existence as the heat death of the universe
 slowly creeps closer to the present day.
 
 Colour Scheme
@@ -62,3 +70,6 @@ Plugins
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpop/vim-surround)
 
+Issues
+-----
+- Jedi-vim does not work on PC (from the installation instructions alone)
