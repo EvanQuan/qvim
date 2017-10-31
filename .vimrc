@@ -66,6 +66,10 @@ autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+" Gui settings (MacVim or gVim?)
+set guioptions = " No scroll bars
+" Line length marker
+set colorcolumn=79
 " Autocomplete
 " inoremap ( ()<Esc>i " parentheses
 " inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a " brackets/braces
