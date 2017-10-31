@@ -280,8 +280,8 @@ let g:lightline = {
   \ 'colorscheme': 'onedark',
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'modified' ],
-    \             [ 'fugitive', 'filename'],
+    \             [ 'fugitive', 'readonly', 'modified' ],
+    \             [ 'filename'],
     \           ],
     \   'right':[ [ 'syntastic', 'lineinfo' ],
     \             ['percent'],
