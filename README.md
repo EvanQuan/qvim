@@ -47,7 +47,7 @@ git submodule update --init --recursive
 Lightline uses powerline for the separator and subseparator symbols. Either:
 1. In `.vimrc`, delete the `separator` and `subseparator` lines under `let g:lightline`, and use the default separators.
 2. Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
-If on Mac and using iTerm2, go to
+3. If on Mac and using iTerm2, go to
 ```
 iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII text
 ```
