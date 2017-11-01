@@ -43,8 +43,10 @@ echo "source ~/vimfiles/_vimrc" >> _vimrc
 cd ~/vimfiles
 git submodule update --init --recursive
 ```
-6. Ponder your putrid, insignificant existence as the heat death of the universe
-slowly creeps closer to the present day.
+### Powerline
+Lightline uses powerline for the separator and subseparator symbols. Either:
+1. In `.vimrc`, delete the `separator` and `subseparator` lines under `let g:lightline`, and use hte default separators.
+2. Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
 Colour Scheme
 -----------
@@ -61,6 +63,7 @@ Plugins
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+- [powerline](https://github.com/powerline/powerline)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)

@@ -37,19 +37,9 @@ set ruler
 set visualbell
 
 " Encoding
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
-set guifont=Source\ Code\ Pro\ for\ Powerline "make sure to escape the spaces in the name properly
-" set encoding=utf-8
-" set fileencoding=utf-8
-" scriptencoding utf-8
+set encoding=utf-8
+set fileencoding=utf-8
+scriptencoding utf-8
 
 " Whitespace
 " set wrap
@@ -308,13 +298,9 @@ let g:lightline = {
   \ 'component_type': {
     \   'syntastic': 'error',
   \ },
+  \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
+    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
   \ }
-
-" Symbols for lightline separators
-" \ 'separator': { 'left': '⮀', 'right': '⮂' },
-"   \ 'subseparator': { 'left': '⮁', 'right': '⮃' },
-" \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
-"   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
 
 
 function! FilenameRelativePath()
