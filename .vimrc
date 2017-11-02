@@ -163,6 +163,11 @@ noremap <Down> gt
 noremap <Up> gT
 noremap <Right> gt
 noremap <Left> gT
+" Disable arrow keys in insert mode because LUL
+inoremap <Down> <NOP>
+inoremap <Up> <NOP>
+inoremap <Right> <NOP>
+inoremap <Left> <NOP>
 " Go to tab :by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
