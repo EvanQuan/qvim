@@ -8,7 +8,7 @@ Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
-3. [Settings](#settings)
+    - [Settings](#settings)
     - [Powerline](#powerline)
 4. [Colour Schemes](#colour-schemes)
 5. [Plugins](#plugins)
@@ -53,7 +53,7 @@ git submodule update --init --recursive
 6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
 ### Settings
-The `.vimrc` requires an external `settings.vim` file which can be altered depending on the current device used.
+The `.vimrc` file requires an external `settings.vim` file in order to work properly.
 Consider changing the values if there are problems with how
 the colour scheme or lightline is rendering.
 
