@@ -1,4 +1,6 @@
 *.swp
 *.swo
 
+# vim-workspace Session
 Session.vim
+/.undodir

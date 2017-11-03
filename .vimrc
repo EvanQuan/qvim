@@ -26,10 +26,6 @@ let wrap_enabled = 0
 "   newlines
 let show_invisibles_enabled = 1
 
-"_____Notes_____
-" Remember to update your plugins regularly
-" In vim:
-"   :PlugUpdate
 
 " Don't try to be vi compatible
 set nocompatible
@@ -97,14 +93,16 @@ autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim-workspace
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
+" NOTE: Uses a different method of managing plugins, inconsistent with rest of
+" plugins. Currently commented out.
+" if empty(glob('~/.vim/autoload/plug.vim'))
+"   silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+"   autocmd VimEnter * PlugInstall | source $MYVIMRC
+" endif
 
-call plug#begin('~/.vim/plugged')
-Plug 'thaerkh/vim-workspace'
-call plug#end()
+" call plug#begin('~/.vim/plugged')
+" Plug 'thaerkh/vim-workspace'
+" call plug#end()
 
 nnoremap <leader>w :ToggleWorkspace<CR>
 
