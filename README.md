@@ -60,7 +60,7 @@ the colour scheme or lightline is rendering.
 Copy this as `settings.vim` into your `.vim` directory.
 It will **NOT** be tracked in git, allowing it to be device-specific:
 ```
-echo '"_____Settings_____
+"_____Settings_____
 " 24-bit color (True color)
 "   Many terminals don't support 24-bit color and will screw up the color
 "   scheme if true color is enabled.
@@ -86,7 +86,7 @@ let wrap_enabled = 0
 " Show invisibles
 "   Render placeholders for invivisble characters, such as tabs, spaces and
 "   newlines
-let show_invisibles_enabled = 1' > ~/.vim/settings.vim
+let show_invisibles_enabled = 1'
 ```
 
 ### Powerline

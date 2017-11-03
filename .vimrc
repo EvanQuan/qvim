@@ -69,17 +69,6 @@ autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim-workspace
-" NOTE: Uses a different method of managing plugins, inconsistent with rest of
-" plugins. Currently commented out.
-" if empty(glob('~/.vim/autoload/plug.vim'))
-"   silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-"   autocmd VimEnter * PlugInstall | source $MYVIMRC
-" endif
-
-" call plug#begin('~/.vim/plugged')
-" Plug 'thaerkh/vim-workspace'
-" call plug#end()
-
 nnoremap <leader>w :ToggleWorkspace<CR>
 
 " vim-javacomplete2 plugin
@@ -187,12 +176,17 @@ inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 " Change cursor color in insert mode (only works on some terminals)
+" Current hardcoded to fit with Atom's One Dark colors
 if &term =~ "xterm\\|rxvt"
-  " use an orange cursor in insert mode
-  let &t_SI = "\<Esc>]12;blue\x7"
-  " use a red cursor otherwise
-  let &t_EI = "\<Esc>]12;green\x7"
-  silent !echo -ne "\033]12;red\007"
+  " use an blue cursor in insert mode
+  let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
+  " use a red cursor in replace mode
+  let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
+  " use a magenta cursor in replace mode
+  let &t_SC = "\<Esc>]12;magenta\x7"
+  " use a green cursor in normal
+  let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
+  silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
   " reset cursor when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
   " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
