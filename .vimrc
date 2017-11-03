@@ -1,5 +1,5 @@
 ﻿" Look at README.md if there is no settings.vim file in current directory
-source settings.vim
+source ~/.vim/settings.vim
 
 
 " Don't try to be vi compatible

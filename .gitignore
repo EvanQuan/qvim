@@ -2,7 +2,7 @@
 *.swo
 
 # .vimrc settings
-Settings.vim
+settings.vim
 
 # vim-workspace Session
 Session.vim
