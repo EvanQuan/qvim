@@ -4,6 +4,15 @@ These are the current Vim settings I'm using. It uses Atom's One Dark
 colorscheme (alterantively Solarized, if enabled in the settings) and has some common
 plugins for ease of use.
 
+Table of Contents
+---------------
+1. [Why Use This?](#why-use-this?)
+2. [Installation](#installation)
+3. [Settings](#settings)
+4. [Colour Schemes](#colour-schemes)
+5. [Plugins](#plugins)
+6. [Issues](#issues)
+
 Why Use This?
 -----------
 You shouldn't. There are many more developed configurations out there on ***thyne
@@ -44,12 +53,12 @@ git submodule update --init --recursive
 6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
 Settings
--------
+--------
 In the `.vimrc`, there are a few settings which can be altered depending on the
 current device used. Consider changing the values if there are problems with how
 the colour scheme or lightline is rendering.
 
-Copy this as `Settings.vim` into your `.vim` directory.
+Copy this as `settings.vim` into your `.vim` directory.
 It will **NOT** be tracked in git, allowing it to be device-specific:
 ```
 "_____Settings_____
@@ -104,8 +113,9 @@ Plugins
 - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
 - [html5.vim](https://github.com/othree/html5.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
-- [lineline.vim](https://github.com/itchyny/lightline.vim)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
+- [lightline-buffer](https://github.com/taohex/lightline-buffer)
+- [lightline.vim](https://github.com/itchyny/lightline.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
@@ -119,7 +129,7 @@ Plugins
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
-- [vim-workspace](https://github.com/vim-workspace)
+- [vim-workspace](https://github.com/thaerkh/vim-workspace)
 
 Issues
 -----
