@@ -9,9 +9,9 @@ Table of Contents
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
 3. [Settings](#settings)
+    - [Powerline](#powerline)
 4. [Colour Schemes](#colour-schemes)
 5. [Plugins](#plugins)
-6. [Issues](#issues)
 
 Why Use This?
 -----------
@@ -52,10 +52,9 @@ git submodule update --init --recursive
 ```
 6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-Settings
---------
-In the `.vimrc`, there are a few settings which can be altered depending on the
-current device used. Consider changing the values if there are problems with how
+### Settings
+The `.vimrc` requires an external `settings.vim` file which can be altered depending on the current device used.
+Consider changing the values if there are problems with how
 the colour scheme or lightline is rendering.
 
 Copy this as `settings.vim` into your `.vim` directory.
@@ -130,12 +129,3 @@ Plugins
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
-
-Issues
------
-- Jedi-vim does not work on PC (from the installation instructions alone) even if Python is already installed???
-- Powerline does not necessarily work over SSH. Need to have powerline fonts installed on device being used.
-- Powerline separator symbols don't line up correctly on Mac???
-    - Various powerline fonts either have the symbol too small, or the symbol is shifted upwards.
-    - If using iTerm, changing the font for non-ASCII characters somehwat alleviates this.
-- javacomplete2 is not autocompleting. Something to do with compiling javavi?
