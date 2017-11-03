@@ -1,30 +1,5 @@
-﻿"_____Settings_____
-" 24-bit color (True color)
-"   Many terminals don't support 24-bit color and will screw up the color
-"   scheme if true color is enabled.
-"   If disabled, the colour scheme will work but will be slightly
-"   different from what is should be (less ideal).
-let truecolor_enabled = 1
-" Powerline
-"   If powerline fonts are not installed on device, unicode characters for
-"   lightline will not render correctly. Disable to have default lightline
-"   separators and supseparators.
-let special_symbols_enabled = 1
-" Colour scheme
-"   Affects overall colour scheme and lightline colour scheme
-"   Default is One Dark
-"   Alternate is Solarized
-let onedark_enabled = 1
-" Hard wrap
-" Automatically wraps text to the next line at wrap_width.
-" Can be convenient in some instances like in LaTeX,  but can be sometimes
-" annoying when programming.
-" If enabled, has visual marker of 79 lines.
-let wrap_enabled = 0
-" Show invisibles
-"   Render placeholders for invivisble characters, such as tabs, spaces and
-"   newlines
-let show_invisibles_enabled = 1
+﻿" Look at README.md if there is no settings.vim file in current directory
+source settings.vim
 
 
 " Don't try to be vi compatible
