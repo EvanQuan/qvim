@@ -1,4 +1,5 @@
-﻿" Look at README.md if there is no settings.vim file in current directory
+﻿" Settings determine how some configurations are set
+" Look at README.md if there is no settings.vim file in current directory
 source ~/.vim/settings.vim
 
 
@@ -188,9 +189,9 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " Change cursor color in insert mode (only works on some terminals)
 if &term =~ "xterm\\|rxvt"
   " use an orange cursor in insert mode
-  let &t_SI = "\<Esc>]12;orange\x7"
+  let &t_SI = "\<Esc>]12;blue\x7"
   " use a red cursor otherwise
-  let &t_EI = "\<Esc>]12;red\x7"
+  let &t_EI = "\<Esc>]12;green\x7"
   silent !echo -ne "\033]12;red\007"
   " reset cursor when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
@@ -370,7 +371,7 @@ let g:solarized_terminal_italics=1
 "
 set hidden  " allow buffer switching without saving
 set showtabline=2  " always show tabline
-set noshowmode "
+set noshowmode " do not show default INSERT mode below
 
                     " \ 'enable': { 'tabline': 0 },
 let g:lightline = {
@@ -515,18 +516,31 @@ function! MyFilename()
   endif
 endfunction
 
-
-function! MyFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = '⭠ '
-      let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
+if (special_symbols_enabled)
+  function! MyFugitive()
+    try
+      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let mark = '⭠ '
+        let _ = fugitive#head()
+        return strlen(_) ? mark._ : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+else
+  function! MyFugitive()
+    try
+      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let mark = ''
+        let _ = fugitive#head()
+        return strlen(_) ? mark._ : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+endif
 
 function! MyFileformat()
   return winwidth(0) > 70 ? &fileformat : ''

@@ -65,3 +65,6 @@
 [submodule "bundle/lightline-buffer"]
 	path = bundle/lightline-buffer
 	url = https://github.com/taohex/lightline-buffer
+[submodule "bundle/vim-repeat"]
+	path = bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
