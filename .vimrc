@@ -1,4 +1,31 @@
-﻿" Don't try to be vi compatible
+﻿"_____Settings_____
+" 24-bit color (True color)
+"   Many terminals don't support 24 bit color and will screw up the color
+"   scheme if true color is enabled. If disabled, colorscheme will display
+"   but will be slightly off from what is should be.
+let truecolor_enabled = 1
+" Powerline
+"   If powerline fonts are not installed on device, unicode characters for
+"   lightline will not render correctly. Disable to have default lightline
+"   separators
+let separators_enabled = 1
+" Colorscheme
+"   Default is One Dark 
+"   Alternate is Solarized
+let onedark_enabled = 1
+" Hard wrap
+" Automatically wraps text to the next line at wrap_width.
+" Can be convient in some instances like in LaTeX,  but can be sometimes
+" annoying when programming.
+" If enabled, has visual marker of wrap_width.
+let wrap_enabled = 0
+" Show invisibles
+"   Render placeholders for invivisble characters, such as tabs, spaces and
+"   newlines
+let show_invisibles_enabled = 1
+
+
+" Don't try to be vi compatible
 set nocompatible
 
 " if has('win32') || has('win64')
@@ -42,8 +69,15 @@ set fileencoding=utf-8
 scriptencoding utf-8
 
 " Whitespace
-" set wrap
-" set textwidth=79
+if (wrap_enabled)
+  set wrap
+  set textwidth=79
+  set colorcolumn=79 " Line length marker
+else
+  set nowrap
+  set textwidth=0
+endif
+
 set formatoptions=tcqrn1
 set tabstop=4 " 2
 set shiftwidth=4 " 2
@@ -56,10 +90,62 @@ autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+" vim-javacomplete2 plugin
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+" Enable smart (trying to guess import option) inserting class imports with F4
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" To enable usual (will ask for import option) inserting class imports with F5
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+" To add all missing imports with F6
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" To remove all missing imports with F7
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+
+imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+
+nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+
+imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+
+
+
+
+
 " Gui settings (MacVim or gVim?)
 set guioptions = " No scroll bars
-" Line length marker
-set colorcolumn=79
+
 " Autocomplete
 " inoremap ( ()<Esc>i " parentheses
 " inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a " brackets/braces
@@ -73,6 +159,8 @@ runtime! macros/matchit.vim
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+nnoremap J gj
+nnoremap K gk
 
 " Allow hidden buffers
 set hidden
@@ -197,7 +285,9 @@ set mouse=a
 map <leader>q gqip
 
 " Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+if (show_invisibles_enabled)
+  set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+endif
 " set lcs+=space· " only works with Gvim ?
 " autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/ " doesn't work ?
 
@@ -248,16 +338,18 @@ let g:syntastic_check_on_wq = 0
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
+if (truecolor_enabled)
+  if (empty($TMUX))
+    if (has("nvim"))
+      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+      set termguicolors
+    endif
   endif
 endif
 
@@ -266,13 +358,15 @@ set t_Co=256 " 256
 set background=dark
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
+let g:solarized_termcolors=256
+let g:solarized_terminal_italics=1
 " put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
 " in ~/.vim/colors/ and uncomment:
 
 "____Lightline_____
 " https://github.com/itchyny/lightline.vim 
+set noshowmode " 
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'modified' ],
@@ -303,10 +397,18 @@ let g:lightline = {
   \ 'component_type': {
     \   'syntastic': 'error',
   \ },
-  \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2"},
-    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
-  \ }
+\ }
 
+if (onedark_enabled)
+  let g:lightline.colorscheme = 'onedark'
+else
+  let g:lightline.colorscheme = 'solarized'
+endif
+
+if (separators_enabled)
+  let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
+  let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
+endif
 
 function! FilenameRelativePath()
     return expand('%')
@@ -454,6 +556,9 @@ let g:vimshell_force_overwrite_statusline = 0
 
 
 
-colorscheme onedark
-
+if (onedark_enabled)
+  colorscheme onedark
+else
+  colorscheme solarized
+endif
 

@@ -1,9 +1,7 @@
 My Vim Configurations
 ==============
-These are the current Vim settings I'm using. My initial goal was solely to use
-Atom's One Dark colour scheme, which is still my favourite today. Over time, I
-began installing plugins to add features I took for granted in the many other
-editors I was used to.
+These are the current Vim settings I'm using. It uses Atom's One Dark
+colorscheme and has some common plugins for ease of use.
 
 Why Use This?
 -----------
@@ -43,16 +41,25 @@ echo "source ~/vimfiles/_vimrc" >> _vimrc
 cd ~/vimfiles
 git submodule update --init --recursive
 ```
-### Powerline
-Lightline uses powerline for the separator and subseparator symbols. Either:
-1. In `.vimrc`, delete the `separator` and `subseparator` lines under `let g:lightline`, and use the default separators.
-2. Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
+6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-If on Mac and using iTerm2, go to
+Settings
+-------
+In the `.vimrc`, there are a few settings which can be altered depending on the
+current device used. Consider looking into it if there are problems with how
+the colorscheme or lightline is rendering.
+
+### Powerline
+Lightline uses powerline for the separator and subseparator symbols. If the
+separators and subseparators render with `separators_enabled`, but not
+the correct size, or are shifted upwards:
+
+1. If on Mac and using iTerm2, go to
 ```
 iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII text
 ```
-and change the non-ASCII font to one of the powerline fonts of the same size as ASCII font. Currently, I have it set to `ProFont for Powerline`
+and change the non-ASCII font to one of the various powerline fonts of the
+same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 
 Colour Scheme
 -----------
@@ -75,10 +82,16 @@ Plugins
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+- [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpop/vim-surround)
 
 Issues
 -----
-- Jedi-vim does not work on PC (from the installation instructions alone)
+- Jedi-vim does not work on PC (from the installation instructions alone) even if Python is already installed???
+- Powerline does not necessarily work over SSH. Need to have powerline fonts installed on device being used.
+- Powerline separator symbols don't line up correctly on Mac???
+    - Various powerline fonts either have the symbol too small, or the symbol is shifted upwards.
+    - If using iTerm, changing the font for non-ASCII characters somehwat alleviates this.
+- 

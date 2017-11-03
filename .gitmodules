@@ -50,3 +50,12 @@
 [submodule "bundle/vim-closetag"]
 	path = bundle/vim-closetag
 	url = https://github.com/alvan/vim-closetag
+[submodule "bundle/vim-javacomplete2"]
+	path = bundle/vim-javacomplete2
+	url = https://github.com/artur-shaik/vim-javacomplete2.git
+[submodule "bundle/Solarized"]
+	path = bundle/Solarized
+	url = https://github.com/vim-scripts/Solarized
+[submodule "bundle/onedark.vim"]
+	path = bundle/onedark.vim
+	url = https://github.com/joshdick/onedark.vim
