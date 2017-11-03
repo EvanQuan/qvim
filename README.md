@@ -119,6 +119,7 @@ Plugins
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [powerline](https://github.com/powerline/powerline)
+- [tabular](https://github.com/godlygeek/tabular)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
