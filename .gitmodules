@@ -59,3 +59,9 @@
 [submodule "bundle/onedark.vim"]
 	path = bundle/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
+[submodule "bundle/vim-workspace"]
+	path = bundle/vim-workspace
+	url = https://github.com/thaerkh/vim-workspace
+[submodule "bundle/lightline-buffer"]
+	path = bundle/lightline-buffer
+	url = https://github.com/taohex/lightline-buffer

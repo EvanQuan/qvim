@@ -1,14 +1,14 @@
 My Vim Configurations
 ==============
 These are the current Vim settings I'm using. It uses Atom's One Dark
-colorscheme and has some common plugins for ease of use.
+colorscheme (alterantively Solarized, if enabled in the settings) and has some common
+plugins for ease of use.
 
 Why Use This?
 -----------
 You shouldn't. There are many more developed configurations out there on ***thyne
 intertoobz*** that have been iterated on over the years by people who actually
 know what they're doing.
-
 
 Installation
 -----------
@@ -47,7 +47,7 @@ Settings
 -------
 In the `.vimrc`, there are a few settings which can be altered depending on the
 current device used. Consider looking into it if there are problems with how
-the colorscheme or lightline is rendering.
+the colour scheme or lightline is rendering.
 
 ### Powerline
 Lightline uses powerline for the separator and subseparator symbols. If the
@@ -61,9 +61,10 @@ iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII 
 and change the non-ASCII font to one of the various powerline fonts of the
 same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 
-Colour Scheme
+Colour Schemes
 -----------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
+- [Solarized](https://github.com/vim-scripts/Solarized)
 
 Plugins
 -------
@@ -85,7 +86,8 @@ Plugins
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
-- [vim-surround](https://github.com/tpop/vim-surround)
+- [vim-surround](https://github.com/tpope/vim-surround)
+- [vim-workspace](https://github.com/vim-workspace)
 
 Issues
 -----
@@ -94,4 +96,4 @@ Issues
 - Powerline separator symbols don't line up correctly on Mac???
     - Various powerline fonts either have the symbol too small, or the symbol is shifted upwards.
     - If using iTerm, changing the font for non-ASCII characters somehwat alleviates this.
-- 
+- javacomplete2 is not autocompleting. Something to do with compiling javavi?

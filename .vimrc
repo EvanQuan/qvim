@@ -1,29 +1,35 @@
 ﻿"_____Settings_____
 " 24-bit color (True color)
-"   Many terminals don't support 24 bit color and will screw up the color
-"   scheme if true color is enabled. If disabled, colorscheme will display
-"   but will be slightly off from what is should be.
+"   Many terminals don't support 24-bit color and will screw up the color
+"   scheme if true color is enabled.
+"   If disabled, the colour scheme will work but will be slightly
+"   different from what is should be (less ideal).
 let truecolor_enabled = 1
 " Powerline
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
-"   separators
-let separators_enabled = 1
-" Colorscheme
-"   Default is One Dark 
+"   separators and supseparators.
+let special_symbols_enabled = 1
+" Colour scheme
+"   Affects overall colour scheme and lightline colour scheme
+"   Default is One Dark
 "   Alternate is Solarized
 let onedark_enabled = 1
 " Hard wrap
 " Automatically wraps text to the next line at wrap_width.
-" Can be convient in some instances like in LaTeX,  but can be sometimes
+" Can be convenient in some instances like in LaTeX,  but can be sometimes
 " annoying when programming.
-" If enabled, has visual marker of wrap_width.
+" If enabled, has visual marker of 79 lines.
 let wrap_enabled = 0
 " Show invisibles
 "   Render placeholders for invivisble characters, such as tabs, spaces and
 "   newlines
 let show_invisibles_enabled = 1
 
+"_____Notes_____
+" Remember to update your plugins regularly
+" In vim:
+"   :PlugUpdate
 
 " Don't try to be vi compatible
 set nocompatible
@@ -90,8 +96,20 @@ autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+" vim-workspace
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'thaerkh/vim-workspace'
+call plug#end()
+
+nnoremap <leader>w :ToggleWorkspace<CR>
+
 " vim-javacomplete2 plugin
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Enable smart (trying to guess import option) inserting class imports with F4
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
@@ -194,6 +212,31 @@ vnoremap <F1> :set invfullscreen<CR>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
+" Change cursor color in insert mode (only works on some terminals)
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+endif
+
+" Change cursor blinking if in insert mode (only works on some terminals)
+if &term =~ '^xterm\\|rxvt'
+  " solid underscore
+  let &t_SI .= "\<Esc>[4 q"
+  " solid block
+  let &t_EI .= "\<Esc>[2 q"
+  " 1 or 0 -> blinking block
+  " 3 -> blinking underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+endif
+
 " Nerdcommeter settings
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
@@ -246,16 +289,7 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
-" Putting arrow keys to use for tab movement
-noremap <Down> gt
-noremap <Up> gT
-noremap <Right> gt
-noremap <Left> gT
-" Disable arrow keys in insert mode because LUL
-inoremap <Down> <NOP>
-inoremap <Up> <NOP>
-inoremap <Right> <NOP>
-inoremap <Left> <NOP>
+
 " Go to tab :by number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -269,14 +303,9 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 " Open new tab
 noremap <leader>t :tabe <C-m>
-noremap <leader>xt :x <C-m>
-noremap <leader>qt :q! <C-m>
-noremap <leader>w :w <C-m>
-noremap <leader>xw :NERDTreeToggle<CR> :x <C-m>
-noremap <leader>qw :NERDTreeToggle<CR> :q! <C-m>
 " Split open new window
-noremap <leader>s :split 
-noremap <leader>vs :vsplit 
+noremap <leader>s :split
+noremap <leader>vs :vsplit
 " Enable mouse scroll
 set mouse=a
 " Textmate holdouts
@@ -364,8 +393,13 @@ let g:solarized_terminal_italics=1
 " in ~/.vim/colors/ and uncomment:
 
 "____Lightline_____
-" https://github.com/itchyny/lightline.vim 
-set noshowmode " 
+" https://github.com/itchyny/lightline.vim
+"
+set hidden  " allow buffer switching without saving
+set showtabline=2  " always show tabline
+set noshowmode "
+
+                    " \ 'enable': { 'tabline': 0 },
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -386,18 +420,51 @@ let g:lightline = {
     \   'mode': 'MyMode',
     \   'ctrlpmark': 'CtrlPMark',
     \   'gitbranch': 'gitbranch#name',
+    \ 'bufferbefore': 'lightline#buffer#bufferbefore',
+    \ 'bufferafter': 'lightline#buffer#bufferafter',
+    \ 'bufferinfo': 'lightline#buffer#bufferinfo',
     \ },
-                    \ 'enable': { 'tabline': 0 },
   \ 'tab_component_function': {
     \   'filename': 'MyTabFilename',
   \ },
   \ 'component_expand': {
     \   'syntastic': 'SyntasticStatuslineFlag',
+    \   'buffercurrent': 'lightline#buffer#buffercurrent2',
   \ },
   \ 'component_type': {
     \   'syntastic': 'error',
+    \   'buffercurrent': 'tabsel',
   \ },
+  \ 'tabline': {
+      \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
+      \ 'right': [ [ 'close' ], ],
+      \ },
 \ }
+
+" lightline-buffer ui settings
+" replace these symbols with ascii characters if your environment does not support unicode
+
+let g:lightline_buffer_ellipsis_icon = '..'
+
+let g:lightline_buffer_active_buffer_left_icon = ''
+let g:lightline_buffer_active_buffer_right_icon = ''
+let g:lightline_buffer_separator_icon = '  '
+
+" lightline-buffer function settings
+let g:lightline_buffer_show_bufnr = 1
+let g:lightline_buffer_rotate = 0
+let g:lightline_buffer_fname_mod = ':t'
+let g:lightline_buffer_excludes = ['vimfiler']
+
+let g:lightline_buffer_maxflen = 30
+let g:lightline_buffer_maxfextlen = 3
+let g:lightline_buffer_minflen = 16
+let g:lightline_buffer_minfextlen = 3
+let g:lightline_buffer_reservelen = 20
+
+" remap arrow keys
+nnoremap <Left> :bprev<CR>
+nnoremap <Right> :bnext<CR>
 
 if (onedark_enabled)
   let g:lightline.colorscheme = 'onedark'
@@ -405,9 +472,15 @@ else
   let g:lightline.colorscheme = 'solarized'
 endif
 
-if (separators_enabled)
+if (special_symbols_enabled)
   let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
+  let g:lightline_buffer_expand_left_icon = '◀ '
+  let g:lightline_buffer_expand_right_icon = ' ▶'
+  let g:lightline_buffer_logo = ' '
+  let g:lightline_buffer_readonly_icon = ''
+  let g:lightline_buffer_modified_icon = '✭'
+  let g:lightline_buffer_git_icon = ' '
 endif
 
 function! FilenameRelativePath()
