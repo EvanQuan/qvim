@@ -177,13 +177,12 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 " Change cursor color in insert mode (only works on some terminals)
 " Current hardcoded to fit with Atom's One Dark colors
+" (rgb values from onedark color file)
 if &term =~ "xterm\\|rxvt"
-  " use an blue cursor in insert mode
+  " use a blue cursor in insert mode
   let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
   " use a red cursor in replace mode
   let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-  " use a magenta cursor in replace mode
-  let &t_SC = "\<Esc>]12;magenta\x7"
   " use a green cursor in normal
   let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
   silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
@@ -232,14 +231,14 @@ nmap <silent> <C-\> :NERDTreeToggle<CR>
 set updatetime=250 " default 4000???
 
 
-"Use TAB to complete when typing words, else inserts TABs as usual.
-"Uses dictionary and source files to find matching words to complete.
+" Use TAB to complete when typing words, else inserts TABs as usual.
+" Uses dictionary and source files to find matching words to complete.
 
-"See help completion for source,
-"Note: usual completion is on <C-n> but more trouble to press all the time.
-"Never type the same word twice and maybe learn a new spellings!
-"Use the Linux dictionary when spelling is in doubt.
-"Window users can copy the file to their machine.
+" See help completion for source,
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+" Window users can copy the file to their machine.
 " function! Tab_Or_Complete()
 "   if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
 "     return "\<C-N>"
