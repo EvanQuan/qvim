@@ -182,8 +182,6 @@ if &term =~ "xterm\\|rxvt"
   let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
   " use a red cursor in replace mode
   let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-  " use a magenta cursor in replace mode
-  let &t_SC = "\<Esc>]12;magenta\x7"
   " use a green cursor in normal
   let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
   silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
