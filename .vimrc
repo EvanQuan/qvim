@@ -185,7 +185,8 @@ if &term =~ "xterm\\|rxvt"
   let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
   " use a green cursor in normal
   let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
-  silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
+  " Default
+  silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
   " reset cursor when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
   " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
@@ -273,6 +274,7 @@ noremap <leader>t :tabe <C-m>
 " Split open new window
 noremap <leader>s :split
 noremap <leader>vs :vsplit
+noremap <leader>b :terminal <C-m>
 " Enable mouse scroll
 set mouse=a
 " Textmate holdouts
@@ -433,9 +435,9 @@ let g:lightline_buffer_reservelen = 20
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> :bnext<CR>
 
-if (onedark_enabled)
+if (colorscheme_type == 1)
   let g:lightline.colorscheme = 'onedark'
-else
+elseif (colorscheme_type == 2)
   let g:lightline.colorscheme = 'solarized'
 endif
 
@@ -609,9 +611,9 @@ let g:vimshell_force_overwrite_statusline = 0
 
 
 
-if (onedark_enabled)
+if (colorscheme_type == 1)
   colorscheme onedark
-else
+elseif (colorscheme_type ==2)
   colorscheme solarized
 endif
 

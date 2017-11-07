@@ -74,9 +74,10 @@ let truecolor_enabled = 1
 let special_symbols_enabled = 1
 " Colour scheme
 "   Affects overall colour scheme and lightline colour scheme
-"   Default is One Dark
-"   Alternate is Solarized
-let onedark_enabled = 1
+"   0 is None
+"   1 is One Dark
+"   2 is Solarized
+let colorscheme_type = 1
 " Hard wrap
 " Automatically wraps text to the next line at wrap_width.
 " Can be convenient in some instances like in LaTeX,  but can be sometimes
