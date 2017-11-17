@@ -615,5 +615,5 @@ if (colorscheme_type == 1)
   colorscheme onedark
 elseif (colorscheme_type ==2)
   colorscheme solarized
-endif
+endif " else no colorscheme
 

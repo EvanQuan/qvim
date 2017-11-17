@@ -46,7 +46,7 @@ echo "source ~/.vim/.vimrc" >> .vimrc
 ```
 cd ~
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
-echo "source ~/vimfiles/_vimrc" >> _vimrc
+echo "source ~/vimfiles/.vimrc" >> _vimrc
 cd ~/vimfiles
 git submodule update --init --recursive
 ```
