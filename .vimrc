@@ -50,10 +50,11 @@ scriptencoding utf-8
 if (wrap_enabled)
   if (wrap_enabled == 2)
     set wrap " hard wrap
-  end
+  endif
   set textwidth=79
   if (wrap_enabled > 1)
-  set colorcolumn=79 " Line length marker
+    set colorcolumn=79 " Line length marker
+  endif
 else
   set nowrap
   set textwidth=0
