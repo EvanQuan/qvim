@@ -48,8 +48,11 @@ scriptencoding utf-8
 
 " Whitespace
 if (wrap_enabled)
-  set wrap
+  if (wrap_enabled == 2)
+    set wrap " hard wrap
+  end
   set textwidth=79
+  if (wrap_enabled > 1)
   set colorcolumn=79 " Line length marker
 else
   set nowrap
