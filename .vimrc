@@ -48,12 +48,12 @@ scriptencoding utf-8
 
 " Whitespace
 if (wrap_enabled)
-  if (wrap_enabled == 2)
-    set wrap " hard wrap
+  set wrap
+  if (wrap_enabled == 2) " hard wrap
+    set textwidth=79
   endif
-  set textwidth=79
-  if (wrap_enabled > 1)
-    set colorcolumn=79 " Line length marker
+  if (wrap_enabled > 1) " Line length marker
+    set colorcolumn=79
   endif
 else
   set nowrap
@@ -144,8 +144,8 @@ runtime! macros/matchit.vim
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
-nnoremap J gj
-nnoremap K gk
+nnoremap J <C-d> " Go down half a page
+nnoremap K <C-u> " Go up half a page
 
 " Allow hidden buffers
 set hidden
