@@ -78,16 +78,20 @@ let special_symbols_enabled = 1
 "   1 is One Dark
 "   2 is Solarized
 let colorscheme_type = 1
-" Hard wrap
+" Text wrap
 " Automatically wraps text to the next line at wrap_width.
-" Can be convenient in some instances like in LaTeX,  but can be sometimes
-" annoying when programming.
-" If enabled, has visual marker of 79 lines.
-let wrap_enabled = 0
+" Hard wrap actually moves text to the next line once the line reaches 79 characters.
+" Soft wrap visually moves text to the next line once it reaches the end of
+" screen or window.
+"   0: None
+"   1: Soft wrap
+"   2: Soft wrap with visual marker of 79 lines
+"   3: Hard wrap
+let wrap_enabled = 1
 " Show invisibles
 "   Render placeholders for invivisble characters, such as tabs, spaces and
 "   newlines
-let show_invisibles_enabled = 1'
+let show_invisibles_enabled = 1
 ```
 
 ### Powerline
