@@ -74,6 +74,7 @@ autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
+let g:workspace_autosave_always = 0
 
 " vim-javacomplete2 plugin
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -125,15 +126,8 @@ nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
 nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 
-
-
-
 " Gui settings (MacVim or gVim?)
 set guioptions = " No scroll bars
-
-" Autocomplete
-" inoremap ( ()<Esc>i " parentheses
-" inoremap <C-j> <Esc>/[)}"'\]>]<CR>:nohl<CR>a " brackets/braces
 
 " Cursor motion
 set scrolloff=3
@@ -148,7 +142,7 @@ nnoremap J <C-d> " Go down half a page
 nnoremap K <C-u> " Go up half a page
 
 " Allow hidden buffers
-set hidden
+" set hidden
 
 " Rendering
 set ttyfast
