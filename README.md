@@ -71,7 +71,7 @@ let truecolor_enabled = 1
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators.
-let special_symbols_enabled = 1
+let special_symbols_enabled = 0
 " Colour scheme
 "   Affects overall colour scheme and lightline colour scheme
 "   0 is None
@@ -85,8 +85,7 @@ let colorscheme_type = 1
 " screen or window.
 "   0: None
 "   1: Soft wrap
-"   2: Soft wrap with visual marker of 79 lines
-"   3: Hard wrap
+"   2: Hard wrap with visual marker of 79 lines
 let wrap_enabled = 1
 " Show invisibles
 "   Render placeholders for invivisble characters, such as tabs, spaces and

@@ -49,11 +49,9 @@ scriptencoding utf-8
 " Whitespace
 if (wrap_enabled)
   set wrap
+  set colorcolumn=79
   if (wrap_enabled == 2) " hard wrap
     set textwidth=79
-  endif
-  if (wrap_enabled > 1) " Line length marker
-    set colorcolumn=79
   endif
 else
   set nowrap
@@ -71,6 +69,8 @@ autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
