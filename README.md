@@ -52,6 +52,14 @@ git submodule update --init --recursive
 ```
 6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
+7. If for some reason your terminal does not support italics, try this:
+```
+echo "xterm-256color|xterm with 256 colors and italic,
+  sitm=\E[3m, ritm=\E[23m,
+  use=xterm-256color," >> xterm-256color.terminfo.txt
+tic -o ~/.terminfo xterm-256color.terminfo.txt
+```
+
 ### Settings
 The `.vimrc` file requires an external `settings.vim` file in order to work properly.
 Consider changing the values if there are problems with how
