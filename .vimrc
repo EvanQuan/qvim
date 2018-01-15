@@ -282,7 +282,7 @@ map <leader>q gqip
 
 " Visualize tabs and newlines
 if (show_invisibles_enabled)
-  set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+  set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 endif
 " set lcs+=space· " only works with Gvim ?
 " autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/ " doesn't work ?
