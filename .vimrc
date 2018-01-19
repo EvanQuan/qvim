@@ -67,6 +67,7 @@ set noshiftround
 
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
+autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
