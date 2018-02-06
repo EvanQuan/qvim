@@ -69,29 +69,29 @@ Copy this as `settings.vim` into your `.vim` directory.
 It will **NOT** be tracked in git, allowing it to be device-specific:
 ```
 "_____Settings_____
-" 24-bit color (True color)
-"   Many terminals don't support 24-bit color and will screw up the color
-"   scheme if true color is enabled.
-"   If disabled, the colour scheme will work but will be slightly
-"   different from what is should be (less ideal).
+" True color (24-bit)
+"   Many terminals don't support True color and will screw up some color
+"   schemes if it is enabled.
+"   If disabled, color schemes will work but the colors may appear slightly
+"   different from what they should be.
 let truecolor_enabled = 1
 " Powerline
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators.
 let special_symbols_enabled = 0
-" Colour scheme
-"   Affects overall colour scheme and lightline colour scheme
-"   0 is None
-"   1 is One Dark
-"   2 is Solarized
+" Color scheme
+"   Affects overall color scheme and lightline color scheme
+"   0: Default
+"   1: One Dark
+"   2: Solarized
 let colorscheme_type = 1
 " Text wrap
 " Automatically wraps text to the next line at wrap_width.
 " Hard wrap actually moves text to the next line once the line reaches 79 characters.
 " Soft wrap visually moves text to the next line once it reaches the end of
 " screen or window.
-"   0: None
+"   0: No wrap
 "   1: Soft wrap
 "   2: Hard wrap with visual marker of 79 lines
 let wrap_enabled = 1
