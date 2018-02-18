@@ -58,6 +58,9 @@ else
   set textwidth=0
 endif
 
+
+" Indentation
+" Default 4 spaces
 set formatoptions=tcqrn1
 set tabstop=4 " 2
 set shiftwidth=4 " 2
@@ -65,17 +68,20 @@ set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
 
+" 2 spaces
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype xml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-" autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" 2 space-width tabs
+autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
+autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
 let g:workspace_autosave_always = 0
+
 
 " vim-javacomplete2 plugin
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -288,7 +294,7 @@ map <leader>q gqip
 
 " Visualize tabs and newlines
 if (show_invisibles_enabled)
-  set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+  set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 endif
 " set lcs+=space· " only works with Gvim ?
 " autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/ " doesn't work ?

@@ -1,8 +1,8 @@
 My Vim Configurations
 ==============
 These are the current Vim settings I'm using. It uses Atom's One Dark
-colorscheme (alterantively Solarized, if enabled in the settings) and has some common
-plugins for ease of use.
+color scheme (alternatively Solarized, if enabled in the settings) and
+has some common plugins for ease of use.
 
 Table of Contents
 ---------------
@@ -10,18 +10,19 @@ Table of Contents
 2. [Installation](#installation)
     - [Settings](#settings)
     - [Powerline](#powerline)
-4. [Colour Schemes](#colour-schemes)
+4. [Color Schemes](#color-schemes)
 5. [Plugins](#plugins)
 
 Why Use This?
 -----------
-You shouldn't. There are many more developed configurations out there on ***thyne
-intertoobz*** that have been iterated on over the years by people who actually
+You shouldn't. There are many more developed configurations out there on
+***thyne intertoobz*** that have been iterated on over the years by people who actually
 know what they're doing.
 
 Installation
 -----------
-1. If you already have a .vim directory and want to override it, delete your current one:
+1. If you already have a .vim directory and want to override it, delete your
+current one:
 ```
 cd ~
 rm -rf .vim
@@ -42,7 +43,8 @@ git submodule update --init --recursive
 cd ~
 echo "source ~/.vim/.vimrc" >> .vimrc
 ```
-5. If you are on Windows and are using gVim, clone for corresponding `vimfiles` and `_vimrc`:
+5. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
+and `_vimrc`:
 ```
 cd ~
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
@@ -61,37 +63,37 @@ tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
 ### Settings
-The `.vimrc` file requires an external `settings.vim` file in order to work properly.
-Consider changing the values if there are problems with how
-the colour scheme or lightline is rendering.
+The `.vimrc` file requires an external `settings.vim` file in order to
+work properly. Consider changing the values if there are problems with how
+the color scheme or lightline is rendering.
 
 Copy this as `settings.vim` into your `.vim` directory.
-It will **NOT** be tracked in git, allowing it to be device-specific:
+It will **NOT** be tracked by git, allowing it to be device-specific:
 ```
 "_____Settings_____
-" 24-bit color (True color)
-"   Many terminals don't support 24-bit color and will screw up the color
-"   scheme if true color is enabled.
-"   If disabled, the colour scheme will work but will be slightly
-"   different from what is should be (less ideal).
+" True color (24-bit)
+"   Many terminals don't support True color and will screw up some color
+"   schemes if it is enabled.
+"   If disabled, color schemes will work but the colors may appear slightly
+"   different from what they should be.
 let truecolor_enabled = 1
 " Powerline
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators.
 let special_symbols_enabled = 0
-" Colour scheme
-"   Affects overall colour scheme and lightline colour scheme
-"   0 is None
-"   1 is One Dark
-"   2 is Solarized
+" Color scheme
+"   Affects overall color scheme and lightline color scheme
+"   0: Default
+"   1: One Dark
+"   2: Solarized
 let colorscheme_type = 1
 " Text wrap
 " Automatically wraps text to the next line at wrap_width.
 " Hard wrap actually moves text to the next line once the line reaches 79 characters.
 " Soft wrap visually moves text to the next line once it reaches the end of
 " screen or window.
-"   0: None
+"   0: No wrap
 "   1: Soft wrap
 "   2: Hard wrap with visual marker of 79 lines
 let wrap_enabled = 1
@@ -113,7 +115,7 @@ iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII 
 and change the non-ASCII font to one of the various powerline fonts of the
 same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 
-Colour Schemes
+Color Schemes
 -----------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
 - [Solarized](https://github.com/vim-scripts/Solarized)
