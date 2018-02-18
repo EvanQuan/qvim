@@ -68,9 +68,10 @@ set noshiftround
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype xml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
@@ -126,8 +127,13 @@ nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
 nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 
-" Gui settings (MacVim or gVim?)
+" Gui settings (MacVim or gVim)
 set guioptions = " No scroll bars
+" Disable all blinking
+set guicursor+=a:blinkon0
+
+
+
 
 " Cursor motion
 set scrolloff=3
