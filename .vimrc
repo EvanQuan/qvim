@@ -78,6 +78,26 @@ autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 
+" As a priority, tabs or spaces is determined by what is already being used
+" in the current file
+function TabsOrSpaces()
+    " Determines whether to use spaces or tabs on the current buffer.
+    if getfsize(bufname("%")) > 256000
+        " File is very large, just use the default.
+        return
+    endif
+
+    let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+    let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
+
+    if numTabs > numSpaces
+        setlocal noexpandtab
+    endif
+endfunction
+
+" Call the function after opening a buffer
+autocmd BufReadPost * call TabsOrSpaces()
+
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
 let g:workspace_autosave_always = 0
