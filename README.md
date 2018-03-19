@@ -15,47 +15,43 @@ Table of Contents
 
 Why Use This?
 -----------
-You shouldn't. There are many more developed configurations out there on
+You shouldn't. There are many more developed dotfiles out there on
 ***thyne intertoobz*** that have been iterated on over the years by people who actually
 know what they're doing.
 
 Installation
 -----------
-1. If you already have a .vim directory and want to override it, delete your
-current one:
-```
-cd ~
-rm -rf .vim
-```
-2. If you do not currently have a .vim directory, clone this repository:
-```
+*If you know what you're doing, you can ignore all this.*
+
+1. Clone this repository:
+```bash
 cd ~
 git clone https://github.com/EvanQuan/.vim ~/.vim
 ```
-3. Update the submodules:
-```
+2. Update the submodules:
+```bash
 cd ~/.vim
 git submodule update --init --recursive
 ```
-4. Create a dummy `.vimrc` file in your home directory that links to the "real"
+3. Create a dummy `.vimrc` file in your home directory that links to the "real"
    `.vimrc` file in your `.vim` directory:
-```
+```bash
 cd ~
 echo "source ~/.vim/.vimrc" >> .vimrc
 ```
-5. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
+4. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
 and `_vimrc`:
-```
+```bash
 cd ~
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
 echo "source ~/vimfiles/.vimrc" >> _vimrc
 cd ~/vimfiles
 git submodule update --init --recursive
 ```
-6. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
+5. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-7. If for some reason your terminal does not support italics, try this:
-```
+6. If for some reason your terminal does not support italics, try this:
+```bash
 echo "xterm-256color|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
   use=xterm-256color," >> xterm-256color.terminfo.txt
@@ -67,9 +63,9 @@ The `.vimrc` file requires an external `settings.vim` file in order to
 work properly. Consider changing the values if there are problems with how
 the color scheme or lightline is rendering.
 
-Copy this as `settings.vim` into your `.vim` directory.
-It will **NOT** be tracked by git, allowing it to be device-specific:
-```
+Create a `settings.vim` file into your `.vim` directory.
+It will **NOT** be tracked by git, allowing its settings to be specific to each machine:
+```vim
 "_____Settings_____
 " True color (24-bit)
 "   Many terminals don't support True color and will screw up some color
