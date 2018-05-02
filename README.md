@@ -10,6 +10,7 @@ Table of Contents
 2. [Installation](#installation)
     - [Settings](#settings)
     - [Powerline](#powerline)
+3. [Updating](#updating)
 4. [Color Schemes](#color-schemes)
 5. [Plugins](#plugins)
 
@@ -111,6 +112,15 @@ iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII 
 and change the non-ASCII font to one of the various powerline fonts of the
 same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 
+Updating
+--------
+
+Update submodules
+``bash
+git pull --recurse-submodules
+git submodule update --remote --recursive
+``
+
 Color Schemes
 -----------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
@@ -120,6 +130,7 @@ Plugins
 -------
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
+- [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 - [html5.vim](https://github.com/othree/html5.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
