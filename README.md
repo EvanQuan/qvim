@@ -115,11 +115,11 @@ same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 Updating
 --------
 
-Update submodules
-``bash
+Keep the submodules up to date with their respective repositories:
+```bash
 git pull --recurse-submodules
 git submodule update --remote --recursive
-``
+```
 
 Color Schemes
 -----------
