@@ -1,4 +1,4 @@
-﻿" Settings determine how some configurations are set
+" Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
 source ~/.vim/settings.vim
 
