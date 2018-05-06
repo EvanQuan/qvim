@@ -22,7 +22,6 @@ know what they're doing.
 
 Installation
 -----------
-*If you know what you're doing, you can ignore all this.*
 
 1. Clone this repository:
 ```bash
@@ -117,8 +116,7 @@ Updating
 
 Keep the submodules up to date with their respective repositories:
 ```bash
-git pull --recurse-submodules
-git submodule update --remote --recursive
+git submodule update --init --recursive
 ```
 
 Color Schemes
@@ -147,6 +145,7 @@ Plugins
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
+- [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
