@@ -74,3 +74,6 @@
 [submodule "bundle/haskell-vim"]
 	path = bundle/haskell-vim
 	url = https://github.com/neovimhaskell/haskell-vim
+[submodule "bundle/vim-mkdir"]
+	path = bundle/vim-mkdir
+	url = https://github.com/pbrisbin/vim-mkdir
