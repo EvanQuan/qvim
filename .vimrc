@@ -48,14 +48,14 @@ scriptencoding utf-8
 
 " Whitespace
 if (wrap_enabled)
-    set wrap
-    set colorcolumn=79
-    if (wrap_enabled == 2) " hard wrap
-        set textwidth=79
-    endif
+  set wrap
+  set colorcolumn=79
+  if (wrap_enabled == 2) " hard wrap
+    set textwidth=79
+  endif
 else
-    set nowrap
-    set textwidth=0
+  set nowrap
+  set textwidth=0
 endif
 
 
@@ -71,6 +71,7 @@ set noshiftround
 " 2 spaces
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " 2 space-width tabs
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
@@ -78,18 +79,18 @@ autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 " As a priority, tabs or spaces is determined by what is already being used
 " in the current file
 function TabsOrSpaces()
-    " Determines whether to use spaces or tabs on the current buffer.
-    if getfsize(bufname("%")) > 256000
-        " File is very large, just use the default.
-        return
-    endif
+  " Determines whether to use spaces or tabs on the current buffer.
+  if getfsize(bufname("%")) > 256000
+    " File is very large, just use the default.
+    return
+  endif
 
-    let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
-    let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
+  let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+  let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
 
-    if numTabs > numSpaces
-        setlocal noexpandtab
-    endif
+  if numTabs > numSpaces
+    setlocal noexpandtab
+  endif
 endfunction
 
 " Call the function after opening a buffer
@@ -226,30 +227,30 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " Current hardcoded to fit with Atom's One Dark colors
 " (rgb values from onedark color file)
 if &term =~ "xterm\\|rxvt"
-    " use a blue cursor in insert mode
-    let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
-    " use a red cursor in replace mode
-    let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-    " use a green cursor in normal
-    let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
-    " Default
-    silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-    " reset cursor when vim exits
-    autocmd VimLeave * silent !echo -ne "\033]112\007"
-    " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+  " use a blue cursor in insert mode
+  let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
+  " use a red cursor in replace mode
+  let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
+  " use a green cursor in normal
+  let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
+  " Default
+  silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
 endif
 
 " Change cursor blinking if in insert mode (only works on some terminals)
 if &term =~ '^xterm\\|rxvt'
-    " solid underscore
-    let &t_SI .= "\<Esc>[4 q"
-    " solid block
-    let &t_EI .= "\<Esc>[2 q"
-    " 1 or 0 -> blinking block
-    " 3 -> blinking underscore
-    " Recent versions of xterm (282 or above) also support
-    " 5 -> blinking vertical bar
-    " 6 -> solid vertical bar
+  " solid underscore
+  let &t_SI .= "\<Esc>[4 q"
+  " solid block
+  let &t_EI .= "\<Esc>[2 q"
+  " 1 or 0 -> blinking block
+  " 3 -> blinking underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
 endif
 
 " Nerdcommeter settings
@@ -331,7 +332,7 @@ map <leader>q gqip
 
 " Visualize tabs and newlines
 if (show_invisibles_enabled)
-    set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+  set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 endif
 " set lcs+=space· " only works with Gvim ?
 " autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/ " doesn't work ?
@@ -384,18 +385,18 @@ let g:syntastic_check_on_wq = 0
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (truecolor_enabled)
-    if (empty($TMUX))
-        if (has("nvim"))
-            "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-            let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-        endif
-        "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-        "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-        " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-        if (has("termguicolors"))
-            set termguicolors
-        endif
+  if (empty($TMUX))
+    if (has("nvim"))
+      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+      set termguicolors
+    endif
+  endif
 endif
 
 " Color scheme (terminal)
@@ -483,105 +484,105 @@ nnoremap <Left> :bprev<CR>
 nnoremap <Right> :bnext<CR>
 
 if (colorscheme_type == 1)
-    let g:lightline.colorscheme = 'onedark'
+  let g:lightline.colorscheme = 'onedark'
 elseif (colorscheme_type == 2)
-    let g:lightline.colorscheme = 'solarized'
+  let g:lightline.colorscheme = 'solarized'
 endif
 
 if (special_symbols_enabled)
-    let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
-    let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
-    let g:lightline_buffer_expand_left_icon = '◀ '
-    let g:lightline_buffer_expand_right_icon = ' ▶'
-    let g:lightline_buffer_logo = ' '
-    let g:lightline_buffer_readonly_icon = ''
-    let g:lightline_buffer_modified_icon = '✭'
-    let g:lightline_buffer_git_icon = ' '
+  let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
+  let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
+  let g:lightline_buffer_expand_left_icon = '◀ '
+  let g:lightline_buffer_expand_right_icon = ' ▶'
+  let g:lightline_buffer_logo = ' '
+  let g:lightline_buffer_readonly_icon = ''
+  let g:lightline_buffer_modified_icon = '✭'
+  let g:lightline_buffer_git_icon = ' '
 endif
 
 function! FilenameRelativePath()
-    return expand('%')
+  return expand('%')
 endfunction
 
 function! MyModified()
-    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable
-            \ ? '' : '-'
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable
+          \ ? '' : '-'
 endfunction
 
 function! MyReadonly()
-    return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '<U+2B64>' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '<U+2B64>' : ''
 endfunction
 
 function! MyTabFilename(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let bufnum = buflist[winnr - 1]
-    let bufname = expand('#'.bufnum.':t')
-    let buffullname = expand('#'.bufnum.':p')
-    let buffullnames = []
-    let bufnames = []
-    for i in range(1, tabpagenr('$'))
-        if i != a:n
-            let num = tabpagebuflist(i)[tabpagewinnr(i) - 1]
-            call add(buffullnames, expand('#' . num . ':p'))
-            call add(bufnames, expand('#' . num . ':t'))
-        endif
-    endfor
-    let i = index(bufnames, bufname)
-    if strlen(bufname) && i >= 0 && buffullnames[i] != buffullname
-        return substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
-    else
-        return strlen(bufname) ? bufname : '[No Name]'
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let bufnum = buflist[winnr - 1]
+  let bufname = expand('#'.bufnum.':t')
+  let buffullname = expand('#'.bufnum.':p')
+  let buffullnames = []
+  let bufnames = []
+  for i in range(1, tabpagenr('$'))
+    if i != a:n
+      let num = tabpagebuflist(i)[tabpagewinnr(i) - 1]
+      call add(buffullnames, expand('#' . num . ':p'))
+      call add(bufnames, expand('#' . num . ':t'))
     endif
+  endfor
+  let i = index(bufnames, bufname)
+  if strlen(bufname) && i >= 0 && buffullnames[i] != buffullname
+    return substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
+  else
+    return strlen(bufname) ? bufname : '[No Name]'
+  endif
 endfunction
 function! MyFilename()
-    let n = tabpagenr()
-    let buflist = tabpagebuflist(n)
-    let winnr = tabpagewinnr(n)
-    let bufnum = buflist[winnr - 1]
-    let bufname = expand('#'.bufnum.':t')
-    let buffullname = expand('#'.bufnum.':p')
-    let buffullnames = []
-    let bufnames = []
-    for i in range(1, tabpagenr('$'))
-        if i != n
-            let num = tabpagebuflist(i)[tabpagewinnr(i) - 1]
-            call add(buffullnames, expand('#' . num . ':p'))
-            call add(bufnames, expand('#' . num . ':t'))
-        endif
-    endfor
-    let i = index(bufnames, bufname)
-    if strlen(bufname) && i >= 0 && buffullnames[i] != buffullname
-        return substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
-    else
-        return strlen(bufname) ? bufname : '[No Name]'
+  let n = tabpagenr()
+  let buflist = tabpagebuflist(n)
+  let winnr = tabpagewinnr(n)
+  let bufnum = buflist[winnr - 1]
+  let bufname = expand('#'.bufnum.':t')
+  let buffullname = expand('#'.bufnum.':p')
+  let buffullnames = []
+  let bufnames = []
+  for i in range(1, tabpagenr('$'))
+    if i != n
+      let num = tabpagebuflist(i)[tabpagewinnr(i) - 1]
+      call add(buffullnames, expand('#' . num . ':p'))
+      call add(bufnames, expand('#' . num . ':t'))
     endif
+  endfor
+  let i = index(bufnames, bufname)
+  if strlen(bufname) && i >= 0 && buffullnames[i] != buffullname
+    return substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
+  else
+    return strlen(bufname) ? bufname : '[No Name]'
+  endif
 endfunction
 
 if (special_symbols_enabled)
-    function! MyFugitive()
-        try
-            if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-                let mark = '⭠ '
-                let _ = fugitive#head()
-                return strlen(_) ? mark._ : ''
-            endif
-        catch
-        endtry
-        return ''
-    endfunction
+  function! MyFugitive()
+    try
+      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let mark = '⭠ '
+        let _ = fugitive#head()
+        return strlen(_) ? mark._ : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
 else
-    function! MyFugitive()
-        try
-            if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-                let mark = ''
-                let _ = fugitive#head()
-                return strlen(_) ? mark._ : ''
-            endif
-        catch
-        endtry
-        return ''
-    endfunction
+  function! MyFugitive()
+    try
+      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let mark = ''
+        let _ = fugitive#head()
+        return strlen(_) ? mark._ : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
 endif
 
 function! MyFileformat()
@@ -597,39 +598,39 @@ function! MyFileencoding()
 endfunction
 
 function! MyMode()
-    let fname = expand('%:t')
-    return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
+  let fname = expand('%:t')
+  return fname == '__Tagbar__' ? 'Tagbar' :
+    \ fname == 'ControlP' ? 'CtrlP' :
+    \ fname == '__Gundo__' ? 'Gundo' :
+    \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+    \ fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ &ft == 'unite' ? 'Unite' :
+    \ &ft == 'vimfiler' ? 'VimFiler' :
+    \ &ft == 'vimshell' ? 'VimShell' :
+    \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! CtrlPMark()
-    if expand('%:t') =~ 'ControlP'
-        call lightline#link('iR'[g:lightline.ctrlp_regex])
-        return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-            \ , g:lightline.ctrlp_next], 0)
-    else
-        return ''
-    endif
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+    \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
 endfunction
 
 let g:ctrlp_status_func = {
-    \ 'main': 'CtrlPStatusFunc_1',
-    \ 'prog': 'CtrlPStatusFunc_2',
-    \ }
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
 
 function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-    let g:lightline.ctrlp_regex = a:regex
-    let g:lightline.ctrlp_prev = a:prev
-    let g:lightline.ctrlp_item = a:item
-    let g:lightline.ctrlp_next = a:next
-    return lightline#statusline(0)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
 endfunction
 
 function! CtrlPStatusFunc_2(str)
@@ -639,17 +640,17 @@ endfunction
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
 function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-    return lightline#statusline(0)
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
 endfunction
 
 augroup AutoSyntastic
-    autocmd!
-    autocmd BufWritePost * call s:syntastic()
+  autocmd!
+  autocmd BufWritePost * call s:syntastic()
 augroup END
 function! s:syntastic()
-    SyntasticCheck
-    call lightline#update()
+  SyntasticCheck
+  call lightline#update()
 endfunction
 
 let g:unite_force_overwrite_statusline = 0
@@ -659,7 +660,7 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " Determine colorscheme based on settings.vim
 if (colorscheme_type == 1)
-    colorscheme onedark
+  colorscheme onedark
 elseif (colorscheme_type ==2)
-    colorscheme solarized
+  colorscheme solarized
 endif " else no colorscheme

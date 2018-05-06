@@ -16,9 +16,9 @@ Table of Contents
 
 Why Use This?
 -----------
-You shouldn't. There are many more developed dotfiles out there on
-***thyne intertoobz*** that have been iterated on over the years by people who actually
-know what they're doing.
+You shouldn't. There are many more developed Vim config files out there on
+***thyne intertoobz*** that have been iterated on over the years by people who
+actually know what they're doing.
 
 Installation
 -----------
@@ -147,6 +147,7 @@ Plugins
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
 - [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
+- [vim-prolog](https://github.com/mxw/vim-prolog)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
