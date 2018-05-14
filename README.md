@@ -126,6 +126,7 @@ Color Schemes
 
 Plugins
 -------
+- [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
 - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)

@@ -80,3 +80,6 @@
 [submodule "bundle/vim-prolog"]
 	path = bundle/vim-prolog
 	url = https://github.com/mxw/vim-prolog
+[submodule "bundle/arm-syntax-vim"]
+	path = bundle/arm-syntax-vim
+	url = https://github.com/ARM9/arm-syntax-vim
