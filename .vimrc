@@ -62,7 +62,7 @@ endif
 set lazyredraw
 
 " Indentation
-" Default 4 spaces
+" Default: 4-space soft tab
 set formatoptions=tcqrn1
 set tabstop=4 " 2
 set shiftwidth=4 " 2
@@ -70,14 +70,14 @@ set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
 
-" 2 spaces
+" 2-space soft tabs
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-" 2 space-width tabs
+" 2-space hard tabs
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
-" 8 space tabs
+" 8-space hard tabs
 autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 
 " As a priority, tabs or spaces is determined by what is already being used
