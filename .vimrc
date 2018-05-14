@@ -58,6 +58,8 @@ else
   set textwidth=0
 endif
 
+" Improves scrolling lag
+set lazyredraw
 
 " Indentation
 " Default 4 spaces
@@ -75,6 +77,8 @@ autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " 2 space-width tabs
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
+" 8 space tabs
+autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 
 " As a priority, tabs or spaces is determined by what is already being used
 " in the current file
@@ -100,6 +104,10 @@ autocmd BufReadPost * call TabsOrSpaces()
 " vim-workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
 let g:workspace_autosave_always = 0
+
+
+" arm-syntax-vim
+au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 
 
 " haskell-vim Features
