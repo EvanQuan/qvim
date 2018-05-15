@@ -4,6 +4,7 @@ source ~/.vim/settings.vim
 
 
 " Don't try to be vi compatible
+"
 set nocompatible
 
 " if has('win32') || has('win64')
@@ -12,41 +13,54 @@ set nocompatible
 
 
 " Helps force plugins to load correctly when it is turned back on below
+"
 filetype off
 
-" TODO: Load plugins here (pathogen or vundle)
-" Pathogen https://github.com/tpope/vim-pathogen
+" Load plugins with pathogen
+"
 execute pathogen#infect()
 
 " Turn on syntax highlighting
+"
 syntax on
 
 " For plugins to load correctly
+"
 filetype plugin indent on
 
-" TODO: Pick a leader key
+" Leader key
+" This key is used in combination with other keys to perform many customizable
+" commands
 " default leader is \
+"
 let mapleader = ","
 
 " Security
+"
 set modelines=0
 
 " Show line numbers
 " set number
 set number relativenumber " hybrid relative number shows current line number
 
-" Show file stats
+" Ruler is displayed on the right side of the status line at the bottom of the
+" window. It displays the line number, the column number, and the relative
+" position of the cursor in the file (as a percent)
+"
 set ruler
 
-" Blink cursor on error instead of beeping (grr)
+" Blink cursor on error instead of beeping because beeping is annoying
+"
 set visualbell
 
-" Encoding
+" UTF-8 Encoding
+"
 set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
 
 " Whitespace
+"
 if (wrap_enabled)
   set wrap
   set colorcolumn=79
@@ -58,11 +72,12 @@ else
   set textwidth=0
 endif
 
-" Improves scrolling lag
+" Improves scrolling lag, especially with some forms of syntax highlighting
 set lazyredraw
 
 " Indentation
 " Default: 4-space soft tab
+"
 set formatoptions=tcqrn1
 set tabstop=4 " 2
 set shiftwidth=4 " 2
@@ -71,17 +86,21 @@ set expandtab " sets tabs to spaces
 set noshiftround
 
 " 2-space soft tabs
+"
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " 2-space hard tabs
+"
 autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 " 8-space hard tabs
+"
 autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 
 " As a priority, tabs or spaces is determined by what is already being used
 " in the current file
+"
 function TabsOrSpaces()
   " Determines whether to use spaces or tabs on the current buffer.
   if getfsize(bufname("%")) > 256000
@@ -98,19 +117,25 @@ function TabsOrSpaces()
 endfunction
 
 " Call the function after opening a buffer
+"
 autocmd BufReadPost * call TabsOrSpaces()
 
 
 " vim-workspace
+"
 nnoremap <leader>w :ToggleWorkspace<CR>
+" Set if workspace automatically writes to file with every edit
+"
 let g:workspace_autosave_always = 0
 
 
 " arm-syntax-vim
+"
 au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 
 
 " haskell-vim Features
+"
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
 let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
@@ -130,6 +155,7 @@ let g:haskell_indent_guard = 4 " 2
 
 
 " vim-javacomplete2 plugin
+"
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Enable smart (trying to guess import option) inserting class imports with F4
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
@@ -180,36 +206,43 @@ nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 
 " Gui settings (MacVim or gVim)
+"
 set guioptions = " No scroll bars
 " Disable all blinking
 set guicursor+=a:blinkon0
 
 
 
-
 " Cursor motion
+"
 set scrolloff=3
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
+
 " Move up/down editor lines
+"
 nnoremap j gj
 nnoremap k gk
 nnoremap J <C-d> " Go down half a page
 nnoremap K <C-u> " Go up half a page
 
-" Allow hidden buffers
-" set hidden
 
-" Rendering
+" Improves rendering when scrolling
+"
 set ttyfast
 
-" Status bar
-set laststatus=2
 
-" Last line
-set showmode
+" Status bar displays the current mode, file name, file status, ruler etc.
+" Current unnecessary with lightline
+"
+" set laststatus=2
+
+
+" Show command
+" Displays in bottom-right what keys have already been pressed for the current
+" command
 set showcmd
 
 
@@ -231,38 +264,62 @@ vnoremap <F1> :set invfullscreen<CR>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
-" Change cursor color in insert mode (only works on some terminals)
+" Change cursor color in different modes
 " Current hardcoded to fit with Atom's One Dark colors
 " (rgb values from onedark color file)
 if &term =~ "xterm\\|rxvt"
-  " use a blue cursor in insert mode
+  " INSERT mode - blue
   let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
-  " use a red cursor in replace mode
+  " REPLACE mode - red
   let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-  " use a green cursor in normal
+  " NORMAL and VISUAL modes - green
   let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
   " Default
   silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-  " reset cursor when vim exits
+  " Reset cursor when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
   " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
 endif
 
-" Change cursor blinking if in insert mode (only works on some terminals)
-if &term =~ '^xterm\\|rxvt'
-  " solid underscore
-  let &t_SI .= "\<Esc>[4 q"
-  " solid block
-  let &t_EI .= "\<Esc>[2 q"
-  " 1 or 0 -> blinking block
-  " 3 -> blinking underscore
-  " Recent versions of xterm (282 or above) also support
-  " 5 -> blinking vertical bar
-  " 6 -> solid vertical bar
+" NOTE: Currently commented out as following command seems to do the job
+" better.
+" Change cursor shape in different modes (only works on some terminals)
+" if &term =~ '^xterm\\|rxvt'
+" if &term =~ "xterm\\|rxvt"
+"   " INSERT mode - solid vertical bar
+"   let &t_SI = "\<Esc>[6 q"
+"   " REPLACE mode - solid underscore
+"   let &t_SR = "\<Esc>[4 q"
+"   " NORMAL mode - solid block
+"   let &t_EI = "\<Esc>[2 q"
+"   " 1 or 0 -> blinking block
+"   " 3 -> blinking underscore
+"   " Recent versions of xterm (282 or above) also support
+"   " 5 -> blinking vertical bar
+"   " 6 -> solid vertical bar
+" endif
+
+" Change cursor shape in different modes (only works on some terminals)
+" For the Gnome-Terminal (version >= 3.16)
+" Also disables cursor blinking
+if has("autocmd")
+  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+  au InsertEnter,InsertChange *
+    \ if v:insertmode == 'i' |
+    \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+    \ elseif v:insertmode == 'r' |
+    \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+    \ endif
+  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
 
-" Nerdcommeter settings
+
+
+" Nerdcommeter
+" Add spaces after comment delimters
 let g:NERDSpaceDelims = 1
+" Align line-wise comment delimiters flush left instead of following code
+" indentation
 let g:NERDDefaultAlign = 'left'
 " nmap <C-c> <Plug>NERDCommenterInvert
 " imap <C-c> <Plug>NERDCommenterInvert
@@ -283,14 +340,16 @@ vnoremap <Tab> >gv
 nmap <silent> <C-\> :NERDTreeToggle<CR>
 
 
-" Git - vim-gitgutter
-" https://github.com/airblade/vim-gitgutter
-set updatetime=250 " default 4000???
+" vim-gitgutter
+" Delay time of the diff markers updating as the file is edited
+"
+set updatetime=100 " [ms] Default: 4000
 
 
+" NOTE: Currently commented out, as Ctrl-P and Ctrl-N with standard hjkl
+" movement does the job better
 " Use TAB to complete when typing words, else inserts TABs as usual.
 " Uses dictionary and source files to find matching words to complete.
-
 " See help completion for source,
 " Note: usual completion is on <C-n> but more trouble to press all the time.
 " Never type the same word twice and maybe learn a new spellings!
@@ -307,8 +366,7 @@ set updatetime=250 " default 4000???
 " :set dictionary="/usr/dict/words"
 
 
-" Tabs
-" Shift windows by Ctrl-directions keys
+" Move between windows with Ctrl-standard directions keys
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
@@ -330,6 +388,7 @@ noremap <leader>t :tabe <C-m>
 " Split open new window
 noremap <leader>s :split
 noremap <leader>vs :vsplit
+" terminal only works for Neovim
 noremap <leader>b :terminal <C-m>
 " Enable mouse scroll
 set mouse=a
@@ -338,7 +397,7 @@ set mouse=a
 " Formatting
 map <leader>q gqip
 
-" Visualize tabs and newlines
+" Visualize spaces, tabs and end of line characters
 if (show_invisibles_enabled)
   set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 endif
@@ -351,7 +410,7 @@ set list " To enable by default
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 
-"_____HTML close tags_____
+" vim-closetag
 " filenames like *.xml, *.html, *.xhtml, ...
 " Then after you press <kbd>&gt;</kbd> in these files, this plugin will try to close the current tag.
 "
@@ -376,7 +435,8 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 
-"_____Syntastic settings_____
+" Syntastic
+"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -387,11 +447,11 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 
-"_____One Dark Color Scheme______
-"https://github.com/joshdick/onedark.vim
+" One Dark Colorscheme
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+"
 if (truecolor_enabled)
   if (empty($TMUX))
     if (has("nvim"))
@@ -408,6 +468,7 @@ if (truecolor_enabled)
 endif
 
 " Color scheme (terminal)
+"
 set t_Co=256 " 256
 set background=dark
 let g:onedark_termcolors=256
@@ -417,12 +478,13 @@ let g:solarized_terminal_italics=1
 " put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
 " in ~/.vim/colors/ and uncomment:
 
-"____Lightline_____
-" https://github.com/itchyny/lightline.vim
+" Lightline
 "
-set hidden  " allow buffer switching without saving
+" set hidden  " allow buffer switching without saving
+set nohidden " No hidden buffers because they are annoying
 set showtabline=2  " always show tabline
-set noshowmode " do not show default INSERT mode below
+" do not show default INSERT mode below since this is what lightline does
+set noshowmode 
 
                     " \ 'enable': { 'tabline': 0 },
 let g:lightline = {
@@ -487,16 +549,12 @@ let g:lightline_buffer_minflen = 16
 let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
 
-" remap arrow keys
+" Arrow keys move between buffers
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> :bnext<CR>
 
-if (colorscheme_type == 1)
-  let g:lightline.colorscheme = 'onedark'
-elseif (colorscheme_type == 2)
-  let g:lightline.colorscheme = 'solarized'
-endif
-
+" Special symbols are applied to lightline
+" Purely cosmetic
 if (special_symbols_enabled)
   let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
@@ -667,8 +725,11 @@ let g:vimshell_force_overwrite_statusline = 0
 
 
 " Determine colorscheme based on settings.vim
+" Lightline colorscheme is consistent with main colorscheme
 if (colorscheme_type == 1)
   colorscheme onedark
-elseif (colorscheme_type ==2)
+  let g:lightline.colorscheme = 'onedark'
+elseif (colorscheme_type == 2)
   colorscheme solarized
+  let g:lightline.colorscheme = 'solarized'
 endif " else no colorscheme
