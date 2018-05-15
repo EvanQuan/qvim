@@ -264,21 +264,48 @@ vnoremap <F1> :set invfullscreen<CR>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
+" M
+if (modify_cursor)
 " Change cursor color in different modes
 " Current hardcoded to fit with Atom's One Dark colors
 " (rgb values from onedark color file)
-if &term =~ "xterm\\|rxvt"
-  " INSERT mode - blue
-  let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
-  " REPLACE mode - red
-  let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-  " NORMAL and VISUAL modes - green
-  let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
-  " Default
-  silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-  " Reset cursor when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
-  " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+  if &term =~ "xterm\\|rxvt"
+    " INSERT mode - blue
+    let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
+    " REPLACE mode - red
+    let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
+    " NORMAL and VISUAL modes - green
+    let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
+    " Default
+    silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
+    " Reset cursor when vim exits
+    autocmd VimLeave * silent !echo -ne "\033]112\007"
+    " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+    "
+    " Change cursor shape in different modes
+    if (modify_cursor == 1) " OSX - iTerm2
+      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+      let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+      " tmux running in iTerm 2 on OSX
+      " NOTE: When is this used?
+      " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+      " let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+      " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    elseif has("autocmd") " Windows - Git Bash and Linux Terminal
+      " Change cursor shape in different modes
+      " For the Gnome-Terminal (version >= 3.16)
+      " Also disables cursor blinking
+      au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+      au InsertEnter,InsertChange *
+        \ if v:insertmode == 'i' |
+        \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+        \ elseif v:insertmode == 'r' |
+        \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+        \ endif
+      au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+    endif
+  endif
 endif
 
 " NOTE: Currently commented out as following command seems to do the job
@@ -299,19 +326,6 @@ endif
 "   " 6 -> solid vertical bar
 " endif
 
-" Change cursor shape in different modes (only works on some terminals)
-" For the Gnome-Terminal (version >= 3.16)
-" Also disables cursor blinking
-if has("autocmd")
-  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-  au InsertEnter,InsertChange *
-    \ if v:insertmode == 'i' |
-    \   silent execute '!echo -ne "\e[6 q"' | redraw! |
-    \ elseif v:insertmode == 'r' |
-    \   silent execute '!echo -ne "\e[4 q"' | redraw! |
-    \ endif
-  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
-endif
 
 
 
@@ -388,7 +402,7 @@ noremap <leader>t :tabe <C-m>
 " Split open new window
 noremap <leader>s :split
 noremap <leader>vs :vsplit
-" terminal only works for Neovim
+" terminal only works with Neovim installed
 noremap <leader>b :terminal <C-m>
 " Enable mouse scroll
 set mouse=a
