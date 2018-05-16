@@ -1,3 +1,7 @@
+# Name: complete_udpate.sh
+# Maintainer: https://github.com/EvanQuan/.vim/
+# Version: 1.0.0
+#
 # Update everything
 
 # main

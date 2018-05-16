@@ -1,4 +1,11 @@
-"_____Settings_____
+" ============================================================================
+" Name: settings.vim
+" Maintainer: https://github.com/EvanQuan/.vim/
+" Version: 1.0.0
+"
+" Setting values affect vimrc configuration.
+" ============================================================================
+
 " True color (24-bit)
 "   Many terminals don't support True color and will screw up some color
 "   schemes if it is enabled.
