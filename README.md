@@ -30,7 +30,7 @@ git clone https://github.com/EvanQuan/.vim ~/.vim
 
 2. Run `install.sh`:
 ```bash
-~/.vim/install.sh
+bash ~/.vim/install.sh
 ```
 
 2. Update the submodules:
@@ -89,12 +89,12 @@ Updating
 
 To update everthing, run `update_all.sh`. This will set `settings.vim` to the default values:
 ```bash
-~/.vim/update_all.sh
+bash ~/.vim/update_all.sh
 ```
 
 To update everything except for `settings.vim`, run `update.sh`:
 ```bash
-~/.vim/update.sh
+bash ~/.vim/update.sh
 ```
 
 Alternatively, you can manually update stuff yourself.
