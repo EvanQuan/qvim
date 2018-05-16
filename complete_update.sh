@@ -3,4 +3,4 @@
 # main
 bash ~/.vim/update.sh
 # settings.vim
-cp ~/.vim/settings_template.vim ~/.vim/settings.vim
+cp ~/.vim/template_settings.vim ~/.vim/settings.vim

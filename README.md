@@ -66,9 +66,9 @@ The `vimrc` file requires an external `settings.vim` file in order to
 work properly. Consider changing the values in `settings.vim` if there are
 problems with how the color scheme or lightline is rendering.
 
-Create a `settings.vim` file into your `~/.vim` directory by copying `settings_template.vim`.
+Create a `settings.vim` file into your `~/.vim` directory by copying `template_settings.vim`.
 ```bash
-cp ~/.vim/settings_template.vim ~/.vim/settings.vim
+cp ~/.vim/template_settings.vim ~/.vim/settings.vim
 ```
 It will **NOT** be tracked by git, allowing its settings to be specific to each machine:
 
@@ -87,9 +87,9 @@ same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 Updating
 --------
 
-To update everthing, run `update_all.sh`. This will set `settings.vim` to the default values:
+To update everthing, run `complete_update.sh`. This will set `settings.vim` to the default values:
 ```bash
-bash ~/.vim/update_all.sh
+bash ~/.vim/complete_update.sh
 ```
 
 To update everything except for `settings.vim`, run `update.sh`:
@@ -102,7 +102,7 @@ Alternatively, you can manually update stuff yourself.
 cd ~/.vim
 git pull origin master
 git submodule update --init --recursive
-cp ~/.vim/settings_template.vim ~/.vim/settings.vim
+cp ~/.vim/template_settings.vim ~/.vim/settings.vim
 ```
 
 Color Schemes
