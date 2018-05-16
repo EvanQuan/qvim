@@ -221,12 +221,15 @@ set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
 
-" Move up/down editor lines
+" Move up/down by visual lines
+" Good for when there is soft wrapping
 "
 nnoremap j gj
 nnoremap k gk
-nnoremap J <C-d> " Go down half a page
-nnoremap K <C-u> " Go up half a page
+" Go down half a page
+nnoremap J <C-d> 
+" Go up half a page
+nnoremap K <C-u>
 
 
 " Improves rendering when scrolling
@@ -243,16 +246,32 @@ set ttyfast
 " Show command
 " Displays in bottom-right what keys have already been pressed for the current
 " command
+"
 set showcmd
+
+" Visul autocomplete for command menu
+" Use tab to autocomplete
+"
+set wildmenu
 
 
 " Searching
 nnoremap / /\v
 vnoremap / /\v
+" highlight matches
+"
 set hlsearch
+" Search as characters are entered
+"
 set incsearch
+" Ignore case when searching
+"
 set ignorecase
+" ...unless case is specified, in which case is not ignored
+"
 set smartcase
+" Matching parens highlighted
+"
 set showmatch
 map <leader><space> :let @/=''<cr> " clear search
 
@@ -264,68 +283,28 @@ vnoremap <F1> :set invfullscreen<CR>
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
-" M
-if (modify_cursor)
-" Change cursor color in different modes
-" Current hardcoded to fit with Atom's One Dark colors
-" (rgb values from onedark color file)
-  if &term =~ "xterm\\|rxvt"
-    " INSERT mode - blue
-    let &t_SI = "\<Esc>]12;rgb:61/af/ef\x7"
-    " REPLACE mode - red
-    let &t_SR = "\<Esc>]12;rgb:e0/6c/75\x7"
-    " NORMAL and VISUAL modes - green
-    let &t_EI = "\<Esc>]12;rgb:98/c3/79\x7"
-    " Default
-    silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-    " Reset cursor when vim exits
-    autocmd VimLeave * silent !echo -ne "\033]112\007"
-    " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
-    "
-    " Change cursor shape in different modes
-    if (modify_cursor == 1) " OSX - iTerm2
-      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-      let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-      " tmux running in iTerm 2 on OSX
-      " NOTE: When is this used?
-      " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-      " let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-      " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    elseif has("autocmd") " Windows - Git Bash and Linux Terminal
-      " Change cursor shape in different modes
-      " For the Gnome-Terminal (version >= 3.16)
-      " Also disables cursor blinking
-      au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-      au InsertEnter,InsertChange *
-        \ if v:insertmode == 'i' |
-        \   silent execute '!echo -ne "\e[6 q"' | redraw! |
-        \ elseif v:insertmode == 'r' |
-        \   silent execute '!echo -ne "\e[4 q"' | redraw! |
-        \ endif
-      au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
-    endif
-  endif
+
+" vim-togglecursor
+if cursor_blinking_disabled
+  " The default cursor shape. It is used in all modes except insert mode.
+  "
+  let g:togglecursor_default = 'block' " Not blinking
+  " The insert mode cursor shape.
+  "
+  let g:togglecursor_insert = 'line' " Not blinking
+  " The replace mode cursor shape
+  "
+  let g:togglecursor_replace = 'underline' " Not blinking
+  " The cursor shape when exiting vim.
+  " 
+  let g:togglecursor_leave = 'block' " Not blinking
 endif
 
-" NOTE: Currently commented out as following command seems to do the job
-" better.
-" Change cursor shape in different modes (only works on some terminals)
-" if &term =~ '^xterm\\|rxvt'
-" if &term =~ "xterm\\|rxvt"
-"   " INSERT mode - solid vertical bar
-"   let &t_SI = "\<Esc>[6 q"
-"   " REPLACE mode - solid underscore
-"   let &t_SR = "\<Esc>[4 q"
-"   " NORMAL mode - solid block
-"   let &t_EI = "\<Esc>[2 q"
-"   " 1 or 0 -> blinking block
-"   " 3 -> blinking underscore
-"   " Recent versions of xterm (282 or above) also support
-"   " 5 -> blinking vertical bar
-"   " 6 -> solid vertical bar
-" endif
-
+if cursor_color_enabled
+  silent !echo -ne "\033]12;rgb:61/af/ef\x7\007"
+  " Reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+endif
 
 
 
@@ -745,10 +724,10 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " Determine colorscheme based on settings.vim
 " Lightline colorscheme is consistent with main colorscheme
-if (colorscheme_type == 1)
+if colorscheme_type == 1
   colorscheme onedark
   let g:lightline.colorscheme = 'onedark'
-elseif (colorscheme_type == 2)
+elseif colorscheme_type == 2
   colorscheme solarized
   let g:lightline.colorscheme = 'solarized'
 endif " else no colorscheme
