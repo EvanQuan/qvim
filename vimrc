@@ -22,7 +22,7 @@ execute pathogen#infect()
 
 " Turn on syntax highlighting
 "
-syntax on
+syntax enable
 
 " For plugins to load correctly
 "
@@ -39,9 +39,16 @@ let mapleader = ","
 "
 set modelines=0
 
-" Show line numbers
-" set number
-set number relativenumber " hybrid relative number shows current line number
+" Show hybrid relative numbers by default
+"
+set number relativenumber
+"
+" Absolute number on INSERT and REPLACE modes
+"
+autocmd InsertEnter * :set number norelativenumber
+" Hybrid relative number on NORMAL and VISUAL modes
+"
+autocmd InsertLeave * :set relativenumber 
 
 " Ruler is displayed on the right side of the status line at the bottom of the
 " window. It displays the line number, the column number, and the relative
@@ -49,9 +56,21 @@ set number relativenumber " hybrid relative number shows current line number
 "
 set ruler
 
-" Blink cursor on error instead of beeping because beeping is annoying
+" Disable audio and visualbell alerts entirely
 "
-set visualbell
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" Change the terminal's title
+"   Kind of neat, but doesn't really do much
+set title
+
+" Open vimrc anywhere
+"
+nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
+" Reload vimrc anywhere
+"
+nmap <silent> <leader>sv :so ~/.vim/vimrc<CR>
 
 " UTF-8 Encoding
 "
@@ -73,6 +92,7 @@ else
 endif
 
 " Improves scrolling lag, especially with some forms of syntax highlighting
+"
 set lazyredraw
 
 " Indentation
@@ -134,7 +154,25 @@ let g:workspace_autosave_always = 0
 au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 
 
-" haskell-vim Features
+" ctrlp.vim
+"
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
+" Ignore unwanted files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+
+" haskell-vim
 "
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
@@ -216,6 +254,7 @@ set guicursor+=a:blinkon0
 " Cursor motion
 "
 set scrolloff=3
+" Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
@@ -236,11 +275,14 @@ nnoremap K <C-u>
 "
 set ttyfast
 
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter to continue"
+set cmdheight=2
 
 " Status bar displays the current mode, file name, file status, ruler etc.
 " Current unnecessary with lightline
 "
-" set laststatus=2
+set laststatus=2
 
 
 " Show command
@@ -273,12 +315,10 @@ set smartcase
 " Matching parens highlighted
 "
 set showmatch
-map <leader><space> :let @/=''<cr> " clear search
+" clear search
+"
+nnoremap <leader><space> :nohlsearch<CR>
 
-" Remap help key.
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
 " Remap autocomplete movement to allow j,k movement
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
@@ -395,16 +435,15 @@ set mouse=a
 " Formatting
 map <leader>q gqip
 
+" Show whitespace
 " Visualize spaces, tabs and end of line characters
+"
+set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 if (show_invisibles_enabled)
-  set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+  " White space is visible
+  set list
 endif
-" set lcs+=space· " only works with Gvim ?
-" autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/ " doesn't work ?
-
-" Uncomment this to enable by default:
-set list " To enable by default
-" Or use your leader key + l to toggle on/off
+" Manually toggle visibility
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 
@@ -485,6 +524,7 @@ set showtabline=2  " always show tabline
 set noshowmode 
 
                     " \ 'enable': { 'tabline': 0 },
+" Original
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -623,7 +663,9 @@ function! MyFilename()
   endif
 endfunction
 
-if (special_symbols_enabled)
+" Special symbols enhance lightline appearance
+"
+if special_symbols_enabled
   function! MyFugitive()
     try
       if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
