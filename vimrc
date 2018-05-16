@@ -402,8 +402,13 @@ noremap <leader>t :tabe <C-m>
 " Split open new window
 noremap <leader>s :split
 noremap <leader>vs :vsplit
-" terminal only works with Neovim installed
-noremap <leader>b :terminal <C-m>
+if exists(":terminal")
+  " in-editor terminal only works with Neovim installed
+  noremap <leader>b :terminal <C-m>
+else
+  " There is a default terminal, but it's not as good
+  noremap <leader>b :sh <C-m>
+endif
 " Enable mouse scroll
 set mouse=a
 " Textmate holdouts
