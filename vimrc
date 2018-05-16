@@ -1,3 +1,13 @@
+" ============================================================================
+" Name: vimrc
+" Maintainer: https://github.com/EvanQuan/.vim/
+" Version: 1.0.0
+"
+" Contains optional runtime configuration settings to initialize Vim when it
+" starts. This should be linked to the ~/.vimrc file as described in the
+" README.md file.
+" ============================================================================
+
 " Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
 source ~/.vim/settings.vim
@@ -71,6 +81,10 @@ nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
 " Reload vimrc anywhere
 "
 nmap <silent> <leader>sv :so ~/.vim/vimrc<CR>
+" Open settings.vim anywhere
+"
+nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
+" To apply changes, reload vimrc
 
 " UTF-8 Encoding
 "
@@ -432,8 +446,9 @@ endif
 set mouse=a
 " Textmate holdouts
 
-" Formatting
-map <leader>q gqip
+" Close current buffer
+"
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " Show whitespace
 " Visualize spaces, tabs and end of line characters
