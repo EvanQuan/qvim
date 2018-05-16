@@ -83,3 +83,6 @@
 [submodule "bundle/arm-syntax-vim"]
 	path = bundle/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
+[submodule "bundle/vim-togglecursor"]
+	path = bundle/vim-togglecursor
+	url = https://github.com/jszakmeister/vim-togglecursor
