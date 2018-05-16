@@ -138,4 +138,5 @@ Plugins
 - [vim-repeat](https://github.com/tpope/vim-repeat)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
+- [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)

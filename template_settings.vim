@@ -29,12 +29,15 @@ let wrap_enabled = 1
 "   Render placeholders for invivisble characters, such as tabs, spaces and
 "   newlines
 let show_invisibles_enabled = 1
-" Cursor changes with modes
-"   0: Default - Disabled
-"   1: OSX - iTerm2
-"      - modifies the cursor shape without visual refresh with every mode
-"      change. No color change.
-"   2: Windows - Git Bash
-"   3: Linux - Terminal
-"     - modifies the cursor shape and color.
-let modify_cursor = 0
+" Disable cursor blinking
+"   0: Default
+"       Cursor blinking is set to whatever is set on your machine.
+"   1: Disabled
+"       Cursor blinking is disabled and will always show.
+let cursor_blinking_disabled = 1
+" Enable cursor color
+"   0: Default
+"     Cursor color is unchanged.
+"   1: Enabled
+"     On some terminals, cursor color can be changed.
+let cursor_color_enabled = 1
