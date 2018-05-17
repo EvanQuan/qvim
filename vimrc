@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.2.0
+" Version: 1.2.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -150,7 +150,17 @@ set noshiftround
 " Toggle between hard and soft tabs
 " Hard tab sizes are consistent with soft tab sizes 
 "
-map <leader>i :set expandtab!<CR>
+"
+function ToggleTabs()
+  set expandtab!
+  if &expandtab
+    echo "Soft tabs enabled (SPACES)"
+  else
+    echo "Hard tabs enabled (TABS)"
+  endif
+endfunction
+map <leader>i :call ToggleTabs()<CR>
+" map <leader>i :set expandtab!<CR>
 
 " 2-space soft tabs
 "
@@ -310,7 +320,7 @@ set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
 
-" Move up/down by visual lines
+" Move up/down by visual lines instead of by 'literal' lines
 " Good for when there is soft wrapping
 "
 nnoremap j gj
@@ -325,9 +335,6 @@ nnoremap K <C-u>
 "
 set ttyfast
 
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter to continue"
-set cmdheight=2
 
 " Status bar displays the current mode, file name, file status, ruler etc.
 " Current unnecessary with lightline
@@ -512,11 +519,19 @@ map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 "
 set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
 if g:show_invisibles_enabled
-  " White space is visible
+  " Whitespace is visible
   set list
 endif
-" Manually toggle visibility
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+" Manually toggle tab, space and EOL visibility
+function ToggleWhitespace()
+  set list!
+  if &list
+    echo "Whitespace VISIBLE"
+  else
+    echo "Whitespace INVISIBLE"
+  end
+endfunction
+map <leader>l :call ToggleWhitespace()<CR>
 
 
 " vim-closetag
