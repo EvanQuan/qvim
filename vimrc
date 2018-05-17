@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.0.0
+" Version: 1.1.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -46,8 +46,14 @@ filetype plugin indent on
 let mapleader = ","
 
 " Security
+" Google "vim modeline vulnerability"
+"
+" Set modelines to parse to 0
 "
 set modelines=0
+" Disable modeline entirely just to be safe 
+"
+set nomodeline
 
 " Show hybrid relative numbers by default
 "
@@ -66,7 +72,8 @@ autocmd InsertLeave * :set relativenumber
 "
 set ruler
 
-" Disable audio and visualbell alerts entirely
+" Disable audio and visualbell alerts entirely when scrolling beyond file lines
+" or pressing escape in normal mode
 "
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -92,13 +99,18 @@ set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
 
-" Whitespace
+" Text Wrapping
 "
-if (wrap_enabled)
+if g:wrap_enabled
   set wrap
-  set colorcolumn=79
-  if (wrap_enabled == 2) " hard wrap
-    set textwidth=79
+  " wrap_width is visualized as highlighted column 
+  execute "set colorcolumn=".g:wrap_width
+  if g:wrap_enabled == 1 " soft wrap
+    set linebreak " line breaks only occur when the user explictly makes them
+    set textwidth=0 " disable text width limit
+  elseif g:wrap_enabled == 2 " hard wrap
+    set nolist " Disable linebreak if it is enabled
+    execute "set textwidth=".g:wrap_width 
   endif
 else
   set nowrap
@@ -267,6 +279,9 @@ set guicursor+=a:blinkon0
 
 " Cursor motion
 "
+" Determines the number of context lines you want to see above and below the
+" cursor. Helpful for scrolling.
+"
 set scrolloff=3
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
@@ -339,7 +354,9 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 
 " vim-togglecursor
-if cursor_blinking_disabled
+" Cursor changes shapes with each mode. Cursor blinking is also disabled.
+"
+if g:cursor_blinking_disabled
   " The default cursor shape. It is used in all modes except insert mode.
   "
   let g:togglecursor_default = 'block' " Not blinking
@@ -354,25 +371,44 @@ if cursor_blinking_disabled
   let g:togglecursor_leave = 'block' " Not blinking
 endif
 
-if cursor_color_enabled
-  silent !echo -ne "\033]12;rgb:61/af/ef\x7\007"
-  " Reset cursor when vim exits
+if g:cursor_color
+  if g:cursor_color == 1 " Blue
+    silent !echo -ne "\033]12;rgb:61/af/ef\x7\007"
+  elseif g:cursor_color == 2 " Green
+    silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
+  elseif g:cursor_color == 3 " Red
+    silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
+  endif
+  " Reset cursor to original when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
+" TODO: Cursor changes color depending on the mode
+" These get overriden by vim-togglecursor settings
+" Can be done by changing vim-togglecursor plugin
+" Find a work around that does not alter vim-togglecursor plugin
+" INSERT mode - blue
+" let &t_SI =+ "\<Esc>]12;rgb:61/af/ef\x7"
+" REPLACE mode - red
+" let &t_SR =+ "\<Esc>]12;rgb:e0/6c/75\x7"
+" NORMAL and VISUAL modes - green
+" let &t_EI =+ "\<Esc>]12;rgb:98/c3/79\x7"
 
 
 
 " Nerdcommeter
 " Add spaces after comment delimters
+"
 let g:NERDSpaceDelims = 1
 " Align line-wise comment delimiters flush left instead of following code
 " indentation
+"
 let g:NERDDefaultAlign = 'left'
 " nmap <C-c> <Plug>NERDCommenterInvert
 " imap <C-c> <Plug>NERDCommenterInvert
 " vmap <C-c> <Plug>NERDCommenterInvert
 
-" Indenting and unindenting with tab with all modes
+" Indent with tab and unindenting with shift-tab in all modes
+"
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-D>
@@ -384,6 +420,7 @@ vnoremap <Tab> >gv
 " NERDTree
 " autocmd VimEnter * NERDTree " tree is open on start
 " autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
+"
 nmap <silent> <C-\> :NERDTreeToggle<CR>
 
 
@@ -436,15 +473,14 @@ noremap <leader>t :tabe <C-m>
 noremap <leader>s :split
 noremap <leader>vs :vsplit
 if exists(":terminal")
-  " in-editor terminal only works with Neovim installed
+  " in-editor terminal only works with some terminals
   noremap <leader>b :terminal <C-m>
 else
   " There is a default terminal, but it's not as good
   noremap <leader>b :sh <C-m>
 endif
-" Enable mouse scroll
+" Enable mouse scroll, clicking, and dragging in all modes
 set mouse=a
-" Textmate holdouts
 
 " Close current buffer
 "
@@ -454,7 +490,7 @@ map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 " Visualize spaces, tabs and end of line characters
 "
 set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
-if (show_invisibles_enabled)
+if g:show_invisibles_enabled
   " White space is visible
   set list
 endif
@@ -499,12 +535,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 
-" One Dark Colorscheme
+" One Dark Color scheme
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 "
-if (truecolor_enabled)
+if g:truecolor_enabled
   if (empty($TMUX))
     if (has("nvim"))
       "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -539,7 +575,6 @@ set showtabline=2  " always show tabline
 set noshowmode 
 
                     " \ 'enable': { 'tabline': 0 },
-" Original
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -608,7 +643,7 @@ nnoremap <Right> :bnext<CR>
 
 " Special symbols are applied to lightline
 " Purely cosmetic
-if (special_symbols_enabled)
+if g:special_symbols_enabled
   let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
   let g:lightline_buffer_expand_left_icon = '◀ '
@@ -680,7 +715,7 @@ endfunction
 
 " Special symbols enhance lightline appearance
 "
-if special_symbols_enabled
+if g:special_symbols_enabled
   function! MyFugitive()
     try
       if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
@@ -781,10 +816,10 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " Determine colorscheme based on settings.vim
 " Lightline colorscheme is consistent with main colorscheme
-if colorscheme_type == 1
+if g:colorscheme_type == 1 " One dark
   colorscheme onedark
   let g:lightline.colorscheme = 'onedark'
-elseif colorscheme_type == 2
+elseif g:colorscheme_type == 2 " Solarized
   colorscheme solarized
   let g:lightline.colorscheme = 'solarized'
 endif " else no colorscheme
