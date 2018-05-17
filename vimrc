@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.1.0
+" Version: 1.1.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -29,6 +29,8 @@ filetype off
 " Load plugins with pathogen
 "
 execute pathogen#infect()
+" Help tags are loaded from all packages
+Helptags
 
 " Turn on syntax highlighting
 "
