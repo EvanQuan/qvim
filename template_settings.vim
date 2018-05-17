@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.1.0
+" Version: 1.2.0
 "
 " Setting values affect vimrc configuration.
 " ============================================================================
@@ -11,12 +11,12 @@
 "   schemes if it is enabled.
 "   If disabled, color schemes will work but the colors may appear slightly
 "   different from what they should be.
-let g:truecolor_enabled = 1
+let g:truecolor_enabled = 0
 " Powerline
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators.
-let g:special_symbols_enabled = 1
+let g:special_symbols_enabled = 0
 " Color scheme
 "   Affects overall color scheme and lightline color scheme
 "   0: Default
@@ -33,7 +33,7 @@ let g:colorscheme_type = 1
 "     at edge of screen
 "   2: Hard wrap
 "     at wrap_width columns. Column at wrap_width is highlighted.
-let g:wrap_enabled = 2
+let g:wrap_enabled = 1
 let g:wrap_width = 79
 " Show invisibles
 "   Render placeholders for invivisble characters, such as tabs, spaces and
@@ -53,3 +53,9 @@ let g:cursor_blinking_disabled = 1
 "   2: Green
 "   3: Red
 let g:cursor_color = 1
+" Escape alternative
+"   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
+"   done, this provides a lazy alternative.
+"   0: Disabled
+"   1: Sets "jk" as ESCAPE in INSERT, REPLACE and VISUAL modes
+let g:escape_alternative_enabled = 0

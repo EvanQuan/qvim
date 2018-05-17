@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.1.1
+" Version: 1.2.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -95,6 +95,20 @@ nmap <silent> <leader>sv :so ~/.vim/vimrc<CR>
 nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
 
+" Alternative to ESC key
+" Not applied to NORMAL mode due to "j" and "k" being used in movement
+" Normally, pressing ESC moves the cursor left by 1.
+" Mapping a key to <ESC> does not do this.
+" Applying h (move left) moves the cursor left by 2 so hl (left then right),
+" makes the behaviour the same as regular ESC
+"
+if g:escape_alternative_enabled
+  " INSERT and REPLACE
+  imap jk <ESC>hl
+  " VISUAL
+  vmap jk <ESC>hl
+endif
+
 " UTF-8 Encoding
 "
 set encoding=utf-8
@@ -132,6 +146,11 @@ set shiftwidth=4 " 2
 set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
+
+" Toggle between hard and soft tabs
+" Hard tab sizes are consistent with soft tab sizes 
+"
+map <leader>i :set expandtab!<CR>
 
 " 2-space soft tabs
 "
