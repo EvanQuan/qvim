@@ -87,7 +87,14 @@ same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 Updating
 --------
 
-To update everthing, run `complete_update.sh`. This will set `settings.vim` to the default values:
+**It turns out that since repo access is required to pull from Github, that
+makes these update scripts (or even updating at all) kind of impossible if
+you're not me (or someone with access). In that case, I guess the next best
+thing to do would be to delete `.vim` and reinstall.**
+
+
+To update everthing, run `complete_update.sh`. This will set `settings.vim` to
+the default values:
 ```bash
 bash ~/.vim/complete_update.sh
 ```
