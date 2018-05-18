@@ -1,7 +1,7 @@
 " ============================================================================
-" Name: vimrc
+" Name: vimrc.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.2.1
+" Version: 1.3.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -12,15 +12,17 @@
 " Look at README.md if there is no settings.vim file in current directory
 source ~/.vim/settings.vim
 
-
-" Don't try to be vi compatible
-"
+" Use Vim settings, rathan than  Vi settings. 
+" This must be efirst because it changes other options as a side effect.
 set nocompatible
 
 " if has('win32') || has('win64')
 "  set runtimepath=path/to/home.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,path/to/home.vim/after
 " endif
 
+" Keep 200 lines of command line history
+"
+set history=200
 
 " Helps force plugins to load correctly when it is turned back on below
 "
@@ -32,13 +34,54 @@ execute pathogen#infect()
 " Help tags are loaded from all packages
 Helptags
 
-" Turn on syntax highlighting
+" Switch syntax highlighting on when the terminal has colors or when using the
+" GUI (which always has colors)
 "
-syntax enable
+if &t_Co > 2 || has('gui_running')
+  " Revert with ":syntax off"
+  syntax on
+endif
+
+" For Wind32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+if has('win32')
+  set guioptions-=t
+endif
 
 " For plugins to load correctly
+" Only do this part when compiled with support for autocommands
 "
-filetype plugin indent on
+if has('autocmd')
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do langauge-dependent indenting.
+  " Revert with ":filetype off"
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that you can revert them with:
+  " ":augroup vimStartup | au! | augroup END"
+  augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim)
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+  augroup END
+
+endif " has('autocmd')
+
+
+if has('langmap') && exists('+langremap')
+  " Prevent taht the langmap option applies to characters that result from
+  " a mapping. If set (default), this may beak plugins (but its' backwards
+  " compatible).
+  set nolangremap
+endif
 
 " Leader key
 " This key is used in combination with other keys to perform many customizable
@@ -46,6 +89,17 @@ filetype plugin indent on
 " default leader is \
 "
 let mapleader = ","
+
+" Convenient command to see the different between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+    \ | wincmd p | diffthis
+endif
+" Bind it for convenience
+map <leader>d :DiffOrig<CR>
+
 
 " Security
 " Google "vim modeline vulnerability"
@@ -84,12 +138,16 @@ autocmd GUIEnter * set visualbell t_vb=
 "   Kind of neat, but doesn't really do much
 set title
 
-" Open vimrc anywhere
+" Use ":" for Ex mode instead, use Q for formatting
 "
-nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
+map Q gq
+
+" Open vimrc.vim anywhere
+"
+nmap <silent> <leader>ev :e ~/.vim/vimrc.vim<CR>
 " Reload vimrc anywhere
 "
-nmap <silent> <leader>sv :so ~/.vim/vimrc<CR>
+nmap <silent> <leader>sv :so ~/.vim/vimrc.vim<CR>
 " Open settings.vim anywhere
 "
 nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
@@ -151,16 +209,17 @@ set noshiftround
 " Hard tab sizes are consistent with soft tab sizes 
 "
 "
-function ToggleTabs()
-  set expandtab!
-  if &expandtab
-    echo "Soft tabs enabled (SPACES)"
-  else
-    echo "Hard tabs enabled (TABS)"
-  endif
+function! ToggleTabs()
+set expandtab!
+if &expandtab
+  echo "Soft tabs enabled (SPACES)"
+else
+  echo "Hard tabs enabled (TABS)"
+endif
 endfunction
 map <leader>i :call ToggleTabs()<CR>
 " map <leader>i :set expandtab!<CR>
+
 
 " 2-space soft tabs
 "
@@ -178,7 +237,7 @@ autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 " As a priority, tabs or spaces is determined by what is already being used
 " in the current file
 "
-function TabsOrSpaces()
+function! TabsOrSpaces()
   " Determines whether to use spaces or tabs on the current buffer.
   if getfsize(bufname("%")) > 256000
     " File is very large, just use the default.
@@ -192,7 +251,6 @@ function TabsOrSpaces()
     setlocal noexpandtab
   endif
 endfunction
-
 " Call the function after opening a buffer
 "
 autocmd BufReadPost * call TabsOrSpaces()
@@ -313,7 +371,7 @@ set guicursor+=a:blinkon0
 " Determines the number of context lines you want to see above and below the
 " cursor. Helpful for scrolling.
 "
-set scrolloff=3
+set scrolloff=5
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
@@ -500,15 +558,18 @@ noremap <leader>t :tabe <C-m>
 " Split open new window
 noremap <leader>s :split
 noremap <leader>vs :vsplit
-if exists(":terminal")
+if has("terminal")
   " in-editor terminal only works with some terminals
   noremap <leader>b :terminal <C-m>
 else
   " There is a default terminal, but it's not as good
   noremap <leader>b :sh <C-m>
 endif
-" Enable mouse scroll, clicking, and dragging in all modes
-set mouse=a
+" In many terminal emulators the mouse works just fine. By enabling it you can
+" position the cursor, Visually select and scroll with the mouse.
+if has('mouse')
+  set mouse=a
+endif
 
 " Close current buffer
 "
@@ -523,13 +584,13 @@ if g:show_invisibles_enabled
   set list
 endif
 " Manually toggle tab, space and EOL visibility
-function ToggleWhitespace()
-  set list!
-  if &list
-    echo "Whitespace VISIBLE"
-  else
-    echo "Whitespace INVISIBLE"
-  end
+function! ToggleWhitespace()
+set list!
+if &list
+  echo "Whitespace VISIBLE"
+else
+  echo "Whitespace INVISIBLE"
+end
 endfunction
 map <leader>l :call ToggleWhitespace()<CR>
 
@@ -593,7 +654,6 @@ endif
 
 " Color scheme (terminal)
 "
-set t_Co=256 " 256
 set background=dark
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
@@ -611,6 +671,9 @@ set showtabline=2  " always show tabline
 set noshowmode 
 
                     " \ 'enable': { 'tabline': 0 },
+" This determines what information lightline shows and in what format
+" I did not make this or the corresponding functions it uses
+"
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -673,9 +736,36 @@ let g:lightline_buffer_minflen = 16
 let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
 
-" Arrow keys move between buffers
-nnoremap <Left> :bprev<CR>
-nnoremap <Right> :bnext<CR>
+" Hard mode added for other people LUL
+"
+" Arrow keys
+" Normal
+nnoremap <Left> :echo "Stop using arrow keys, you PLEB!"<CR>
+nnoremap <Right> :echo "Stop using arrow keys, you PLEB!"<CR>
+nnoremap <Up> :echo "Stop using arrow keys, you PLEB!"<CR>
+nnoremap <Down> :echo "Stop using arrow keys, you PLEB!"<CR>
+" Insert
+inoremap <Left> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
+inoremap <Right> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
+inoremap <Up> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
+inoremap <Down> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
+" Visual
+vnoremap <Left> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
+vnoremap <Right> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
+vnoremap <Up> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
+vnoremap <Down> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
+
+" Page up and down
+" Normal
+nnoremap <PageUp> :echo "Stop using PAGEUP, you PLEB!"<CR>
+nnoremap <PageDown> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
+" Insert
+inoremap <PageUp> <ESC> :echo "Stop using PAGEUP, you PLEB!"<CR>i
+inoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>i
+" Visual
+vnoremap <PageUp> <ESC> :echo "Stop using PAGEUP, you PLEB!"<CR>
+vnoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
+
 
 " Special symbols are applied to lightline
 " Purely cosmetic
@@ -690,6 +780,8 @@ if g:special_symbols_enabled
   let g:lightline_buffer_git_icon = ' '
 endif
 
+" File name displays its path relative to wherever vim was opened
+"
 function! FilenameRelativePath()
   return expand('%')
 endfunction
@@ -777,14 +869,20 @@ else
   endfunction
 endif
 
+" File format only shows if window width is over 70 columns to avoid clutter
+"
 function! MyFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
+" File type only shows if window width is over 70 columns to avoid clutter
+"
 function! MyFiletype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
+" File encoding only shows if window width is over 70 columns to avoid clutter
+"
 function! MyFileencoding()
     return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
@@ -852,6 +950,7 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " Determine colorscheme based on settings.vim
 " Lightline colorscheme is consistent with main colorscheme
+"
 if g:colorscheme_type == 1 " One dark
   colorscheme onedark
   let g:lightline.colorscheme = 'onedark'

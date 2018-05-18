@@ -1,25 +1,30 @@
 " ============================================================================
 " Name: settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.2.0
+" Version: 1.2.1
 "
-" Setting values affect vimrc configuration.
+" Setting values affect vimrc.vim configuration.
 " ============================================================================
 
 " True color (24-bit)
 "   Many terminals don't support True color and will screw up some color
 "   schemes if it is enabled.
-"   If disabled, color schemes will work but the colors may appear slightly
-"   different from what they should be.
+"   0: Disabled
+"     Color schemes will work but the colors may appear slightly different
+"     from their intended appearance.
+"   1: Enabled
+"     One Dark will appear as it should
 let g:truecolor_enabled = 0
 " Powerline
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators.
+"   0: Disabled
+"   1: Enabled
 let g:special_symbols_enabled = 0
 " Color scheme
 "   Affects overall color scheme and lightline color scheme
-"   0: Default
+"   0: None
 "   1: One Dark
 "   2: Solarized
 let g:colorscheme_type = 1
