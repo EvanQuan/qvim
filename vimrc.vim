@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.3.0
+" Version: 1.3.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -147,7 +147,7 @@ map Q gq
 nmap <silent> <leader>ev :e ~/.vim/vimrc.vim<CR>
 " Reload vimrc anywhere
 "
-nmap <silent> <leader>sv :so ~/.vim/vimrc.vim<CR>
+nmap <silent> <leader>rv :so ~/.vim/vimrc.vim<CR>
 " Open settings.vim anywhere
 "
 nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
@@ -434,6 +434,10 @@ set showmatch
 "
 nnoremap <leader><space> :nohlsearch<CR>
 
+" Replace
+"
+nnoremap <leader>s :%s/
+
 " Remap autocomplete movement to allow j,k movement
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
@@ -554,10 +558,14 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 " Open new tab
-noremap <leader>t :tabe <C-m>
+noremap <leaderht :tabe <C-m>
+
 " Split open new window
-noremap <leader>s :split
-noremap <leader>vs :vsplit
+"
+" Horizontal
+noremap <leader>hs :split<space>
+" Vertical
+noremap <leader>vs :vsplit<space>
 if has("terminal")
   " in-editor terminal only works with some terminals
   noremap <leader>b :terminal <C-m>
