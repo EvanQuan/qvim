@@ -1,9 +1,13 @@
+# Vim stuff
 *.swp
 *.swo
 
 # .vimrc settings
 settings.vim
 
-# vim-workspace Session
+# vim-workspace session
 Session.vim
 /.undodir
+
+# Note for updates
+note.txt
