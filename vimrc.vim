@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.0
+" Version: 1.4.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. This should be linked to the ~/.vimrc file as described in the
@@ -10,7 +10,7 @@
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
 " Initial setup {{{
-"
+
 " These are the first steps necessary to set up all the configurations
 
 " Settings determine how some configurations are set
@@ -145,7 +145,7 @@ set foldmethod=indent
 
 " }}}
 " Line Numbers {{{
-"
+
 " Show hybrid relative numbers by default
 "
 set number relativenumber
@@ -156,6 +156,7 @@ autocmd InsertEnter * :set number norelativenumber
 " Hybrid relative number on NORMAL and VISUAL modes
 "
 autocmd InsertLeave * :set relativenumber 
+
 " }}}
 " Indentation {{{
 
@@ -211,7 +212,7 @@ noremap <leader>0 :tablast<cr>
 
 " }}}
 " Within Window {{{
-"
+
 " Move up/down by visual lines instead of by 'literal' lines
 " Good for when there is soft wrapping
 "
@@ -275,15 +276,22 @@ vnoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
 
 " }}}
 " Leader Key {{{
+
 " This key is used in combination with other keys to perform many customizable
 " commands
 " default leader is \
 "
 let mapleader = ","
+
 " }}}
 " Searching {{{
 
 " Searching in file {{{
+
+" Enable "very magic" search mode
+" All characters except 0-9, a-z, A-Z, an _ have special meaning
+" Allow for searching with regex
+" Type ":help \v" for more information
 nnoremap / /\v
 vnoremap / /\v
 
@@ -295,7 +303,7 @@ set hlsearch
 "
 set incsearch
 
-" Ignore case when searching
+" Ignore case when searching by default...
 "
 set ignorecase
 
@@ -303,11 +311,11 @@ set ignorecase
 "
 set smartcase
 
-" Matching parens highlighted
+" Matching bracket-like characters highlighted
 "
 set showmatch
 
-" clear search
+" clear search highlighting
 "
 nnoremap <leader><space> :nohlsearch<CR>
 
@@ -323,12 +331,13 @@ map <leader>d :DiffOrig<CR>
 
 " }}}
 " Replacing in file {{{
-"
+
 nnoremap <leader>s :%s/
 
 " Remap autocomplete movement to allow j,k movement
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
+
 " }}}
 
 " }}}
@@ -692,6 +701,7 @@ endif " else no colorscheme
 
 " }}}
 " lightline-buffer {{{
+
 " replace these symbols with ascii characters if your environment does not support unicode
 "
 let g:lightline_buffer_ellipsis_icon = '..'
@@ -711,9 +721,10 @@ let g:lightline_buffer_maxfextlen = 3
 let g:lightline_buffer_minflen = 16
 let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
+
 " }}}
 " nerdcommeter {{{
-"
+
 " Add spaces after comment delimters
 "
 let g:NERDSpaceDelims = 1
@@ -721,16 +732,18 @@ let g:NERDSpaceDelims = 1
 " indentation
 "
 let g:NERDDefaultAlign = 'left'
+
 " }}}
 " nerdtree {{{
-"
+
 " autocmd VimEnter * NERDTree " tree is open on start
 " autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
 "
 nmap <silent> <C-\> :NERDTreeToggle<CR>
+
 " }}}
 " syntastic {{{
-"
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -739,9 +752,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
 " }}}
 " vim-closetag {{{
-"
+
 " filenames like *.xml, *.html, *.xhtml, ...
 " Then after you press <kbd>&gt;</kbd> in these files, this plugin will try to close the current tag.
 "
@@ -766,13 +780,14 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 " }}}
 " vim-gitgutter {{{
-"
+
 " Delay time of the diff markers updating as the file is edited
 "
 set updatetime=100 " [ms] Default: 4000
+
 " }}}
 " vim-javacomplete2 {{{
-"
+
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Enable smart (trying to guess import option) inserting class imports with F4
 nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
@@ -820,6 +835,7 @@ vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
 nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
 nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+
 " }}}
 " vim-togglecursor {{{
 
@@ -842,16 +858,17 @@ endif
 
 " }}}
 " vim-workspace {{{
-"
+
 nnoremap <leader>w :ToggleWorkspace<CR>
 " Set if workspace automatically writes to file with every edit
 "
 let g:workspace_autosave_always = 0
+
 " }}}
 
 " }}}
 " Custom Functions {{{
-"
+
 " Toggle between hard and sort tabs
 " Hard tabs sizes are consistent with soft tabs sizes for each file type
 "
@@ -864,6 +881,7 @@ function! ToggleTabs()
   endif
 endfunction
 map <leader>i :call ToggleTabs()<CR>
+
 " }}}
 " UI Layout {{{
 
