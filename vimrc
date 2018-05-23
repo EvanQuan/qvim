@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.3
+" Version: 1.4.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -10,7 +10,7 @@
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
-" Initial setup {{{
+" Initial Setup {{{
 
 " These are the first steps necessary to set up all the configurations
 
@@ -64,7 +64,7 @@ endif " has('autocmd')
 " Appearance {{{
 
 " Color scheme {{{
-"
+
 set background=dark
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
@@ -80,9 +80,10 @@ if g:colorscheme_type == 1 " One dark
 elseif g:colorscheme_type == 2 " Solarized
   colorscheme solarized
 endif " else no colorscheme
+
 " }}}
 " Syntax highlighting {{{
-"
+
 " Switch syntax highlighting on when the terminal has colors or when using the
 " GUI (which always has colors)
 "
@@ -115,6 +116,7 @@ if g:truecolor_enabled
     endif
   endif
 endif
+
 " }}}
 
 " }}}
@@ -210,6 +212,16 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+
+" Move between buffers
+"
+" Next buffer
+"
+map gn :bn<cr>
+
+" Prevous buffer
+"
+map gp :bp<cr>
 
 " }}}
 " Within Window {{{
@@ -416,9 +428,25 @@ end
 endfunction
 map <leader>l :call ToggleWhitespace()<CR>
 
+" Toggle between hard and sort tabs
+" Hard tabs sizes are consistent with soft tabs sizes for each file type
+"
+function! ToggleTabs()
+  set expandtab!
+  if &expandtab
+    echo "Soft tabs enabled (SPACES)"
+  else
+    echo "Hard tabs enabled (TABS)"
+  endif
+endfunction
+map <leader>i :call ToggleTabs()<CR>
+
 " Close current buffer
 "
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+
+" Delete buffer
+map gd :bd<cr> 
 
 " }}}
 
@@ -531,6 +559,15 @@ if g:special_symbols_enabled
   let g:lightline_buffer_git_icon = ' '
 endif
 
+" Keep lightline color scheme consistent with background color scheme
+if g:colorscheme_type == 1 " One dark
+  let g:lightline.colorscheme = 'onedark'
+elseif g:colorscheme_type == 2 " Solarized
+  let g:lightline.colorscheme = 'solarized'
+endif " else no colorscheme
+
+" Functions {{{
+
 " File name displays its path relative to wherever vim was opened
 "
 function! FilenameRelativePath()
@@ -598,7 +635,8 @@ if g:special_symbols_enabled
   function! MyFugitive()
     try
       if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-        let mark = '⭠ '
+        let mark = ' '
+        " let mark = '⭠ ' " this was the default
         let _ = fugitive#head()
         return strlen(_) ? mark._ : ''
       endif
@@ -693,12 +731,8 @@ function! s:syntastic()
   SyntasticCheck
   call lightline#update()
 endfunction
-" Keep lightline color scheme consistent with background color scheme
-if g:colorscheme_type == 1 " One dark
-  let g:lightline.colorscheme = 'onedark'
-elseif g:colorscheme_type == 2 " Solarized
-  let g:lightline.colorscheme = 'solarized'
-endif " else no colorscheme
+
+" }}}
 
 " }}}
 " lightline-buffer {{{
@@ -868,22 +902,6 @@ let g:workspace_autosave_always = 0
 " }}}
 
 " }}}
-" Custom Functions {{{
-
-" Toggle between hard and sort tabs
-" Hard tabs sizes are consistent with soft tabs sizes for each file type
-"
-function! ToggleTabs()
-  set expandtab!
-  if &expandtab
-    echo "Soft tabs enabled (SPACES)"
-  else
-    echo "Hard tabs enabled (TABS)"
-  endif
-endfunction
-map <leader>i :call ToggleTabs()<CR>
-
-" }}}
 " UI Layout {{{
 
 " Ruler is displayed on the right side of the status line at the bottom of the
@@ -1006,7 +1024,7 @@ endif
 set history=200
 
 " }}}
-" Organization {{{
+" Vimrc Organization {{{
 
 " Set modelines to parse to 1
 " This is normally dangerous to do for security reasons, but is necessary for
