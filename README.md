@@ -41,13 +41,13 @@ git submodule update --init --recursive
 3. Create a dummy `.vimrc` file in your home directory that links to the "real"
    `.vimrc` file in your `.vim` directory:
 ```bash
-echo "source ~/.vim/vimrc.vim" > ~/.vimrc
+echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
 4. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
 and `_vimrc`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
-echo "source ~/vimfiles/vimrc.vim" > ~/_vimrc
+echo "source ~/vimfiles/vimrc" > ~/_vimrc
 cd ~/vimfiles
 git submodule update --init --recursive
 ```

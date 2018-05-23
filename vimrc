@@ -1,11 +1,12 @@
 " ============================================================================
-" Name: vimrc.vim
+" Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.1
+" Version: 1.4.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
-" starts. This should be linked to the ~/.vimrc file as described in the
-" README.md file.
+" starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
+" file as described in the README.md file. Later versions automatically detect
+" this as the 2nd user vimrc file.
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
