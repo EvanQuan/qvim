@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.2
+" Version: 1.4.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -344,13 +344,13 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " }}}
 " Vimrc Editing {{{
 
-" Open vimrc.vim anywhere
+" Open vimrc anywhere
 "
-nmap <silent> <leader>ev :e ~/.vim/vimrc.vim<CR>
+nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
 
 " Reload vimrc anywhere
 "
-nmap <silent> <leader>rv :so ~/.vim/vimrc.vim<CR>
+nmap <silent> <leader>rv :so ~/.vim/vimrc<CR>
 
 " Open settings.vim anywhere
 "
