@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.6
+" Version: 1.4.7
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -423,7 +423,7 @@ else
   echo "Whitespace INVISIBLE"
 end
 endfunction
-map <leader>i :call ToggleWhitespace()<CR>
+map <leader>tw :call ToggleWhitespace()<CR>
 
 " Toggle between hard and sort tabs
 " Hard tabs sizes are consistent with soft tabs sizes for each file type
@@ -436,7 +436,7 @@ function! ToggleTabs()
     echo "Hard tabs enabled (TABS)"
   endif
 endfunction
-map <leader>t :call ToggleTabs()<CR>
+map <leader>tt :call ToggleTabs()<CR>
 
 " Close current buffer
 "
@@ -451,9 +451,9 @@ map gd :bd<cr>
 if has("terminal")
   " in-editor terminal only works with some terminals
   " Horizontal split
-  noremap <leader>hb :vert terminal <C-m>
+  noremap <leader>ht :vert terminal <C-m>
   " Vertical split
-  noremap <leader>vb :terminal <C-m>
+  noremap <leader>vt :terminal <C-m>
 else
   " There is a default terminal, but it's not as good
   noremap <leader>b :sh <C-m>
