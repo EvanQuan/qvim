@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.7
+" Version: 1.4.8
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -261,31 +261,31 @@ set ttyfast
 
 " Arrow keys
 " Normal
-nnoremap <Left> :echo "Stop using arrow keys, you PLEB!"<CR>
-nnoremap <Right> :echo "Stop using arrow keys, you PLEB!"<CR>
-nnoremap <Up> :echo "Stop using arrow keys, you PLEB!"<CR>
-nnoremap <Down> :echo "Stop using arrow keys, you PLEB!"<CR>
+nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 " Insert
-inoremap <Left> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
-inoremap <Right> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
-inoremap <Up> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
-inoremap <Down> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>i
+inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
 " Visual
-vnoremap <Left> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
-vnoremap <Right> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
-vnoremap <Up> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
-vnoremap <Down> <ESC> :echo "Stop using arrow keys, you PLEB!"<CR>
+vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 
 " Page up and down
 " Normal
-nnoremap <PageUp> :echo "Stop using PAGEUP, you PLEB!"<CR>
-nnoremap <PageDown> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
+nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
 " Insert
-inoremap <PageUp> <ESC> :echo "Stop using PAGEUP, you PLEB!"<CR>i
-inoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>i
+inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
+inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
 " Visual
-vnoremap <PageUp> <ESC> :echo "Stop using PAGEUP, you PLEB!"<CR>
-vnoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
+vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
 
 " }}}
 " Leader Key {{{
@@ -374,6 +374,7 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
 
 " Reload vimrc anywhere
+" ISSUE: Lightline does not open correctly
 "
 nmap <silent> <leader>rv :so ~/.vim/vimrc<CR>
 
@@ -405,7 +406,7 @@ map Q gq
 
 
 " Open new tab
-noremap <leaderht :tabe <C-m>
+noremap <leader>nt :tabe <C-m>
 
 " Split open new window
 "
@@ -418,9 +419,9 @@ noremap <leader>vs :vsplit<space>
 function! ToggleWhitespace()
 set list!
 if &list
-  echo "Whitespace VISIBLE"
+  echo "-- Whitespace VISIBLE --"
 else
-  echo "Whitespace INVISIBLE"
+  echo "-- Whitespace INVISIBLE --"
 end
 endfunction
 map <leader>tw :call ToggleWhitespace()<CR>
@@ -431,9 +432,9 @@ map <leader>tw :call ToggleWhitespace()<CR>
 function! ToggleTabs()
   set expandtab!
   if &expandtab
-    echo "Soft tabs enabled (SPACES)"
+    echo "-- Soft tabs enabled (SPACES) --"
   else
-    echo "Hard tabs enabled (TABS)"
+    echo "-- Hard tabs enabled (TABS) --"
   endif
 endfunction
 map <leader>tt :call ToggleTabs()<CR>
@@ -454,10 +455,9 @@ if has("terminal")
   noremap <leader>ht :vert terminal <C-m>
   " Vertical split
   noremap <leader>vt :terminal <C-m>
-else
-  " There is a default terminal, but it's not as good
-  noremap <leader>b :sh <C-m>
 endif
+" There is a default terminal, but it's not as good
+noremap <leader>b :sh <C-m>
 
 " }}}
 
