@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.5
+" Version: 1.4.6
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -297,6 +297,19 @@ vnoremap <PageDown> <ESC> :echo "Stop using PAGEDOWN, you PLEB!"<CR>
 let mapleader = ","
 
 " }}}
+" Indentation {{{
+
+" Indent with tab and unindenting with shift-tab in all modes
+"
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-D>
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <S-Tab> <gv
+vnoremap <Tab> >gv
+
+" }}}
 " Searching {{{
 
 " Searching in file {{{
@@ -390,15 +403,6 @@ endif
 "
 map Q gq
 
-" Indent with tab and unindenting with shift-tab in all modes
-"
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<
-inoremap <S-Tab> <C-D>
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <S-Tab> <gv
-vnoremap <Tab> >gv
 
 " Open new tab
 noremap <leaderht :tabe <C-m>
@@ -409,13 +413,6 @@ noremap <leaderht :tabe <C-m>
 noremap <leader>hs :split<space>
 " Vertical
 noremap <leader>vs :vsplit<space>
-if has("terminal")
-  " in-editor terminal only works with some terminals
-  noremap <leader>b :terminal <C-m>
-else
-  " There is a default terminal, but it's not as good
-  noremap <leader>b :sh <C-m>
-endif
 
 " Manually toggle tab, space and EOL visibility
 function! ToggleWhitespace()
@@ -447,6 +444,20 @@ map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " Delete buffer
 map gd :bd<cr> 
+
+" }}}
+" Terminal {{{
+
+if has("terminal")
+  " in-editor terminal only works with some terminals
+  " Horizontal split
+  noremap <leader>hb :vert terminal <C-m>
+  " Vertical split
+  noremap <leader>vb :terminal <C-m>
+else
+  " There is a default terminal, but it's not as good
+  noremap <leader>b :sh <C-m>
+endif
 
 " }}}
 
