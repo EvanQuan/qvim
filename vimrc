@@ -426,7 +426,7 @@ else
   echo "Whitespace INVISIBLE"
 end
 endfunction
-map <leader>l :call ToggleWhitespace()<CR>
+map <leader>i :call ToggleWhitespace()<CR>
 
 " Toggle between hard and sort tabs
 " Hard tabs sizes are consistent with soft tabs sizes for each file type
@@ -439,7 +439,7 @@ function! ToggleTabs()
     echo "Hard tabs enabled (TABS)"
   endif
 endfunction
-map <leader>i :call ToggleTabs()<CR>
+map <leader>t :call ToggleTabs()<CR>
 
 " Close current buffer
 "
