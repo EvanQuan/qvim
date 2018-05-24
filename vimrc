@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.4
+" Version: 1.4.5
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -12,7 +12,7 @@
 " ============================================================================
 " Initial Setup {{{
 
-" These are the first steps necessary to set up all the configurations
+"   The first steps necessary to set up all the configurations
 
 " Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
@@ -454,13 +454,15 @@ map gd :bd<cr>
 " Packages {{{
 
 " arm-syntax-vim {{{
-"
+" Repository: https://github.com/ARM9/arm-syntax-vim
+
 " Recognize the correct file extentions as ARM files
 "
 au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 " }}}
 " ctrlp.vim {{{
-"
+" Repository: https://github.com/kien/ctrlp.vim
+
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
@@ -477,7 +479,8 @@ let g:ctrlp_custom_ignore = {
   \ }
 " }}}
 " haskell-vim {{{
-"
+" Repository: https://github.com/neovimhaskell/haskell-vim
+
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
 let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
@@ -495,8 +498,9 @@ let g:haskell_indent_after_bare_where = 4 " 2
 let g:haskell_indent_do = 4 " 3
 let g:haskell_indent_guard = 4 " 2
 "}}}
-" lightline {{{
-"
+" lightline.vim {{{
+" Repository: https://github.com/itchyny/lightline.vim
+
                     " \ 'enable': { 'tabline': 0 },
 " This determines what information lightline shows and in what format
 " I did not make this or the corresponding functions it uses
@@ -736,6 +740,7 @@ endfunction
 
 " }}}
 " lightline-buffer {{{
+" Repository: https://github.com/taohexx/lightline-buffer
 
 " replace these symbols with ascii characters if your environment does not support unicode
 "
@@ -759,6 +764,7 @@ let g:lightline_buffer_reservelen = 20
 
 " }}}
 " nerdcommeter {{{
+" Repository: https://github.com/scrooloose/nerdcommenter
 
 " Add spaces after comment delimters
 "
@@ -770,6 +776,7 @@ let g:NERDDefaultAlign = 'left'
 
 " }}}
 " nerdtree {{{
+" Repository: https://github.com/scrooloose/nerdtree
 
 " autocmd VimEnter * NERDTree " tree is open on start
 " autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
@@ -778,6 +785,7 @@ nmap <silent> <C-\> :NERDTreeToggle<CR>
 
 " }}}
 " syntastic {{{
+" Repository: https://github.com/vim-syntastic/syntastic
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -790,6 +798,7 @@ let g:syntastic_check_on_wq = 0
 
 " }}}
 " vim-closetag {{{
+" Repository: https://github.com/alvan/vim-closetag
 
 " filenames like *.xml, *.html, *.xhtml, ...
 " Then after you press <kbd>&gt;</kbd> in these files, this plugin will try to close the current tag.
@@ -815,6 +824,7 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 " }}}
 " vim-gitgutter {{{
+" Repository: https://github.com/airblade/vim-gitgutter
 
 " Delay time of the diff markers updating as the file is edited
 "
@@ -822,6 +832,7 @@ set updatetime=100 " [ms] Default: 4000
 
 " }}}
 " vim-javacomplete2 {{{
+" Repository: https://github.com/artur-shaik/vim-javacomplete2
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Enable smart (trying to guess import option) inserting class imports with F4
@@ -873,6 +884,7 @@ nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-togglecursor {{{
+" Repository: https://github.com/jszakmeister/vim-togglecursor
 
 " Cursor changes shapes with each mode. Cursor blinking is also disabled.
 "
@@ -893,6 +905,7 @@ endif
 
 " }}}
 " vim-workspace {{{
+" Repository: https://github.com/thaerkh/vim-workspace
 
 nnoremap <leader>w :ToggleWorkspace<CR>
 " Set if workspace automatically writes to file with every edit
