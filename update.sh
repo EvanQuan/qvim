@@ -1,6 +1,6 @@
 # Name: update.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version: 1.0.1
+# Version: 1.0.2
 #
 # Update - keep settings.vim the same
 
@@ -9,4 +9,4 @@ cd ~/.vim
 # .vim
 git pull
 # submodules
-git submodule update --init --recursive
+git submodule update --init --remote --recursive

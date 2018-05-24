@@ -33,13 +33,18 @@ git clone https://github.com/EvanQuan/.vim ~/.vim
 bash ~/.vim/install.sh
 ```
 
+Hooray, that's it!
+
+Or you can do it all manually:
+
 2. Update the submodules:
 ```bash
 cd ~/.vim
-git submodule update --init --recursive
+git submodule update --init --remote --recursive
 ```
-3. Create a dummy `.vimrc` file in your home directory that links to the "real"
-   `.vimrc` file in your `.vim` directory:
+3. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
+`~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For earlier versions
+of Vim, create a dummy `~/.vimrc` file in your home directory that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
@@ -49,7 +54,7 @@ and `_vimrc`:
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
 echo "source ~/vimfiles/vimrc" > ~/_vimrc
 cd ~/vimfiles
-git submodule update --init --recursive
+git submodule update --init --remote --recursive
 ```
 5. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
@@ -108,7 +113,7 @@ Alternatively, you can manually update stuff yourself.
 ```bash
 cd ~/.vim
 git pull origin master
-git submodule update --init --recursive
+git submodule update --init --remote --recursive
 cp ~/.vim/template_settings.vim ~/.vim/settings.vim
 ```
 
