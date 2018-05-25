@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.8
+" Version: 1.5.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -147,24 +147,10 @@ nnoremap <space> za
 set foldmethod=indent
 
 " }}}
-" Line Numbers {{{
-
-" Show hybrid relative numbers by default
-"
-set number relativenumber
-"
-" Absolute number on INSERT and REPLACE modes
-"
-autocmd InsertEnter * :set number norelativenumber
-" Hybrid relative number on NORMAL and VISUAL modes
-"
-autocmd InsertLeave * :set relativenumber 
-
-" }}}
 " Indentation {{{
 
 " Default {{{
-"
+
 " 4-space soft tabs
 "
 set formatoptions=tcqrn1
@@ -173,8 +159,10 @@ set shiftwidth=4 " 2
 set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
+
 " }}}
-" Lantuage-Specific {{{
+" Language-Specific {{{
+
 " 2-space soft tabs
 "
 autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -187,8 +175,78 @@ autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
 
 " 8-space hard tabs
+"
 autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
+
 " }}}
+" Auto-Detect {{{
+
+" As a priority, soft or hard tab indentation is determined by what is already
+" being used in the current file.
+function TabsOrSpaces()
+  " Determines whether to use spaces or tabs on the current buffer.
+  if getfsize(bufname("%")) > 256000
+    " If the file is very large, just use the default, since it will take too
+    " long to determine which tab type to use.
+    return
+  endif
+
+  " To determine priority, get the number of tab indentations and space
+  " indentations, and choose the one that is used more frequently
+  let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+  let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\ "'))
+
+  if numTabs > numSpaces
+    setlocal noexpandtab " enable hard tabs
+  endif
+endfunction
+
+" Call the function after opening a buffer
+autocmd BufReadPost * call TabsOrSpaces()
+
+" }}}
+
+" }}}
+" Shortcuts {{{
+
+" Hard Mode {{{
+
+" Arrow keys
+" Normal
+nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+" Insert
+inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+" Visual
+vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+
+" Page up and down
+" Normal
+nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+" Insert
+inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
+inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
+" Visual
+vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+
+" }}}
+" Leader Key {{{
+
+" This key is used in combination with other keys to perform many customizable
+" commands
+" default leader is \
+"
+let mapleader = ","
 
 " }}}
 " Movement {{{
@@ -244,59 +302,6 @@ runtime! macros/matchit.vim
 " }}}
 
 " }}}
-" Optimization {{{
-
-" Improves scrolling lag, especially with some forms of syntax highlighting
-"
-set lazyredraw
-
-" Improves rendering when scrolling
-"
-set ttyfast
-
-" }}}
-" Shortcuts {{{
-
-" Hard Mode {{{
-
-" Arrow keys
-" Normal
-nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-" Insert
-inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-" Visual
-vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-
-" Page up and down
-" Normal
-nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
-" Insert
-inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
-inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
-" Visual
-vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
-
-" }}}
-" Leader Key {{{
-
-" This key is used in combination with other keys to perform many customizable
-" commands
-" default leader is \
-"
-let mapleader = ","
-
-" }}}
 " Indentation {{{
 
 " Indent with tab and unindenting with shift-tab in all modes
@@ -308,6 +313,77 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
+
+" }}}
+" Plugins {{{
+
+" nerdtree {{{
+" Repository: https://github.com/scrooloose/nerdtree
+
+" autocmd VimEnter * NERDTree " tree is open on start
+" autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
+"
+nmap <silent> <C-\> :NERDTreeToggle<CR>
+
+" }}}
+" vim-javacomplete2 {{{
+" Repository: https://github.com/artur-shaik/vim-javacomplete2
+
+" Enable smart (trying to guess import option) inserting class imports with F4
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" To enable usual (will ask for import option) inserting class imports with F5
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+" To add all missing imports with F6
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" To remove all missing imports with F7
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+
+imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+
+nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+
+imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+
+" }}}
+" vim-workspace {{{
+" Repository: https://github.com/thaerkh/vim-workspace
+
+" Toggle enable/disable workspace
+nnoremap <leader>w :ToggleWorkspace<CR>
+
+" }}}
 
 " }}}
 " Searching {{{
@@ -455,14 +531,43 @@ if has("terminal")
   noremap <leader>ht :vert terminal <C-m>
   " Vertical split
   noremap <leader>vt :terminal <C-m>
+else
+  " Echo to user that terminal is not available
+  noremap <leader>ht :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
+  noremap <leader>vt :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
 endif
-" There is a default terminal, but it's not as good
+" There is a terminal which is available for earlier versions of Vim,
+" which opens the terminal in a new buffer.
+" It can be closed with "exit" or "Ctrl-D".
 noremap <leader>b :sh <C-m>
 
 " }}}
 
 " }}}
-" Packages {{{
+" Performance {{{
+
+" When this option is set, the screen will not be redrawn while executing
+" macros, registers and other command that have not been typed. Also, updating
+" the window title is postponed.
+"
+" Improves scrolling lag, especially with some forms of syntax highlighting
+"
+set lazyredraw
+
+" Indicates a fast terminal connection. More characters will be sent to the
+" screen for redrawing, instead of using inster/delte line commands. Imroves
+" smoothness of redrawing when there are multiple windows and the terminal
+" does not support a scrolling region.
+" Also enables the extra writing of characters at the end of each screen line
+" for lines that wrap. This helps when using copy/paste with the mouse in an
+" xterm and other terminals.
+"
+" Improves rendering when scrolling
+"
+set ttyfast
+
+" }}}
+" Plugin Settings {{{
 
 " arm-syntax-vim {{{
 " Repository: https://github.com/ARM9/arm-syntax-vim
@@ -511,6 +616,8 @@ let g:haskell_indent_guard = 4 " 2
 "}}}
 " lightline.vim {{{
 " Repository: https://github.com/itchyny/lightline.vim
+
+" Layout {{{
 
                     " \ 'enable': { 'tabline': 0 },
 " This determines what information lightline shows and in what format
@@ -581,6 +688,7 @@ elseif g:colorscheme_type == 2 " Solarized
   let g:lightline.colorscheme = 'solarized'
 endif " else no colorscheme
 
+" }}}
 " Functions {{{
 
 " File name displays its path relative to wherever vim was opened
@@ -780,19 +888,11 @@ let g:lightline_buffer_reservelen = 20
 " Add spaces after comment delimters
 "
 let g:NERDSpaceDelims = 1
+
 " Align line-wise comment delimiters flush left instead of following code
 " indentation
 "
 let g:NERDDefaultAlign = 'left'
-
-" }}}
-" nerdtree {{{
-" Repository: https://github.com/scrooloose/nerdtree
-
-" autocmd VimEnter * NERDTree " tree is open on start
-" autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
-"
-nmap <silent> <C-\> :NERDTreeToggle<CR>
 
 " }}}
 " syntastic {{{
@@ -846,52 +946,6 @@ set updatetime=100 " [ms] Default: 4000
 " Repository: https://github.com/artur-shaik/vim-javacomplete2
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-" Enable smart (trying to guess import option) inserting class imports with F4
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" To enable usual (will ask for import option) inserting class imports with F5
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
-" To add all missing imports with F6
-nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" To remove all missing imports with F7
-nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-
-nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
-
-imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
-imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
-imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
-
-nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-
-imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-
-nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
-
-imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
-imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
-imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-
-vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-
-nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-togglecursor {{{
@@ -918,7 +972,6 @@ endif
 " vim-workspace {{{
 " Repository: https://github.com/thaerkh/vim-workspace
 
-nnoremap <leader>w :ToggleWorkspace<CR>
 " Set if workspace automatically writes to file with every edit
 "
 let g:workspace_autosave_always = 0
@@ -928,75 +981,23 @@ let g:workspace_autosave_always = 0
 " }}}
 " UI Layout {{{
 
-" Ruler is displayed on the right side of the status line at the bottom of the
-" window. It displays the line number, the column number, and the relative
-" position of the cursor in the file (as a percent)
-"
-set ruler
+" Cursor {{{
 
-" Disable audio and visualbell alerts entirely when scrolling beyond file lines
-" or pressing escape in normal mode
-"
-set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
+" GUI {{{
 
-" Change the terminal's title
-"   Kind of neat, but doesn't really do much
-set title
-
-" UTF-8 Encoding
-"
-set encoding=utf-8
-set fileencoding=utf-8
-scriptencoding utf-8
-
-" Text Wrapping
-"
-if g:wrap_enabled
-  set wrap
-  " wrap_width is visualized as highlighted column
-  execute "set colorcolumn=".g:wrap_width
-  if g:wrap_enabled == 1 " soft wrap
-    set linebreak " line breaks only occur when the user explictly makes them
-    set textwidth=0 " disable text width limit
-  elseif g:wrap_enabled == 2 " hard wrap
-    set nolist " Disable linebreak if it is enabled
-    execute "set textwidth=".g:wrap_width
-  endif
-else
-  set nowrap
-  set textwidth=0
-endif
-
-" Status bar displays the current mode, file name, file status, ruler etc.
-" Current unnecessary with lightline
-"
-set laststatus=2
-
-" Gui settings (MacVim or gVim)
-"
-set guioptions = " No scroll bars
 " Disable all blinking
 set guicursor+=a:blinkon0
 
-" Cursor motion
-"
+" }}}
+" Scrolling {{{
+
 " Determines the number of context lines you want to see above and below the
 " cursor. Helpful for scrolling.
 "
 set scrolloff=5
 
-" Show command
-" Displays in bottom-right what keys have already been pressed for the current
-" command
-"
-set showcmd
-
-set hidden  " allow buffer switching without saving
-set showtabline=2  " always show tabline
-" do not show default INSERT mode below since this is what lightline does
-set noshowmode
-
+" }}}
+" Color {{{
 
 if g:cursor_color
   if g:cursor_color == 1 " Blue
@@ -1020,7 +1021,86 @@ endif
 " NORMAL and VISUAL modes - green
 " let &t_EI =+ "\<Esc>]12;rgb:98/c3/79\x7"
 
-" Show whitespace
+" }}}
+
+" }}}
+" Encoding {{{
+
+" UTF-8
+set encoding=utf-8
+set fileencoding=utf-8
+scriptencoding utf-8
+
+" }}}
+" Line Numbers {{{
+
+" Show hybrid relative numbers by default
+"
+set number relativenumber
+"
+" Absolute number on INSERT and REPLACE modes
+"
+autocmd InsertEnter * :set number norelativenumber
+" Hybrid relative number on NORMAL and VISUAL modes
+"
+autocmd InsertLeave * :set relativenumber 
+
+" }}}
+" Status Line {{{
+
+" Ruler is displayed on the right side of the status line at the bottom of the
+" window. It displays the line number, the column number, and the relative
+" position of the cursor in the file (as a percent)
+"
+" This is redundant as lightline shows all this information anyways, but is
+" enabled incase lightline is not working.
+"
+set ruler
+
+" Status line displays the current mode, file name, file status, ruler etc.
+" Current unnecessary with lightline
+"
+set laststatus=2
+
+" Show command
+" Displays in bottom-right what keys have already been pressed for the current
+" command
+"
+set showcmd
+
+" The value of this option specifies when the line with tab pages labels will
+" be displayed at the top of the screen:
+"   0: never
+"   1: only if there are at least two tab pages
+"   2: always
+" 
+set showtabline=2
+
+" do not show default INSERT mode below since this is what lightline does
+set noshowmode
+
+" }}}
+" Text Wrapping {{{
+
+if g:wrap_enabled
+  set wrap
+  " wrap_width is visualized as highlighted column
+  execute "set colorcolumn=".g:wrap_width
+  if g:wrap_enabled == 1 " soft wrap
+    set linebreak " line breaks only occur when the user explictly makes them
+    set textwidth=0 " disable text width limit
+  elseif g:wrap_enabled == 2 " hard wrap
+    set nolist " Disable linebreak if it is enabled
+    execute "set textwidth=".g:wrap_width
+  endif
+else
+  set nowrap
+  set textwidth=0
+endif
+
+" }}}
+" Whitespace {{{
+
 " Visualize spaces, tabs and end of line characters
 "
 set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
@@ -1030,9 +1110,30 @@ if g:show_invisibles_enabled
 endif
 
 " }}}
+" Misc {{{
+
+" Disable audio and visualbell alerts entirely when scrolling beyond file lines
+" or pressing escape in normal mode
+"
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" Change the terminal's title
+"   Kind of neat, but doesn't really do much
+set title
+
+" Gui settings (MacVim or gVim)
+"
+set guioptions = " No scroll bars
+
+set hidden  " allow buffer switching without saving
+
+" }}}
+
+" }}}
 " Utility {{{
 
-" Visul autocomplete for command menu
+" Visual autocomplete for command menu
 " Use tab to autocomplete
 "
 set wildmenu
@@ -1040,6 +1141,7 @@ set wildmenu
 " In many terminal emulators the mouse works just fine. By enabling it you can
 " position the cursor, Visually select and scroll with the mouse.
 if has('mouse')
+  " a: Enable mouse in ALL modes
   set mouse=a
 endif
 
@@ -1049,6 +1151,9 @@ set history=200
 
 " }}}
 " Vimrc Organization {{{
+
+" Folds everything by default in vimrc only.
+" Folds are determined by {{{}}} markers
 
 " Set modelines to parse to 1
 " This is normally dangerous to do for security reasons, but is necessary for
