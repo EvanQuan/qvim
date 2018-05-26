@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.6.1
+" Version: 1.6.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -307,14 +307,14 @@ noremap Q gq
 
 if has("terminal")
   " in-editor terminal only works with some terminals
-  " Horizontal split
-  noremap <leader>ht :vertical terminal <C-m>
   " Vertical split
-  noremap <leader>vt :terminal <C-m>
+  noremap <leader>vt :vertical terminal <C-m>
+  " Horizontal split
+  noremap <leader>ht :terminal <C-m>
 else
-  " Echo to user that terminal is not available
-  noremap <leader>ht :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
-  noremap <leader>vt :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
+  " Default to shell when terminal is not available
+  noremap <leader>vt :shell <C-m>
+  noremap <leader>ht :shell <C-m>
 endif
 " There is a terminal which is available for earlier versions of Vim,
 " which opens the terminal in a new buffer.
@@ -655,18 +655,19 @@ nnoremap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 " }}}
 " Visual {{{
 
-" Manually toggle tab, space and EOL visibility
+" Toggle tab, space and EOL visibility
 function! ToggleWhitespace() abort
-set list!
-if &list
-  echo "-- Whitespace VISIBLE --"
-else
-  echo "-- Whitespace INVISIBLE --"
-end
+  set list!
+  if &list
+    echo "-- Whitespace VISIBLE --"
+  else
+    echo "-- Whitespace INVISIBLE --"
+  end
 endfunction
 noremap <leader>tw :call ToggleWhitespace()<CR>
 
 " Refresh syntax highlighting in case it gets messed up
+"
 "
 nnoremap <leader>rh <ESC>:execute 'colo' colors_name<cr>:syntax sync fromstart<cr>
 
@@ -1179,7 +1180,7 @@ if has('autocmd')
   autocmd InsertEnter * :set number norelativenumber
   " Hybrid relative number on NORMAL and VISUAL modes
   "
-  autocmd InsertLeave * :set relativenumber 
+  autocmd InsertLeave * :set relativenumber
 endif
 
 " }}}
