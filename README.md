@@ -1,24 +1,19 @@
 My Vim Configurations
 ==============
-These are the current Vim settings I'm using. It uses Atom's One Dark
-color scheme (alternatively Solarized, if enabled in the settings) and
-has some common plugins for ease of use.
+These are the current Vim settings I'm using.
 
 Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
     - [Settings](#settings)
-    - [Powerline](#powerline)
 3. [Updating](#updating)
 4. [Color Schemes](#color-schemes)
 5. [Plugins](#plugins)
 
 Why Use This?
 -----------
-You shouldn't. There are many more developed Vim config files out there on
-***thyne intertoobz*** that have been iterated on over the years by people who
-actually know what they're doing.
+You shouldn't, so don't.
 
 Installation
 -----------
@@ -76,18 +71,6 @@ Create a `settings.vim` file into your `~/.vim` directory by copying `template_s
 cp ~/.vim/template_settings.vim ~/.vim/settings.vim
 ```
 It will **NOT** be tracked by git, allowing its settings to be specific to each machine:
-
-### Powerline
-Lightline uses powerline for the separator and subseparator symbols. If the
-separators and subseparators render with `separators_enabled`, but not
-the correct size, or are shifted upwards:
-
-1. If on Mac and using iTerm2, go to
-```
-iTerm2 -> Preferences -> Profiles -> Text -> Use a different font for non-ASCII text
-```
-and change the non-ASCII font to one of the various powerline fonts of the
-same size as ASCII font. Currently, I have it set to `ProFont for Powerline`.
 
 Updating
 --------

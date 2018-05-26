@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.5.0
+" Version: 1.6.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -123,17 +123,21 @@ endif
 " Folding {{{
 
 " Enable folding
+"
 set foldenable
+
 " Starting fold level for opening a new buffer. If it is set to 0, all folds
 " will be closed. Setting it ti 99 would guarantee folds are always open. So,
 " setting it to 10 here ensure that only very nested blocks of code are folded
 " when opening a buffer.
+"
+
 set foldlevelstart=10  " open most fold by default
 " Folds can be nested. Setting a max on the number of folds guards against too
 " many folds.
+"
 set foldnestmax=10 " 10 nested fold max
-" space open/closes folds
-nnoremap <space> za
+
 " This tells Vim to fold based on indentation.Other acceptable values are:
 " marker: Folds symbols {}
 "   Java, C, C++
@@ -144,6 +148,7 @@ nnoremap <space> za
 " syntax: syntax highlighting items specify folds
 " diff:   fold text that is not changed
 " Run :help foldmethod for more details
+"
 set foldmethod=indent
 
 " }}}
@@ -151,32 +156,38 @@ set foldmethod=indent
 
 " Default {{{
 
-" 4-space soft tabs
+" Describes how automatic formatting is done.
 "
 set formatoptions=tcqrn1
+
+" 4-space soft tabs
+"
 set tabstop=4 " 2
 set shiftwidth=4 " 2
 set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
+" Insert tabs on the start of a line according to shiftwidth, not tabstop
+set smarttab
 
 " }}}
 " Language-Specific {{{
 
-" 2-space soft tabs
-"
-autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+if has('autocmd')
+  " 2-space soft tabs
+  "
+  autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  " 2-space hard tabs
+  "
+  autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
+  autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
+  " 8-space hard tabs
+  "
+  autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
+endif
 
-" 2-space hard tabs
-"
-autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
-autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
-
-" 8-space hard tabs
-"
-autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 
 " }}}
 " Auto-Detect {{{
@@ -202,7 +213,9 @@ function TabsOrSpaces()
 endfunction
 
 " Call the function after opening a buffer
-autocmd BufReadPost * call TabsOrSpaces()
+if has('autocmd')
+  autocmd BufReadPost * call TabsOrSpaces()
+endif
 
 " }}}
 
@@ -210,6 +223,7 @@ autocmd BufReadPost * call TabsOrSpaces()
 " Shortcuts {{{
 
 " Hard Mode {{{
+" Disable keys that you should not be using at all
 
 " Arrow keys
 " Normal
@@ -249,27 +263,41 @@ vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
 let mapleader = ","
 
 " }}}
+" Editing {{{
+
+" Replaces the word under cursor with whatever you want
+"   Similar to ciw
+" Repeat with . replaces FOLLOWING occurrences of that word
+nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+" Repeat with . replaces PREVIOUS occurences of that word
+nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+
+" Similar with delete diw
+nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dg
+
+" Easier to enter command mode - don't need to hold shift
+"
+noremap ; :
+
+" }}}
+" Folding {{{
+
+" Toggle open/close folds
+"
+nnoremap <space> za
+
+" Change folder settings
+"
+nnoremap <leader>ff :set fdm=manual<cr>
+nnoremap <leader>fi :set fdm=indent<cr>
+nnoremap <leader>fm :set fdm=marker<cr>
+nnoremap <leader>fs :set fdm=syntax<cr>
+nnoremap <leader>fd :set fdm=diff<cr>"
+" }}}
 " Movement {{{
 
-" Between Windows {{{
-
-" Move between windows with Ctrl-standard directions keys
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-
-" Go to tab :by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+" Buffers {{{
 
 " Move between buffers
 "
@@ -280,6 +308,43 @@ map gn :bn<cr>
 " Prevous buffer
 "
 map gp :bp<cr>
+
+" }}}
+" Windows {{{
+
+" Split open new window
+"
+" Horizontal
+noremap <leader>hs :split<space>
+" Vertical
+noremap <leader>vs :vsplit<space>
+
+" Easy window navigation
+" Move between windows with Ctrl-standard directions keys
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+
+" }}}
+" Tabs {{{
+
+" Open new tab
+"
+noremap <leader>nt :tabe <C-m>
+
+" Go to tab :by number
+"
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
 
 " }}}
 " Within Window {{{
@@ -299,6 +364,13 @@ set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
+" Move to the beginning of the line
+"
+nnoremap H ^
+" Move to the end of the line
+"
+nnoremap L $
+
 " }}}
 
 " }}}
@@ -315,6 +387,55 @@ vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
 
 " }}}
+" Pasting {{{
+
+" Similar to yanking
+" Downside: There is lag for normal p
+
+"Normal - to avoid lag
+"
+nnoremap pp p
+
+"Words
+"
+nnoremap  paw "_dawP
+nnoremap  piw "_diwP
+
+" Braces
+"
+nnoremap  pi{ "_di{P
+nnoremap  pi} "_di}P
+nnoremap  piB "_di{P
+nnoremap  piB "_di}P
+
+" Parens
+"
+nnoremap  pi( "_di(P
+nnoremap  pi) "_di)P
+nnoremap  pib "_di(P
+nnoremap  pib "_di)P
+
+" Quotes
+"
+nnoremap  pi' "_di'P
+nnoremap  pi" "_di"P"
+nnoremap  piq "_di"P"
+
+" Parens
+"
+nnoremap  pi( "_di(P
+nnoremap  pi) "_di)P
+nnoremap  pib "_di(P
+nnoremap  pib "_di)P
+
+" Greater/less than
+nnoremap  pi< "_di<P
+nnoremap  pi> "_di>P
+
+" Tag
+nnoremap  pit "_ditP
+
+" }}}
 " Plugins {{{
 
 " nerdtree {{{
@@ -323,58 +444,58 @@ vnoremap <Tab> >gv
 " autocmd VimEnter * NERDTree " tree is open on start
 " autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
 "
-nmap <silent> <C-\> :NERDTreeToggle<CR>
+nnoremap <silent> <C-\> :NERDTreeToggle<CR>
 
 " }}}
 " vim-javacomplete2 {{{
 " Repository: https://github.com/artur-shaik/vim-javacomplete2
 
 " Enable smart (trying to guess import option) inserting class imports with F4
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+inoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 " To enable usual (will ask for import option) inserting class imports with F5
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
+nnoremap <F5> <Plug>(JavaComplete-Imports-Add)
+inoremap <F5> <Plug>(JavaComplete-Imports-Add)
 " To add all missing imports with F6
-nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+nnoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+inoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 " To remove all missing imports with F7
-nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
-nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
 
-imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
-imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
-imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
 
-nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
-imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
-nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
 
-imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
-imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
-imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-workspace {{{
@@ -396,6 +517,10 @@ nnoremap <leader>w :ToggleWorkspace<CR>
 " Type ":help \v" for more information
 nnoremap / /\v
 vnoremap / /\v
+
+" Going to next/previous search centers cursor
+map n nzz
+map N Nzz
 
 " highlight matches
 "
@@ -447,16 +572,16 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
 " Open vimrc anywhere
 "
-nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
+nnoremap <silent> <leader>ev :e ~/.vim/vimrc<CR>
 
 " Reload vimrc anywhere
 " ISSUE: Lightline does not open correctly
 "
-nmap <silent> <leader>rv :so ~/.vim/vimrc<CR>
+nnoremap <silent> <leader>rv :so ~/.vim/vimrc<CR>
 
 " Open settings.vim anywhere
 "
-nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
+nnoremap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
 
 " }}}
@@ -471,28 +596,19 @@ nmap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 "
 if g:escape_alternative_enabled
   " INSERT and REPLACE
-  imap jk <ESC>hl
+  inoremap jk <ESC>hl
   " VISUAL
-  vmap jk <ESC>hl
+  vnoremap jk <ESC>hl
 endif
 
 " Use ":" for Ex mode instead, use Q for formatting
 "
-map Q gq
+noremap Q gq
 
 
-" Open new tab
-noremap <leader>nt :tabe <C-m>
-
-" Split open new window
-"
-" Horizontal
-noremap <leader>hs :split<space>
-" Vertical
-noremap <leader>vs :vsplit<space>
 
 " Manually toggle tab, space and EOL visibility
-function! ToggleWhitespace()
+function! ToggleWhitespace() abort
 set list!
 if &list
   echo "-- Whitespace VISIBLE --"
@@ -500,12 +616,12 @@ else
   echo "-- Whitespace INVISIBLE --"
 end
 endfunction
-map <leader>tw :call ToggleWhitespace()<CR>
+noremap <leader>tw :call ToggleWhitespace()<CR>
 
 " Toggle between hard and sort tabs
 " Hard tabs sizes are consistent with soft tabs sizes for each file type
 "
-function! ToggleTabs()
+function! ToggleTabs() abort
   set expandtab!
   if &expandtab
     echo "-- Soft tabs enabled (SPACES) --"
@@ -513,14 +629,22 @@ function! ToggleTabs()
     echo "-- Hard tabs enabled (TABS) --"
   endif
 endfunction
-map <leader>tt :call ToggleTabs()<CR>
+noremap <leader>tt :call ToggleTabs()<CR>
 
 " Close current buffer
 "
-map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+noremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 
 " Delete buffer
-map gd :bd<cr> 
+noremap gd :bdelete<cr>
+
+" cd vim into the directory of the current buffer
+nnoremap <leader>cd :cd %:p:h<CR>
+
+" Refresh syntax highlighting in case it gets messed up
+"
+nnoremap <leader>rh <ESC>:execute 'colo' colors_name<cr>:syntax sync fromstart<cr>
+
 
 " }}}
 " Terminal {{{
@@ -528,7 +652,7 @@ map gd :bd<cr>
 if has("terminal")
   " in-editor terminal only works with some terminals
   " Horizontal split
-  noremap <leader>ht :vert terminal <C-m>
+  noremap <leader>ht :vertical terminal <C-m>
   " Vertical split
   noremap <leader>vt :terminal <C-m>
 else
@@ -539,7 +663,7 @@ endif
 " There is a terminal which is available for earlier versions of Vim,
 " which opens the terminal in a new buffer.
 " It can be closed with "exit" or "Ctrl-D".
-noremap <leader>b :sh <C-m>
+noremap <leader>b :shell <C-m>
 
 " }}}
 
@@ -693,20 +817,20 @@ endif " else no colorscheme
 
 " File name displays its path relative to wherever vim was opened
 "
-function! FilenameRelativePath()
+function! FilenameRelativePath() abort
   return expand('%')
 endfunction
 
-function! MyModified()
+function! MyModified() abort
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable
           \ ? '' : '-'
 endfunction
 
-function! MyReadonly()
+function! MyReadonly() abort
   return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '<U+2B64>' : ''
 endfunction
 
-function! MyTabFilename(n)
+function! MyTabFilename(n) abort
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   let bufnum = buflist[winnr - 1]
@@ -728,7 +852,7 @@ function! MyTabFilename(n)
     return strlen(bufname) ? bufname : '[No Name]'
   endif
 endfunction
-function! MyFilename()
+function! MyFilename() abort
   let n = tabpagenr()
   let buflist = tabpagebuflist(n)
   let winnr = tabpagewinnr(n)
@@ -755,7 +879,7 @@ endfunction
 " Special symbols enhance lightline appearance
 "
 if g:special_symbols_enabled
-  function! MyFugitive()
+  function! MyFugitive() abort
     try
       if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
         let mark = ' '
@@ -768,7 +892,7 @@ if g:special_symbols_enabled
     return ''
   endfunction
 else
-  function! MyFugitive()
+  function! MyFugitive() abort
     try
       if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
         let mark = ''
@@ -783,23 +907,23 @@ endif
 
 " File format only shows if window width is over 70 columns to avoid clutter
 "
-function! MyFileformat()
+function! MyFileformat() abort
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
 " File type only shows if window width is over 70 columns to avoid clutter
 "
-function! MyFiletype()
+function! MyFiletype() abort
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 " File encoding only shows if window width is over 70 columns to avoid clutter
 "
-function! MyFileencoding()
+function! MyFileencoding() abort
     return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
-function! MyMode()
+function! MyMode() abort
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
     \ fname == 'ControlP' ? 'CtrlP' :
@@ -812,7 +936,7 @@ function! MyMode()
     \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-function! CtrlPMark()
+function! CtrlPMark() abort
   if expand('%:t') =~ 'ControlP'
     call lightline#link('iR'[g:lightline.ctrlp_regex])
     return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
@@ -827,7 +951,7 @@ let g:ctrlp_status_func = {
   \ 'prog': 'CtrlPStatusFunc_2',
   \ }
 
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked) abort
   let g:lightline.ctrlp_regex = a:regex
   let g:lightline.ctrlp_prev = a:prev
   let g:lightline.ctrlp_item = a:item
@@ -835,7 +959,7 @@ function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
   return lightline#statusline(0)
 endfunction
 
-function! CtrlPStatusFunc_2(str)
+function! CtrlPStatusFunc_2(str) abort
     return lightline#statusline(0)
 endfunction
 
@@ -847,10 +971,12 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
 endfunction
 
 augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost * call s:syntastic()
+  if has('autocmd')
+    autocmd!
+    autocmd BufWritePost * call s:syntastic()
+  endif
 augroup END
-function! s:syntastic()
+function! s:syntastic() abort
   SyntasticCheck
   call lightline#update()
 endfunction
@@ -945,7 +1071,9 @@ set updatetime=100 " [ms] Default: 4000
 " vim-javacomplete2 {{{
 " Repository: https://github.com/artur-shaik/vim-javacomplete2
 
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+if has('autocmd')
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+endif
 
 " }}}
 " vim-togglecursor {{{
@@ -1008,7 +1136,9 @@ if g:cursor_color
     silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
   endif
   " Reset cursor to original when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  if has('autocmd')
+    autocmd VimLeave * silent !echo -ne "\033]112\007"
+  endif
 endif
 " TODO: Cursor changes color depending on the mode
 " These get overriden by vim-togglecursor settings
@@ -1026,9 +1156,9 @@ endif
 " }}}
 " Encoding {{{
 
-" UTF-8
 set encoding=utf-8
 set fileencoding=utf-8
+set fileencodings=utf-8
 scriptencoding utf-8
 
 " }}}
@@ -1038,12 +1168,14 @@ scriptencoding utf-8
 "
 set number relativenumber
 "
-" Absolute number on INSERT and REPLACE modes
-"
-autocmd InsertEnter * :set number norelativenumber
-" Hybrid relative number on NORMAL and VISUAL modes
-"
-autocmd InsertLeave * :set relativenumber 
+if has('autocmd')
+  " Absolute number on INSERT and REPLACE modes
+  "
+  autocmd InsertEnter * :set number norelativenumber
+  " Hybrid relative number on NORMAL and VISUAL modes
+  "
+  autocmd InsertLeave * :set relativenumber 
+endif
 
 " }}}
 " Status Line {{{
@@ -1073,7 +1205,7 @@ set showcmd
 "   0: never
 "   1: only if there are at least two tab pages
 "   2: always
-" 
+"
 set showtabline=2
 
 " do not show default INSERT mode below since this is what lightline does
@@ -1101,11 +1233,16 @@ endif
 " }}}
 " Whitespace {{{
 
-" Visualize spaces, tabs and end of line characters
+" Visualize whitespace characters
 "
-set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·
+set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·,nbsp:‡
+
+" Highlight trailing spaces for increased visibility
+"
+match ErrorMsg '\s\+$'
+
+" Only show whitespace if enabled
 if g:show_invisibles_enabled
-  " Whitespace is visible
   set list
 endif
 
@@ -1116,11 +1253,16 @@ endif
 " or pressing escape in normal mode
 "
 set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 
-" Change the terminal's title
-"   Kind of neat, but doesn't really do much
+" When in Vim, change the terminal's title to titlestring
 set title
+" Set title to this when exiting Vim only if it cannot be retrieved
+set titleold="Terminal"
+" path to file
+set titlestring=%F
 
 " Gui settings (MacVim or gVim)
 "
@@ -1145,9 +1287,18 @@ if has('mouse')
   set mouse=a
 endif
 
-" Keep 200 lines of command line history
+" Keep 1000 lines of command line history
 "
-set history=200
+set history=1000
+
+" The maximum number of changes that can be undone.
+"
+set undolevels=1000
+
+" Copy indent from current line when starting a new line
+set autoindent
+" Copy the previous indentation on autoindenting
+set copyindent
 
 " }}}
 " Vimrc Organization {{{
