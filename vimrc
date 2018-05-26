@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.6.0
+" Version: 1.6.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -295,6 +295,33 @@ nnoremap <leader>fm :set fdm=marker<cr>
 nnoremap <leader>fs :set fdm=syntax<cr>
 nnoremap <leader>fd :set fdm=diff<cr>"
 " }}}
+" Formatting {{{
+
+" Use ":" for Ex mode instead, use Q for formatting
+"
+noremap Q gq
+
+
+" }}}
+" Terminal {{{
+
+if has("terminal")
+  " in-editor terminal only works with some terminals
+  " Horizontal split
+  noremap <leader>ht :vertical terminal <C-m>
+  " Vertical split
+  noremap <leader>vt :terminal <C-m>
+else
+  " Echo to user that terminal is not available
+  noremap <leader>ht :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
+  noremap <leader>vt :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
+endif
+" There is a terminal which is available for earlier versions of Vim,
+" which opens the terminal in a new buffer.
+" It can be closed with "exit" or "Ctrl-D".
+noremap <leader>b :shell <C-m>
+
+" }}}
 " Movement {{{
 
 " Buffers {{{
@@ -308,6 +335,13 @@ map gn :bn<cr>
 " Prevous buffer
 "
 map gp :bp<cr>
+
+" Close current buffer
+"
+noremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
+
+" Delete buffer
+noremap gd :bdelete<cr>
 
 " }}}
 " Windows {{{
@@ -347,6 +381,12 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " }}}
+" Session {{{
+
+" cd vim into the directory of the current buffer
+nnoremap <leader>cd :cd %:p:h<CR>
+
+" }}}
 " Within Window {{{
 
 " Move up/down by visual lines instead of by 'literal' lines
@@ -371,7 +411,22 @@ nnoremap H ^
 "
 nnoremap L $
 
+" Alternative to ESC key
+" Not applied to NORMAL mode due to "j" and "k" being used in movement
+" Normally, pressing ESC moves the cursor left by 1.
+" Mapping a key to <ESC> does not do this.
+" Applying h (move left) moves the cursor left by 2 so hl (left then right),
+" makes the behaviour the same as regular ESC
+"
+if g:escape_alternative_enabled
+  " INSERT and REPLACE
+  inoremap jk <ESC>hl
+  " VISUAL
+  vnoremap jk <ESC>hl
+endif
+
 " }}}
+"
 
 " }}}
 " Indentation {{{
@@ -385,6 +440,19 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
+
+" Toggle between hard and sort tabs
+" Hard tabs sizes are consistent with soft tabs sizes for each file type
+"
+function! ToggleTabs() abort
+  set expandtab!
+  if &expandtab
+    echo "-- Soft tabs enabled (SPACES) --"
+  else
+    echo "-- Hard tabs enabled (TABS) --"
+  endif
+endfunction
+noremap <leader>tt :call ToggleTabs()<CR>
 
 " }}}
 " Pasting {{{
@@ -585,27 +653,7 @@ nnoremap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
 
 " }}}
-" Misc {{{
-
-" Alternative to ESC key
-" Not applied to NORMAL mode due to "j" and "k" being used in movement
-" Normally, pressing ESC moves the cursor left by 1.
-" Mapping a key to <ESC> does not do this.
-" Applying h (move left) moves the cursor left by 2 so hl (left then right),
-" makes the behaviour the same as regular ESC
-"
-if g:escape_alternative_enabled
-  " INSERT and REPLACE
-  inoremap jk <ESC>hl
-  " VISUAL
-  vnoremap jk <ESC>hl
-endif
-
-" Use ":" for Ex mode instead, use Q for formatting
-"
-noremap Q gq
-
-
+" Visual {{{
 
 " Manually toggle tab, space and EOL visibility
 function! ToggleWhitespace() abort
@@ -618,52 +666,9 @@ end
 endfunction
 noremap <leader>tw :call ToggleWhitespace()<CR>
 
-" Toggle between hard and sort tabs
-" Hard tabs sizes are consistent with soft tabs sizes for each file type
-"
-function! ToggleTabs() abort
-  set expandtab!
-  if &expandtab
-    echo "-- Soft tabs enabled (SPACES) --"
-  else
-    echo "-- Hard tabs enabled (TABS) --"
-  endif
-endfunction
-noremap <leader>tt :call ToggleTabs()<CR>
-
-" Close current buffer
-"
-noremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
-
-" Delete buffer
-noremap gd :bdelete<cr>
-
-" cd vim into the directory of the current buffer
-nnoremap <leader>cd :cd %:p:h<CR>
-
 " Refresh syntax highlighting in case it gets messed up
 "
 nnoremap <leader>rh <ESC>:execute 'colo' colors_name<cr>:syntax sync fromstart<cr>
-
-
-" }}}
-" Terminal {{{
-
-if has("terminal")
-  " in-editor terminal only works with some terminals
-  " Horizontal split
-  noremap <leader>ht :vertical terminal <C-m>
-  " Vertical split
-  noremap <leader>vt :terminal <C-m>
-else
-  " Echo to user that terminal is not available
-  noremap <leader>ht :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
-  noremap <leader>vt :echo "-- Terminal splitting is not avaible in this version of Vim. Use :sh instead. --"<C-m>
-endif
-" There is a terminal which is available for earlier versions of Vim,
-" which opens the terminal in a new buffer.
-" It can be closed with "exit" or "Ctrl-D".
-noremap <leader>b :shell <C-m>
 
 " }}}
 
