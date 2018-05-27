@@ -738,9 +738,9 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 let g:haskell_indent_if = 4 " 3
 let g:haskell_indent_case = 4 " 2
 let g:haskell_indent_let = 4 " 4
-let g:haskell_indent_where = 4 " 6
-let g:haskell_indent_before_where = 4 " 2
-let g:haskell_indent_after_bare_where = 4 " 2
+let g:haskell_indent_where = 2 " 6
+let g:haskell_indent_before_where = 2 " 2
+let g:haskell_indent_after_bare_where = 2 " 2
 let g:haskell_indent_do = 4 " 3
 let g:haskell_indent_guard = 4 " 2
 "}}}
