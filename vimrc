@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.8.0
+" Version: 1.8.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1398,7 +1398,7 @@ set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·,nbsp:‡
 match ErrorMsg '\s\+$'
 
 " Only show whitespace if enabled
-if g:show_invisibles_enabled
+if g:show_whitespace
   set list
 endif
 
