@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.8.1
+" Version: 1.9.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -297,6 +297,21 @@ nnoremap ciq ci"
 nnoremap caQ ca'
 nnoremap ciQ ci'
 
+" Until end of Line
+"
+nnoremap cL c$
+
+" From start of Line
+"
+nnoremap cH c^
+
+" Next Line
+"
+nnoremap col jS
+
+" Previous Line
+"
+nnoremap cOl kS
 
 " }}}
 " Delete {{{
@@ -321,6 +336,22 @@ nnoremap diq di"
 nnoremap daQ da'
 nnoremap diQ di'
 
+" Until end of Line
+"
+nnoremap dL d$
+
+" From start of Line
+"
+nnoremap dH d^
+
+" Next Line
+"
+nnoremap dol jdd
+
+" Previous Line
+"
+nnoremap dOl kdd
+
 " }}}
 " Ex-mode {{{
 
@@ -333,21 +364,21 @@ noremap ; :
 
 " These potentially conflicts with the default 's' keybinding for substitute
 
-" All In File
+" Global File
 "
-nnoremap saif :%s//g<Left><Left>
+nnoremap sgf :%s//g<Left><Left>
 
-" First In File
+" In File
 "
-nnoremap sfif :%s/
+nnoremap sif :%s/
 
-" All In Line
+" Global Line
 "
-nnoremap sail :s//g<Left><Left>
+nnoremap sgl :s//g<Left><Left>
 
-" First In Line
+" In Line
 "
-nnoremap sfil :s/
+nnoremap sil :s/
 
 " }}}
 " Paste {{{
@@ -432,6 +463,14 @@ nnoremap viq vi"
 nnoremap vaQ va'
 nnoremap viQ vi'
 
+" Next Line
+"
+nnoremap vol jV
+
+" Previous Line
+"
+nnoremap vOl kV
+
 " }}}
 " Yank {{{
 
@@ -451,6 +490,22 @@ nnoremap yiq yi"
 "
 nnoremap yaQ ya'
 nnoremap yiQ yi'
+
+" Until end of Line
+"
+nnoremap yL y$
+
+" From start of Line
+"
+nnoremap yH y^
+
+" Next Line
+"
+nnoremap yol jyy
+
+" Previous Line
+"
+nnoremap yOl kyy
 
 " }}}
 
