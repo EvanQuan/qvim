@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.9.0
+" Version: 1.9.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -172,7 +172,16 @@ set softtabstop=4 " 2
 set expandtab " sets tabs to spaces
 set noshiftround
 " Insert tabs on the start of a line according to shiftwidth, not tabstop
+"
 set smarttab
+
+" Copy indent from current line when starting a new line
+"
+set autoindent
+
+" Copy the previous indentation on autoindenting
+"
+set copyindent
 
 " }}}
 " Language-Specific {{{
@@ -523,13 +532,13 @@ nnoremap <leader>fi :set fdm=indent<cr>
 nnoremap <leader>fm :set fdm=marker<cr>
 nnoremap <leader>fs :set fdm=syntax<cr>
 nnoremap <leader>fd :set fdm=diff<cr>"
+
 " }}}
 " Formatting {{{
 
 " Use ":" for Ex mode instead, use Q for formatting
 "
 noremap Q gq
-
 
 " }}}
 " Terminal {{{
@@ -655,7 +664,6 @@ if g:escape_alternative_enabled
 endif
 
 " }}}
-"
 
 " }}}
 " Indentation {{{
@@ -769,26 +777,6 @@ vnoremap / /\v
 " Going to next/previous search centers cursor
 map n nzz
 map N Nzz
-
-" highlight matches
-"
-set hlsearch
-
-" Search as characters are entered
-"
-set incsearch
-
-" Ignore case when searching by default...
-"
-set ignorecase
-
-" ...unless case is specified, in which case is not ignored
-"
-set smartcase
-
-" Matching bracket-like characters highlighted
-"
-set showmatch
 
 " clear search highlighting
 "
@@ -1462,17 +1450,21 @@ endif
 " }}}
 " Utility {{{
 
+" Autocomplete {{{
+
 " Visual autocomplete for command menu
 " Use tab to autocomplete
 "
 set wildmenu
 
-" In many terminal emulators the mouse works just fine. By enabling it you can
-" position the cursor, Visually select and scroll with the mouse.
-if has('mouse')
-  " a: Enable mouse in ALL modes
-  set mouse=a
-endif
+" }}}
+" Buffer {{{
+
+" Allow buffer switching without saving
+set hidden
+
+" }}}
+" History {{{
 
 " Keep 1000 lines of command line history
 "
@@ -1482,16 +1474,41 @@ set history=1000
 "
 set undolevels=1000
 
-" Copy indent from current line when starting a new line
-"
-set autoindent
 
-" Copy the previous indentation on autoindenting
-"
-set copyindent
+" }}}
+" Mouse {{{
 
-" Allow buffer switching without saving
-set hidden
+" In many terminal emulators the mouse works just fine. By enabling it you can
+" position the cursor, Visually select and scroll with the mouse.
+if has('mouse')
+  " a: Enable mouse in ALL modes
+  set mouse=a
+endif
+
+" }}}
+" Searching {{{
+
+" highlight matches
+"
+set hlsearch
+
+" Search as characters are entered
+"
+set incsearch
+
+" Ignore case when searching by default...
+"
+set ignorecase
+
+" ...unless case is specified, in which case is not ignored
+"
+set smartcase
+
+" Matching bracket-like characters highlighted
+"
+set showmatch
+
+" }}}
 
 " }}}
 " Vimrc Organization {{{
