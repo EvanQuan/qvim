@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.7.0
+" Version: 1.8.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -12,14 +12,16 @@
 " ============================================================================
 " Initial Setup {{{
 
-"   The first steps necessary to set up all the configurations
+" The first steps necessary to set up all the configurations
 
 " Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
+"
 source ~/.vim/settings.vim
 
-" Use Vim settings, rathan than  Vi settings. 
-" This must be efirst because it changes other options as a side effect.
+" Use Vim settings, rathan than  Vi settings.
+" This must be first because it changes other options as a side effect.
+"
 set nocompatible
 
 " Helps force plugins to load correctly when it is turned back on below
@@ -29,7 +31,9 @@ filetype off
 " Load plugins with pathogen
 "
 execute pathogen#infect()
+
 " Help tags are loaded from all packages
+"
 Helptags
 
 " For plugins to load correctly
@@ -58,7 +62,7 @@ if has('autocmd')
 
   augroup END
 
-endif " has('autocmd')
+endif
 
 " }}} return
 " Appearance {{{
@@ -194,6 +198,7 @@ endif
 
 " As a priority, soft or hard tab indentation is determined by what is already
 " being used in the current file.
+"
 function TabsOrSpaces()
   " Determines whether to use spaces or tabs on the current buffer.
   if getfsize(bufname("%")) > 256000
@@ -223,9 +228,11 @@ endif
 " Shortcuts {{{
 
 " Hard Mode {{{
+
 " Disable keys that you should not be using at all
 
 " Arrow keys
+"
 " Normal
 nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
@@ -243,6 +250,7 @@ vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 
 " Page up and down
+"
 " Normal
 nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
 nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
@@ -265,6 +273,8 @@ let mapleader = ","
 " }}}
 " Editing {{{
 
+" Change {{{
+
 " Replaces the word under cursor with whatever you want
 "   Similar to ciw
 " Repeat with . replaces FOLLOWING occurrences of that word
@@ -272,13 +282,177 @@ nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 " Repeat with . replaces PREVIOUS occurences of that word
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 
+" Around/In Line
+"
+nnoremap cal S
+nnoremap cil S
+
+" Around/In Double Quotes
+"
+nnoremap caq ca"
+nnoremap ciq ci"
+
+" Around/In Single Quotes
+"
+nnoremap caQ ca'
+nnoremap ciQ ci'
+
+
+" }}}
+" Delete {{{
+
 " Similar with delete diw
+"
 nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dg
+
+" Around/In Line
+"
+nnoremap dal dd
+nnoremap dil S<ESC>
+
+" Around/In Double Quotes
+"
+nnoremap daq da"
+nnoremap diq di"
+
+" Around/In Single Quotes
+"
+nnoremap daQ da'
+nnoremap diQ di'
+
+" }}}
+" Ex-mode {{{
 
 " Easier to enter command mode - don't need to hold shift
 "
 noremap ; :
+
+" }}}
+" Substitute {{{
+
+" These potentially conflicts with the default 's' keybinding for substitute
+
+" All In File
+"
+nnoremap saif :%s//g<Left><Left>
+
+" First In File
+"
+nnoremap sfif :%s/
+
+" All In Line
+"
+nnoremap sail :s//g<Left><Left>
+
+" First In Line
+"
+nnoremap sfil :s/
+
+" }}}
+" Paste {{{
+
+" Similar to yanking
+" Downside: There is lag for normal p
+
+" Normal - to avoid lag
+"
+nnoremap pp p
+
+" Around/In Word
+"
+nnoremap paw "_dawP
+nnoremap piw "_diwP
+
+" Around/In Braces
+"
+nnoremap pi{ "_di{P
+nnoremap pi} "_di}P
+nnoremap piB "_di{P
+nnoremap piB "_di}P
+
+" Around/In Brackets
+"
+nnoremap pi[ "_di[P
+nnoremap pi] "_di]P
+
+" Around/In Double Quotes
+"
+nnoremap pa" "_da"P
+nnoremap paq "_da"P
+nnoremap pi" "_di"P
+nnoremap piq "_di"P
+
+" Around/In Single Quotes
+"
+nnoremap pa' "_da'P
+nnoremap paQ "_da'P
+nnoremap pi' "_di'P
+nnoremap piQ "_di"P
+
+" Parens
+"
+nnoremap pi( "_di(P
+nnoremap pi) "_di)P
+nnoremap pib "_di(P
+nnoremap pib "_di)P
+
+" Greater/less than
+nnoremap pi< "_di<P
+nnoremap pi> "_di>P
+
+" Tag
+"
+nnoremap pit "_ditP
+
+" Line
+"
+nnoremap pil "_ddP
+
+" }}}
+" Visual {{{
+
+" Around Line
+" Selects current line, but in Visual mode, not Visual-Line mode
+"
+nnoremap val ^v$
+
+" In Line
+" Selects currenet line, except for end-of-line character, in Visual mode
+"
+nnoremap vil ^v$h
+
+" Around/In Double Quotes
+"
+nnoremap vaq va"
+nnoremap viq vi"
+
+" Around/In Single Quotes
+"
+nnoremap vaQ va'
+nnoremap viQ vi'
+
+" }}}
+" Yank {{{
+
+" Around/In Line
+" Yanks whole line except for end-of-line character
+" Similar to yy
+"
+nnoremap yal Vy
+nnoremap yil $v^y
+
+"Around/In Double Quotes
+"
+nnoremap yaq ya"
+nnoremap yiq yi"
+
+"Around/In Single Quotes
+"
+nnoremap yaQ ya'
+nnoremap yiQ yi'
+
+" }}}
 
 " }}}
 " Folding {{{
@@ -455,55 +629,6 @@ endfunction
 noremap <leader>tt :call ToggleTabs()<CR>
 
 " }}}
-" Pasting {{{
-
-" Similar to yanking
-" Downside: There is lag for normal p
-
-"Normal - to avoid lag
-"
-nnoremap pp p
-
-"Words
-"
-nnoremap  paw "_dawP
-nnoremap  piw "_diwP
-
-" Braces
-"
-nnoremap  pi{ "_di{P
-nnoremap  pi} "_di}P
-nnoremap  piB "_di{P
-nnoremap  piB "_di}P
-
-" Parens
-"
-nnoremap  pi( "_di(P
-nnoremap  pi) "_di)P
-nnoremap  pib "_di(P
-nnoremap  pib "_di)P
-
-" Quotes
-"
-nnoremap  pi' "_di'P
-nnoremap  pi" "_di"P"
-nnoremap  piq "_di"P"
-
-" Parens
-"
-nnoremap  pi( "_di(P
-nnoremap  pi) "_di)P
-nnoremap  pib "_di(P
-nnoremap  pib "_di)P
-
-" Greater/less than
-nnoremap  pi< "_di<P
-nnoremap  pi> "_di>P
-
-" Tag
-nnoremap  pit "_ditP
-
-" }}}
 " Plugins {{{
 
 " nerdtree {{{
@@ -627,8 +752,6 @@ map <leader>d :DiffOrig<CR>
 " }}}
 " Replacing in file {{{
 
-nnoremap <leader>s :%s/
-
 " Remap autocomplete movement to allow j,k movement
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
@@ -653,7 +776,7 @@ nnoremap <silent> <leader>es :e ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
 
 " }}}
-" Visual {{{
+" Visibility {{{
 
 " Toggle tab, space and EOL visibility
 function! ToggleWhitespace() abort
@@ -1115,6 +1238,17 @@ let g:workspace_autosave_always = 0
 " }}}
 " UI Layout {{{
 
+" Alerts {{{
+
+" Disable audio and visualbell alerts entirely when scrolling beyond file lines
+" or pressing escape in normal mode
+"
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
+" }}}
 " Cursor {{{
 
 " GUI {{{
@@ -1166,6 +1300,12 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 scriptencoding utf-8
+
+" }}}
+" GUI {{{
+
+" No scroll bars
+set guioptions = " No scroll bars
 
 " }}}
 " Line Numbers {{{
@@ -1237,6 +1377,16 @@ else
 endif
 
 " }}}
+" Title {{{
+
+" When in Vim, change the terminal's title to titlestring
+set title
+" Set title to this when exiting Vim only if it cannot be retrieved
+set titleold="Terminal"
+" path to file
+set titlestring=%F
+
+" }}}
 " Whitespace {{{
 
 " Visualize whitespace characters
@@ -1251,30 +1401,6 @@ match ErrorMsg '\s\+$'
 if g:show_invisibles_enabled
   set list
 endif
-
-" }}}
-" Misc {{{
-
-" Disable audio and visualbell alerts entirely when scrolling beyond file lines
-" or pressing escape in normal mode
-"
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
-endif
-
-" When in Vim, change the terminal's title to titlestring
-set title
-" Set title to this when exiting Vim only if it cannot be retrieved
-set titleold="Terminal"
-" path to file
-set titlestring=%F
-
-" Gui settings (MacVim or gVim)
-"
-set guioptions = " No scroll bars
-
-set hidden  " allow buffer switching without saving
 
 " }}}
 
@@ -1302,9 +1428,15 @@ set history=1000
 set undolevels=1000
 
 " Copy indent from current line when starting a new line
+"
 set autoindent
+
 " Copy the previous indentation on autoindenting
+"
 set copyindent
+
+" Allow buffer switching without saving
+set hidden
 
 " }}}
 " Vimrc Organization {{{
@@ -1316,6 +1448,7 @@ set copyindent
 " This is normally dangerous to do for security reasons, but is necessary for
 " organizational folding for this file
 " Google "vim modeline vulnerability"
+"
 set modelines=1
 
 " }}}
