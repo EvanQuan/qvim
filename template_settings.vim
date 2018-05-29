@@ -1,13 +1,22 @@
 " ============================================================================
 " Name: settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.4.0
+" Version: 1.5.0
 "
 " Setting values affect vimrc.vim configuration.
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
 
+" Easy Mode {{{
+"   Optimizes certain settings if you are going to use Vim non-modally.
+"   It is recommended to enable this if you are running eVim.
+"   0: Disabled
+"     Vim works modally as normal
+"   1: Enabled
+"     Hard mode is disabled
+" }}}
+let g:easy_mode = 0
 " True Color (24-bit) {{{
 "   Many terminals don't support True color and will screw up some color
 "   schemes if it is enabled.

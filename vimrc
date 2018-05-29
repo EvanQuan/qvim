@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.10.0
+" Version: 1.10.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -239,36 +239,39 @@ endif
 " Hard Mode {{{
 
 " Disable keys that you should not be using at all
+" If easy mode is activated, then hard mode is disabled.
 
-" Arrow keys
-"
-" Normal
-nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-" Insert
-inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-" Visual
-vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+if !g:easy_mode
+  " Arrow keys
+  "
+  " Normal
+  nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  " Insert
+  inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+  inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+  inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+  inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+  " Visual
+  vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
 
-" Page up and down
-"
-" Normal
-nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
-" Insert
-inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
-inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
-" Visual
-vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+  " Page up and down
+  "
+  " Normal
+  nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+  nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+  " Insert
+  inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
+  inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
+  " Visual
+  vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
+  vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+endif
 
 " }}}
 " Leader Key {{{
@@ -1464,6 +1467,40 @@ set wildmenu
 
 " Allow buffer switching without saving
 set hidden
+
+" }}}
+" Easy Mode {{{
+
+if g:easy_mode
+
+  " Default mode is insert mode
+  set insertmode
+
+  " Use the system clipboard for copy and pasting
+  set clipboard=unnamed
+
+  " Pasting from clipboard
+  " inoremap <C-v> <ESC>"+pa
+  " noremap <C-v>"+pa
+
+  " Copying to clipboard
+  " NOTE: NOT WORKING
+  " vnoremap <C-c> <ESC>"+yi
+
+  " Undo
+  " inoremap <C-z> <ESC>ua
+
+  " Redo
+  " inoremap <C-y> <ESC><C-r>
+
+  " Save file
+  " NOTE: NOT WORKING
+  " inoremap <C-s> <ESC>:w <C-m>
+
+  " Quit file
+  " NOTE: NOT WORKING
+  " inoremap <C-q> <ESC>:x <C-m>
+endif
 
 " }}}
 " History {{{
