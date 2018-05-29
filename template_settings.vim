@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.3.0
+" Version: 1.4.0
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -76,6 +76,15 @@ let g:cursor_color = 1
 "   1: Sets "jk" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:escape_alternative_enabled = 0
+" Line Numbers {{{
+"   Relative line numbers work well with Vim movment commands, but can can
+"   scroll lag on some devices. Consider swapping to absolute line numbers if
+"   performance issues arise from relative line numbers.
+"   0: Disabled
+"   1: Absolute
+"   2: Relative
+" }}}
+let g:line_numbers = 2
 " Settings Organization {{{
 
 " Folds everything by default in settings only.
