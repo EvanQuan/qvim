@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.9.1
+" Version: 1.10.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1353,17 +1353,19 @@ set guioptions = " No scroll bars
 " }}}
 " Line Numbers {{{
 
-" Show hybrid relative numbers by default
-"
-set number relativenumber
-"
-if has('autocmd')
-  " Absolute number on INSERT and REPLACE modes
-  "
-  autocmd InsertEnter * :set number norelativenumber
-  " Hybrid relative number on NORMAL and VISUAL modes
-  "
-  autocmd InsertLeave * :set relativenumber
+if g:line_numbers
+  set number
+  if g:line_numbers == 2
+    set relativenumber
+    if has('autocmd')
+      " Absolute number on INSERT and REPLACE modes
+      "
+      autocmd InsertEnter * :set number norelativenumber
+      " Hybrid relative number on NORMAL and VISUAL modes
+      "
+      autocmd InsertLeave * :set relativenumber
+    endif
+  endif
 endif
 
 " }}}
