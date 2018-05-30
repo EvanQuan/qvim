@@ -86,3 +86,6 @@
 [submodule "bundle/onedark.vim"]
 	path = bundle/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
+[submodule "bundle/quick-scope"]
+	path = bundle/quick-scope
+	url = https://github.com/unblevable/quick-scope
