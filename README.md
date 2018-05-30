@@ -107,6 +107,7 @@ Color Schemes
 
 Plugins
 -------
+- [ale](https://github.com/w0rp/ale)
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [ctrlp.vim](https://github.com/kien/ctrlp.vim)
@@ -120,6 +121,7 @@ Plugins
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [powerline](https://github.com/powerline/powerline)
+- [quick-scope](https://github.com/unblevable/quick-scope)
 - [tabular](https://github.com/godlygeek/tabular)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
