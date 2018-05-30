@@ -13,7 +13,10 @@ Table of Contents
 
 Why Use This?
 -----------
-You shouldn't, so don't.
+If you're lazy and want to use what I'm using, feel free to. For anyone else,
+I would actually recommend configuring your own Vim from scratch or from
+some minimal template online.
+
 
 Installation
 -----------
@@ -25,7 +28,8 @@ git clone https://github.com/EvanQuan/.vim ~/.vim
 
 2. Run `install.sh`:
 ```bash
-bash ~/.vim/install.sh
+cd ~/.vim
+bash install.sh
 ```
 
 Hooray, that's it!
@@ -75,21 +79,17 @@ It will **NOT** be tracked by git, allowing its settings to be specific to each 
 Updating
 --------
 
-**It turns out that since repo access is required to pull from Github, that
-makes these update scripts (or even updating at all) kind of impossible if
-you're not me (or someone with access). In that case, I guess the next best
-thing to do would be to delete `.vim` and reinstall.**
-
-
 To update everthing, run `complete_update.sh`. This will set `settings.vim` to
 the default values:
 ```bash
-bash ~/.vim/complete_update.sh
+cd ~/.vim
+bash complete_update.sh
 ```
 
 To update everything except for `settings.vim`, run `update.sh`:
 ```bash
-bash ~/.vim/update.sh
+cd ~/.vim
+bash update.sh
 ```
 
 Alternatively, you can manually update stuff yourself.
@@ -103,7 +103,7 @@ cp ~/.vim/template_settings.vim ~/.vim/settings.vim
 Color Schemes
 -----------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
-- [Solarized](https://github.com/vim-scripts/Solarized)
+- [vim-one](https://github.com/rakr/vim-one)
 
 Plugins
 -------

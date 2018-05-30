@@ -56,7 +56,7 @@ let g:special_symbols_enabled = 0
 "   2: One Light
 "   3: One Dark Alternative
 " }}}
-let g:colorscheme_type = 1
+let g:colorscheme_type = 3
 " Text Wrap {{{
 "   0: No wrap
 "   1: Soft wrap
