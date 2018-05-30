@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.13.0
+" Version:    1.14.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -245,7 +245,7 @@ endif
 " Disable keys that you should not be using at all
 " If easy mode is activated, then hard mode is disabled.
 
-if !g:easy_mode
+if g:hard_mode
   " Arrow keys
   "
   " Normal
@@ -816,46 +816,48 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " }}}
 " Standard {{{
 
-" Pasting from clipboard
-"
-inoremap <C-v> <ESC>"+pa
-vnoremap <C-v> "+pa
+if g:standard_keybindings
+  " Pasting from clipboard
+  "
+  inoremap <C-v> <ESC>"+pa
+  vnoremap <C-v> "+pa
 
-" Copying to clipboard
-"
-vnoremap <C-c> "+y
+  " Copying to clipboard
+  "
+  vnoremap <C-c> "+y
 
-" Cutting to clipboard
-"
-vnoremap <C-x> "+d
+  " Cutting to clipboard
+  "
+  vnoremap <C-x> "+d
 
-" Undo
-"
-inoremap <C-z> <ESC>ua
+  " Undo
+  "
+  inoremap <C-z> <ESC>ua
 
-" Redo
-"
-inoremap <C-y> <ESC><C-r>
+  " Redo
+  "
+  inoremap <C-y> <ESC><C-r>
 
-" Save file
-"
-" If the current buffer has never been saved, it will have no name,
-" call the file browser to save it, otherwise just save it.
-command -nargs=0 -bar Update if &modified
-                           \|    if empty(bufname('%'))
-                           \|        browse confirm write
-                           \|    else
-                           \|        confirm write
-                           \|    endif
-                           \|endif
-nnoremap <silent> <C-S> :<C-u>Update<CR>
-inoremap <C-S> <ESC> :<C-u>Update<CR>
+  " Save file
+  "
+  " If the current buffer has never been saved, it will have no name,
+  " call the file browser to save it, otherwise just save it.
+  command -nargs=0 -bar Update if &modified
+                             \|    if empty(bufname('%'))
+                             \|        browse confirm write
+                             \|    else
+                             \|        confirm write
+                             \|    endif
+                             \|endif
+  nnoremap <silent> <C-S> :<C-u>Update<CR>
+  inoremap <C-S> <ESC> :<C-u>Update<CR>
 
-" Select all
-"
-nnoremap <C-a> ggVG
-vnoremap <C-a> <ESC>ggVG
-inoremap <C-a> <ESC>ggVG
+  " Select all
+  "
+  nnoremap <C-a> ggVG
+  vnoremap <C-a> <ESC>ggVG
+  inoremap <C-a> <ESC>ggVG
+endif
 
 " }}}
 " Vimrc Editing {{{
@@ -1544,15 +1546,6 @@ set hidden
 " has not been changed inside of Vim, automatically aread it again.
 "
 set autoread
-
-" }}}
-" Easy Mode {{{
-
-if g:easy_mode
-
-  " Default mode is insert mode
-  set insertmode
-endif
 
 " }}}
 " History {{{

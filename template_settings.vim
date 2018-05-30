@@ -1,23 +1,36 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.7.0
+" Version:    1.8.0
 "
 " Setting values affect vimrc.vim configuration.
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
 
-" Easy Mode {{{
-"   Optimizes certain settings if you are going to use Vim non-modally.
-"   It is recommended to enable this if you are running eVim.
+" Hard Mode {{{
+"   Disables arrow keys and Page Up/Down.
+"   It is recommended to disable this if you are running eVim.
 "   0: Disabled
 "     Vim works modally as normal
 "   1: Enabled
 "     Hard mode is disabled
 "     Default mode is insert mode
 " }}}
-let g:easy_mode = 0
+let g:hard_mode = 0
+" Standard Keybindings {{{
+"   Enables keybings commonly found in many other systems.
+"   0: Disabled
+"   1: Enabled
+"     CTRL-C: Copy
+"     CTRL-X: Cut
+"     CTRL-V: Paste
+"     CTRL-S: Save
+"     CTRL-A: Select All
+"     CTRL-Z: Undo
+"     CTRL-Y: Redo
+" }}}
+let g:standard_keybindings = 0
 " True Color (24-bit) {{{
 "   Many terminals don't support True color and will screw up the color
 "   schemes if it is enabled.
