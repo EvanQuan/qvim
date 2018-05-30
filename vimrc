@@ -1,7 +1,7 @@
 " ============================================================================
-" Name: vimrc
+" Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.11.1
+" Version:    1.11.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
