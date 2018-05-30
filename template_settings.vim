@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.5.2
+" Version:    1.6.0
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -40,7 +40,7 @@ let g:special_symbols_enabled = 0
 "   Affects overall color scheme and lightline color scheme
 "   0: None
 "   1: One Dark
-"   2: Solarized
+"   2: One Light
 " }}}
 let g:colorscheme_type = 1
 " Text Wrap {{{

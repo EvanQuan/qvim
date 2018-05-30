@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.11.1
+" Version:    1.12.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -72,21 +72,18 @@ endif
 " When set to "dark", Vim will try to use colors that look good on a dark
 " background.
 "
-set background=dark
-let g:onedark_termcolors=256
-let g:onedark_terminal_italics=1
-let g:solarized_termcolors=256
-let g:solarized_terminal_italics=1
-" put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
+if g:colorscheme_type == 2
+  set background=light
+else
+  set background=dark
+endif
+
 " Determine colorscheme based on settings.vim
 " Lightline colorscheme is consistent with main colorscheme
 "
-if g:colorscheme_type == 1 " One dark
-  colorscheme onedark
-elseif g:colorscheme_type == 2 " Solarized
-  colorscheme solarized
-endif " else no colorscheme
+if g:colorscheme_type
+  colorscheme one
+endif
 
 " }}}
 " Syntax Highlighting {{{
@@ -1044,12 +1041,10 @@ if g:special_symbols_enabled
   let g:lightline_buffer_git_icon = ' '
 endif
 
-" Keep lightline color scheme consistent with background color scheme
-if g:colorscheme_type == 1 " One dark
-  let g:lightline.colorscheme = 'onedark'
-elseif g:colorscheme_type == 2 " Solarized
-  let g:lightline.colorscheme = 'solarized'
-endif " else no colorscheme
+" Set lightline colorscheme
+" Whether it is light or dark is determined in one package
+"
+let g:lightline.colorscheme = 'one'
 
 " }}}
 " Functions {{{
