@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.5.0
+" Version: 1.5.1
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -82,7 +82,7 @@ let g:cursor_color = 1
 "   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
 "   done, this provides a lazy alternative.
 "   0: Disabled
-"   1: Sets "jk" as ESCAPE in INSERT, REPLACE and VISUAL modes
+"   1: Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:escape_alternative_enabled = 0
 " Line Numbers {{{
