@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.12.0
+" Version:    1.13.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -82,7 +82,11 @@ endif
 " Lightline colorscheme is consistent with main colorscheme
 "
 if g:colorscheme_type
-  colorscheme one
+  if g:colorscheme_type == 3 " Alternative
+    colorscheme onedark
+  else
+    colorscheme one
+  endif
 endif
 
 " }}}
@@ -1044,7 +1048,13 @@ endif
 " Set lightline colorscheme
 " Whether it is light or dark is determined in one package
 "
-let g:lightline.colorscheme = 'one'
+if g:colorscheme_type
+  if g:colorscheme_type == 3
+    let g:lightline.colorscheme = 'onedark'
+  else
+    let g:lightline.colorscheme = 'one'
+  endif
+endif
 
 " }}}
 " Functions {{{
