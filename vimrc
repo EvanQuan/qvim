@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.10.1
+" Version: 1.11.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -67,8 +67,11 @@ endif
 " }}} return
 " Appearance {{{
 
-" Color scheme {{{
+" Color Scheme {{{
 
+" When set to "dark", Vim will try to use colors that look good on a dark
+" background.
+"
 set background=dark
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
@@ -86,7 +89,7 @@ elseif g:colorscheme_type == 2 " Solarized
 endif " else no colorscheme
 
 " }}}
-" Syntax highlighting {{{
+" Syntax Highlighting {{{
 
 " Switch syntax highlighting on when the terminal has colors or when using the
 " GUI (which always has colors)
@@ -245,32 +248,32 @@ if !g:easy_mode
   " Arrow keys
   "
   " Normal
-  nnoremap <Left> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  nnoremap <Right> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  nnoremap <Up> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  nnoremap <Down> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
   " Insert
-  inoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-  inoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-  inoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
-  inoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>i
+  inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
   " Visual
-  vnoremap <Left> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  vnoremap <Right> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  vnoremap <Up> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
-  vnoremap <Down> <ESC> :echo "-- Stop using arrow keys, you PLEB! --"<CR>
+  vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
 
   " Page up and down
   "
   " Normal
-  nnoremap <PageUp> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-  nnoremap <PageDown> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+  nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
+  nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
   " Insert
-  inoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>i
-  inoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>i
+  inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
+  inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
   " Visual
-  vnoremap <PageUp> <ESC> :echo "-- Stop using PAGEUP, you PLEB! --"<CR>
-  vnoremap <PageDown> <ESC> :echo "-- Stop using PAGEDOWN, you PLEB! --"<CR>
+  vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
+  vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
 endif
 
 " }}}
@@ -702,8 +705,13 @@ noremap <leader>tt :call ToggleTabs()<CR>
 
 " autocmd VimEnter * NERDTree " tree is open on start
 " autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
+
+" Atom keybinding
 "
 nnoremap <silent> <C-\> :NERDTreeToggle<CR>
+" Alternative
+"
+nnoremap <silent> <leader>tn :NERDTreeToggle<CR>
 
 " }}}
 " vim-javacomplete2 {{{
@@ -805,20 +813,64 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " }}}
 
 " }}}
+" Standard {{{
+
+" Pasting from clipboard
+"
+inoremap <C-v> <ESC>"+pa
+vnoremap <C-v> "+pa
+
+" Copying to clipboard
+"
+vnoremap <C-c> "+y
+
+" Cutting to clipboard
+"
+vnoremap <C-x> "+d
+
+" Undo
+"
+inoremap <C-z> <ESC>ua
+
+" Redo
+"
+inoremap <C-y> <ESC><C-r>
+
+" Save file
+"
+" If the current buffer has never been saved, it will have no name,
+" call the file browser to save it, otherwise just save it.
+command -nargs=0 -bar Update if &modified
+                           \|    if empty(bufname('%'))
+                           \|        browse confirm write
+                           \|    else
+                           \|        confirm write
+                           \|    endif
+                           \|endif
+nnoremap <silent> <C-S> :<C-u>Update<CR>
+inoremap <C-S> <ESC> :<C-u>Update<CR>
+
+" Select all
+"
+nnoremap <C-a> ggVG
+vnoremap <C-a> <ESC>ggVG
+inoremap <C-a> <ESC>ggVG
+
+" }}}
 " Vimrc Editing {{{
 
 " Open vimrc anywhere
 "
-nnoremap <silent> <leader>ev :e ~/.vim/vimrc<CR>
+nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
 
 " Reload vimrc anywhere
 " ISSUE: Lightline does not open correctly
 "
-nnoremap <silent> <leader>rv :so ~/.vim/vimrc<CR>
+nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
 
 " Open settings.vim anywhere
 "
-nnoremap <silent> <leader>es :e ~/.vim/settings.vim<CR>
+nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
 
 " }}}
@@ -831,7 +883,7 @@ function! ToggleWhitespace() abort
     echo "-- Whitespace VISIBLE --"
   else
     echo "-- Whitespace INVISIBLE --"
-  end
+  endif
 endfunction
 noremap <leader>tw :call ToggleWhitespace()<CR>
 
@@ -840,6 +892,18 @@ noremap <leader>tw :call ToggleWhitespace()<CR>
 "
 nnoremap <leader>rh <ESC>:execute 'colo' colors_name<cr>:syntax sync fromstart<cr>
 
+" Toggle absolute and relative line numbers
+"
+function! ToggleLineNumber() abort
+  if &relativenumber
+    set number norelativenumber
+    echo "-- ABSOLUTE LINE NUMBERS --"
+  else
+    set relativenumber
+    echo "-- RELATIVE LINE NUMBERS --"
+  endif
+endfunction
+noremap <leader>tl :call ToggleLineNumber()<CR>
 " }}}
 
 " }}}
@@ -1469,37 +1533,20 @@ set wildmenu
 set hidden
 
 " }}}
+" File {{{
+
+" When a file has been detected to have been changed outside of Vim and it
+" has not been changed inside of Vim, automatically aread it again.
+"
+set autoread
+
+" }}}
 " Easy Mode {{{
 
 if g:easy_mode
 
   " Default mode is insert mode
   set insertmode
-
-  " Use the system clipboard for copy and pasting
-  set clipboard=unnamed
-
-  " Pasting from clipboard
-  " inoremap <C-v> <ESC>"+pa
-  " noremap <C-v>"+pa
-
-  " Copying to clipboard
-  " NOTE: NOT WORKING
-  " vnoremap <C-c> <ESC>"+yi
-
-  " Undo
-  " inoremap <C-z> <ESC>ua
-
-  " Redo
-  " inoremap <C-y> <ESC><C-r>
-
-  " Save file
-  " NOTE: NOT WORKING
-  " inoremap <C-s> <ESC>:w <C-m>
-
-  " Quit file
-  " NOTE: NOT WORKING
-  " inoremap <C-q> <ESC>:x <C-m>
 endif
 
 " }}}
