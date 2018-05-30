@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.15.0
+" Version:    1.16.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -10,6 +10,7 @@
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
+"
 " Initial Setup {{{
 
 " The first steps necessary to set up all the configurations
@@ -99,7 +100,6 @@ if &t_Co > 2 || has('gui_running')
   " Revert with ":syntax off"
   syntax on
 endif
-
 
 " For Wind32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 if has('win32')
@@ -205,14 +205,13 @@ if has('autocmd')
   autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
 endif
 
-
 " }}}
 " Auto-Detect {{{
 
 " As a priority, soft or hard tab indentation is determined by what is already
 " being used in the current file.
 "
-function TabsOrSpaces()
+function! TabsOrSpaces() abort
   " Determines whether to use spaces or tabs on the current buffer.
   if getfsize(bufname("%")) > 256000
     " If the file is very large, just use the default, since it will take too
@@ -547,24 +546,40 @@ nnoremap <leader>fd :set fdm=diff<cr>"
 "
 noremap Q gq
 
+function! StripWhitespace() abort
+  " Store last search
+  let _s=@/
+  " Store cursor position
+  let l = line(".")
+  let c = col(".")
+  " Strip white space
+  %!git stripspace
+  " Clean up:
+  " Restore previous search history
+ let @/=_s
+  " Restore cursor position
+ call cursor(1, c)
+endfunction
+noremap <leader>sw :call StripWhitespace()<CR>
+
 " }}}
 " Terminal {{{
 
 if has("terminal")
   " in-editor terminal only works with some terminals
   " Vertical split
-  noremap <leader>vt :vertical terminal <C-m>
+  noremap <leader>vt :vertical terminal <CR>
   " Horizontal split
-  noremap <leader>ht :terminal <C-m>
+  noremap <leader>ht :terminal <CR>
 else
   " Default to shell when terminal is not available
-  noremap <leader>vt :shell <C-m>
-  noremap <leader>ht :shell <C-m>
+  noremap <leader>vt :shell <CR>
+  noremap <leader>ht :shell <CR>
 endif
 " There is a terminal which is available for earlier versions of Vim,
 " which opens the terminal in a new buffer.
 " It can be closed with "exit" or "Ctrl-D".
-noremap <leader>b :shell <C-m>
+noremap <leader>b :shell <CR>
 
 " }}}
 " Movement {{{
@@ -610,7 +625,7 @@ noremap <C-h> <C-w>h
 
 " Open new tab
 "
-noremap <leader>nt :tabe <C-m>
+noremap <leader>nt :tabe <CR>
 
 " Go to tab :by number
 "
@@ -1561,7 +1576,6 @@ set history=1000
 " The maximum number of changes that can be undone.
 "
 set undolevels=1000
-
 
 " }}}
 " Mouse {{{
