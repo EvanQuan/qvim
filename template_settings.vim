@@ -1,7 +1,7 @@
 " ============================================================================
-" Name: settings.vim
+" Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.5.1
+" Version:    1.5.2
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -15,6 +15,7 @@
 "     Vim works modally as normal
 "   1: Enabled
 "     Hard mode is disabled
+"     Default mode is insert mode
 " }}}
 let g:easy_mode = 0
 " True Color (24-bit) {{{
