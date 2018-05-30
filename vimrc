@@ -1,7 +1,7 @@
 " ============================================================================
 " Name: vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version: 1.11.0
+" Version: 1.11.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -664,9 +664,9 @@ nnoremap L $
 "
 if g:escape_alternative_enabled
   " INSERT and REPLACE
-  inoremap jk <ESC>hl
+  inoremap aa <ESC>hl
   " VISUAL
-  vnoremap jk <ESC>hl
+  vnoremap aa <ESC>hl
 endif
 
 " }}}
