@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.6.1
+" Version:    1.7.0
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -41,6 +41,7 @@ let g:special_symbols_enabled = 0
 "   0: None
 "   1: One Dark
 "   2: One Light
+"   3: One Dark Alternative
 " }}}
 let g:colorscheme_type = 1
 " Text Wrap {{{
