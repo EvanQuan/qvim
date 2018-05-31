@@ -5,6 +5,9 @@
 # .vimrc settings
 settings.vim
 
+# Local file versions
+/update/local
+
 # vim-workspace session
 Session.vim
 /.undodir
