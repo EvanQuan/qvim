@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.16.0
+" Version:    1.17.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -525,6 +525,13 @@ nnoremap yOl kyy
 " }}}
 
 " }}}
+" File {{{
+
+" Reload current file
+"
+nnoremap <leader>r :e<CR>
+
+" }}}
 " Folding {{{
 
 " Toggle open/close folds
@@ -533,11 +540,11 @@ nnoremap <space> za
 
 " Change folder settings
 "
-nnoremap <leader>ff :set fdm=manual<cr>
-nnoremap <leader>fi :set fdm=indent<cr>
-nnoremap <leader>fm :set fdm=marker<cr>
-nnoremap <leader>fs :set fdm=syntax<cr>
-nnoremap <leader>fd :set fdm=diff<cr>"
+nnoremap <leader>ff :set fdm=manual<CR>
+nnoremap <leader>fi :set fdm=indent<CR>
+nnoremap <leader>fm :set fdm=marker<CR>
+nnoremap <leader>fs :set fdm=syntax<CR>
+nnoremap <leader>fd :set fdm=diff<CR>"
 
 " }}}
 " Formatting {{{
@@ -590,18 +597,18 @@ noremap <leader>b :shell <CR>
 "
 " Next buffer
 "
-map gn :bn<cr>
+map gn :bn<CR>
 
 " Prevous buffer
 "
-map gp :bp<cr>
+map gp :bp<CR>
 
 " Close current buffer
 "
 noremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 
 " Delete buffer
-noremap gd :bdelete<cr>
+noremap gd :bdelete<CR>
 
 " }}}
 " Windows {{{
@@ -638,7 +645,7 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+noremap <leader>0 :tablast<CR>
 
 " }}}
 " Session {{{
@@ -882,9 +889,9 @@ endif
 nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
 
 " Reload vimrc anywhere
-" ISSUE: Lightline does not open correctly
+" NOTE: Does not reload lightline colorscheme if changed
 "
-nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
+nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>:e<CR>
 
 " Open settings.vim anywhere
 "
