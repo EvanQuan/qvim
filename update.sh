@@ -1,8 +1,9 @@
-# Name: update.sh
+#!/bin/bash
+# Name:       update.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version: 1.0.2
+# Version:    2.0.0
 #
-# Update - keep settings.vim the same
+# Update
 
 # Go to ~/.vim
 cd ~/.vim
@@ -10,3 +11,7 @@ cd ~/.vim
 git pull
 # submodules
 git submodule update --init --remote --recursive
+
+# Check file versions
+bash ~/.vim/version/check_version.sh
+
