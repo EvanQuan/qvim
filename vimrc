@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.17.0
+" Version:    1.18.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -525,13 +525,6 @@ nnoremap yOl kyy
 " }}}
 
 " }}}
-" File {{{
-
-" Reload current file
-"
-nnoremap <leader>r :e<CR>
-
-" }}}
 " Folding {{{
 
 " Toggle open/close folds
@@ -570,23 +563,14 @@ endfunction
 noremap <leader>sw :call StripWhitespace()<CR>
 
 " }}}
-" Terminal {{{
+" Layout {{{
 
-if has("terminal")
-  " in-editor terminal only works with some terminals
-  " Vertical split
-  noremap <leader>vt :vertical terminal <CR>
-  " Horizontal split
-  noremap <leader>ht :terminal <CR>
-else
-  " Default to shell when terminal is not available
-  noremap <leader>vt :shell <CR>
-  noremap <leader>ht :shell <CR>
-endif
-" There is a terminal which is available for earlier versions of Vim,
-" which opens the terminal in a new buffer.
-" It can be closed with "exit" or "Ctrl-D".
-noremap <leader>b :shell <CR>
+" Resize windows
+"
+nnoremap <silent> <leader>vr+ :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <leader>vr- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <silent> <leader>hr+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <leader>hr- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " }}}
 " Movement {{{
@@ -882,6 +866,25 @@ if g:standard_keybindings
 endif
 
 " }}}
+" Terminal {{{
+
+if has("terminal")
+  " in-editor terminal only works with some terminals
+  " Vertical split with terminal on right
+  noremap <leader>vt :vertical terminal<CR><C-w>L
+  " Horizontal split with terminal on bottom
+  noremap <leader>ht :terminal<CR><C-w>J
+else
+  " Default to shell when terminal is not available
+  noremap <leader>vt :shell<CR>
+  noremap <leader>ht :shell<CR>
+endif
+" There is a terminal which is available for earlier versions of Vim,
+" which opens the terminal in a new buffer.
+" It can be closed with "exit" or "Ctrl-D".
+noremap <leader>b :shell<CR>
+
+" }}}
 " Vimrc Editing {{{
 
 " Open vimrc anywhere
@@ -932,7 +935,7 @@ noremap <leader>tl :call ToggleLineNumber()<CR>
 " }}}
 
 " }}}
-" Performance {{{
+" Performance {-{
 
 " When this option is set, the screen will not be redrawn while executing
 " macros, registers and other command that have not been typed. Also, updating

@@ -15,6 +15,7 @@ pushd "$target" > /dev/null
 let count=0
 for f in *
 do
+    let count=count+1
     path="${target%/*}"
     if [ -d $f ]; then
         echo "$count $path/$f is a DIRECTORY"
@@ -23,9 +24,8 @@ do
     else
         echo "$count $path $f is UNKNOWN"
     fi
-    let count=count+1
 done
-echo "hi"
+# Store popd so its contents are not echoed to screen
 trash=popd
 echo ""
 echo "Count: $count"

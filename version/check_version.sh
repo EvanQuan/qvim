@@ -62,7 +62,10 @@ for file in *; do
         # Update local file to match template
         if [ -f $template ]; then
             # cp $template $(<$path)
-            cp $template $(< $path)
+            # TODO: $(< $path) is returning a String with quotes with does not work with cp
+            # cp $template $(< $path)
+            # cp $template $(command < $path)
+            cp $template $(echo $( <$path))
         fi
     fi
     # let count=count+1
