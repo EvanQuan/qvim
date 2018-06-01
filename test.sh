@@ -1,4 +1,5 @@
 #!/bin/bash
+# Prints contents of directory
 
 target="$1"
 echo "target: $target"
@@ -25,7 +26,7 @@ do
     let count=count+1
 done
 echo "hi"
-# popd
+trash=popd
 echo ""
 echo "Count: $count"
 
