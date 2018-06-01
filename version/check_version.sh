@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       check_version.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    0.9.0
+# Version:    0.10.0
 #
 # Check File Versions
 
@@ -27,44 +27,42 @@ pushd "$remote_versions" > /dev/null
 for file in *; do
     # Get base name
     base_name=$(basename $file)
-    # local_file=~/.vim/version/local/$file
-    local_file="$local_versions$base_name"
-    # remote_file=~/.vim/version/remote/$file
-    remote_file="$remote_versions$base_name"
-    path="$remote_paths$base_name"
-    template="$remote_templates$base_name"
+    # local_version=~/.vim/version/local/$file
+    local_version=$local_versions$base_name
+    # remote_version=~/.vim/version/remote/$file
+    remote_version=$remote_versions$base_name
+    path=$remote_paths$base_name
+    template=$remote_templates$base_name
 
     # Debug
     # printf "\n\t$count\n\n"
     # printf "\tbase_name: $base_name\n"
-    # printf "\tlocal_file: $local_file\n"
-    # printf "\tremote_file: $remote_file\n"
+    # printf "\tlocal_file: $local_version\n"
+    # printf "\tremote_file: $remote_version\n"
     # printf "\tpath: $path\n\n"
 
-    if ! [ -f $remote_file ]; then
+    if ! [ -f $remote_version ]; then
         printf "\t$cross_mark $file remote version not found. Update failed!\n"
     elif ! [ -f $path  ]; then
         printf "\t$cross_mark $file remote path not found. Update failed!\n"
     else
-        # Update
-        if [ -f $template ]; then
-            cp $template $path
-        else
-            # Debug
-            printf "\t$file does not have a template\n"
-        fi
-        if ! [ -f $local_file ]; then
+        if ! [ -f $local_version ]; then
             # If the local version does not exist, create it and update the file
-            cp $remote_file $local_file
-            printf "\t$check_mark $file local version not found -> [$(<$remote_file)] Updated!\n"
-        elif diff $local_file $remote_file > /dev/null; then
+            printf "\t$check_mark $file local version not found -> [$(<$remote_version)] Updated!\n"
+            cp $remote_version $local_version
+        elif ! diff $local_version $remote_version > /dev/null; then
             # If the local version is different, update the version and file
-            cp $remote_file $local_file
-            printf "\t$check_mark $file [$(<$local_file)] -> [$(<$remote_file)]\n"
+            printf "\t$check_mark $file [$(<$local_version)] -> [$(<$remote_version)] Updated!\n"
+            cp $remote_version $local_version
             # bash update_file.sh $file $path
         else
             # Already updated
-            printf "\t$check_mark $file [$(<$remote_file)] Already up-to-date."
+            printf "\t- $file [$(<$remote_version)] Already up-to-date.\n"
+        fi
+        # Update local file to match template
+        if [ -f $template ]; then
+            # cp $template $(<$path)
+            cp $template $(< $path)
         fi
     fi
     # let count=count+1
