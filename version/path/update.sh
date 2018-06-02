@@ -1,1 +1,1 @@
-~/.vim/update.sh
+../update.sh
