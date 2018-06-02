@@ -2,11 +2,12 @@
 *.swp
 *.swo
 
-# .vimrc settings
+# settings
 settings.vim
 
 # Local file versions
-/update/local
+version/local
+!version/remote/*
 
 # vim-workspace session
 Session.vim
