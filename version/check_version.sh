@@ -9,7 +9,7 @@ printf "Updating local files:\n"
 
 local_versions=~/.vim/version/local/
 remote_versions=~/.vim/version/remote/
-remote_paths=~/.vim/version/path/
+remote_paths=./path/        # Has to be relative to check_version directory to work
 remote_templates=~/.vim/version/templates/
 check_mark=✔
 cross_mark=✗
@@ -65,7 +65,7 @@ for file in *; do
             # TODO: $(< $path) is returning a String with quotes with does not work with cp
             # cp $template $(< $path)
             # cp $template $(command < $path)
-            cp $template $(echo $( <$path))
+            cp $template $(<$path)
         fi
     fi
     # let count=count+1
