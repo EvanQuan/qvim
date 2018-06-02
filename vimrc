@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.18.0
+" Version:    1.18.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -200,9 +200,9 @@ if has('autocmd')
   "
   autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
-  " 8-space hard tabs
+  " 8-space soft tabs
   "
-  autocmd Filetype arm setlocal noexpandtab tabstop=8 shiftwidth=8
+  autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8
 endif
 
 " }}}
@@ -935,7 +935,7 @@ noremap <leader>tl :call ToggleLineNumber()<CR>
 " }}}
 
 " }}}
-" Performance {-{
+" Performance {{{
 
 " When this option is set, the screen will not be redrawn while executing
 " macros, registers and other command that have not been typed. Also, updating
