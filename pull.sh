@@ -1,14 +1,14 @@
 #!/bin/bash
-# Name:       update.sh
+# Name:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
 # Version:    2.0.0
 #
-# Update
+# Pull
 
 # Go to ~/.vim
 cd ~/.vim
 # .vim
-git pull
+git pull origin master
 # submodules
 git submodule update --init --remote --recursive
 
