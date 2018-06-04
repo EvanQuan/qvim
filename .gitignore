@@ -7,6 +7,7 @@ settings.vim
 
 # Local file versions
 version/local
+!version/templates/*
 !version/remote/*
 
 # vim-workspace session
