@@ -26,10 +26,10 @@ Installation
 git clone https://github.com/EvanQuan/.vim ~/.vim
 ```
 
-2. Run `install.sh`:
+2. Run `pull.sh`:
 ```bash
 cd ~/.vim
-bash install.sh
+bash pull.sh
 ```
 
 Hooray, that's it!
@@ -70,26 +70,24 @@ The `vimrc` file requires an external `settings.vim` file in order to
 work properly. Consider changing the values in `settings.vim` if there are
 problems with how the color scheme or lightline is rendering.
 
-Create a `settings.vim` file into your `~/.vim` directory by copying `template_settings.vim`.
+Create a `settings.vim` file into your `~/.vim` directory by copying the template.
+
 ```bash
-cp ~/.vim/template_settings.vim ~/.vim/settings.vim
+cp ~/.vim/version/templates/settings.vim ~/.vim/settings.vim
 ```
+
 It will **NOT** be tracked by git, allowing its settings to be specific to each machine:
 
 Updating
 --------
 
-To update everthing, run `complete_update.sh`. This will set `settings.vim` to
-the default values:
-```bash
-cd ~/.vim
-bash complete_update.sh
-```
+To update everthing, run `pull.sh`. If there is a new version of `settings.vim`
+your local copy will be replaced with a template of the newer version.
+Otherwise, your local settings will be maintained.
 
-To update everything except for `settings.vim`, run `update.sh`:
 ```bash
 cd ~/.vim
-bash update.sh
+bash pull.sh
 ```
 
 Alternatively, you can manually update stuff yourself.
