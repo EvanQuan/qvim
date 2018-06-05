@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.18.1
+" Version:    1.19.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -34,8 +34,9 @@ filetype off
 execute pathogen#infect()
 
 " Help tags are loaded from all packages
+" NOTE: Currently disabled as it causes git issues in tracking submodules
 "
-Helptags
+" Helptags
 
 " For plugins to load correctly
 " Only do this part when compiled with support for autocommands
@@ -244,36 +245,38 @@ endif
 " Disable keys that you should not be using at all
 " If easy mode is activated, then hard mode is disabled.
 
-if g:hard_mode
-  " Arrow keys
-  "
-  " Normal
-  nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
-  " Insert
-  inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  " Visual
-  vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+if has('g:hard_mode')
+  if g:hard_mode
+    " Arrow keys
+    "
+    " Normal
+    nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
+    nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
+    nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
+    nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
+    " Insert
+    inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+    inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+    inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+    inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+    " Visual
+    vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+    vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+    vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+    vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
 
-  " Page up and down
-  "
-  " Normal
-  nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
-  nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
-  " Insert
-  inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
-  inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
-  " Visual
-  vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
-  vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
+    " Page up and down
+    "
+    " Normal
+    nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
+    nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
+    " Insert
+    inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
+    inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
+    " Visual
+    vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
+    vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
+  endif
 endif
 
 " }}}
@@ -937,6 +940,17 @@ noremap <leader>tl :call ToggleLineNumber()<CR>
 " }}}
 " Performance {{{
 
+" Plugins {{{
+
+" Disable plugins that can cause performance issues on some devices
+"
+if g:performance_mode_enabled
+  set runtimepath-=~/.vim/bundle/quick-scope
+endif
+
+" }}}
+" Rendering {{{
+
 " When this option is set, the screen will not be redrawn while executing
 " macros, registers and other command that have not been typed. Also, updating
 " the window title is postponed.
@@ -956,6 +970,8 @@ set lazyredraw
 " Improves rendering when scrolling
 "
 set ttyfast
+
+" }}}
 
 " }}}
 " Plugin Settings {{{
@@ -1452,18 +1468,16 @@ set guioptions = " No scroll bars
 " }}}
 " Line Numbers {{{
 
-if g:line_numbers
-  set number
-  if g:line_numbers == 2
-    set relativenumber
-    if has('autocmd')
-      " Absolute number on INSERT and REPLACE modes
-      "
-      autocmd InsertEnter * :set number norelativenumber
-      " Hybrid relative number on NORMAL and VISUAL modes
-      "
-      autocmd InsertLeave * :set relativenumber
-    endif
+set number
+if !g:performance_mode_enabled
+  set relativenumber
+  if has('autocmd')
+    " Absolute number on INSERT and REPLACE modes
+    "
+    autocmd InsertEnter * :set number norelativenumber
+    " Hybrid relative number on NORMAL and VISUAL modes
+    "
+    autocmd InsertLeave * :set relativenumber
   endif
 endif
 
