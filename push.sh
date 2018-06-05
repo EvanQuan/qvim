@@ -1,12 +1,9 @@
 #!/bin/bash
 # Name:       push.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.0
+# Version:    1.0.2
 #
 # Push
-
-# Add everything
-git add .
 
 # Update versions
 local_versions=~/.vim/version/local/
@@ -34,6 +31,10 @@ done
 
 # Store popd so it doesn't printf to screen
 trash=popd
+
+# Add everything
+git add ~/.vim
+
 # Get commit message
 printf "\nCommit message:\n> "
 read message
