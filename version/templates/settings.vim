@@ -1,13 +1,23 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.8.0
+" Version:    1.9.0
 "
 " Setting values affect vimrc.vim configuration.
 "
 " Press SPACE to toggle category folding/unfolding
 " ============================================================================
 
+" Performance Mode {{{
+"   Disables certain settings and plugins that may cause poor performance on
+"   some machines.
+"   0: Disabled
+"     Vim has all settings and packages enabled.
+"   1: Enabled
+"     quick-scope disabled
+"     Relative line numbers disabled (has absolute line numbers)
+" }}}
+let g:performance_mode_enabled = 1
 " Hard Mode {{{
 "   Disables arrow keys and Page Up/Down.
 "   It is recommended to disable this if you are running eVim.
@@ -40,7 +50,7 @@ let g:standard_keybindings = 0
 "   1: Enabled
 "     Color scheme will appear as it should
 " }}}
-let g:truecolor_enabled = 1
+let g:truecolor_enabled = 0
 " Powerline {{{
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
@@ -100,15 +110,6 @@ let g:cursor_color = 1
 "   1: Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:escape_alternative_enabled = 0
-" Line Numbers {{{
-"   Relative line numbers work well with Vim movment commands, but can can
-"   scroll lag on some devices. Consider swapping to absolute line numbers if
-"   performance issues arise from relative line numbers.
-"   0: Disabled
-"   1: Absolute
-"   2: Relative
-" }}}
-let g:line_numbers = 2
 " Settings Organization {{{
 
 " Folds everything by default in settings only.
