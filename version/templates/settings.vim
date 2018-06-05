@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.9.0
+" Version:    1.9.1
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -17,7 +17,7 @@
 "     quick-scope disabled
 "     Relative line numbers disabled (has absolute line numbers)
 " }}}
-let g:performance_mode_enabled = 1
+let g:performance_mode_enabled = 0
 " Hard Mode {{{
 "   Disables arrow keys and Page Up/Down.
 "   It is recommended to disable this if you are running eVim.
@@ -50,7 +50,7 @@ let g:standard_keybindings = 0
 "   1: Enabled
 "     Color scheme will appear as it should
 " }}}
-let g:truecolor_enabled = 0
+let g:truecolor_enabled = 1
 " Powerline {{{
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
