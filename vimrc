@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.19.1
+" Version:    1.19.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -203,7 +203,7 @@ if has('autocmd')
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
   " 8-space soft tabs
   "
-  autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8
+  autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
 endif
 
 " }}}
