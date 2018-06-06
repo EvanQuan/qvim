@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.0.0
+# Version:    2.0.1
 #
 # Pull
 
@@ -10,7 +10,7 @@ cd ~/.vim
 # .vim
 git pull origin master
 # submodules
-git submodule update --init --remote --recursive
+git submodule update --init --remote --rebase --recursive
 
 # Check file versions
 bash ~/.vim/version/check_version.sh
