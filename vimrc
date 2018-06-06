@@ -948,6 +948,7 @@ if g:performance_mode_enabled
   set runtimepath-=~/.vim/bundle/ale
   set runtimepath-=~/.vim/bundle/vim-fugitive
   set runtimepath-=~/.vim/bundle/vim-gitgutter
+  set runtimepath-=~/.vim/bundle/jedi-vim
   set runtimepath-=~/.vim/bundle/quick-scope
 
 endif
