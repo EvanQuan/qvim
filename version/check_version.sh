@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       check_version.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.0
+# Version:    1.0.1
 #
 # Check File Versions
 
@@ -51,18 +51,24 @@ for file in *; do
         if ! [ -f $local_version ]; then
             # If the local version does not exist, create it and update the file
             printf "\t$check_mark $file local version not found -> [$(<$remote_version)] Updated!\n"
-            cp $remote_version $local_version # Update version number
+
+            cp $remote_version $local_version # Update local version number
+            # Update local file to match template
+            if [ -f $template ]; then
+                cp $template $(< $absolute_path)
+            fi
         elif ! diff $local_version $remote_version > /dev/null; then
             # If the local version is different, update the version and file
             printf "\t$check_mark $file [$(<$local_version)] -> [$(<$remote_version)] Updated!\n"
-            cp $remote_version $local_version # Update version number
+
+            cp $remote_version $local_version # Update local version number
+            # Update local file to match template
+            if [ -f $template ]; then
+                cp $template $(< $absolute_path)
+            fi
         else
-            # Already updated
+            # Already updated. Do not update local file.
             printf "\t- $file [$(<$remote_version)] Already up-to-date.\n"
-        fi
-        # Update local file to match template
-        if [ -f $template ]; then
-            cp $template $(< $absolute_path)
         fi
     fi
     # let count=count+1
@@ -70,5 +76,3 @@ done
 
 # Store popd so it doesn't printf to screen
 trash=popd
-
-printf "DONE\n"
