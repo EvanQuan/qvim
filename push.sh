@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       push.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.2
+# Version:    1.0.3
 #
 # Push
 
@@ -29,11 +29,12 @@ for file in $remote_versions/*; do
     fi
 done
 
+printf "\nStaging all changes..."
 # Store popd so it doesn't printf to screen
 trash=popd
-
 # Add everything
 git add ~/.vim
+printf "DONE\n"
 
 # Get commit message
 printf "\nCommit message:\n> "
