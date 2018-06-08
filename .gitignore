@@ -9,6 +9,7 @@ settings.vim
 version/local
 !version/templates/*
 !version/remote/*
+!version/path/*
 
 # vim-workspace session
 Session.vim
