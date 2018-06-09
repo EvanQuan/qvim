@@ -1,14 +1,14 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.20.0
+" Version:    1.21.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
 " this as the 2nd user vimrc file.
 "
-" Press "," to toggle category folding/unfolding
+" Press SPACE to toggle category folding/unfolding
 " ============================================================================
 "
 " Initial Setup {{{
@@ -31,7 +31,9 @@ filetype off
 
 " Load plugins with pathogen
 "
-execute pathogen#infect()
+if !g:minimalist_mode_enabled
+  execute pathogen#infect()
+endif
 
 " Help tags are loaded from all packages
 " NOTE: Currently disabled as it causes git issues in tracking submodules
@@ -83,11 +85,13 @@ endif
 " Determine colorscheme based on settings.vim
 " Lightline colorscheme is consistent with main colorscheme
 "
-if g:colorscheme_type
-  if g:colorscheme_type == 3 " Alternative
-    colorscheme onedark
-  else
-    colorscheme one
+if !g:minimalist_mode_enabled
+  if g:colorscheme_type
+    if g:colorscheme_type == 3 " Alternative
+      colorscheme onedark
+    else
+      colorscheme one
+    endif
   endif
 endif
 
@@ -288,7 +292,7 @@ endif
 " commands
 " default leader is \
 "
-let mapleader = " "
+let mapleader = ","
 
 " }}}
 " Editing {{{
@@ -952,7 +956,6 @@ if g:performance_mode_enabled
   set runtimepath-=~/.vim/bundle/vim-gitgutter
   set runtimepath-=~/.vim/bundle/jedi-vim
   set runtimepath-=~/.vim/bundle/quick-scope
-
 endif
 
 " }}}
@@ -1037,6 +1040,7 @@ let g:haskell_indent_guard = 4 " 2
 " This determines what information lightline shows and in what format
 " I did not make this or the corresponding functions it uses
 "
+if !g:minimalist_mode_enabled
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -1105,7 +1109,7 @@ if g:colorscheme_type
     let g:lightline.colorscheme = 'one'
   endif
 endif
-
+endif
 " }}}
 " Functions {{{
 
@@ -1317,11 +1321,11 @@ let g:NERDDefaultAlign = 'left'
 " }}}
 " syntastic {{{
 " Repository: https://github.com/vim-syntastic/syntastic
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
+if !g:minimalist_mode_enabled
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endif
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
