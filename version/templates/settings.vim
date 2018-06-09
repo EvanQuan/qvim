@@ -1,13 +1,20 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.9.2
+" Version:    1.10.0
 "
 " Setting values affect vimrc.vim configuration.
 "
-" Press "," to toggle category folding/unfolding
+" Press SPACE to toggle category folding/unfolding
 " ============================================================================
 
+" Minimalistic Mode {{{
+"   0: Disabled
+"     Everything runs as normal.
+"   1: Enabled
+"     Do not load any packages.
+" }}}
+let g:minimalist_mode_enabled = 0
 " Performance Mode {{{
 "   Disables certain settings and plugins that may cause poor performance on
 "   some machines.
