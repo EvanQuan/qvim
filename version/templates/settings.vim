@@ -1,11 +1,11 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.9.1
+" Version:    1.9.2
 "
 " Setting values affect vimrc.vim configuration.
 "
-" Press SPACE to toggle category folding/unfolding
+" Press "," to toggle category folding/unfolding
 " ============================================================================
 
 " Performance Mode {{{
