@@ -1,14 +1,14 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.19.3
+" Version:    1.20.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
 " this as the 2nd user vimrc file.
 "
-" Press SPACE to toggle category folding/unfolding
+" Press "," to toggle category folding/unfolding
 " ============================================================================
 "
 " Initial Setup {{{
@@ -201,6 +201,8 @@ if has('autocmd')
   "
   autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
+  " TODO: This is not working for some reason?
+  autocmd Filetype nerdtree setlocal noexpandtab tabstop=2 shiftwidth=2
   " 8-space soft tabs
   "
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
@@ -286,7 +288,7 @@ endif
 " commands
 " default leader is \
 "
-let mapleader = ","
+let mapleader = " "
 
 " }}}
 " Editing {{{
@@ -1366,6 +1368,15 @@ set updatetime=100 " [ms] Default: 4000
 if has('autocmd')
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
 endif
+
+" }}}
+" vim-indent-guides {{{
+" Repository: https://github.com/nathanaelkane/vim-indent-guides
+
+" Use this option to specify a list of filetypes to disable the plugin for.
+"
+" TODO: This is not working for some reason?
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " }}}
 " vim-togglecursor {{{
