@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.10.0
+" Version:    1.10.1
 "
 " Setting values affect vimrc.vim configuration.
 "
@@ -9,10 +9,12 @@
 " ============================================================================
 
 " Minimalistic Mode {{{
+"   Similar to `vim --clean` (Vim default settings, no plugins, no viminfo),
+"   except special settings and keybindings still enabled.
 "   0: Disabled
 "     Everything runs as normal.
 "   1: Enabled
-"     Do not load any packages.
+"     Do not load any plugins.
 " }}}
 let g:minimalist_mode_enabled = 0
 " Performance Mode {{{
