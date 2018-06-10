@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.21.0
+" Version:    1.22.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -914,24 +914,25 @@ nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
 " Visibility {{{
 
 " Toggle tab, space and EOL visibility
+"
 function! ToggleWhitespace() abort
   set list!
   if &list
-    echo "-- Whitespace VISIBLE --"
+    echo "-- WHITESPACE ON --"
   else
-    echo "-- Whitespace INVISIBLE --"
+    echo "-- WHITESPACE OFF --"
   endif
 endfunction
 noremap <leader>tw :call ToggleWhitespace()<CR>
 
 " Refresh syntax highlighting in case it gets messed up
+" TODO: Never actually tested this. Doesn't work?
 "
-"
-nnoremap <leader>rh <ESC>:execute 'colo' colors_name<cr>:syntax sync fromstart<cr>
+nnoremap <leader>rh <ESC>:execute 'colo' colors_name<CR>:syntax sync fromstart<CR>
 
 " Toggle absolute and relative line numbers
 "
-function! ToggleLineNumber() abort
+function! ToggleRelativeLineNumbers() abort
   if &relativenumber
     set number norelativenumber
     echo "-- ABSOLUTE LINE NUMBERS --"
@@ -940,7 +941,21 @@ function! ToggleLineNumber() abort
     echo "-- RELATIVE LINE NUMBERS --"
   endif
 endfunction
-noremap <leader>tl :call ToggleLineNumber()<CR>
+noremap <leader>tr :call ToggleRelativeLineNumbers()<CR>
+
+" Toggle line number visibility
+"
+function! ToggleLineNumbers() abort
+  if &number
+    set nonumber norelativenumber
+    echo "-- LINE NUMBERS OFF --"
+  else
+    set number relativenumber
+    echo "-- LINE NUMBERS ON --"
+  endif
+endfunction
+noremap <leader>tl :call ToggleLineNumbers()<CR>
+
 " }}}
 
 " }}}
@@ -986,6 +1001,7 @@ set ttyfast
 " }}}
 " Plugin Settings {{{
 
+if !g:minimalist_mode_enabled
 " arm-syntax-vim {{{
 " Repository: https://github.com/ARM9/arm-syntax-vim
 
@@ -1040,7 +1056,6 @@ let g:haskell_indent_guard = 4 " 2
 " This determines what information lightline shows and in what format
 " I did not make this or the corresponding functions it uses
 "
-if !g:minimalist_mode_enabled
 let g:lightline = {
   \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -1109,7 +1124,7 @@ if g:colorscheme_type
     let g:lightline.colorscheme = 'one'
   endif
 endif
-endif
+
 " }}}
 " Functions {{{
 
@@ -1321,11 +1336,11 @@ let g:NERDDefaultAlign = 'left'
 " }}}
 " syntastic {{{
 " Repository: https://github.com/vim-syntastic/syntastic
-if !g:minimalist_mode_enabled
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-endif
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -1412,6 +1427,7 @@ endif
 let g:workspace_autosave_always = 0
 
 " }}}
+endif
 
 " }}}
 " UI Layout {{{
