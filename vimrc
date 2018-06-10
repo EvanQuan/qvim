@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.22.0
+" Version:    1.23.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1625,6 +1625,11 @@ set autoread
 " Swap files are not created when opening a new buffer.
 "
 set noswapfile
+
+" This gives the <EOL> of the current buffer, which is used for
+" reading/writing the buffer from/to a file.
+"
+set fileformat=unix
 
 " }}}
 " History {{{
