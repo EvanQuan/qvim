@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.23.0
+" Version:    1.23.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -568,6 +568,7 @@ function! StripWhitespace() abort
  let @/=_s
   " Restore cursor position
  call cursor(1, c)
+ echo "-- WHITESPACE STRIPPED --"
 endfunction
 noremap <leader>sw :call StripWhitespace()<CR>
 
