@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.23.1
+" Version:    1.23.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -707,9 +707,9 @@ vnoremap <Tab> >gv
 function! ToggleTabs() abort
   set expandtab!
   if &expandtab
-    echo "-- Soft tabs enabled (SPACES) --"
+    echo "-- SOFT TABS (SPACES) --"
   else
-    echo "-- Hard tabs enabled (TABS) --"
+    echo "-- HARD TABS (TABS) --"
   endif
 endfunction
 noremap <leader>tt :call ToggleTabs()<CR>
@@ -1550,7 +1550,12 @@ set showcmd
 set showtabline=2
 
 " do not show default INSERT mode below since this is what lightline does
-set noshowmode
+" If lightline is disabled, then show it.
+if g:minimalist_mode_enabled
+  set showmode
+elseif !g:minimalist_mode_enabled
+  set noshowmode
+end
 
 " }}}
 " Text Wrapping {{{
