@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.0.3
+# Version:    2.1.0
 #
 # Pull
 
@@ -16,6 +16,7 @@ git pull origin master
 # This, while printing more by going through all the submodules, prevents
 # HEAD from detaching
 git submodule update
+git submodule foreach git reset --hard
 git submodule foreach git checkout master
 git submodule foreach git pull origin master
 
