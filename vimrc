@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.23.2
+" Version:    1.23.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -470,30 +470,31 @@ nnoremap pil "_ddP
 " Around Line
 " Selects current line, but in Visual mode, not Visual-Line mode
 "
-nnoremap val ^v$
+vnoremap al $
 
+"Hi asdf"
 " In Line
 " Selects currenet line, except for end-of-line character, in Visual mode
 "
-nnoremap vil ^v$h
+vnoremap il $h
 
 " Around/In Double Quotes
 "
-nnoremap vaq va"
-nnoremap viq vi"
+vnoremap aq a"
+vnoremap iq i"
 
 " Around/In Single Quotes
 "
-nnoremap vaQ va'
-nnoremap viQ vi'
+vnoremap aQ a'
+vnoremap iQ i'
 
 " Next Line
 "
-nnoremap vol jV
+vnoremap ol <ESC>jV
 
 " Previous Line
 "
-nnoremap vOl kV
+noremap Ol <ESC>kV
 
 " }}}
 " Yank {{{
@@ -689,7 +690,7 @@ endif
 " }}}
 
 " }}}
-" Indentation {{{
+" Indentation {{
 
 " Indent with tab and unindenting with shift-tab in all modes
 "
