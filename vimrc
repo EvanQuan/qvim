@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.23.3
+" Version:    1.23.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -470,13 +470,12 @@ nnoremap pil "_ddP
 " Around Line
 " Selects current line, but in Visual mode, not Visual-Line mode
 "
-vnoremap al $
+vnoremap al <ESC>0v$
 
-"Hi asdf"
 " In Line
 " Selects currenet line, except for end-of-line character, in Visual mode
 "
-vnoremap il $h
+vnoremap il <ESC>0v$h
 
 " Around/In Double Quotes
 "
@@ -690,7 +689,7 @@ endif
 " }}}
 
 " }}}
-" Indentation {{
+" Indentation {{{
 
 " Indent with tab and unindenting with shift-tab in all modes
 "
@@ -1043,7 +1042,7 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 let g:haskell_indent_if = 4 " 3
 let g:haskell_indent_case = 4 " 2
 let g:haskell_indent_let = 4 " 4
-let g:haskell_indent_where = 2 " 6
+let g:haskell_indent_where = 4 " 6
 let g:haskell_indent_before_where = 2 " 2
 let g:haskell_indent_after_bare_where = 2 " 2
 let g:haskell_indent_do = 4 " 3
