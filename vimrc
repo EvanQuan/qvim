@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.23.4
+" Version:    1.24.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -547,6 +547,32 @@ nnoremap <leader>fi :set fdm=indent<CR>
 nnoremap <leader>fm :set fdm=marker<CR>
 nnoremap <leader>fs :set fdm=syntax<CR>
 nnoremap <leader>fd :set fdm=diff<CR>"
+
+" }}}
+" Git {{{
+
+" Diff
+"
+nnoremap <leader>gd :Gdiff<CR>
+
+" Status
+"
+nnoremap <leader>gs :Gstatus<CR>
+
+" Add/Stage all in current directory
+"
+nnoremap <leader>ga :Git add .<CR>
+
+" Commit
+nnoremap <leader>gc :Gcommit<CR>
+
+" Push
+"
+nnoremap <leader>gps :Git push origin master<CR>
+
+" Pull
+"
+nnoremap <leader>gpl :Git pull origin master<CR>
 
 " }}}
 " Formatting {{{
