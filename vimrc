@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.24.1
+" Version:    1.25.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -738,7 +738,13 @@ function! ToggleTabs() abort
     echo "-- HARD TABS (TABS) --"
   endif
 endfunction
-noremap <leader>tt :call ToggleTabs()<CR>
+nnoremap <leader>tt :call ToggleTabs()<CR>
+
+" Replace all sequences of white-space containing a <Tab> with new strings of
+" white-space using the new tabstop value given. If you do not specify a new
+" tabstop size or it is zero, Vim uses the current value of 'tabstop'.
+"
+nnoremap <leader>rt :retab<CR>
 
 " }}}
 " Plugins {{{
@@ -921,6 +927,48 @@ endif
 noremap <leader>b :shell<CR>
 
 " }}}
+" User Interface {{{
+
+" Toggle colorcolumn visibility
+"
+function! ToggleColorColumn() abort
+  if &colorcolumn
+    set colorcolumn=0
+    echo "-- COLORCOLUMN DISABLED --"
+  else
+    execute "set colorcolumn=".g:wrap_width
+    echo "-- COLORCOLUMN ENABLED --"
+  endif
+endfunction
+nnoremap <leader>tcw :call ToggleColorColumn()<CR>
+
+" Toggle cursorcolumn visibility
+"
+function! ToggleCursorColumn() abort
+  set cursorcolumn!
+  if &cursorcolumn
+    echo "-- CURSORCOLUMN ENABLED --"
+  else
+    echo "-- CURSORCOLUMN DISABLED --"
+  endif
+endfunction
+nnoremap <leader>tcc :call ToggleCursorColumn()<CR>
+
+
+" Toggle cursorline visibility
+"
+function! ToggleCursorLine() abort
+  set cursorline!
+  if &cursorline
+    echo "-- CURSORLINE ENABLED --"
+  else
+    echo "-- CURSORLINE DISABLED --"
+  endif
+endfunction
+nnoremap <leader>tcl :call ToggleCursorLine()<CR>
+
+
+" }}}
 " Vimrc Editing {{{
 
 " Open vimrc anywhere
@@ -1012,7 +1060,7 @@ endif
 set lazyredraw
 
 " Indicates a fast terminal connection. More characters will be sent to the
-" screen for redrawing, instead of using inster/delte line commands. Imroves
+" screen for redrawing, instead of using insert/delete line commands. Improves
 " smoothness of redrawing when there are multiple windows and the terminal
 " does not support a scrolling region.
 " Also enables the extra writing of characters at the end of each screen line
@@ -1022,6 +1070,16 @@ set lazyredraw
 " Improves rendering when scrolling
 "
 set ttyfast
+
+" Maximum column inn which to search for syntax items. In long lines the text
+" after this column is not highlithed and following lines may not be
+" highlighted correctly, because the syntax state is cleared.
+" This helps avoid very slow redrawing for an XML file that is one long line.
+" Set to 0 to remove the limit.
+"
+" Default 3000
+"
+set synmaxcol=128
 
 " }}}
 
@@ -1457,7 +1515,7 @@ let g:workspace_autosave_always = 0
 endif
 
 " }}}
-" UI Layout {{{
+" User Interface {{{
 
 " Alerts {{{
 
@@ -1589,7 +1647,9 @@ end
 if g:wrap_enabled
   set wrap
   " wrap_width is visualized as highlighted column
-  execute "set colorcolumn=".g:wrap_width
+  if !g:performance_mode_enabled
+    execute "set colorcolumn=".g:wrap_width
+  endif
   if g:wrap_enabled == 1 " soft wrap
     set linebreak " line breaks only occur when the user explictly makes them
     set textwidth=0 " disable text width limit
