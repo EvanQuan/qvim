@@ -41,7 +41,7 @@ printf "DONE\n"
 # read message
 # git commit -m "$message"
 # Have vim open up so commmit message can be multiline
-git commit -m
+git commit
 
 # # Push
 git push
