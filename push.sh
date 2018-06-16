@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       push.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.3
+# Version:    1.0.4
 #
 # Push
 
@@ -37,9 +37,11 @@ git add ~/.vim
 printf "DONE\n"
 
 # Get commit message
-printf "\nCommit message:\n> "
-read message
-git commit -m "$message"
+# printf "\nCommit message:\n> "
+# read message
+# git commit -m "$message"
+# Have vim open up so commmit message can be multiline
+git commit -m
 
 # # Push
 git push
