@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.28.0
+" Version:    1.28.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1367,6 +1367,8 @@ function! MyFugitive() abort
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       if g:special_symbols_enabled
         let mark = ' '
+      else
+        let mark = ''
       endif
       " let mark = '⭠ ' " this was the default
       let _ = fugitive#head()
