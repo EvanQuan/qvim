@@ -1,7 +1,7 @@
 " ============================================================================
-" Name:       vimrc
+" File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.26.0
+" Version:    1.27.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -13,12 +13,63 @@
 "
 " Initial Setup {{{
 
+" Settings {{{
+
 " The first steps necessary to set up all the configurations
 
 " Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
 "
 source ~/.vim/settings.vim
+
+" Set settings to default if file does not exist
+"
+" Set to 1.10.1 defaults.
+"
+if !exists("g:minimalist_mode_enabled")
+  let g:minimalist_mode_enabled = 0
+endif
+if !exists("g:performance_mode_enabled")
+  let g:performance_mode_enabled = 0
+endif
+if !exists("g:hard_mode")
+  let g:hard_mode = 0
+endif
+if !exists("g:standard_keybindings")
+  let g:standard_keybindings = 0
+endif
+if !exists("g:truecolor_enabled")
+  let g:truecolor_enabled = 1
+endif
+if !exists("g:special_symbols_enabled")
+  let g:special_symbols_enabled = 0
+endif
+if !exists("g:colorscheme_type")
+  let g:colorscheme_type = 3
+endif
+if !exists("g:wrap_enabled")
+  let g:wrap_enabled = 1
+endif
+if !exists("g:wrap_width")
+  let g:wrap_width = 79
+endif
+if !exists("g:show_whitespace")
+  let g:show_whitespace = 1
+endif
+if !exists("g:cursor_blinking_disabled")
+  let g:cursor_blinking_disabled = 1
+endif
+if !exists("g:cursor_color")
+  let g:cursor_color = 1
+endif
+if !exists("g:escape_alternative_enabled")
+  let g:escape_alternative_enabled = 0
+endif
+
+
+" }}}
+" Plugins {{{
+
 
 " Use Vim settings, rathan than  Vi settings.
 " This must be first because it changes other options as a side effect.
@@ -31,7 +82,7 @@ filetype off
 
 " Load plugins with pathogen
 "
-if !g:minimalist_mode_enabled
+if !exists("g:minimalist_mode_enabled") || !g:minimalist_mode_enabled
   execute pathogen#infect()
 endif
 
@@ -68,7 +119,9 @@ if has('autocmd')
 
 endif
 
-" }}} return
+" }}}
+
+" }}}
 " Appearance {{{
 
 " Color Scheme {{{

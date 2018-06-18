@@ -1,7 +1,7 @@
 #!/bin/bash
-# Name:       push.sh
+# File:       push.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.4
+# Version:    1.0.5
 #
 # Push
 
