@@ -92,3 +92,6 @@
 [submodule "bundle/ale"]
 	path = bundle/ale
 	url = https://github.com/w0rp/ale
+[submodule "bundle/prolog.vim"]
+	path = bundle/prolog.vim
+	url = https://github.com/adimit/prolog.vim
