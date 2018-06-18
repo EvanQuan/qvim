@@ -1,7 +1,7 @@
 " ============================================================================
 " Name:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.25.0
+" Version:    1.26.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -406,6 +406,17 @@ nnoremap sil :s/
 
 " }}}
 " Paste {{{
+
+"
+function! TogglePasteMode() abort
+  set paste!
+  if &paste
+    echo "-- PASTE ON --"
+  else
+    echo "-- PASTE OFF --"
+  endif
+endfunction
+noremap <leader>tp :call TogglePasteMode()<CR>
 
 " Similar to yanking
 " Downside: There is lag for normal p
