@@ -119,6 +119,7 @@ Plugins
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [powerline](https://github.com/powerline/powerline)
+- [prolog.vim](https://github.com/adimit/prolog.vim)
 - [quick-scope](https://github.com/unblevable/quick-scope)
 - [tabular](https://github.com/godlygeek/tabular)
 - [syntastic](https://github.com/vim-syntastic/syntastic)
