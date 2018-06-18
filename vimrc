@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.27.0
+" Version:    1.28.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -228,11 +228,28 @@ set formatoptions=tcqrn1
 
 " 4-space soft tabs
 "
+" Number of spaces that a <Tab> in the file counts for.
+" Default 8
+"
 set tabstop=4 " 2
+
+" Number of spaces to use for each step of (auto)indent.
+"
 set shiftwidth=4 " 2
+
+" Number of spaces that a <Tab> conunts for while performing editing
+" operations.
+"
 set softtabstop=4 " 2
+
+" In Insert mode: use the appropraiate number of spaces to insert a <Tab>.
+"
 set expandtab " sets tabs to spaces
+
+" Do not round indent to multiple of 'shiftwidth'.
+"
 set noshiftround
+
 " Insert tabs on the start of a line according to shiftwidth, not tabstop
 "
 set smarttab
@@ -472,61 +489,60 @@ endfunction
 noremap <leader>tp :call TogglePasteMode()<CR>
 
 " Similar to yanking
-" Downside: There is lag for normal p
 
 " Normal - to avoid lag
-"
-nnoremap pp p
+" Current disiabled, as special paste commands resquire leader prefix.
+" nnoremap pp p
 
 " Around/In Word
 "
-nnoremap paw "_dawP
-nnoremap piw "_diwP
+nnoremap <leader>paw "_dawP
+nnoremap <leader>piw "_diwP
 
 " Around/In Braces
 "
-nnoremap pi{ "_di{P
-nnoremap pi} "_di}P
-nnoremap piB "_di{P
-nnoremap piB "_di}P
+nnoremap <leader>pi{ "_di{P
+nnoremap <leader>pi} "_di}P
+nnoremap <leader>piB "_di{P
+nnoremap <leader>piB "_di}P
 
 " Around/In Brackets
 "
-nnoremap pi[ "_di[P
-nnoremap pi] "_di]P
+nnoremap <leader>pi[ "_di[P
+nnoremap <leader>pi] "_di]P
 
 " Around/In Double Quotes
 "
-nnoremap pa" "_da"P
-nnoremap paq "_da"P
-nnoremap pi" "_di"P
-nnoremap piq "_di"P
+nnoremap <leader>pa" "_da"P
+nnoremap <leader>paq "_da"P
+nnoremap <leader>pi" "_di"P
+nnoremap <leader>piq "_di"P
 
 " Around/In Single Quotes
 "
-nnoremap pa' "_da'P
-nnoremap paQ "_da'P
-nnoremap pi' "_di'P
-nnoremap piQ "_di"P
+nnoremap <leader>pa' "_da'P
+nnoremap <leader>paQ "_da'P
+nnoremap <leader>pi' "_di'P
+nnoremap <leader>piQ "_di"P
 
 " Parens
 "
-nnoremap pi( "_di(P
-nnoremap pi) "_di)P
-nnoremap pib "_di(P
-nnoremap pib "_di)P
+nnoremap <leader>pi( "_di(P
+nnoremap <leader>pi) "_di)P
+nnoremap <leader>pib "_di(P
+nnoremap <leader>pib "_di)P
 
 " Greater/less than
-nnoremap pi< "_di<P
-nnoremap pi> "_di>P
+nnoremap <leader>pi< "_di<P
+nnoremap <leader>pi> "_di>P
 
 " Tag
 "
-nnoremap pit "_ditP
+nnoremap <leader>pit "_ditP
 
 " Line
 "
-nnoremap pil "_ddP
+nnoremap <leader>pil "_ddP
 
 " }}}
 " Visual {{{
@@ -1213,14 +1229,17 @@ let g:lightline = {
     \           ],
     \   'right':[ [ 'syntastic', 'lineinfo' ],
     \             ['percent'],
-    \             [ 'fileformat', 'fileencoding', 'filetype' ],
+    \             [ 'fileformat', 'fileencoding', 'expandtab', 'filetype' ],
     \           ]
     \ },
   \ 'component_function': {
+    \   'readonly': 'MyReadonly',
+    \   'modified': 'MyModified',
     \   'fugitive': 'MyFugitive',
     \   'filename': 'FilenameRelativePath',
     \   'fileformat': 'MyFileformat',
     \   'filetype': 'MyFiletype',
+    \   'expandtab': 'MyExpandtab',
     \   'fileencoding': 'MyFileencoding',
     \   'mode': 'MyMode',
     \   'ctrlpmark': 'CtrlPMark',
@@ -1288,8 +1307,10 @@ function! MyModified() abort
           \ ? '' : '-'
 endfunction
 
+" Displays if the file is read only.
+"
 function! MyReadonly() abort
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '<U+2B64>' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? 'readonly' : ''
 endfunction
 
 function! MyTabFilename(n) abort
@@ -1314,6 +1335,7 @@ function! MyTabFilename(n) abort
     return strlen(bufname) ? bufname : '[No Name]'
   endif
 endfunction
+
 function! MyFilename() abort
   let n = tabpagenr()
   let buflist = tabpagebuflist(n)
@@ -1340,51 +1362,52 @@ endfunction
 
 " Special symbols enhance lightline appearance
 "
-if g:special_symbols_enabled
-  function! MyFugitive() abort
-    try
-      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+function! MyFugitive() abort
+  try
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+      if g:special_symbols_enabled
         let mark = ' '
-        " let mark = '⭠ ' " this was the default
-        let _ = fugitive#head()
-        return strlen(_) ? mark._ : ''
       endif
-    catch
-    endtry
-    return ''
-  endfunction
-else
-  function! MyFugitive() abort
-    try
-      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-        let mark = ''
-        let _ = fugitive#head()
-        return strlen(_) ? mark._ : ''
-      endif
-    catch
-    endtry
-    return ''
-  endfunction
-endif
+      " let mark = '⭠ ' " this was the default
+      let _ = fugitive#head()
+      return strlen(_) ? mark._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+" Displays whether soft tabs (spaces) or hard tabs (tabs) are being used, and
+" the the tab width.
+"
+function! MyExpandtab() abort
+  return winwidth(0) > 70 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
+endfunction
 
 " File format only shows if window width is over 70 columns to avoid clutter
 "
 function! MyFileformat() abort
-    return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
-" File type only shows if window width is over 70 columns to avoid clutter
+" File type only shows if window width is over 70 columns to avoid clutter.
+" If the length of filetype is 0 (i.e. there is no file type), then display
+" there is no file type.
 "
 function! MyFiletype() abort
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
-" File encoding only shows if window width is over 70 columns to avoid clutter
+" File encoding only shows if window width is over 70 columns to avoid
+" clutter.
 "
 function! MyFileencoding() abort
-    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
+" Set the mode name to plugin names when in respective plugin modes, notably
+" for CtrlP and NERDTree.
+"
 function! MyMode() abort
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
@@ -1639,22 +1662,43 @@ endif
 " }}}
 " Encoding {{{
 
+" Sets the character encoding used inside Vim. It applies to text in the
+" buffeers, register, String in expressions, text stored in the viminfo file
+" etc.
 set encoding=utf-8
+
+" Sets the character encoding for the file of this buffer. When 'fileencoding'
+" is different from 'encoding', conversion will be done when writing the file.
+"
 set fileencoding=utf-8
+
+" This is a list of character encoding considered when starting to edit an
+" existing file.
+"
 set fileencodings=utf-8
+
+" Specify the character encoding used in the script. The followig lines will
+" be converted from [encoding] to the value of the 'encoding' option if they
+" are different.
+"
 scriptencoding utf-8
 
 " }}}
 " GUI {{{
 
 " No scroll bars
+"
 set guioptions = " No scroll bars
 
 " }}}
 " Line Numbers {{{
 
+" Print the line number in front of eacht line.
+"
 set number
 if !g:performance_mode_enabled
+  " Changes the displayed number to relative to the cursor.
+  "
   set relativenumber
   if has('autocmd')
     " Absolute number on INSERT and REPLACE modes
@@ -1679,7 +1723,8 @@ endif
 set ruler
 
 " Status line displays the current mode, file name, file status, ruler etc.
-" Current unnecessary with lightline
+" Current unnecessary with lightline, but is useful when lightline is
+" disabled.
 "
 set laststatus=2
 
@@ -1743,11 +1788,12 @@ set titlestring=%F
 "
 set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·,nbsp:‡
 
-" Highlight trailing spaces for increased visibility
+" Highlight trailing whitespace characters for increased visibility
 "
 match ErrorMsg '\s\+$'
 
 " Only show whitespace if enabled
+"
 if g:show_whitespace
   set list
 endif
