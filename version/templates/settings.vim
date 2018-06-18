@@ -1,7 +1,7 @@
 " ============================================================================
-" Name:       settings.vim
+" File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.10.1
+" Version:    1.10.2
 "
 " Setting values affect vimrc.vim configuration.
 "

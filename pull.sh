@@ -1,7 +1,7 @@
 #!/bin/bash
-# Name:       pull.sh
+# File:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.1.0
+# Version:    2.1.1
 #
 # Pull
 
