@@ -132,6 +132,7 @@ Plugins
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-prolog](https://github.com/mxw/vim-prolog)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
+- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)

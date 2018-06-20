@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.28.1
+" Version:    1.29.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -197,8 +197,8 @@ set foldenable
 " setting it to 10 here ensure that only very nested blocks of code are folded
 " when opening a buffer.
 "
-
 set foldlevelstart=10  " open most fold by default
+
 " Folds can be nested. Setting a max on the number of folds guards against too
 " many folds.
 "
@@ -631,6 +631,12 @@ nnoremap <leader>fd :set fdm=diff<CR>"
 " }}}
 " Git {{{
 
+
+" Open current file, blob, tree, commit, or tag in browser at upstream
+" hosting provider.
+"
+nnoremap <leader>gb :Gbrowse<CR>
+
 " Diff
 "
 nnoremap <leader>gd :Gdiff<CR>
@@ -643,7 +649,12 @@ nnoremap <leader>gs :Gstatus<CR>
 "
 nnoremap <leader>ga :Git add .<CR>
 
+" Write to the currne file's path and stage the results.
+"
+nnoremap <leader>gw :Gwrite<CR>
+
 " Commit
+"
 nnoremap <leader>gc :Gcommit<CR>
 
 " Push
