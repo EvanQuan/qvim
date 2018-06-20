@@ -95,3 +95,6 @@
 [submodule "bundle/prolog.vim"]
 	path = bundle/prolog.vim
 	url = https://github.com/adimit/prolog.vim
+[submodule "bundle/vim-rhubarb"]
+	path = bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
