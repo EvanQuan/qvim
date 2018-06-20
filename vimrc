@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.29.0
+" Version:    1.30.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -82,7 +82,7 @@ filetype off
 
 " Load plugins with pathogen
 "
-if !exists("g:minimalist_mode_enabled") || !g:minimalist_mode_enabled
+if !g:minimalist_mode_enabled
   execute pathogen#infect()
 endif
 
@@ -367,13 +367,37 @@ let mapleader = ","
 " }}}
 " Editing {{{
 
+" Command mode {{{
+
+" Easier to enter command mode - don't need to hold shift
+"
+nnoremap ; :
+vnoremap ; :
+
+" Write
+" Capitalization doesn't matter
+"
+cnoreabbrev W w
+
+" Write and quit
+" Capitalization doesn't matter
+"
+cnoreabbrev WQ wq
+cnoreabbrev wQ wq
+cnoreabbrev Wq wq
+cnoreabbrev X x
+
+" }}}
 " Change {{{
 
 " Replaces the word under cursor with whatever you want
 "   Similar to ciw
 " Repeat with . replaces FOLLOWING occurrences of that word
+"
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+
 " Repeat with . replaces PREVIOUS occurences of that word
+"
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 
 " Around/In Line
@@ -447,36 +471,31 @@ nnoremap dol jdd
 nnoremap dOl kdd
 
 " }}}
-" Ex-mode {{{
-
-" Easier to enter command mode - don't need to hold shift
-"
-noremap ; :
-
-" }}}
 " Substitute {{{
-
-" These potentially conflicts with the default 's' keybinding for substitute
 
 " Global File
 "
-nnoremap sgf :%s//g<Left><Left>
+nnoremap <leader>sgf :%s//g<Left><Left>
 
 " In File
 "
-nnoremap sif :%s/
+nnoremap <leader>sif :%s/
 
 " Global Line
 "
-nnoremap sgl :s//g<Left><Left>
+nnoremap <leader>sgl :s//g<Left><Left>
 
 " In Line
 "
-nnoremap sil :s/
+nnoremap <leader>sil :s/
 
 " }}}
 " Paste {{{
 
+" Put Vim in Paste mode. This is useful if you want to cut or copy some text
+" from noe window and paste it in Vim. This will avoid unexpected effects.
+" Setting this option is useful when using Vim in a terminal, where Vim cannot
+" distinguish between typed text and pasted text.
 "
 function! TogglePasteMode() abort
   set paste!
@@ -490,8 +509,8 @@ noremap <leader>tp :call TogglePasteMode()<CR>
 
 " Similar to yanking
 
-" Normal - to avoid lag
-" Current disiabled, as special paste commands resquire leader prefix.
+" Leader prefix added to prevent input lag for normal 'p'
+" Current disabled, as special paste commands resquire leader prefix.
 " nnoremap pp p
 
 " Around/In Word
@@ -631,39 +650,49 @@ nnoremap <leader>fd :set fdm=diff<CR>"
 " }}}
 " Git {{{
 
-
+" TODO - Potentially remove leader key remappin (stick with command mode
+" reabbrevation, to open space up for more leader commands)
+"
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
 "
+cnoreabbrev gb Gbrowse
 nnoremap <leader>gb :Gbrowse<CR>
 
 " Diff
 "
+cnoreabbrev gd Gdiff
 nnoremap <leader>gd :Gdiff<CR>
 
 " Status
 "
+cnoreabbrev gs Gstatus
 nnoremap <leader>gs :Gstatus<CR>
 
 " Add/Stage all in current directory
 "
+cnoreabbrev ga Git add .
 nnoremap <leader>ga :Git add .<CR>
 
 " Write to the currne file's path and stage the results.
 "
+cnoreabbrev gw Gwrite
 nnoremap <leader>gw :Gwrite<CR>
 
 " Commit
 "
+cnoreabbrev gc Gcommit
 nnoremap <leader>gc :Gcommit<CR>
 
 " Push
 "
-nnoremap <leader>gp :Git push origin master<CR>
+cnoreabbrev gp Git push
+nnoremap <leader>gp :Git push<CR>
 
 " Pull
 "
-nnoremap <leader>gl :Git pull origin master<CR>
+cnoreabbrev gl Git pull
+nnoremap <leader>gl :Git pull<CR>
 
 " }}}
 " Formatting {{{
@@ -694,10 +723,14 @@ noremap <leader>sw :call StripWhitespace()<CR>
 
 " Resize windows
 "
-nnoremap <silent> <leader>vr+ :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <leader>vr- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
-nnoremap <silent> <leader>hr+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <leader>hr- :exe "resize " . (winheight(0) * 2/3)<CR>
+cnoreabbrev vrp exe "vertical resize " . (winwidth(0) * 3/2)
+cnoreabbrev vrm exe "vertical resize " . (winwidth(0) * 2/3)
+cnoreabbrev hrp exe "resize " . (winheight(0) * 3/2)
+cnoreabbrev hrm exe "resize " . (winheight(0) * 2/3)
+nnoremap <silent> <leader>vrp :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <leader>vrm :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <silent> <leader>hrp :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " }}}
 " Movement {{{
@@ -829,7 +862,7 @@ function! ToggleTabs() abort
     echo "-- HARD TABS (TABS) --"
   endif
 endfunction
-nnoremap <leader>tt :call ToggleTabs()<CR>
+nnoremap <leader>ti :call ToggleTabs()<CR>
 
 " Replace all sequences of white-space containing a <Tab> with new strings of
 " white-space using the new tabstop value given. If you do not specify a new
@@ -851,7 +884,7 @@ nnoremap <leader>rt :retab<CR>
 nnoremap <silent> <C-\> :NERDTreeToggle<CR>
 " Alternative
 "
-nnoremap <silent> <leader>tn :NERDTreeToggle<CR>
+nnoremap <silent> <leader>tt :NERDTreeToggle<CR>
 
 " }}}
 " vim-javacomplete2 {{{
@@ -1833,7 +1866,7 @@ set hidden
 " File {{{
 
 " When a file has been detected to have been changed outside of Vim and it
-" has not been changed inside of Vim, automatically aread it again.
+" has not been changed inside of Vim, automatically read it again.
 "
 set autoread
 
