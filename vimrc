@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.31.1
+" Version:    1.31.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1365,14 +1365,12 @@ endif
 "
 function! MyTime() abort
   let window_width = winwidth(0)
-  if window_width > 103
+  if window_width > 105
     return strftime('%c') " Day # Month Year Hour:Minute:Second AM/PM TimeZone
-  elseif window_width > 87
+  elseif window_width > 90
     return strftime ('%X %Z') " Hour:Minute:Second AM/PM TimeZone
   elseif window_width > 85
-    return strftime ('%X') " Hour:Minute:Second
-  elseif window_width > 76
-    return  strftime ('%H:%M') " Hour:Minute
+    return strftime ('%H:%M') " Hour:Minute:Second
   else
     return ''
   endif
@@ -1465,7 +1463,7 @@ function! MyFugitive() abort
       endif
       " let mark = '⭠ ' " this was the default
       let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
+      return (strlen(_) && winwidth(0) > 40) ? mark._ : ''
     endif
   catch
   endtry
@@ -1476,25 +1474,25 @@ endfunction
 " the the tab width.
 "
 function! MyExpandtab() abort
-  return winwidth(0) > 60 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
+  return winwidth(0) > 67 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
 endfunction
 
 " File format
 "
 function! MyFileformat() abort
-  return winwidth(0) > 50 ? &fileformat : ''
+  return winwidth(0) > 57 ? &fileformat : ''
 endfunction
 
 " File type
 "
 function! MyFiletype() abort
-  return winwidth(0) > 45 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 " File encoding
 "
 function! MyFileencoding() abort
-  return winwidth(0) > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
+  return winwidth(0) > 77 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 " Set the mode name to plugin names when in respective plugin modes, notably
@@ -1510,7 +1508,7 @@ function! MyMode() abort
     \ &filetype == 'unite' ? 'Unite' :
     \ &filetype == 'vimfiler' ? 'VimFiler' :
     \ &filetype == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 40 ? lightline#mode() : ''
+    \ winwidth(0) > 30 ? lightline#mode() : ''
 endfunction
 
 " Signifies currently in CtrlP search mode.
