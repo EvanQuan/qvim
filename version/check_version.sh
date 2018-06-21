@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name:       check_version.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.2
+# Version:    1.0.3
 #
 # Keep local file versions up to date with remote versions.
 
@@ -15,13 +15,13 @@ remote_templates=~/.vim/version/templates/
 check_mark=✔
 cross_mark=✗
 
-# Create local versions if they do not exist
+# Create local versions directory if they do not exist
+# Directory will now be empty, and the following loop will
+# update each version individually.
 if ! [ -d "$local_versions" ]; then
-    printf "\tLocal versions not found. Copied.\n"
+    printf "\tLocal versions directory not found. Created.\n"
     # Make local directory if it does not exist.
     mkdir $local_versions
-    # Then copy remote version files into local.
-    cp $remote_versions_files $local_versions
 fi
 
 # Check every file that needs to be updated
