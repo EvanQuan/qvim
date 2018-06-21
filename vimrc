@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.30.0
+" Version:    1.31.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -271,12 +271,12 @@ if has('autocmd')
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  " TODO: This is not working for some reason?
+  autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   " 2-space hard tabs
   "
   autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
-  " TODO: This is not working for some reason?
-  autocmd Filetype nerdtree setlocal noexpandtab tabstop=2 shiftwidth=2
   " 8-space soft tabs
   "
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
@@ -758,14 +758,18 @@ noremap gd :bdelete<CR>
 " Windows {{{
 
 " Split open new window
-"
+
 " Horizontal
+"
 noremap <leader>hs :split<space>
+
 " Vertical
+"
 noremap <leader>vs :vsplit<space>
 
 " Easy window navigation
 " Move between windows with Ctrl-standard directions keys
+"
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
@@ -873,6 +877,15 @@ nnoremap <leader>rt :retab<CR>
 " }}}
 " Plugins {{{
 
+" ale {{{
+" Repository: https://github.com/w0rp/ale
+
+" Enable or disable ALE linting, including all of its autocmd events, loclist
+" items, quickfix items, signs, current jobs, etc., globally.
+"
+nnoremap <leader>ta :ALEToggle<CR>
+
+"}}}
 " nerdtree {{{
 " Repository: https://github.com/scrooloose/nerdtree
 
@@ -955,10 +968,12 @@ nnoremap <leader>w :ToggleWorkspace<CR>
 " All characters except 0-9, a-z, A-Z, an _ have special meaning
 " Allow for searching with regex
 " Type ":help \v" for more information
+"
 nnoremap / /\v
 vnoremap / /\v
 
-" Going to next/previous search centers cursor
+" Going to next/previous search moves cursor to the centre of the screen.
+"
 map n nzz
 map N Nzz
 
@@ -969,6 +984,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 " Convenient command to see the different between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
+"
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
     \ | wincmd p | diffthis
@@ -980,6 +996,7 @@ map <leader>d :DiffOrig<CR>
 " Replacing in file {{{
 
 " Remap autocomplete movement to allow j,k movement
+"
 inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
 inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 
@@ -1267,41 +1284,42 @@ let g:haskell_indent_guard = 4 " 2
 "
 let g:lightline = {
   \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'modified' ],
-    \             [ 'filename'],
-    \           ],
-    \   'right':[ [ 'syntastic', 'lineinfo' ],
-    \             ['percent'],
-    \             [ 'fileformat', 'fileencoding', 'expandtab', 'filetype' ],
-    \           ]
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'fugitive', 'readonly', 'modified' ],
+    \           [ 'filename'],
+    \         ],
+    \ 'right':[ [ 'syntastic', 'lineinfo' ],
+    \           ['percent'],
+    \           [ 'fileformat', 'fileencoding', 'expandtab', 'filetype' , 'time'],
+    \         ]
     \ },
   \ 'component_function': {
-    \   'readonly': 'MyReadonly',
-    \   'modified': 'MyModified',
-    \   'fugitive': 'MyFugitive',
-    \   'filename': 'FilenameRelativePath',
-    \   'fileformat': 'MyFileformat',
-    \   'filetype': 'MyFiletype',
-    \   'expandtab': 'MyExpandtab',
-    \   'fileencoding': 'MyFileencoding',
-    \   'mode': 'MyMode',
-    \   'ctrlpmark': 'CtrlPMark',
-    \   'gitbranch': 'gitbranch#name',
+    \ 'time': 'MyTime',
+    \ 'readonly': 'MyReadonly',
+    \ 'modified': 'MyModified',
+    \ 'fugitive': 'MyFugitive',
+    \ 'filename': 'MyFilename',
+    \ 'fileformat': 'MyFileformat',
+    \ 'filetype': 'MyFiletype',
+    \ 'expandtab': 'MyExpandtab',
+    \ 'fileencoding': 'MyFileencoding',
+    \ 'mode': 'MyMode',
+    \ 'ctrlpmark': 'CtrlPMark',
+    \ 'gitbranch': 'gitbranch#name',
     \ 'bufferbefore': 'lightline#buffer#bufferbefore',
     \ 'bufferafter': 'lightline#buffer#bufferafter',
     \ 'bufferinfo': 'lightline#buffer#bufferinfo',
     \ },
   \ 'tab_component_function': {
-    \   'filename': 'MyTabFilename',
+    \ 'filename': 'MyTabFilename',
   \ },
   \ 'component_expand': {
-    \   'syntastic': 'SyntasticStatuslineFlag',
-    \   'buffercurrent': 'lightline#buffer#buffercurrent2',
+    \ 'syntastic': 'SyntasticStatuslineFlag',
+    \ 'buffercurrent': 'lightline#buffer#buffercurrent2',
   \ },
   \ 'component_type': {
-    \   'syntastic': 'error',
-    \   'buffercurrent': 'tabsel',
+    \ 'syntastic': 'error',
+    \ 'buffercurrent': 'tabsel',
   \ },
   \ 'tabline': {
       \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
@@ -1340,12 +1358,32 @@ endif
 " }}}
 " Functions {{{
 
-" File name displays its path relative to wherever vim was opened
+" Amount of information shown depends on the size of the window.
+
+
+" Shows current time.
+"
+function! MyTime() abort
+  if winwidth(0) > 103
+    return strftime('%c') " Day # Month Year Hour:Minute:Second AM/PM TimeZone
+  elseif winwidth(0) > 87
+    return strftime ('%X %Z') " Hour:Minute:Second AM/PM TimeZone
+  elseif winwidth(0) > 85
+    return strftime ('%X') " Hour:Minute:Second
+  elseif winwidth(0) > 76
+    return strftime ('%H:%M') " Hour:Minute
+  else
+    return '' " Nothing
+endfunction
+
+" File name displays its path relative to wherever vim was opened.
 "
 function! FilenameRelativePath() abort
   return expand('%')
 endfunction
 
+" Signifies that the current file is modified and now saved.
+"
 function! MyModified() abort
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable
           \ ? '' : '-'
@@ -1380,6 +1418,8 @@ function! MyTabFilename(n) abort
   endif
 endfunction
 
+" Displays current file name
+"
 function! MyFilename() abort
   let n = tabpagenr()
   let buflist = tabpagebuflist(n)
@@ -1427,25 +1467,22 @@ endfunction
 " the the tab width.
 "
 function! MyExpandtab() abort
-  return winwidth(0) > 70 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
+  return winwidth(0) > 60 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
 endfunction
 
-" File format only shows if window width is over 70 columns to avoid clutter
+" File format
 "
 function! MyFileformat() abort
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 50 ? &fileformat : ''
 endfunction
 
-" File type only shows if window width is over 70 columns to avoid clutter.
-" If the length of filetype is 0 (i.e. there is no file type), then display
-" there is no file type.
+" File type
 "
 function! MyFiletype() abort
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 45 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
-" File encoding only shows if window width is over 70 columns to avoid
-" clutter.
+" File encoding
 "
 function! MyFileencoding() abort
   return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
@@ -1464,9 +1501,11 @@ function! MyMode() abort
     \ &ft == 'unite' ? 'Unite' :
     \ &ft == 'vimfiler' ? 'VimFiler' :
     \ &ft == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 60 ? lightline#mode() : ''
+    \ winwidth(0) > 40 ? lightline#mode() : ''
 endfunction
 
+" Signifies currently in CtrlP search mode.
+"
 function! CtrlPMark() abort
   if expand('%:t') =~ 'ControlP'
     call lightline#link('iR'[g:lightline.ctrlp_regex])
@@ -1759,6 +1798,10 @@ endif
 " }}}
 " Status Line {{{
 
+" Set status line display.
+" This is redundant with lightline.
+"
+set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 " Ruler is displayed on the right side of the status line at the bottom of the
 " window. It displays the line number, the column number, and the relative
 " position of the cursor in the file (as a percent)
