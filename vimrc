@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.31.0
+" Version:    1.31.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -1364,35 +1364,39 @@ endif
 " Shows current time.
 "
 function! MyTime() abort
-  if winwidth(0) > 103
+  let window_width = winwidth(0)
+  if window_width > 103
     return strftime('%c') " Day # Month Year Hour:Minute:Second AM/PM TimeZone
-  elseif winwidth(0) > 87
+  elseif window_width > 87
     return strftime ('%X %Z') " Hour:Minute:Second AM/PM TimeZone
-  elseif winwidth(0) > 85
+  elseif window_width > 85
     return strftime ('%X') " Hour:Minute:Second
-  elseif winwidth(0) > 76
-    return strftime ('%H:%M') " Hour:Minute
+  elseif window_width > 76
+    return  strftime ('%H:%M') " Hour:Minute
   else
-    return '' " Nothing
+    return ''
+  endif
 endfunction
 
 " File name displays its path relative to wherever vim was opened.
 "
-function! FilenameRelativePath() abort
-  return expand('%')
-endfunction
+" function! FilenameRelativePath() abort
+"   return expand('%')
+" endfunction
 
 " Signifies that the current file is modified and now saved.
+" + signifies file is modified
+" - signifies not modifiable
 "
 function! MyModified() abort
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable
+  return &filetype =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? '+' : &modifiable
           \ ? '' : '-'
 endfunction
 
 " Displays if the file is read only.
 "
 function! MyReadonly() abort
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? 'readonly' : ''
+  return &filetype !~? 'help\|vimfiler\|gundo\|nerdtree' && &readonly ? 'readonly' : ''
 endfunction
 
 function! MyTabFilename(n) abort
@@ -1418,9 +1422,14 @@ function! MyTabFilename(n) abort
   endif
 endfunction
 
-" Displays current file name
+" Displays current file name.
 "
 function! MyFilename() abort
+  " If filetype is nerdtree, or if in ControlP mode then don't show filename.
+  "
+  if &filetype == 'nerdtree' || expand('%:t') == 'ControlP'
+    return ''
+  endif
   let n = tabpagenr()
   let buflist = tabpagebuflist(n)
   let winnr = tabpagewinnr(n)
@@ -1448,7 +1457,7 @@ endfunction
 "
 function! MyFugitive() abort
   try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
       if g:special_symbols_enabled
         let mark = ' '
       else
@@ -1485,22 +1494,22 @@ endfunction
 " File encoding
 "
 function! MyFileencoding() abort
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 " Set the mode name to plugin names when in respective plugin modes, notably
 " for CtrlP and NERDTree.
 "
 function! MyMode() abort
-  let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-    \ fname == 'ControlP' ? 'CtrlP' :
-    \ fname == '__Gundo__' ? 'Gundo' :
-    \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-    \ fname =~ 'NERD_tree' ? 'NERDTree' :
-    \ &ft == 'unite' ? 'Unite' :
-    \ &ft == 'vimfiler' ? 'VimFiler' :
-    \ &ft == 'vimshell' ? 'VimShell' :
+  let file_name = expand('%:t')
+  return file_name == '__Tagbar__' ? 'Tagbar' :
+    \ file_name == 'ControlP' ? 'CtrlP' :
+    \ file_name == '__Gundo__' ? 'Gundo' :
+    \ file_name == '__Gundo_Preview__' ? 'Gundo Preview' :
+    \ file_name =~ 'NERD_tree' ? 'NERDTree' :
+    \ &filetype == 'unite' ? 'Unite' :
+    \ &filetype == 'vimfiler' ? 'VimFiler' :
+    \ &filetype == 'vimshell' ? 'VimShell' :
     \ winwidth(0) > 40 ? lightline#mode() : ''
 endfunction
 
