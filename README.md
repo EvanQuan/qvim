@@ -1,22 +1,18 @@
 My Vim Configurations
-==============
+=====================
 These are the current Vim settings I'm using.
 
 Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
-    - [Settings](#settings)
 3. [Updating](#updating)
 4. [Color Schemes](#color-schemes)
 5. [Plugins](#plugins)
 
 Why Use This?
 -----------
-If you're lazy and want to use what I'm using, feel free to. For anyone else,
-I would actually recommend configuring your own Vim from scratch or from
-some minimal template online.
-
+If you're lazy and want to use what I'm using, feel free to.
 
 Installation
 -----------
@@ -32,14 +28,14 @@ cd ~/.vim
 bash pull.sh
 ```
 
-Hooray, that's it!
+Hooray, that's it! You're done!
 
-Or you can do it all manually:
+... Or you can do it all manually:
 
 2. Update the submodules:
 ```bash
 cd ~/.vim
-git submodule update --init --remote --recursive
+git submodule update --init --remote --merge --recursive
 ```
 3. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
 `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For earlier versions
@@ -53,7 +49,8 @@ and `_vimrc`:
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
 echo "source ~/vimfiles/vimrc" > ~/_vimrc
 cd ~/vimfiles
-git submodule update --init --remote --recursive
+git submodule update --init --remote --merge --recursive
+bash ~/vimfiles/version/check_version.sh
 ```
 5. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
@@ -65,8 +62,7 @@ echo "xterm-256color|xterm with 256 colors and italic,
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
-### Settings
-The `vimrc` file requires an external `settings.vim` file in order to
+7. The `vimrc` file requires an external `settings.vim` file in order to
 work properly. Consider changing the values in `settings.vim` if there are
 problems with how the color scheme or lightline is rendering.
 
@@ -94,8 +90,8 @@ Alternatively, you can manually update stuff yourself.
 ```bash
 cd ~/.vim
 git pull origin master
-git submodule update --init --remote --recursive
-cp ~/.vim/template_settings.vim ~/.vim/settings.vim
+git submodule update --init --remote --merge --recursive
+bash ~/.vim/version/check_version.sh
 ```
 
 Color Schemes
