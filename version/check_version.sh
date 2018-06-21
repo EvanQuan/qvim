@@ -1,14 +1,15 @@
 #!/bin/bash
 # Name:       check_version.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.1
+# Version:    1.0.2
 #
-# Check File Versions
+# Keep local file versions up to date with remote versions.
 
 printf "Updating local files:\n"
 
 local_versions=~/.vim/version/local/
 remote_versions=~/.vim/version/remote/
+remote_versions_files=~/.vim/version/remote/*
 remote_paths_absolute=~/.vim/version/path/  # Has to be absolute for path exist check to work
 remote_templates=~/.vim/version/templates/
 check_mark=✔
@@ -17,12 +18,11 @@ cross_mark=✗
 # Create local versions if they do not exist
 if ! [ -d "$local_versions" ]; then
     printf "\tLocal versions not found. Copied.\n"
-    cp $remote_versions $local_versions
+    # Make local directory if it does not exist.
+    mkdir $local_versions
+    # Then copy remote version files into local.
+    cp $remote_versions_files $local_versions
 fi
-
-# Debug
-# echo "1.0.0" > local/settings.vim
-
 
 # Check every file that needs to be updated
 pushd "$remote_versions" > /dev/null
@@ -35,13 +35,6 @@ for file in *; do
     remote_version=$remote_versions$base_name
     absolute_path=$remote_paths_absolute$base_name
     template=$remote_templates$base_name
-
-    # Debug
-    # printf "\n\t$count\n\n"
-    # printf "\tbase_name: $base_name\n"
-    # printf "\tlocal_file: $local_version\n"
-    # printf "\tremote_file: $remote_version\n"
-    # printf "\tabsolute_path: $absolute_path\n\n"
 
     if ! [ -f $remote_version ]; then
         printf "\t$cross_mark $file remote version not found. Update failed!\n"
@@ -71,7 +64,6 @@ for file in *; do
             printf "\t- $file [$(<$remote_version)] Already up-to-date.\n"
         fi
     fi
-    # let count=count+1
 done
 
 # Store popd so it doesn't printf to screen
