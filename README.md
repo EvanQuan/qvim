@@ -77,7 +77,7 @@ It will **NOT** be tracked by git, allowing its settings to be specific to each 
 Updating
 --------
 
-To update everthing, run `pull.sh`. If there is a new version of `settings.vim`
+To update everything, run `pull.sh`. If there is a new version of `settings.vim`
 your local copy will be replaced with a template of the newer version.
 Otherwise, your local settings will be maintained.
 

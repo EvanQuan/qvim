@@ -1,10 +1,10 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.31.3
+" Version:    1.32.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
-" starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
+" starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
 " this as the 2nd user vimrc file.
 "
@@ -73,7 +73,7 @@ endif
 " Plugins {{{
 
 
-" Use Vim settings, rathan than  Vi settings.
+" Use Vim settings, rather than  Vi settings.
 " This must be first because it changes other options as a side effect.
 "
 set nocompatible
@@ -100,7 +100,7 @@ if has('autocmd')
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do langauge-dependent indenting.
+  " Also load indent files, to automatically do language-dependent indenting.
   " Revert with ":filetype off"
   filetype plugin indent on
 
@@ -396,7 +396,7 @@ cnoreabbrev X x
 "
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 
-" Repeat with . replaces PREVIOUS occurences of that word
+" Repeat with . replaces PREVIOUS occurrences of that word
 "
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 
@@ -493,7 +493,7 @@ nnoremap <leader>sil :s/
 " Paste {{{
 
 " Put Vim in Paste mode. This is useful if you want to cut or copy some text
-" from noe window and paste it in Vim. This will avoid unexpected effects.
+" from another window and paste it in Vim. This will avoid unexpected effects.
 " Setting this option is useful when using Vim in a terminal, where Vim cannot
 " distinguish between typed text and pasted text.
 "
@@ -510,7 +510,7 @@ noremap <leader>tp :call TogglePasteMode()<CR>
 " Similar to yanking
 
 " Leader prefix added to prevent input lag for normal 'p'
-" Current disabled, as special paste commands resquire leader prefix.
+" Current disabled, as special paste commands requires leader prefix.
 " nnoremap pp p
 
 " Around/In Word
@@ -572,7 +572,7 @@ nnoremap <leader>pil "_ddP
 vnoremap al <ESC>0v$
 
 " In Line
-" Selects currenet line, except for end-of-line character, in Visual mode
+" Selects current line, except for end-of-line character, in Visual mode
 "
 vnoremap il <ESC>0v$h
 
@@ -633,6 +633,13 @@ nnoremap yOl kyy
 " }}}
 
 " }}}
+" Files {{{
+
+" Toggle between the last two files opened in current session.
+"
+nnoremap <leader>tf <C-^>
+
+" }}}
 " Folding {{{
 
 " Toggle open/close folds
@@ -650,8 +657,8 @@ nnoremap <leader>fd :set fdm=diff<CR>"
 " }}}
 " Git {{{
 
-" TODO - Potentially remove leader key remappin (stick with command mode
-" reabbrevation, to open space up for more leader commands)
+" TODO - Potentially remove leader key remapping (stick with command mode
+" re-abbreviation, to open space up for more leader commands)
 "
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
@@ -674,7 +681,7 @@ nnoremap <leader>gs :Gstatus<CR>
 cnoreabbrev ga Git add .
 nnoremap <leader>ga :Git add .<CR>
 
-" Write to the currne file's path and stage the results.
+" Write to the current file's path and stage the results.
 "
 cnoreabbrev gw Gwrite
 nnoremap <leader>gw :Gwrite<CR>
@@ -743,7 +750,7 @@ nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
 "
 map gn :bn<CR>
 
-" Prevous buffer
+" Previous buffer
 "
 map gp :bp<CR>
 
@@ -886,6 +893,11 @@ nnoremap <leader>rt :retab<CR>
 "
 nnoremap <leader>ta :ALEToggle<CR>
 
+" Move between linting errors
+"
+nnoremap <leader>an :ALENextWrap<CR>
+nnoremap <leader>ap :ALEPreviousWrap<CR>
+
 "}}}
 " nerdtree {{{
 " Repository: https://github.com/scrooloose/nerdtree
@@ -1006,47 +1018,65 @@ inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
 " }}}
 " Standard {{{
 
+" These are from $VIMRUNTIME/mswin.vim
+" Compatible bindings to always be on. Incompatible bindings require
+" g:standard_keybindings to be enabled.
+"
+
+if has("clipboard")
+  " CTRL-X and SHIFT-Del are Cut
+  "
+  vnoremap <C-X> "+x
+  vnoremap <S-Del> "+x
+
+  " CTRL-C and CTRL-Insert are Copy
+  "
+  vnoremap <C-C> "+y
+  vnoremap <C-Insert> "+y
+endif
+
+" Use CTRL-S for saving, also in Insert mode
+"
+noremap <C-S>		:update<CR>
+vnoremap <C-S>		<C-C>:update<CR>
+inoremap <C-S>		<C-O>:update<CR>
+
+
+" CTRL-Z is Undo; not in cmdline though
+" NOTE: This is not compatible with default behaviour of force closing Vim.
+"
+noremap <C-Z> u
+inoremap <C-Z> <C-O>u
+
+" CTRL-A is Select all
+"
+noremap <C-A> gggH<C-O>G
+inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+cnoremap <C-A> <C-C>gggH<C-O>G
+onoremap <C-A> <C-C>gggH<C-O>G
+snoremap <C-A> <C-C>gggH<C-O>G
+xnoremap <C-A> <C-C>ggVG
+
+if has("gui")
+  " CTRL-F is the search dialog
+  " NOTE: Incompatible with "move forward"
+  "
+  noremap  <expr> <C-F> has("gui_running") ? ":promptfind\<CR>" : "/"
+  inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptfind\<CR>" : "\<C-\>\<C-O>/"
+  cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptfind\<CR>" : "\<C-\>\<C-O>/"
+
+  " CTRL-H is the replace dialog,
+  " but in console, it might be backspace, so don't map it there
+  "
+  nnoremap <expr> <C-H> has("gui_running") ? ":promptrepl\<CR>" : "\<C-H>"
+  inoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<CR>" : "\<C-H>"
+  cnoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<CR>" : "\<C-H>"
+endif
+
 if g:standard_keybindings
-  " Pasting from clipboard
+  " Contains many incompatible changes.
   "
-  inoremap <C-v> <ESC>"+pa
-  vnoremap <C-v> "+pa
-
-  " Copying to clipboard
-  "
-  vnoremap <C-c> "+y
-
-  " Cutting to clipboard
-  "
-  vnoremap <C-x> "+d
-
-  " Undo
-  "
-  inoremap <C-z> <ESC>ua
-
-  " Redo
-  "
-  inoremap <C-y> <ESC><C-r>
-
-  " Save file
-  "
-  " If the current buffer has never been saved, it will have no name,
-  " call the file browser to save it, otherwise just save it.
-  command -nargs=0 -bar Update if &modified
-                             \|    if empty(bufname('%'))
-                             \|        browse confirm write
-                             \|    else
-                             \|        confirm write
-                             \|    endif
-                             \|endif
-  nnoremap <silent> <C-S> :<C-u>Update<CR>
-  inoremap <C-S> <ESC> :<C-u>Update<CR>
-
-  " Select all
-  "
-  nnoremap <C-a> ggVG
-  vnoremap <C-a> <ESC>ggVG
-  inoremap <C-a> <ESC>ggVG
+  source $VIMRUNTIME/mswin.vim
 endif
 
 " }}}
@@ -1114,6 +1144,17 @@ function! ToggleCursorLine() abort
 endfunction
 nnoremap <leader>tcl :call ToggleCursorLine()<CR>
 
+" Toggle spell check
+"
+function! ToggleSpellcheck() abort
+  set spell!
+  if &spell
+    echo "-- SPELLCHECK ENABLED --"
+  else
+    echo "-- SPELLCHECK DISABLED --"
+  endif
+endfunction
+nnoremap <leader>ts :call ToggleSpellcheck()<CR>
 
 " }}}
 " Vimrc Editing {{{
@@ -1219,7 +1260,7 @@ set lazyredraw
 set ttyfast
 
 " Maximum column inn which to search for syntax items. In long lines the text
-" after this column is not highlithed and following lines may not be
+" after this column is not highlighted and following lines may not be
 " highlighted correctly, because the syntax state is cleared.
 " This helps avoid very slow redrawing for an XML file that is one long line.
 " Set to 0 to remove the limit.
@@ -1237,7 +1278,7 @@ if !g:minimalist_mode_enabled
 " arm-syntax-vim {{{
 " Repository: https://github.com/ARM9/arm-syntax-vim
 
-" Recognize the correct file extentions as ARM files
+" Recognize the correct file extensions as ARM files
 "
 au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 " }}}
@@ -1594,7 +1635,7 @@ let g:lightline_buffer_reservelen = 20
 " nerdcommeter {{{
 " Repository: https://github.com/scrooloose/nerdcommenter
 
-" Add spaces after comment delimters
+" Add spaces after comment delimiters
 "
 let g:NERDSpaceDelims = 1
 
@@ -1761,7 +1802,7 @@ endif
 " Encoding {{{
 
 " Sets the character encoding used inside Vim. It applies to text in the
-" buffeers, register, String in expressions, text stored in the viminfo file
+" buffers, register, String in expressions, text stored in the viminfo file
 " etc.
 set encoding=utf-8
 
@@ -1775,7 +1816,7 @@ set fileencoding=utf-8
 "
 set fileencodings=utf-8
 
-" Specify the character encoding used in the script. The followig lines will
+" Specify the character encoding used in the script. The following lines will
 " be converted from [encoding] to the value of the 'encoding' option if they
 " are different.
 "
@@ -1791,7 +1832,7 @@ set guioptions = " No scroll bars
 " }}}
 " Line Numbers {{{
 
-" Print the line number in front of eacht line.
+" Print the line number in front of each line.
 "
 set number
 if !g:performance_mode_enabled
@@ -1815,12 +1856,13 @@ endif
 " This is redundant with lightline.
 "
 set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
+
 " Ruler is displayed on the right side of the status line at the bottom of the
 " window. It displays the line number, the column number, and the relative
 " position of the cursor in the file (as a percent)
 "
 " This is redundant as lightline shows all this information anyways, but is
-" enabled incase lightline is not working.
+" enabled in case lightline is not working.
 "
 set ruler
 
@@ -1862,7 +1904,7 @@ if g:wrap_enabled
     execute "set colorcolumn=".g:wrap_width
   endif
   if g:wrap_enabled == 1 " soft wrap
-    set linebreak " line breaks only occur when the user explictly makes them
+    set linebreak " line breaks only occur when the user explicitly makes them
     set textwidth=0 " disable text width limit
   elseif g:wrap_enabled == 2 " hard wrap
     set nolist " Disable linebreak if it is enabled
@@ -1917,6 +1959,13 @@ set wildmenu
 
 " Allow buffer switching without saving
 set hidden
+
+" }}}
+" Editing {{{
+
+" Use one space, not two, after punctuation.
+"
+set nojoinspaces
 
 " }}}
 " File {{{
@@ -1986,7 +2035,7 @@ set showmatch
 "
 set splitbelow
 
-" Splitting a window wil put the new window right of the curren one.
+" Splitting a window will put the new window right of the current one.
 "
 set splitright
 
