@@ -1,4 +1,4 @@
-My Vim Configurations
+My Vim Configuration
 =====================
 These are the current Vim settings I'm using.
 
@@ -6,9 +6,13 @@ Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
+  - [Additional Things](#additional-things)
 3. [Updating](#updating)
-4. [Color Schemes](#color-schemes)
-5. [Plugins](#plugins)
+4. [Recommendations](#recommendations)
+  - [Mac](#mac)
+  - [Windows](#windows)
+5. [Color Schemes](#color-schemes)
+6. [Plugins](#plugins)
 
 Why Use This?
 -----------
@@ -16,34 +20,25 @@ If you're lazy and want to use what I'm using, feel free to.
 
 Installation
 -----------
-
-1. Clone this repository:
+Clone this repository and run `pull.sh`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/.vim
-```
-
-2. Run `pull.sh`:
-```bash
 cd ~/.vim
 bash pull.sh
 ```
 
-Hooray, that's it! You're done!
+Hooray, that's it! You're all done!
 
-... Or you can do it all manually:
 
-2. Update the submodules:
-```bash
-cd ~/.vim
-git submodule update --init --remote --merge --recursive
-```
-3. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
+#### Additional Things
+
+1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
 `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For earlier versions
 of Vim, create a dummy `~/.vimrc` file in your home directory that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
-4. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
+2. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
 and `_vimrc`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
@@ -52,9 +47,9 @@ cd ~/vimfiles
 git submodule update --init --remote --merge --recursive
 bash ~/vimfiles/version/check_version.sh
 ```
-5. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
+3. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-6. If for some reason your terminal does not support italics, try this:
+4. If for some reason your terminal does not support italics, try this:
 ```bash
 echo "xterm-256color|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
@@ -62,40 +57,48 @@ echo "xterm-256color|xterm with 256 colors and italic,
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
-7. The `vimrc` file requires an external `settings.vim` file in order to
-work properly. Consider changing the values in `settings.vim` if there are
-problems with how the color scheme or lightline is rendering.
-
-Create a `settings.vim` file into your `~/.vim` directory by copying the template.
-
-```bash
-cp ~/.vim/version/templates/settings.vim ~/.vim/settings.vim
-```
-
-It will **NOT** be tracked by git, allowing its settings to be specific to each machine:
+5. If all the colors are weird, or the whole background is solid blue, consider
+setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
+may not support 24-bit color.
 
 Updating
 --------
-
-To update everything, run `pull.sh`. If there is a new version of `settings.vim`
-your local copy will be replaced with a template of the newer version.
-Otherwise, your local settings will be maintained.
+To update everything, run `bash pull.sh`. If there is a new version of
+`settings.vim` available, your local copy will be replaced with a template
+of the newer version. Otherwise, your local `settings.vim` will be unchanged.
 
 ```bash
 cd ~/.vim
 bash pull.sh
 ```
 
-Alternatively, you can manually update stuff yourself.
+Alternatively, if you are on Windows and are using gVim, run this:
 ```bash
-cd ~/.vim
+cd ~/vimfiles
 git pull origin master
 git submodule update --init --remote --merge --recursive
-bash ~/.vim/version/check_version.sh
+bash version/check_version.sh
 ```
 
+Recommendations
+---------------
+
+These don't necessarily relate to Vim, but I feel they are important to bring
+up regardless.
+
+#### Mac
+I strongly recommend that you use [iTerm2](https://www.iterm2.com/), as
+it is strictly better than the default terminal. It supports 24-bit color
+and has a bunch of other fancy stuff. Pretty much a necessity.
+
+#### Windows
+Use [Git Bash](https://git-scm.com/downloads) instead of command prompt.
+It uses `~/.vim` just as you would expect with Mac or Linux instead of
+`~/vimfiles` and behaves like a Unix terminal. I am aware there are other good
+terminals for Windows out there, but this is what I have been using.
+
 Color Schemes
------------
+-------------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
 - [vim-one](https://github.com/rakr/vim-one)
 
