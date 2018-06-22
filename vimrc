@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.2
+" Version:    1.32.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -163,8 +163,19 @@ endif
 " and can be done here.
 "
 if has('gui_macvim')
+  " MacVim cannot have its font changed directly. This enabled powerline fonts
+  " for it.
   set guifont=Meslo_LG_M_for_Powerline:h14
+elseif has('win32') || has('win64')
+  " NOTE: gVim and terminal on Windows seems to be restricted to a select few
+  " predefined fonts, even if more fonts are installed. This makes powerline
+  " fonts on  Windows not possible.
+  " Git Bash for Windows does not consider itself be windows, so
+  " g:special_symbols_enabled must be manually disabled in settings.
+  let g:special_symbols_enabled = 0
 endif
+
+
 
 " }}}
 " Syntax Highlighting {{{
