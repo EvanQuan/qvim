@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.31.2
+" Version:    1.31.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim verions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,9 @@
 " Settings determine how some configurations are set
 " Look at README.md if there is no settings.vim file in current directory
 "
-source ~/.vim/settings.vim
+if filereadable(expand("~/.vim/settings.vim"))
+  source ~/.vim/settings.vim
+endif
 
 " Set settings to default if file does not exist
 "
@@ -321,38 +323,36 @@ endif
 " Disable keys that you should not be using at all
 " If easy mode is activated, then hard mode is disabled.
 
-if has('g:hard_mode')
-  if g:hard_mode
-    " Arrow keys
-    "
-    " Normal
-    nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
-    nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
-    nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
-    nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
-    " Insert
-    inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-    inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-    inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-    inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-    " Visual
-    vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-    vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-    vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-    vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+if g:hard_mode
+  " Arrow keys
+  "
+  " Normal
+  nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
+  nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
+  " Insert
+  inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
+  " Visual
+  vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
+  vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
 
-    " Page up and down
-    "
-    " Normal
-    nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
-    nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
-    " Insert
-    inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
-    inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
-    " Visual
-    vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
-    vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
-  endif
+  " Page up and down
+  "
+  " Normal
+  nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
+  nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
+  " Insert
+  inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
+  inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
+  " Visual
+  vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
+  vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
 endif
 
 " }}}
@@ -761,6 +761,7 @@ noremap gd :bdelete<CR>
 
 " Horizontal
 "
+cnoreabbrev hs split
 noremap <leader>hs :split<space>
 
 " Vertical
@@ -1053,18 +1054,23 @@ endif
 
 if has("terminal")
   " in-editor terminal only works with some terminals
-  " Vertical split with terminal on right
-  noremap <leader>vt :vertical terminal<CR><C-w>L
-  " Horizontal split with terminal on bottom
-  noremap <leader>ht :terminal<CR><C-w>J
+  " Vertical split with terminal
+  cnoreabbrev vt vertical terminal
+  noremap <leader>vt :vertical terminal<CR>
+  " Horizontal split with terminal
+  cnoreabbrev ht terminal
+  noremap <leader>ht :terminal<CR>
 else
   " Default to shell when terminal is not available
+  cnoreabbrev vt shell
+  cnoreabbrev ht shell
   noremap <leader>vt :shell<CR>
   noremap <leader>ht :shell<CR>
 endif
 " There is a terminal which is available for earlier versions of Vim,
 " which opens the terminal in a new buffer.
 " It can be closed with "exit" or "Ctrl-D".
+"
 noremap <leader>b :shell<CR>
 
 " }}}
@@ -1972,6 +1978,21 @@ set smartcase
 " Matching bracket-like characters highlighted
 "
 set showmatch
+
+" }}}
+" Splitting {{{
+
+" Splitting a window will put the new window below the current one.
+"
+set splitbelow
+
+" Splitting a window wil put the new window right of the curren one.
+"
+set splitright
+
+" Always use vertical diffs
+"
+set diffopt+=vertical
 
 " }}}
 
