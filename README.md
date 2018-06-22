@@ -6,11 +6,11 @@ Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
-  - [Additional Things](#additional-things)
+    - [Additional Things](#additional-things)
 3. [Updating](#updating)
 4. [Recommendations](#recommendations)
-  - [Mac](#mac)
-  - [Windows](#windows)
+    - [Mac](#mac)
+    - [Windows](#windows)
 5. [Color Schemes](#color-schemes)
 6. [Plugins](#plugins)
 
