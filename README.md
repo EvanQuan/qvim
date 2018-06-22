@@ -2,6 +2,8 @@ My Vim Configuration
 =====================
 These are the current Vim settings I'm using.
 
+![screenshot](https://raw.githubusercontent.com/evanquan/.vim/blob/master/pictures/screenshot.png)
+
 Table of Contents
 ---------------
 1. [Why Use This?](#why-use-this?)
