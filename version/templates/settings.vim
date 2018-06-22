@@ -1,11 +1,12 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.10.2
+" Version:    1.10.3
 "
-" Setting values affect vimrc.vim configuration.
+" Setting values affect how Vim is configured. This file is not tracked by
+" git, allowing you to customize this differently for each machine.
 "
-" Press SPACE to toggle category folding/unfolding
+" Press SPACE to toggle category folding.
 " ============================================================================
 
 " Minimalistic Mode {{{
@@ -38,26 +39,22 @@ let g:performance_mode_enabled = 0
 " }}}
 let g:hard_mode = 0
 " Standard Keybindings {{{
-"   Enables keybings commonly found in many other systems.
+"   Enables keybindings commonly found in many other systems. Some of these
+"   keybindings overwrite Vim's default keybindings
 "   0: Disabled
 "   1: Enabled
-"     CTRL-C: Copy
-"     CTRL-X: Cut
-"     CTRL-V: Paste
-"     CTRL-S: Save
-"     CTRL-A: Select All
-"     CTRL-Z: Undo
-"     CTRL-Y: Redo
 " }}}
 let g:standard_keybindings = 0
 " True Color (24-bit) {{{
 "   Many terminals don't support True color and will screw up the color
-"   schemes if it is enabled.
+"   schemes if it is enabled. If there are problems with how Vim is displaying
+"   color, consider disabling this.
 "   0: Disabled
 "     Color scheme will work but the colors may appear slightly different
 "     from its intended appearance.
 "   1: Enabled
-"     Color scheme will appear as it should
+"     Color scheme will appear as it should if your terminal supports 24-bit
+"     color. Otherwise, the colors will not work properly.
 " }}}
 let g:truecolor_enabled = 1
 " Powerline {{{
@@ -90,7 +87,7 @@ let g:wrap_enabled = 1
 " }}}
 let g:wrap_width = 79
 " Show Whitespace {{{
-"   Render placeholders for invivisble characters, such as tabs, spaces and
+"   Render placeholders for invisible characters, such as tabs, spaces and
 "   newlines
 "   0: Off by default
 "   1: On by default

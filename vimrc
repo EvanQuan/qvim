@@ -1,14 +1,14 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.0
+" Version:    1.32.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
 " this as the 2nd user vimrc file.
 "
-" Press SPACE to toggle category folding/unfolding
+" Press SPACE to toggle category folding/unfolding.
 " ============================================================================
 "
 " Initial Setup {{{
