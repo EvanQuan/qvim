@@ -2,7 +2,7 @@ My Vim Configuration
 =====================
 These are the current Vim settings I'm using.
 
-![screenshot](https://raw.githubusercontent.com/evanquan/.vim/blob/master/pictures/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
 
 Table of Contents
 ---------------
