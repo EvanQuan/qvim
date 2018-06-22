@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.1
+" Version:    1.32.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -68,6 +68,11 @@ if !exists("g:escape_alternative_enabled")
   let g:escape_alternative_enabled = 0
 endif
 
+" Set statusline to nothing for later commands that increment onto statusline.
+" This lets the refresh vimrc command to work without overloading the
+" statusline.
+"
+set statusline=
 
 " }}}
 " Plugins {{{
@@ -148,6 +153,17 @@ if !g:minimalist_mode_enabled
       colorscheme one
     endif
   endif
+endif
+
+" }}}
+" Font {{{
+
+" Lightline needs powerline fonts to work correctly. While this can be easily
+" set manually for terminals, configuring GUI fonts is a bit more difficult,
+" and can be done here.
+"
+if has('gui_macvim')
+  set guifont=Meslo_LG_M_for_Powerline:h14
 endif
 
 " }}}
@@ -1058,19 +1074,12 @@ snoremap <C-A> <C-C>gggH<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
 if has("gui")
-  " CTRL-F is the search dialog
-  " NOTE: Incompatible with "move forward"
-  "
-  noremap  <expr> <C-F> has("gui_running") ? ":promptfind\<CR>" : "/"
-  inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptfind\<CR>" : "\<C-\>\<C-O>/"
-  cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptfind\<CR>" : "\<C-\>\<C-O>/"
-
-  " CTRL-H is the replace dialog,
+  " CTRL-F is the search and replace dialog,
   " but in console, it might be backspace, so don't map it there
   "
-  nnoremap <expr> <C-H> has("gui_running") ? ":promptrepl\<CR>" : "\<C-H>"
-  inoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<CR>" : "\<C-H>"
-  cnoremap <expr> <C-H> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<CR>" : "\<C-H>"
+  nnoremap <expr> <C-F> has("gui_running") ? ":promptrepl\<CR>" : "\<C-H>"
+  inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<CR>" : "\<C-H>"
+  cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<CR>" : "\<C-H>"
 endif
 
 if g:standard_keybindings
