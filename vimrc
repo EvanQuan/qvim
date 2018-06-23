@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.3
+" Version:    1.32.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -1345,6 +1345,7 @@ let g:haskell_indent_guard = 4 " 2
 
 " Layout {{{
 
+    " \           [ 'expandtab', 'fileencoding', 'fileformat'],
                     " \ 'enable': { 'tabline': 0 },
 " This determines what information lightline shows and in what format
 " I did not make this or the corresponding functions it uses
@@ -1355,13 +1356,14 @@ let g:lightline = {
     \           [ 'fugitive', 'readonly', 'modified' ],
     \           [ 'filename'],
     \         ],
-    \ 'right':[ [ 'syntastic', 'lineinfo' ],
-    \           ['percent'],
-    \           [ 'fileformat', 'fileencoding', 'expandtab', 'filetype' , 'time'],
+    \ 'right':[ [ 'syntastic', 'percent', 'lineinfo' ],
+    \           ['filetype'],
+    \           [ 'expandtab', 'fileencoding', 'fileformat'],
     \         ]
     \ },
   \ 'component_function': {
-    \ 'time': 'MyTime',
+    \ 'lineinfo': 'MyLineinfo',
+    \ 'fileencodingandformat': 'MyFileencodingAndFormat',
     \ 'readonly': 'MyReadonly',
     \ 'modified': 'MyModified',
     \ 'fugitive': 'MyFugitive',
@@ -1427,8 +1429,24 @@ endif
 
 " Amount of information shown depends on the size of the window.
 
+function! MyLineinfo() abort
+  if g:special_symbols_enabled
+    let mark = "\uE0A1 "
+  else
+    let mark = ''
+  endif
+  return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
+endfunction
 
-" Shows current time.
+" Combines file encoding and file format information
+"
+" utf-8[unix]
+"
+function! MyFileencodingAndFormat() abort
+  return winwidth(0) > 79 ? MyFileencoding().'['.MyFileformat().']' : ''
+endfunction
+" Shows current time. Currently unused as it takes
+" up too much space and the clock is synchronous (which is annoying.)
 "
 function! MyTime() abort
   let window_width = winwidth(0)
@@ -1454,7 +1472,12 @@ endfunction
 " - signifies not modifiable
 "
 function! MyModified() abort
-  return &filetype =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? '+' : &modifiable
+  if g:special_symbols_enabled
+    let mark = "\u00b1"
+  else
+    let mark = '+'
+  endif
+  return &filetype =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? mark : &modifiable
           \ ? '' : '-'
 endfunction
 
@@ -1544,23 +1567,23 @@ function! MyExpandtab() abort
   return winwidth(0) > 67 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
 endfunction
 
-" File format
+" File format (unix, dos)
 "
 function! MyFileformat() abort
   return winwidth(0) > 57 ? &fileformat : ''
 endfunction
 
-" File type
+" File type (java, python, vim)
 "
 function! MyFiletype() abort
   return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
-" File encoding
+" File encoding (UTF-8)
 "
 function! MyFileencoding() abort
   return winwidth(0) > 77 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
-endfunction
+ endfunction
 
 " Set the mode name to plugin names when in respective plugin modes, notably
 " for CtrlP and NERDTree.
