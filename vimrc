@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.4
+" Version:    1.32.5
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -1411,6 +1411,15 @@ if g:special_symbols_enabled
   let g:lightline_buffer_readonly_icon = ''
   let g:lightline_buffer_modified_icon = '✭'
   let g:lightline_buffer_git_icon = ' '
+else
+  " let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
+  " let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
+  " let g:lightline_buffer_expand_left_icon = '« '
+  " let g:lightline_buffer_expand_right_icon = ' »'
+  let g:lightline_buffer_logo = ''
+  let g:lightline_buffer_readonly_icon = 'RO'
+  let g:lightline_buffer_modified_icon = '*'
+  let g:lightline_buffer_git_icon = '⎇ '
 endif
 
 " Set lightline colorscheme
@@ -1429,13 +1438,19 @@ endif
 
 " Amount of information shown depends on the size of the window.
 
+" Describes the line and column number of the current cursor location.
+"
 function! MyLineinfo() abort
   if g:special_symbols_enabled
-    let mark = "\uE0A1 "
+    let line_number = "\uE0A1 "
+    " let col_number = "\uE0A3 "
+    let col_number = " Ξ "
   else
-    let mark = ''
+    let line_number = ''
+    let col_number =  ' : '
   endif
-  return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
+  return winwidth(0) > 25 ? line_number . line(".") . col_number . col(".") : ''
+  " return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
 endfunction
 
 " Combines file encoding and file format information
@@ -1549,7 +1564,7 @@ function! MyFugitive() abort
       if g:special_symbols_enabled
         let mark = ' '
       else
-        let mark = ''
+        let mark = '⎇ '
       endif
       " let mark = '⭠ ' " this was the default
       let _ = fugitive#head()
@@ -1570,7 +1585,12 @@ endfunction
 " File format (unix, dos)
 "
 function! MyFileformat() abort
-  return winwidth(0) > 57 ? &fileformat : ''
+  if g:special_symbols_enabled
+    let mark = '␊'
+  else
+    let mark = ''
+  endif
+  return winwidth(0) > 57 ? mark . ' ' . &fileformat : ''
 endfunction
 
 " File type (java, python, vim)
