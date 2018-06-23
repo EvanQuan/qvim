@@ -51,6 +51,9 @@ bash ~/vimfiles/version/check_version.sh
 ```
 3. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
+Once powerline fonts are installed, they need to be set in the terminal for them to appear correctly.
+On Mac, I use `Meslo LG M for Powerline 14`.
+
 4. If for some reason your terminal does not support italics, try this:
 ```bash
 echo "xterm-256color|xterm with 256 colors and italic,
