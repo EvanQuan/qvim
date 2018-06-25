@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.34.0
+" Version:    1.34.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.34.0'
+let g:vimrc_version = '1.34.1'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1451,10 +1451,20 @@ function! MyVimrcVersion() abort
   return 'vimrc ' . g:vimrc_version
 endfunction
 
+" Modulo operator because Vim's default one is bad.
+"
+function! s:mod(n,m) abort
+  return ((a:n % a:m) + a:m) %a:m
+endfunction
+
 " Displays the current Vim version. Used for tabline.
 function! MyVimVersion() abort
-  return 'vim ' . v:version
+  let v100 = v:version / 100
+  let v10 = s:mod(v:version, 10)
+  return 'vim ' . string(v100) . '.' . string(v10)
 endfunction
+
+
 
 " Describes the line and column number of the current cursor location.
 "
