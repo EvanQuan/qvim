@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.5
+" Version:    1.32.6
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -1447,7 +1447,7 @@ function! MyLineinfo() abort
     let col_number = " Ξ "
   else
     let line_number = ''
-    let col_number =  ' : '
+    let col_number =  ' Ξ '
   endif
   return winwidth(0) > 25 ? line_number . line(".") . col_number . col(".") : ''
   " return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
@@ -1488,12 +1488,15 @@ endfunction
 "
 function! MyModified() abort
   if g:special_symbols_enabled
-    let mark = "\u00b1"
+    let modified_mark = "\u00b1"
+    let not_modifiable_mark = ''
   else
-    let mark = '+'
+    " let modified_mark = '+'
+    let modified_mark = "\u00b1"
+    let not_modifiable_mark = '-'
   endif
-  return &filetype =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? mark : &modifiable
-          \ ? '' : '-'
+  return &filetype =~ 'help\|vimfiler\|gundo\|nerdtree' ? '' : &modified ? modified_mark : &modifiable
+          \ ? '' : not_modifiable_mark
 endfunction
 
 " Displays if the file is read only.
@@ -1562,13 +1565,14 @@ function! MyFugitive() abort
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
       if g:special_symbols_enabled
-        let mark = ' '
+        let git_symbol = ' '
       else
-        let mark = '⎇ '
+        " let git_symbol = '⎇ '
+        let git_symbol = ''
       endif
-      " let mark = '⭠ ' " this was the default
+      " let git_symbol = '⭠ ' " this was the default
       let _ = fugitive#head()
-      return (strlen(_) && winwidth(0) > 40) ? mark._ : ''
+      return (strlen(_) && winwidth(0) > 40) ? git_symbol._ : ''
     endif
   catch
   endtry
