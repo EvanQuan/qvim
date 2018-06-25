@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.34.1
+" Version:    1.34.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.34.1'
+let g:vimrc_version = '1.34.2'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1460,7 +1460,7 @@ endfunction
 " Displays the current Vim version. Used for tabline.
 function! MyVimVersion() abort
   let v100 = v:version / 100
-  let v10 = s:mod(v:version, 10)
+  let v10 = s:mod(v:version, 100)
   return 'vim ' . string(v100) . '.' . string(v10)
 endfunction
 
