@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.7
+" Version:    1.32.8
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -260,7 +260,7 @@ set formatoptions=tcqrn1
 " Number of spaces that a <Tab> in the file counts for.
 " Default 8
 "
-set tabstop=4 " 2
+set tabstop=8 " 2
 
 " Number of spaces to use for each step of (auto)indent.
 "
@@ -299,7 +299,7 @@ if has('autocmd')
   "
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-  autocmd Filetype vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   " 2-space hard tabs
@@ -1240,10 +1240,6 @@ noremap <leader>tl :call ToggleLineNumbers()<CR>
 " Disable plugins that can cause performance issues on some devices
 "
 if g:performance_mode_enabled
-  set runtimepath-=~/.vim/bundle/ale
-  set runtimepath-=~/.vim/bundle/vim-fugitive
-  set runtimepath-=~/.vim/bundle/vim-gitgutter
-  set runtimepath-=~/.vim/bundle/jedi-vim
   set runtimepath-=~/.vim/bundle/quick-scope
 endif
 
@@ -1769,7 +1765,7 @@ endif
 " Use this option to specify a list of filetypes to disable the plugin for.
 "
 " TODO: This is not working for some reason?
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', '']
 
 " }}}
 " vim-togglecursor {{{
