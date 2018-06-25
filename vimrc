@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.6
+" Version:    1.32.7
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -1075,15 +1075,6 @@ inoremap <C-S>		<C-O>:update<CR>
 noremap <C-Z> u
 inoremap <C-Z> <C-O>u
 
-" CTRL-A is Select all
-"
-noremap <C-A> gggH<C-O>G
-inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
-cnoremap <C-A> <C-C>gggH<C-O>G
-onoremap <C-A> <C-C>gggH<C-O>G
-snoremap <C-A> <C-C>gggH<C-O>G
-xnoremap <C-A> <C-C>ggVG
-
 if has("gui")
   " CTRL-F is the search and replace dialog,
   " but in console, it might be backspace, so don't map it there
@@ -1502,7 +1493,12 @@ endfunction
 " Displays if the file is read only.
 "
 function! MyReadonly() abort
-  return &filetype !~? 'help\|vimfiler\|gundo\|nerdtree' && &readonly ? 'readonly' : ''
+  if g:special_symbols_enabled
+    let readonly_symbol = ' '
+  else
+    let readonly_symbol = ''
+  endif
+  return &filetype !~? 'help\|vimfiler\|gundo\|nerdtree' && &readonly ? readonly_symbol . 'readonly' : ''
 endfunction
 
 function! MyTabFilename(n) abort
@@ -1572,7 +1568,7 @@ function! MyFugitive() abort
       endif
       " let git_symbol = '⭠ ' " this was the default
       let _ = fugitive#head()
-      return (strlen(_) && winwidth(0) > 40) ? git_symbol._ : ''
+      return (strlen(_) && winwidth(0) > 60) ? git_symbol._ : ''
     endif
   catch
   endtry
@@ -1622,7 +1618,7 @@ function! MyMode() abort
     \ &filetype == 'unite' ? 'Unite' :
     \ &filetype == 'vimfiler' ? 'VimFiler' :
     \ &filetype == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 30 ? lightline#mode() : ''
+    \ winwidth(0) > 85 ? lightline#mode() : ''
 endfunction
 
 " Signifies currently in CtrlP search mode.
