@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.33.0
+" Version:    1.34.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -13,6 +13,10 @@
 "
 " Initial Setup {{{
 
+" Version
+" Used incase vimrc version is relevant.
+"
+let g:vimrc_version = '1.34.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1362,6 +1366,8 @@ let g:lightline = {
     \         ]
     \ },
   \ 'component_function': {
+    \ 'vimrcversion': 'MyVimrcVersion',
+    \ 'vimversion': 'MyVimVersion',
     \ 'lineinfo': 'MyLineinfo',
     \ 'fileencodingandformat': 'MyFileencodingAndFormat',
     \ 'readonly': 'MyReadonly',
@@ -1380,7 +1386,7 @@ let g:lightline = {
     \ 'bufferinfo': 'lightline#buffer#bufferinfo',
     \ },
   \ 'tab_component_function': {
-    \ 'filename': 'MyTabFilename',
+    \ 'filename': 'MyTabFilename'
   \ },
   \ 'component_expand': {
     \ 'syntastic': 'SyntasticStatuslineFlag',
@@ -1392,7 +1398,7 @@ let g:lightline = {
   \ },
   \ 'tabline': {
       \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \ 'right': [ [ 'close' ], ],
+      \ 'right': [ [ 'vimversion', 'vimrcversion', 'close' ], ],
       \ },
 \ }
 
@@ -1437,6 +1443,18 @@ endif
 " Functions {{{
 
 " Amount of information shown depends on the size of the window.
+"
+
+" Displays current vimrc version. Used for tabline.
+"
+function! MyVimrcVersion() abort
+  return 'vimrc ' . g:vimrc_version
+endfunction
+
+" Displays the current Vim version. Used for tabline.
+function! MyVimVersion() abort
+  return 'vim ' . v:version
+endfunction
 
 " Describes the line and column number of the current cursor location.
 "
