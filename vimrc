@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.32.8
+" Version:    1.33.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -15,56 +15,30 @@
 
 " Settings {{{
 
-" The first steps necessary to set up all the configurations
+" The first steps necessary to set up everything.
 
-" Settings determine how some configurations are set
-" Look at README.md if there is no settings.vim file in current directory
+" settings.vim determines how some configurations are set
+" Copy ~/.vim/template/settings.vim if there is no settings.vim file
+" in your ~/.vim/ directory.
 "
+" Set settings to 1.10.1 defaults if settings.vim does not exist.
+"
+
 if filereadable(expand("~/.vim/settings.vim"))
   source ~/.vim/settings.vim
-endif
-
-" Set settings to default if file does not exist
-"
-" Set to 1.10.1 defaults.
-"
-if !exists("g:minimalist_mode_enabled")
+else
   let g:minimalist_mode_enabled = 0
-endif
-if !exists("g:performance_mode_enabled")
   let g:performance_mode_enabled = 0
-endif
-if !exists("g:hard_mode")
   let g:hard_mode = 0
-endif
-if !exists("g:standard_keybindings")
   let g:standard_keybindings = 0
-endif
-if !exists("g:truecolor_enabled")
   let g:truecolor_enabled = 1
-endif
-if !exists("g:special_symbols_enabled")
   let g:special_symbols_enabled = 0
-endif
-if !exists("g:colorscheme_type")
   let g:colorscheme_type = 3
-endif
-if !exists("g:wrap_enabled")
   let g:wrap_enabled = 1
-endif
-if !exists("g:wrap_width")
   let g:wrap_width = 79
-endif
-if !exists("g:show_whitespace")
   let g:show_whitespace = 1
-endif
-if !exists("g:cursor_blinking_disabled")
   let g:cursor_blinking_disabled = 1
-endif
-if !exists("g:cursor_color")
   let g:cursor_color = 1
-endif
-if !exists("g:escape_alternative_enabled")
   let g:escape_alternative_enabled = 0
 endif
 
@@ -302,10 +276,18 @@ if has('autocmd')
   autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+  " 4-space hard tabs
+  "   In accordance with PEP 8
+  autocmd Filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
+  "   tabstop=4 incase tabs are being used in existing file
+  autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
   " 2-space hard tabs
   "
   autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
+
   " 8-space soft tabs
   "
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
@@ -675,11 +657,11 @@ nnoremap <space> za
 
 " Change folder settings
 "
-nnoremap <leader>ff :set fdm=manual<CR>
-nnoremap <leader>fi :set fdm=indent<CR>
-nnoremap <leader>fm :set fdm=marker<CR>
-nnoremap <leader>fs :set fdm=syntax<CR>
-nnoremap <leader>fd :set fdm=diff<CR>"
+nnoremap <leader>cff :set fdm=manual<CR>
+nnoremap <leader>cfi :set fdm=indent<CR>
+nnoremap <leader>cfm :set fdm=marker<CR>
+nnoremap <leader>cfs :set fdm=syntax<CR>
+nnoremap <leader>cfd :set fdm=diff<CR>"
 
 " }}}
 " Git {{{
@@ -775,18 +757,32 @@ nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
 "
 " Next buffer
 "
-map gn :bn<CR>
+nnoremap gn :bnnext<CR>
 
 " Previous buffer
 "
-map gp :bp<CR>
+nnoremap gp :bprevious<CR>
 
-" Close current buffer
+" Delete current buffer
 "
-noremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
+nnoremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 
-" Delete buffer
-noremap gd :bdelete<CR>
+" Delete current buffer
+" Less useful than <leader>q
+"
+nnoremap gd :bdelete<CR>
+
+" Delete all buffers except the currently focused one.
+" Convenient when hidden buffers accumulate over time.
+"
+function DeleteAllHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+nnoremap <leader>db :call DeleteAllHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -814,8 +810,12 @@ noremap <C-h> <C-w>h
 " Tabs {{{
 
 " Open new tab
+" TODO: Duplicate may be removed if it causes namespace conflicts.
 "
-noremap <leader>nt :tabe <CR>
+cnoreabbrev nt tabe
+noremap <leader>nt :tabe<CR>
+cnoreabbrev ot tabe
+noremap <leader>ot :tabe<CR>
 
 " Go to tab :by number
 "
@@ -829,6 +829,19 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
+
+" Quit tab
+"
+cnoreabbrev qt tabclose
+noremap <leader>qt :tabclose<CR>
+
+" Close tab
+" Duplicate of quit tab for convenience.
+" TODO: May be removed if it causes namespace conflicts.
+"
+cnoreabbrev ct tabclose
+noremap <leader>ct :tabclose<CR>
+
 
 " }}}
 " Session {{{
@@ -1030,7 +1043,7 @@ if !exists(":DiffOrig")
     \ | wincmd p | diffthis
 endif
 " Bind it for convenience
-map <leader>d :DiffOrig<CR>
+map <leader>fd :DiffOrig<CR>
 
 " }}}
 " Replacing in file {{{
