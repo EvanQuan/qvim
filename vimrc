@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.37.1
+" Version:    1.38.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.37.1'
+let g:vimrc_version = '1.38.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -295,6 +295,7 @@ if has('autocmd')
   " 8-space soft tabs
   "
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
+  autocmd Filetype jas setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
 endif
 
 " }}}
@@ -2115,12 +2116,16 @@ set fileformat=unix
 
 " Normally .pro files detect as idlang files. As GNU Prolog detects Prolog
 " files with .pro and .pl extensions, I have decided to override .pro as
-" I have no use for idlang and .pl is reserved for Perl files.  
+" I have no use for idlang and .pl is reserved for Perl files.
 "
 " I am aware that .prolog guarantees the file to be detected for Prolog, but
-" again, for the sake of convenience, .pro files work easier for GNU Prolog. 
-" 
+" again, for the sake of convenience, .pro files work easier for GNU Prolog.
+"
 autocmd BufNewFile,BufRead *.pro set filetype=prolog
+
+" Java assembly
+"
+autocmd BufNewFile,BufRead *.jas set filetype=jas
 
 " }}}
 " History {{{
