@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.35.0
+" Version:    1.36.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.35.0'
+let g:vimrc_version = '1.36.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -762,14 +762,17 @@ nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
 " Next buffer
 "
 nnoremap gn :bnnext<CR>
+nnoremap <leader>nb :bnnext<CR>
 
 " Previous buffer
 "
 nnoremap gp :bprevious<CR>
+nnoremap <leader>pb :bprevious<CR>
 
 " Delete current buffer
 "
 nnoremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
+nnoremap <leader>db :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 
 " Delete current buffer
 " Less useful than <leader>q
@@ -780,13 +783,14 @@ nnoremap gd :bdelete<CR>
 " Convenient when hidden buffers accumulate over time.
 "
 function DeleteAllHiddenBuffers()
-    let tpbl=[]
-    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-        silent execute 'bwipeout' buf
-    endfor
+  let tpbl=[]
+  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+    silent execute 'bwipeout' buf
+  endfor
 endfunction
-nnoremap <leader>db :call DeleteAllHiddenBuffers()<CR>
+nnoremap <leader>dab :call DeleteAllHiddenBuffers()<CR>
+nnoremap <leader>dhb :call DeleteAllHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -937,10 +941,10 @@ nnoremap <leader>rt :retab<CR>
 "
 nnoremap <leader>ta :ALEToggle<CR>
 
-" Move between linting errors
+" Move between ale linting errors
 "
-nnoremap <leader>an :ALENextWrap<CR>
-nnoremap <leader>ap :ALEPreviousWrap<CR>
+nnoremap <leader>na :ALENextWrap<CR>
+nnoremap <leader>pa :ALEPreviousWrap<CR>
 
 "}}}
 " nerdtree {{{
@@ -1183,6 +1187,14 @@ function! ToggleSpellcheck() abort
   endif
 endfunction
 nnoremap <leader>ts :call ToggleSpellcheck()<CR>
+
+" Next misspelled word
+"
+nnoremap  <leader>ns ]s
+
+" Previous misspelled word
+"
+nnoremap  <leader>ps [s
 
 " }}}
 " Vimrc Editing {{{
@@ -1890,7 +1902,7 @@ if g:cursor_color
   endif
 endif
 " TODO: Cursor changes color depending on the mode
-" These get overriden by vim-togglecursor settings
+" These get overridden by vim-togglecursor settings
 " Can be done by changing vim-togglecursor plugin
 " Find a work around that does not alter vim-togglecursor plugin
 " INSERT mode - blue
