@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.37.0'
+let g:vimrc_version = '1.37.1'
 " Settings {{{
 
 " The first steps necessary to set up everything.
