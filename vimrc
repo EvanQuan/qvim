@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.34.4
+" Version:    1.35.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.34.4'
+let g:vimrc_version = '1.35.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1304,7 +1304,7 @@ if !g:minimalist_mode_enabled
 
 " Recognize the correct file extensions as ARM files
 "
-au BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
+autocmd BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 " }}}
 " ctrlp.vim {{{
 " Repository: https://github.com/kien/ctrlp.vim
@@ -2087,6 +2087,15 @@ set noswapfile
 " reading/writing the buffer from/to a file.
 "
 set fileformat=unix
+
+" Normally .pro files detect as idlang files. As GNU Prolog detects Prolog
+" files with .pro and .pl extensions, I have decided to override .pro as
+" I have no use for idlang and .pl is reserved for Perl files.  
+"
+" I am aware that .prolog guarantees the file to be detected for Prolog, but
+" again, for the sake of convenience, .pro files work easier for GNU Prolog. 
+" 
+autocmd BufNewFile,BufRead *.pro set filetype=prolog
 
 " }}}
 " History {{{
