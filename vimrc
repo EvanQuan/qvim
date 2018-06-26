@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.39.1
+" Version:    1.40.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.39.1'
+let g:vimrc_version = '1.40.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -400,6 +400,12 @@ cnoreabbrev WQ wq
 cnoreabbrev wQ wq
 cnoreabbrev Wq wq
 cnoreabbrev X x
+
+" Quit
+"
+cnoreabbrev Q q
+cnoreabbrev Q! q!
+
 
 " }}}
 " Change {{{
@@ -1571,12 +1577,7 @@ endfunction
 " Displays if the file is read only.
 "
 function! MyReadonly() abort
-  if g:special_symbols_enabled
-    let readonly_symbol = ' '
-  else
-    let readonly_symbol = ''
-  endif
-  return &filetype !~? 'help\|vimfiler\|gundo\|nerdtree' && &readonly ? readonly_symbol . 'readonly' : ''
+  return &filetype !~? 'help\|vimfiler\|gundo\|nerdtree' && &readonly ? 'readonly' : ''
 endfunction
 
 function! MyTabFilename(n) abort
@@ -1775,9 +1776,20 @@ let g:lightline_buffer_reservelen = 20
 " Repository: https://github.com/Shougo/neocomplete.vim
 
 let g:neocomplete#enable_at_startup = 1
+
 " First option is automatically selected.
 " Eases <CR> completion.
+"
 let g:neocomplete#enable_auto_select = 1
+
+" use smartcase
+"
+let g:neocomplete#enable_smart_case = 1
+
+" Set minimum syntaxt keyword length
+"
+let g:neocomplete#sources#syntax#min_key_word_length = 3
+
 
 " }}}
 " nerdcommeter {{{
