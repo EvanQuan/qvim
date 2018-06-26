@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.38.0
+" Version:    1.39.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.38.0'
+let g:vimrc_version = '1.39.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -762,8 +762,8 @@ nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
 "
 " Next buffer
 "
-nnoremap gn :bnnext<CR>
-nnoremap <leader>nb :bnnext<CR>
+nnoremap gn :bnext<CR>
+nnoremap <leader>nb :bnext<CR>
 
 " Previous buffer
 "
@@ -951,8 +951,20 @@ nnoremap <leader>pa :ALEPreviousWrap<CR>
 " neocomplete {{{
 " Repository: https://github.com/Shougo/neocomplete.vim
 
+" <CR>: completes currently selected option and closes popup.
+"
+inoremap <silent> <CR> <C-r>=<SID>MyReturnNeocompletion()<CR>
+function! s:MyReturnNeocompletion()
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Selects further options beyond initial one. Must press <CR> to actually
+" finish completion.
+inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
 
 " }}}
 " nerdtree {{{
@@ -1467,14 +1479,14 @@ endif
 "
 
 function! MyPercent() abort
-  return winwidth(0) > 35 ? line('.') * 100 / line('$') . '%' : ''
+  return winwidth(0) > 35 || &filetype == 'nerdtree' ? line('.') * 100 / line('$') . '%' : ''
 endfunction
 
 
 " Displays current vimrc version. Used for tabline.
 "
 function! MyVimrcVersion() abort
-  return 'vimrc ' . g:vimrc_version
+  return winwidth(0) > 50 ? 'vimrc ' . g:vimrc_version : ''
 endfunction
 
 " Modulo operator because Vim's default one is bad.
@@ -1487,7 +1499,7 @@ endfunction
 function! MyVimVersion() abort
   let v100 = v:version / 100
   let v10 = s:mod(v:version, 100)
-  return 'vim ' . string(v100) . '.' . string(v10)
+  return winwidth(0) > 60 ? 'vim ' . string(v100) . '.' . string(v10) : ''
 endfunction
 
 
@@ -1503,7 +1515,7 @@ function! MyLineinfo() abort
     let line_number = ''
     let col_number =  ' Ξ '
   endif
-  return winwidth(0) > 40 ? line_number . line(".") . col_number . col(".") : ''
+  return winwidth(0) > 40 || &filetype == 'nerdtree' ? line_number . line(".") . col_number . col(".") : ''
   " return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
 endfunction
 
@@ -1760,6 +1772,9 @@ let g:lightline_buffer_reservelen = 20
 " Repository: https://github.com/Shougo/neocomplete.vim
 
 let g:neocomplete#enable_at_startup = 1
+" First option is automatically selected.
+" Eases <CR> completion.
+let g:neocomplete#enable_auto_select = 1
 
 " }}}
 " nerdcommeter {{{
