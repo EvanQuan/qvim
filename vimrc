@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.36.0
+" Version:    1.37.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.36.0'
+let g:vimrc_version = '1.37.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -947,6 +947,13 @@ nnoremap <leader>na :ALENextWrap<CR>
 nnoremap <leader>pa :ALEPreviousWrap<CR>
 
 "}}}
+" neocomplete {{{
+" Repository: https://github.com/Shougo/neocomplete.vim
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" }}}
 " nerdtree {{{
 " Repository: https://github.com/scrooloose/nerdtree
 
@@ -1746,6 +1753,12 @@ let g:lightline_buffer_maxfextlen = 3
 let g:lightline_buffer_minflen = 16
 let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
+
+" }}}
+" neocomplete {{{
+" Repository: https://github.com/Shougo/neocomplete.vim
+
+let g:neocomplete#enable_at_startup = 1
 
 " }}}
 " nerdcommeter {{{
