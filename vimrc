@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.34.2
+" Version:    1.34.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.34.2'
+let g:vimrc_version = '1.34.3'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1619,15 +1619,10 @@ function! MyExpandtab() abort
   return winwidth(0) > 67 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
 endfunction
 
-" File format (unix, dos)
+" File format (unix, dos, mac)
 "
 function! MyFileformat() abort
-  if g:special_symbols_enabled
-    let mark = '␊'
-  else
-    let mark = ''
-  endif
-  return winwidth(0) > 57 ? mark . ' ' . &fileformat : ''
+  return winwidth(0) > 57 ? &fileformat : ''
 endfunction
 
 " File type (java, python, vim)
