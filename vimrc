@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.34.3
+" Version:    1.34.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.34.3'
+let g:vimrc_version = '1.34.4'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1366,6 +1366,7 @@ let g:lightline = {
     \         ]
     \ },
   \ 'component_function': {
+    \ 'percent': 'MyPercent',
     \ 'vimrcversion': 'MyVimrcVersion',
     \ 'vimversion': 'MyVimVersion',
     \ 'lineinfo': 'MyLineinfo',
@@ -1445,6 +1446,11 @@ endif
 " Amount of information shown depends on the size of the window.
 "
 
+function! MyPercent() abort
+  return winwidth(0) > 35 ? line('.') * 100 / line('$') . '%' : ''
+endfunction
+
+
 " Displays current vimrc version. Used for tabline.
 "
 function! MyVimrcVersion() abort
@@ -1477,7 +1483,7 @@ function! MyLineinfo() abort
     let line_number = ''
     let col_number =  ' Ξ '
   endif
-  return winwidth(0) > 25 ? line_number . line(".") . col_number . col(".") : ''
+  return winwidth(0) > 40 ? line_number . line(".") . col_number . col(".") : ''
   " return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
 endfunction
 
@@ -1616,7 +1622,10 @@ endfunction
 " the the tab width.
 "
 function! MyExpandtab() abort
-  return winwidth(0) > 67 ? (&expandtab ? &softtabstop.'-spaces' : &tabstop.'-tabs') : ''
+  let window_width = winwidth(0)
+  let spaces_marker = window_width > 79 ? ' spaces' : ' S'
+  let tabs_marker = window_width > 79 ? ' tabs' : ' T'
+  return window_width > 67 ? (&expandtab ? &softtabstop . spaces_marker : &tabstop. tabs_marker) : ''
 endfunction
 
 " File format (unix, dos, mac)
@@ -1650,7 +1659,7 @@ function! MyMode() abort
     \ &filetype == 'unite' ? 'Unite' :
     \ &filetype == 'vimfiler' ? 'VimFiler' :
     \ &filetype == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 85 ? lightline#mode() : ''
+    \ winwidth(0) > 70 ? lightline#mode() : ''
 endfunction
 
 " Signifies currently in CtrlP search mode.
