@@ -119,6 +119,7 @@ Plugins
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
 - [lightline-buffer](https://github.com/taohexx/lightline-buffer)
 - [lightline.vim](https://github.com/itchyny/lightline.vim)
+- [neocomplete](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
