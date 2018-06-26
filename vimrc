@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.39.0
+" Version:    1.39.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.39.0'
+let g:vimrc_version = '1.39.1'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1446,7 +1446,9 @@ if g:special_symbols_enabled
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
   let g:lightline_buffer_expand_left_icon = '◀ '
   let g:lightline_buffer_expand_right_icon = ' ▶'
-  let g:lightline_buffer_logo = ' '
+  " This is the Apple logo, which doesn't render the same on other OSs.
+  " let g:lightline_buffer_logo = ' '
+  let g:lightline_buffer_logo = "\u2630 "
   let g:lightline_buffer_readonly_icon = ''
   let g:lightline_buffer_modified_icon = '✭'
   let g:lightline_buffer_git_icon = ' '
@@ -1455,7 +1457,8 @@ else
   " let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
   " let g:lightline_buffer_expand_left_icon = '« '
   " let g:lightline_buffer_expand_right_icon = ' »'
-  let g:lightline_buffer_logo = ''
+  " let g:lightline_buffer_logo = ''
+  let g:lightline_buffer_logo = "\u2630 "
   let g:lightline_buffer_readonly_icon = 'RO'
   let g:lightline_buffer_modified_icon = '*'
   let g:lightline_buffer_git_icon = '⎇ '
@@ -1510,10 +1513,10 @@ function! MyLineinfo() abort
   if g:special_symbols_enabled
     let line_number = "\uE0A1 "
     " let col_number = "\uE0A3 "
-    let col_number = " Ξ "
+    let col_number = ":"
   else
     let line_number = ''
-    let col_number =  ' Ξ '
+    let col_number =  ':'
   endif
   return winwidth(0) > 40 || &filetype == 'nerdtree' ? line_number . line(".") . col_number . col(".") : ''
   " return winwidth(0) > 25 ? mark . line(".") . ":" . col(".") : ''
