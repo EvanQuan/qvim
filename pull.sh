@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.1.2
+# Version:    2.1.3
 #
 # Pull
 
@@ -10,7 +10,7 @@ cd ~/.vim
 # .vim
 git pull origin master
 # submodules
-git submodule update --init --remote --merge --recursive
+git submodule update --init --remote --rebase --recursive
 
 # This, while printing more and taking more time by going through all the
 # submodules, prevents HEAD from detaching
