@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.40.0
+" Version:    1.40.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.40.0'
+let g:vimrc_version = '1.40.1'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1775,7 +1775,12 @@ let g:lightline_buffer_reservelen = 20
 " neocomplete {{{
 " Repository: https://github.com/Shougo/neocomplete.vim
 
-let g:neocomplete#enable_at_startup = 1
+" Only enable at startup if Vim has lua support. Enabling without
+" lua support spams an error message every frame.
+"
+if has('lua')
+  let g:neocomplete#enable_at_startup = 1
+endif
 
 " First option is automatically selected.
 " Eases <CR> completion.
