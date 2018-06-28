@@ -1,15 +1,11 @@
 #!/bin/bash
 # Name:       check_version.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.1.0
+# Version:    1.1.1
 #
 # Keep local file versions up to date with remote versions.
 # Assumes this is being executed form pull_helper.sh in ~/.vim/version
 # or ~/vimfiles/version directory.
-
-# debug
-cd version
-
 
 printf "Updating local files:\n"
 
