@@ -1,26 +1,15 @@
 #!/bin/bash
 # File:       pull.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.1.4
+# Version:    2.2.0
 #
 # Pull
+# Designed to work even if repo pulling implementation changes by executing
+# external pull helper script, which may change.
+# Assumes this is being executed in ~/.vim or ~/vimfiles
 
-# Go to ~/.vim
-cd ~/.vim
-# .vim
+# Update from master branch.
 git pull origin master
-# submodules
-#   --rebase causes detached HEAD
-#   --merge can sometimes fail to pull, rejected update
-# git submodule update --init --remote --rebase --recursive
 
-# This, while printing more and taking more time by going through all the
-# submodules, prevents HEAD from detaching
-# git submodule update                          # Update as normal
-git submodule foreach git reset --hard          # Remove local changes
-git submodule foreach git checkout master       # Change to master branch
-git submodule foreach git pull origin master    # Update from master
-
-# Check file versions
-bash ~/.vim/version/check_version.sh
-
+# Remaining pull changes.
+bash ./version/pull_helper.sh
