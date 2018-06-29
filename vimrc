@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.40.1
+" Version:    1.40.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.40.1'
+let g:vimrc_version = '1.40.2'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -806,7 +806,6 @@ nnoremap <leader>dhb :call DeleteAllHiddenBuffers()<CR>
 
 " Horizontal
 "
-cnoreabbrev hs split
 noremap <leader>hs :split<space>
 
 " Vertical
