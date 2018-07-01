@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.40.2
+" Version:    1.41.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.40.2'
+let g:vimrc_version = '1.41.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -951,6 +951,8 @@ nnoremap <leader>ta :ALEToggle<CR>
 "
 nnoremap <leader>na :ALENextWrap<CR>
 nnoremap <leader>pa :ALEPreviousWrap<CR>
+nnoremap ]a :ALENextWrap<CR>
+nnoremap [a :ALEPreviousWrap<CR>
 
 "}}}
 " neocomplete {{{
@@ -1231,12 +1233,16 @@ nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
 " Reload vimrc anywhere
 " NOTE: Does not reload lightline colorscheme if changed
 "
-nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>:e<CR>
+nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
 
 " Open settings.vim anywhere
 "
 nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
 " To apply changes, reload vimrc
+
+" Get help on currently selected word
+"
+nnoremap <leader>h viwK
 
 " }}}
 " Visibility {{{
@@ -1326,9 +1332,12 @@ set ttyfast
 " This helps avoid very slow redrawing for an XML file that is one long line.
 " Set to 0 to remove the limit.
 "
+" Currently disabled as its effect is minimal and most files don't have text
+" that extends laterally that far anyways.
+"
 " Default 3000
 "
-set synmaxcol=128
+" set synmaxcol=128
 
 " }}}
 
