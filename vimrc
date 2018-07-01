@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.41.1
+" Version:    1.41.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.42.0'
+let g:vimrc_version = '1.41.2'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -28,7 +28,9 @@ let g:vimrc_version = '1.42.0'
 " Set settings to 1.10.1 defaults if settings.vim does not exist.
 "
 
-if filereadable(expand("~/.vim/settings.vim"))
+if (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/settings.vim"))
+  source ~/vimfiles/settings.vim
+elseif filereadable(expand("~/.vim/settings.vim"))
   source ~/.vim/settings.vim
 else
   let g:minimalist_mode_enabled = 0
@@ -140,11 +142,7 @@ endif
 " set manually for terminals, configuring GUI fonts is a bit more difficult,
 " and can be done here.
 "
-if has('gui_macvim')
-  " MacVim cannot have its font changed directly. This enabled powerline fonts
-  " for it.
-  set guifont=Meslo_LG_M_for_Powerline:h14
-elseif has('win32') || has('win64') || has('gui_running')
+if (has('win32') || has('win64') || has('gui_running')) && !has('gui_macvim')
   " NOTE: gVim and terminal on Windows seems to be restricted to a select few
   " predefined fonts, even if more fonts are installed. This makes powerline
   " fonts on  Windows not possible.

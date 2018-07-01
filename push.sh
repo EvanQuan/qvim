@@ -1,18 +1,20 @@
 #!/bin/bash
 # File:       push.sh
 # Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    1.0.6
+# Version:    1.0.7
 #
 # Push
 
 # Update versions
-local_versions=~/.vim/version/local/
-remote_versions=~/.vim/version/remote/
-remote_templates=~/.vim/version/templates/
+current_directory=$(pwd)
+version_directory=$current_directory/version
+local_versions=$version_directory/local/
+remote_versions=$version_directory/remote/
+remote_versions_files=$remote_versions*
+remote_templates=$version_directory/templates/
 
 # Iterate through all file versions to prompt user if they need updating
-pushd "$remote_versions" > /dev/null
-for file in $remote_versions/*; do
+for file in $remote_versions_files; do
     # Get base name
     base_name=$(basename $file)
     local_version=$local_versions$base_name
@@ -30,10 +32,9 @@ for file in $remote_versions/*; do
 done
 
 printf "\nStaging all changes..."
-# Store popd so it doesn't printf to screen
-trash=popd
+
 # Add everything in repo directory
-git add ~/.vim
+git add .
 printf " DONE\n"
 
 # Get commit message
