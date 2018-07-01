@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.41.0
+" Version:    1.41.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.41.0'
+let g:vimrc_version = '1.42.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -120,8 +120,8 @@ else
   set background=dark
 endif
 
-" Determine colorscheme based on settings.vim
-" Lightline colorscheme is consistent with main colorscheme
+" Determine color scheme based on settings.vim
+" Lightline color scheme is consistent with main color scheme
 "
 if !g:minimalist_mode_enabled
   if g:colorscheme_type
@@ -284,7 +284,7 @@ if has('autocmd')
   " 4-space hard tabs
   "   In accordance with PEP 8
   autocmd Filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
-  "   tabstop=4 incase tabs are being used in existing file
+  "   tabstop=4 in case tabs are being used in existing file
   autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
   " 2-space hard tabs
@@ -1226,19 +1226,25 @@ nnoremap  <leader>ps [s
 " }}}
 " Vimrc Editing {{{
 
-" Open vimrc anywhere
-"
-nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
+if has('win32') || has('win64')
+  " Open vimrc anywhere
+  "
+  nnoremap <silent> <leader>ev :edit ~/vimfiles/vimrc<CR>
 
-" Reload vimrc anywhere
-" NOTE: Does not reload lightline colorscheme if changed
-"
-nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
+  " Reload vimrc anywhere
+  " NOTE: Does not reload lightline color scheme if changed
+  "
+  nnoremap <silent> <leader>rv :source ~/vimfiles/vimrc<CR>
 
-" Open settings.vim anywhere
-"
-nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
-" To apply changes, reload vimrc
+  " Open settings.vim anywhere
+  "
+  nnoremap <silent> <leader>es :edit ~/vimfiles/settings.vim<CR>
+  " To apply changes, reload vimrc
+else
+  nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
+  nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
+  nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
+endif
 
 " Get help on currently selected word
 "
@@ -1478,7 +1484,7 @@ else
   let g:lightline_buffer_git_icon = '⎇ '
 endif
 
-" Set lightline colorscheme
+" Set lightline color scheme
 " Whether it is light or dark is determined in one package
 "
 if g:colorscheme_type
