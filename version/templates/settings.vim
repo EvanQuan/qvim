@@ -1,12 +1,12 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.11.0
+" Version:    1.11.1
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
 "
-" Press SPACE to toggle category folding.
+" Press \ or za to toggle category folding.
 " ============================================================================
 
 " Minimalistic Mode {{{

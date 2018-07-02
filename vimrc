@@ -1,14 +1,14 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.42.0
+" Version:    1.43.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
-" this as the 2nd user vimrc file.
+" this as the d user vimrc file.
 "
-" Press SPACE to toggle category folding/unfolding.
+" Press \ or za to toggle category folding/unfolding.
 " ============================================================================
 "
 " Initial Setup {{{
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.42.0'
+let g:vimrc_version = '1.43.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -49,9 +49,11 @@ else
 endif
 
 if g:minimalist_mode_enabled == 2
+  " This sets the behaviour to be identical to default Vim.
   source $VIMRUNTIME/defaults.vim
   finish
 endif
+
 " Set statusline to nothing for later commands that increment onto statusline.
 " This lets the refresh vimrc command to work without overloading the
 " statusline.
@@ -378,19 +380,12 @@ endif
 " commands
 " default leader is \
 "
-let mapleader = ","
+let mapleader = " "
 
 " }}}
 " Editing {{{
 
 " Command mode {{{
-
-" Easier to enter command mode - don't need to hold shift
-" NOTE: This overrides the default implementation of repeat f/F/t/T and so may
-" be removed in the future.
-"
-nnoremap ; :
-vnoremap ; :
 
 " Write
 " Capitalization doesn't matter
@@ -643,8 +638,9 @@ nnoremap <leader>tf <C-^>
 " Folding {{{
 
 " Toggle open/close folds
+" Since default leader key is remapped, use it for folding
 "
-nnoremap <space> za
+nnoremap \ za
 
 " Change folder settings
 "
@@ -839,14 +835,6 @@ noremap <leader>0 :tablast<CR>
 cnoreabbrev qt tabclose
 noremap <leader>qt :tabclose<CR>
 
-" Close tab
-" Duplicate of quit tab for convenience.
-" TODO: May be removed if it causes namespace conflicts.
-"
-cnoreabbrev ct tabclose
-noremap <leader>ct :tabclose<CR>
-
-
 " }}}
 " Session {{{
 
@@ -964,6 +952,12 @@ inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
 
 " }}}
+" nerdcommenter {{{
+" Repository: https://github.com/scrooloose/nerdcommenter
+
+map <leader>ct <plug>NERDCommenterToggle
+
+" }}}
 " nerdtree {{{
 " Repository: https://github.com/scrooloose/nerdtree
 
@@ -1067,7 +1061,7 @@ map N Nzz
 
 " clear search highlighting
 "
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader><leader> :nohlsearch<CR>
 
 " Convenient command to see the different between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -1301,15 +1295,6 @@ noremap <leader>tl :call ToggleLineNumbers()<CR>
 " }}}
 " Performance {{{
 
-" Plugins {{{
-
-" Disable plugins that can cause performance issues on some devices
-"
-if g:performance_mode_enabled
-  set runtimepath-=~/.vim/bundle/quick-scope
-endif
-
-" }}}
 " Rendering {{{
 
 " When this option is set, the screen will not be redrawn while executing
@@ -1406,6 +1391,16 @@ let g:haskell_indent_guard = 4 " 2
 let g:indentLine_fileTypeExclude = ['help', 'text', '']
 " let g:indentLine_char = '┆'
 " let g:indentLine_char = '│'
+" }}}
+" jedi-vim {{{
+
+" Requires python support to work. If Vim build does not support jedi, then
+" don't load the plugin.
+if !has('python3') && !has('python')
+  let g:jedi#auto_initialization = 0
+  let g:jedi#squelch_py_warning = 1
+endif
+
 " }}}
 " lightline.vim {{{
 " Repository: https://github.com/itchyny/lightline.vim
@@ -1833,6 +1828,13 @@ let g:NERDSpaceDelims = 1
 " indentation
 "
 let g:NERDDefaultAlign = 'left'
+
+" }}}
+" quick-scope {{{
+
+if g:performance_mode_enabled
+  let g:qs_enable=0
+endif
 
 " }}}
 " syntastic {{{
