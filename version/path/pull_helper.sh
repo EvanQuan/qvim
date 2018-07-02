@@ -1,1 +1,1 @@
-../pull_helper.sh
+pull_helper.sh

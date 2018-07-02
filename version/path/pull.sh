@@ -1,1 +1,1 @@
-../../pull.sh
+../pull.sh
