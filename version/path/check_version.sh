@@ -1,1 +1,1 @@
-../check_version.sh
+check_version.sh

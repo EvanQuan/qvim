@@ -1,1 +1,1 @@
-../../settings.vim
+../settings.vim
