@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.41.2
+" Version:    1.41.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.41.2'
+let g:vimrc_version = '1.41.3'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1394,6 +1394,17 @@ let g:haskell_indent_after_bare_where = 2 " 2
 let g:haskell_indent_do = 4 " 3
 let g:haskell_indent_guard = 4 " 2
 "}}}
+" indentLine {{{
+" Repository: https://github.com/Yggdroot/indentLine
+
+" Use this option to specify a list of filetypes to disable the plugin for.
+"
+" Disabling no filetype ('') also disables nerdtree.
+"
+let g:indentLine_fileTypeExclude = ['help', 'text', '']
+" let g:indentLine_char = '┆'
+" let g:indentLine_char = '│'
+" }}}
 " lightline.vim {{{
 " Repository: https://github.com/itchyny/lightline.vim
 
@@ -1875,15 +1886,6 @@ set updatetime=100 " [ms] Default: 4000
 if has('autocmd')
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
 endif
-
-" }}}
-" vim-indent-guides {{{
-" Repository: https://github.com/nathanaelkane/vim-indent-guides
-
-" Use this option to specify a list of filetypes to disable the plugin for.
-"
-" TODO: This is not working for some reason?
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', '']
 
 " }}}
 " vim-togglecursor {{{
