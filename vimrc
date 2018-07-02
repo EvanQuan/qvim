@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.41.3
+" Version:    1.42.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.41.3'
+let g:vimrc_version = '1.42.0'
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -48,6 +48,10 @@ else
   let g:escape_alternative_enabled = 0
 endif
 
+if g:minimalist_mode_enabled == 2
+  source $VIMRUNTIME/defaults.vim
+  finish
+endif
 " Set statusline to nothing for later commands that increment onto statusline.
 " This lets the refresh vimrc command to work without overloading the
 " statusline.
@@ -382,6 +386,8 @@ let mapleader = ","
 " Command mode {{{
 
 " Easier to enter command mode - don't need to hold shift
+" NOTE: This overrides the default implementation of repeat f/F/t/T and so may
+" be removed in the future.
 "
 nnoremap ; :
 vnoremap ; :
@@ -441,14 +447,6 @@ nnoremap cL c$
 "
 nnoremap cH c^
 
-" Next Line
-"
-nnoremap col jS
-
-" Previous Line
-"
-nnoremap cOl kS
-
 " }}}
 " Delete {{{
 
@@ -479,14 +477,6 @@ nnoremap dL d$
 " From start of Line
 "
 nnoremap dH d^
-
-" Next Line
-"
-nnoremap dol jdd
-
-" Previous Line
-"
-nnoremap dOl kdd
 
 " }}}
 " Substitute {{{
@@ -640,14 +630,6 @@ nnoremap yL y$
 "
 nnoremap yH y^
 
-" Next Line
-"
-nnoremap yol jyy
-
-" Previous Line
-"
-nnoremap yOl kyy
-
 " }}}
 
 " }}}
@@ -726,6 +708,8 @@ nnoremap <leader>gl :Git pull<CR>
 "
 noremap Q gq
 
+" Strip all trailing whitespace from the current file.
+"
 function! StripWhitespace() abort
   " Store last search
   let _s=@/
@@ -736,12 +720,20 @@ function! StripWhitespace() abort
   %!git stripspace
   " Clean up:
   " Restore previous search history
- let @/=_s
+  let @/=_s
   " Restore cursor position
- call cursor(1, c)
- echo "-- WHITESPACE STRIPPED --"
+  call cursor(1, c)
+  echo "-- WHITESPACE STRIPPED --"
 endfunction
 noremap <leader>sw :call StripWhitespace()<CR>
+
+" Remove all carriage returns (displayed as ^M) from the current file.
+" Use when the encodings gets messed up.
+"
+function! StripCarriageReturns() abort
+  echo "-- CARRIAGE RETURNS STRIPPED --"
+endfunction
+noremap <Leader>sc mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm :call StripCarriageReturns()<CR>
 
 " }}}
 " Layout {{{
@@ -984,6 +976,16 @@ nnoremap <silent> <C-\> :NERDTreeToggle<CR>
 " Alternative
 "
 nnoremap <silent> <leader>tt :NERDTreeToggle<CR>
+
+" }}}
+" vim-gitgutter {{{
+
+" Repository: https://github.com/airblade/vim-gitgutter
+
+" Move to next/previous hunk
+"
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 " }}}
 " vim-javacomplete2 {{{
@@ -2032,7 +2034,7 @@ endif
 " Status Line {{{
 
 " Set status line display.
-" This is redundant with lightline.
+" This is redundant with lightline but is a nice backup if lightline fails.
 "
 set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 

@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.10.3
+" Version:    1.11.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -13,36 +13,47 @@
 "   Similar to `vim --clean` (Vim default settings, no plugins, no viminfo),
 "   except special settings and keybindings still enabled.
 "   0: Disabled
-"     Everything runs as normal.
+"     Everything runs as normal. All plugins and special settings and
+"     keybindings are used.
 "   1: Enabled
-"     Do not load any plugins.
+"     Do not load any plugins but still use special settings and  keybindings.
+"   2: Vim Defaults
+"     Use Vim defaults straight out of the box. Use nothing from this
+"     repository.
 " }}}
 let g:minimalist_mode_enabled = 0
 " Performance Mode {{{
 "   Disables certain settings and plugins that may cause poor performance on
-"   some machines.
+"   some machines. These usually involve plugins and settings that slow down
+"   rendering when scrolling and moving the cursor.
 "   0: Disabled
-"     Vim has all settings and packages enabled.
+"     Vim has all settings and plugins enabled.
 "   1: Enabled
 "     quick-scope disabled
 "     Relative line numbers disabled (has absolute line numbers)
+"     colorcolumn disabled
 " }}}
 let g:performance_mode_enabled = 0
 " Hard Mode {{{
-"   Disables arrow keys and Page Up/Down.
-"   It is recommended to disable this if you are running eVim.
+"   Disables arrow keys and Page Up/Page Down. Useful for breaking bad habits
+"   while learning Vim.
+"   It is recommended to disable this if you are running eVim (better yet
+"   don't use eVim).
 "   0: Disabled
-"     Vim works modally as normal
+"     Vim works modally as normal.
 "   1: Enabled
-"     Hard mode is disabled
-"     Default mode is insert mode
+"     Arrow keys and Page Up/Page Down are disabled. A message will appear to
+"     prompt the user to stop using these keys if they are pressed.
 " }}}
 let g:hard_mode = 0
 " Standard Keybindings {{{
 "   Enables keybindings commonly found in many other systems. Some of these
-"   keybindings overwrite Vim's default keybindings
+"   keybindings overwrite Vim's default keybindings, which makes this
+"   undesirable for those familiar with Vim's defaults.
 "   0: Disabled
+"     Vim works as normal.
 "   1: Enabled
+"     Loads $VIMRUNTIME/mswin.vim
 " }}}
 let g:standard_keybindings = 0
 " True Color (24-bit) {{{
@@ -60,7 +71,8 @@ let g:truecolor_enabled = 1
 " Powerline {{{
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
-"   separators and supseparators.
+"   separators and supseparators. This is automatically disabled on Windows
+"   and gVim because Powerline fonts don't render correctly.
 "   0: Disabled
 "   1: Enabled
 " }}}
@@ -69,8 +81,11 @@ let g:special_symbols_enabled = 0
 "   Affects overall color scheme and lightline color scheme
 "   0: None
 "   1: One Dark
+"     Uses vim-one plugin.
 "   2: One Light
+"     Uses vim-one plugin.
 "   3: One Dark Alternative
+"     Uses onedark.vim plugin.
 " }}}
 let g:colorscheme_type = 3
 " Text Wrap {{{
@@ -83,17 +98,22 @@ let g:colorscheme_type = 3
 " }}}
 let g:wrap_enabled = 1
 " Text Wrap Width {{{
-"   The number of columns for hard wrapping and highlighted column
+"   The number of columns for hard wrapping and highlighted column.
 " }}}
 let g:wrap_width = 79
 " Show Whitespace {{{
 "   Render placeholders for invisible characters, such as tabs, spaces and
-"   newlines
-"   0: Off by default
-"   1: On by default
+"   newlines. Whitespace can be toggled at any time with the <leader>tw
+"   command.
+"   0: Off
+"     Whitespace is not visible by default.
+"   1: On
+"     Whitespace is visible by default.
 " }}}
 let g:show_whitespace = 1
 " Disable Cursor Blinking {{{
+"   Cursor blinking can be distracting as the cursor location can be
+"   momentarily lost while moving and changing modes.
 "   0: Default
 "       Cursor blinking is set to whatever is set on your machine.
 "   1: Disabled
@@ -113,7 +133,8 @@ let g:cursor_color = 1
 "   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
 "   done, this provides a lazy alternative.
 "   0: Disabled
-"   1: Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
+"   1: Enabled
+"     Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:escape_alternative_enabled = 0
 " Settings Organization {{{
