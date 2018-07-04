@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.43.0
+" Version:    1.44.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,8 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.43.0'
+let g:vimrc_version = '1.44.0'
+
 " Settings {{{
 
 " The first steps necessary to set up everything.
@@ -1418,9 +1419,9 @@ let g:lightline = {
     \           [ 'fugitive', 'readonly', 'modified' ],
     \           [ 'filename'],
     \         ],
-    \ 'right':[ [ 'syntastic', 'percent', 'lineinfo' ],
-    \           ['filetype'],
-    \           [ 'expandtab', 'fileencoding', 'fileformat'],
+    \ 'right':[ [ 'percent', 'lineinfo' ],
+    \           [ 'filetype' ],
+    \           [ 'expandtab', 'fileencoding', 'fileformat' ],
     \         ]
     \ },
   \ 'component_function': {
@@ -1448,11 +1449,9 @@ let g:lightline = {
     \ 'filename': 'MyTabFilename'
   \ },
   \ 'component_expand': {
-    \ 'syntastic': 'SyntasticStatuslineFlag',
     \ 'buffercurrent': 'lightline#buffer#buffercurrent2',
   \ },
   \ 'component_type': {
-    \ 'syntastic': 'error',
     \ 'buffercurrent': 'tabsel',
   \ },
   \ 'tabline': {
@@ -1754,17 +1753,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 
-augroup AutoSyntastic
-  if has('autocmd')
-    autocmd!
-    autocmd BufWritePost * call s:syntastic()
-  endif
-augroup END
-function! s:syntastic() abort
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
 " }}}
 
 " }}}
@@ -1835,19 +1823,6 @@ let g:NERDDefaultAlign = 'left'
 if g:performance_mode_enabled
   let g:qs_enable=0
 endif
-
-" }}}
-" syntastic {{{
-" Repository: https://github.com/vim-syntastic/syntastic
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " }}}
 " vim-closetag {{{
