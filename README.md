@@ -127,7 +127,6 @@ Plugins
 - [prolog.vim](https://github.com/adimit/prolog.vim)
 - [quick-scope](https://github.com/unblevable/quick-scope)
 - [tabular](https://github.com/godlygeek/tabular)
-- [syntastic](https://github.com/vim-syntastic/syntastic)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
