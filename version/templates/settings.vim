@@ -1,12 +1,12 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.11.1
+" Version:    1.12.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
 "
-" Press \ or za to toggle category folding.
+" Press ENTER to toggle category folding.
 " ============================================================================
 
 " Minimalistic Mode {{{
@@ -34,18 +34,6 @@ let g:minimalist_mode_enabled = 0
 "     colorcolumn disabled
 " }}}
 let g:performance_mode_enabled = 0
-" Hard Mode {{{
-"   Disables arrow keys and Page Up/Page Down. Useful for breaking bad habits
-"   while learning Vim.
-"   It is recommended to disable this if you are running eVim (better yet
-"   don't use eVim).
-"   0: Disabled
-"     Vim works modally as normal.
-"   1: Enabled
-"     Arrow keys and Page Up/Page Down are disabled. A message will appear to
-"     prompt the user to stop using these keys if they are pressed.
-" }}}
-let g:hard_mode = 0
 " Standard Keybindings {{{
 "   Enables keybindings commonly found in many other systems. Some of these
 "   keybindings overwrite Vim's default keybindings, which makes this
