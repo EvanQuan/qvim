@@ -1,14 +1,14 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.44.0
+" Version:    1.45.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
 " this as the d user vimrc file.
 "
-" Press \ or za to toggle category folding/unfolding.
+" Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
 "
 " Initial Setup {{{
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.44.0'
+let g:vimrc_version = '1.45.0'
 
 " Settings {{{
 
@@ -26,7 +26,7 @@ let g:vimrc_version = '1.44.0'
 " Copy ~/.vim/template/settings.vim if there is no settings.vim file
 " in your ~/.vim/ directory.
 "
-" Set settings to 1.10.1 defaults if settings.vim does not exist.
+" Set settings to 1.12.0 defaults if settings.vim does not exist.
 "
 
 if (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/settings.vim"))
@@ -36,7 +36,6 @@ elseif filereadable(expand("~/.vim/settings.vim"))
 else
   let g:minimalist_mode_enabled = 0
   let g:performance_mode_enabled = 0
-  let g:hard_mode = 0
   let g:standard_keybindings = 0
   let g:truecolor_enabled = 1
   let g:special_symbols_enabled = 0
@@ -74,7 +73,7 @@ set nocompatible
 "
 filetype off
 
-" Load plugins with pathogen
+" Load plugins with pathogen from bundle/{} and pack/{}/start/{} directories.
 "
 if !g:minimalist_mode_enabled
   execute pathogen#infect()
@@ -209,7 +208,7 @@ set foldenable
 " setting it to 10 here ensure that only very nested blocks of code are folded
 " when opening a buffer.
 "
-set foldlevelstart=10  " open most fold by default
+set foldlevelstart=10 " open most fold by default
 
 " Folds can be nested. Setting a max on the number of folds guards against too
 " many folds.
@@ -337,44 +336,6 @@ endif
 " }}}
 " Shortcuts {{{
 
-" Hard Mode {{{
-
-" Disable keys that you should not be using at all
-" If easy mode is activated, then hard mode is disabled.
-
-if g:hard_mode
-  " Arrow keys
-  "
-  " Normal
-  nnoremap <Left> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Right> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Up> :echo "-- STOP USING ARROW KEYS --"<CR>
-  nnoremap <Down> :echo "-- STOP USING ARROW KEYS --"<CR>
-  " Insert
-  inoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  inoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>i
-  " Visual
-  vnoremap <Left> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Right> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Up> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-  vnoremap <Down> <ESC> :echo "-- STOP USING ARROW KEYS --"<CR>
-
-  " Page up and down
-  "
-  " Normal
-  nnoremap <PageUp> :echo "-- STOP USING PAGEUP --"<CR>
-  nnoremap <PageDown> :echo "-- STOP USING PAGEDOWN --"<CR>
-  " Insert
-  inoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>i
-  inoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>i
-  " Visual
-  vnoremap <PageUp> <ESC> :echo "-- STOP USING PAGEUP --"<CR>
-  vnoremap <PageDown> <ESC> :echo "-- STOP USING PAGEDOWN --"<CR>
-endif
-
-" }}}
 " Leader Key {{{
 
 " This key is used in combination with other keys to perform many customizable
@@ -598,6 +559,15 @@ vnoremap ol <ESC>jV
 "
 noremap Ol <ESC>kV
 
+" Make Backspace/Delete work as expected in visual modes by deleting the
+" selected text
+"
+vnoremap <BS> x
+
+" Select all (the entire file).
+"
+vnoremap aa VGo1G
+
 " }}}
 " Yank {{{
 
@@ -640,8 +610,10 @@ nnoremap <leader>tf <C-^>
 
 " Toggle open/close folds
 " Since default leader key is remapped, use it for folding
+" Enter doesn't do anything in normal mode. Use it for folding.
 "
 nnoremap \ za
+nnoremap <CR> za
 
 " Change folder settings
 "
@@ -737,14 +709,19 @@ noremap <Leader>sc mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm :call StripCarriageReturns()
 
 " Resize windows
 "
-cnoreabbrev vrp exe "vertical resize " . (winwidth(0) * 3/2)
-cnoreabbrev vrm exe "vertical resize " . (winwidth(0) * 2/3)
-cnoreabbrev hrp exe "resize " . (winheight(0) * 3/2)
-cnoreabbrev hrm exe "resize " . (winheight(0) * 2/3)
+" These are a bit difficult to use and aren't very precise.
+" TODO: May be removed or changed in the future.
 nnoremap <silent> <leader>vrp :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
 nnoremap <silent> <leader>vrm :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <silent> <leader>hrp :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" These are very convenient, but use the arrow keys.
+"
+nnoremap <S-right> <C-w>>
+nnoremap <S-up> <C-w>-
+nnoremap <S-left> <C-w><
+nnoremap <S-down> <C-w>+
 
 " }}}
 " Movement {{{
@@ -768,11 +745,6 @@ nnoremap <leader>pb :bprevious<CR>
 nnoremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 nnoremap <leader>db :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
 
-" Delete current buffer
-" Less useful than <leader>q
-"
-nnoremap gd :bdelete<CR>
-
 " Delete all buffers except the currently focused one.
 " Convenient when hidden buffers accumulate over time.
 "
@@ -783,7 +755,6 @@ function DeleteAllHiddenBuffers()
     silent execute 'bwipeout' buf
   endfor
 endfunction
-nnoremap <leader>dab :call DeleteAllHiddenBuffers()<CR>
 nnoremap <leader>dhb :call DeleteAllHiddenBuffers()<CR>
 
 " }}}
@@ -860,13 +831,6 @@ set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
-" Move to the beginning of the line
-"
-nnoremap H ^
-" Move to the end of the line
-"
-nnoremap L $
-
 " Alternative to ESC key
 " Not applied to NORMAL mode due to "j" and "k" being used in movement
 " Normally, pressing ESC moves the cursor left by 1.
@@ -934,6 +898,10 @@ nnoremap ]a :ALENextWrap<CR>
 nnoremap [a :ALEPreviousWrap<CR>
 
 "}}}
+" betterdigraphs.vim
+"
+inoremap <expr> <C-K> BDG_GetDigraph ()
+
 " neocomplete {{{
 " Repository: https://github.com/Shougo/neocomplete.vim
 
@@ -956,7 +924,13 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
 " nerdcommenter {{{
 " Repository: https://github.com/scrooloose/nerdcommenter
 
+" NOTE: May need to remove one of these in the future for namespace.
+" NOTE: tc currently hangs because it is overloaded with toggle cursor column
+" (tcc) toggle cursor line (tcl), and toggle color column (tcw) commands.
+" May need to rebind those in the future as they are not commonly used.
+"
 map <leader>ct <plug>NERDCommenterToggle
+map <leader>tc <plug>NERDCommenterToggle
 
 " }}}
 " nerdtree {{{
@@ -1045,8 +1019,6 @@ nnoremap <leader>w :ToggleWorkspace<CR>
 " }}}
 " Searching {{{
 
-" Searching in file {{{
-
 " Enable "very magic" search mode
 " All characters except 0-9, a-z, A-Z, an _ have special meaning
 " Allow for searching with regex
@@ -1076,16 +1048,6 @@ endif
 map <leader>fd :DiffOrig<CR>
 
 " }}}
-" Replacing in file {{{
-
-" Remap autocomplete movement to allow j,k movement
-"
-inoremap <expr> <C-j> ((pumvisible())?("\<C-n>"):("j"))
-inoremap <expr> <C-k> ((pumvisible())?("\<C-p>"):("k"))
-
-" }}}
-
-" }}}
 " Standard {{{
 
 " These are from $VIMRUNTIME/mswin.vim
@@ -1107,9 +1069,9 @@ endif
 
 " Use CTRL-S for saving, also in Insert mode
 "
-noremap <C-S>		:update<CR>
-vnoremap <C-S>		<C-C>:update<CR>
-inoremap <C-S>		<C-O>:update<CR>
+noremap <C-S>           :update<CR>
+vnoremap <C-S>          <C-C>:update<CR>
+inoremap <C-S>          <C-O>:update<CR>
 
 
 " CTRL-Z is Undo; not in cmdline though
@@ -2086,9 +2048,13 @@ set titlestring=%F
 " }}}
 " Whitespace {{{
 
-" Visualize whitespace characters
+" Visualize whitespace characters.
+" NOTE: Non-trailing spaces are not shown to reduce visual noise.
+" Also, visual indicators are not needed because tabs are already visualized
+" to distinguish them.
 "
-set listchars=tab:»\ ,eol:¬,trail:~,extends:>,precedes:<,space:·,nbsp:‡
+set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
+" set listchars=tab:»\ ,eol:¬,trail:␣,extends:>,precedes:<,space:·,nbsp:‡
 
 " Highlight trailing whitespace characters for increased visibility
 "
@@ -2124,6 +2090,14 @@ set hidden
 " Use one space, not two, after punctuation.
 "
 set nojoinspaces
+
+" Square up visual selection
+"
+set virtualedit=block
+
+" Add some more matchpairs for better % use.
+"
+set matchpairs=(:),{:},[:],<:>,«:»,｢:｣
 
 " }}}
 " File {{{
