@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.45.0
+" Version:    1.46.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.45.0'
+let g:vimrc_version = '1.46.0'
 
 " Settings {{{
 
@@ -898,10 +898,35 @@ nnoremap ]a :ALENextWrap<CR>
 nnoremap [a :ALEPreviousWrap<CR>
 
 "}}}
-" betterdigraphs.vim
+" betterdigraphs {{{
+
+" NOTE: Does not currently work as expected. In terms of automatically
+" completing the digraphs, it works, but the visual prompt is broken.
+" Don't now if this is due to conflicts with other settings or plugins, or
+" because the plugin is so old that its behaviour is outdated in newer
+" versions of Vim.
 "
 inoremap <expr> <C-K> BDG_GetDigraph ()
 
+" }}}
+" dragvisuals {{{
+
+" Arrow keys are used because they normally have no other use. However, this
+" breaks home row flow so <C-hjkl> is used instead. <S-hjkl> was considered as
+" a slightly more ergonomic alternative, but it removes the default <S-hjkl>
+" features, so it was avoided.
+"
+vmap  <expr>  <left>   DVB_Drag('left')
+vmap  <expr>  <right>  DVB_Drag('right')
+vmap  <expr>  <down>   DVB_Drag('down')
+vmap  <expr>  <up>     DVB_Drag('up')
+vmap  <expr>  <C-h>    DVB_Drag('left')
+vmap  <expr>  <C-l>    DVB_Drag('right')
+vmap  <expr>  <C-j>    DVB_Drag('down')
+vmap  <expr>  <C-k>    DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
+
+" }}}
 " neocomplete {{{
 " Repository: https://github.com/Shougo/neocomplete.vim
 
@@ -1013,6 +1038,14 @@ nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " Toggle enable/disable workspace
 nnoremap <leader>w :ToggleWorkspace<CR>
+
+" }}}
+" vmath {{{
+
+" Calculates sum, average, min, and max of a selection of numbers.
+"
+vnoremap <expr>  ++  VMATH_YankAndAnalyse()
+nmap             ++  vip++
 
 " }}}
 
@@ -1323,6 +1356,13 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+" }}}
+" dragvisuals {{{
+
+" Remove any introduced trailing whitespace after moving
+"
+let g:DVB_TrimWS = 1
+
 " }}}
 " haskell-vim {{{
 " Repository: https://github.com/neovimhaskell/haskell-vim
