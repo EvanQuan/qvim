@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.1
+" Version:    1.46.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.1'
+let g:vimrc_version = '1.46.2'
 
 " Settings {{{
 
@@ -821,10 +821,6 @@ nnoremap <leader>cd :cd %:p:h<CR>
 "
 nnoremap j gj
 nnoremap k gk
-" Go down half a page
-nnoremap J <C-d>
-" Go up half a page
-nnoremap K <C-u>
 
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
