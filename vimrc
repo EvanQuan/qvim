@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.0
+" Version:    1.46.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.0'
+let g:vimrc_version = '1.46.1'
 
 " Settings {{{
 
@@ -1393,7 +1393,7 @@ let g:haskell_indent_guard = 4 " 2
 "
 let g:indentLine_fileTypeExclude = ['help', 'text', '']
 " let g:indentLine_char = '┆'
-" let g:indentLine_char = '│'
+let g:indentLine_char = '│'
 " }}}
 " jedi-vim {{{
 
