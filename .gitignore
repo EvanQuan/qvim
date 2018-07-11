@@ -5,6 +5,9 @@
 # settings
 settings.vim
 
+# Python
+.ropeproject
+
 # Local file versions
 version/local
 !version/templates/*
