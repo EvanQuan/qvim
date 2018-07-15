@@ -1,11 +1,11 @@
 My Vim Configuration
-=====================
+====================
 These are the current Vim settings I'm using.
 
 ![screenshot](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
 
 Table of Contents
----------------
+-----------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
     - [Additional Things](#additional-things)
@@ -17,11 +17,11 @@ Table of Contents
 6. [Plugins](#plugins)
 
 Why Use This?
------------
+------------
 If you're lazy and want to use what I'm using, feel free to.
 
 Installation
------------
+------------
 Clone this repository and run `pull.sh`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/.vim

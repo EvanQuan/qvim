@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.2
+" Version:    1.46.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.2'
+let g:vimrc_version = '1.46.3'
 
 " Settings {{{
 
@@ -1423,6 +1423,7 @@ let g:lightline = {
     \         ]
     \ },
   \ 'component_function': {
+    \ 'time': 'MyTime',
     \ 'percent': 'MyPercent',
     \ 'vimrcversion': 'MyVimrcVersion',
     \ 'vimversion': 'MyVimVersion',
@@ -1454,7 +1455,7 @@ let g:lightline = {
   \ },
   \ 'tabline': {
       \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \ 'right': [ [ 'vimversion', 'vimrcversion', 'close' ], ],
+      \ 'right': [ [ 'vimversion', 'vimrcversion', 'close'], [ 'time' ], ],
       \ },
 \ }
 
