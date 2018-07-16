@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.3
+" Version:    1.46.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.3'
+let g:vimrc_version = '1.46.4'
 
 " Settings {{{
 
@@ -1455,7 +1455,7 @@ let g:lightline = {
   \ },
   \ 'tabline': {
       \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \ 'right': [ [ 'vimversion', 'vimrcversion', 'close'], [ 'time' ], ],
+      \ 'right': [ [ 'vimversion', 'vimrcversion'], [ 'time' ], ],
       \ },
 \ }
 
@@ -1513,7 +1513,8 @@ endfunction
 " Displays current vimrc version. Used for tabline.
 "
 function! MyVimrcVersion() abort
-  return winwidth(0) > 50 ? 'vimrc ' . g:vimrc_version : ''
+  " return winwidth(0) > 50 ? 'vimrc ' . g:vimrc_version : ''
+  return &columns > 50 ? 'vimrc ' . g:vimrc_version : ''
 endfunction
 
 " Modulo operator because Vim's default one is bad.
@@ -1526,7 +1527,8 @@ endfunction
 function! MyVimVersion() abort
   let v100 = v:version / 100
   let v10 = s:mod(v:version, 100)
-  return winwidth(0) > 60 ? 'vim ' . string(v100) . '.' . string(v10) : ''
+  " return winwidth(0) > 60 ? 'vim ' . string(v100) . '.' . string(v10) : ''
+  return &columns > 60 ? 'vim ' . string(v100) . '.' . string(v10) : ''
 endfunction
 
 
@@ -1557,12 +1559,13 @@ endfunction
 " up too much space and the clock is synchronous (which is annoying.)
 "
 function! MyTime() abort
-  let window_width = winwidth(0)
-  if window_width > 105
+  let display_width = &columns
+  " let display_width = winwidth(0)
+  if display_width > 105
     return strftime('%c') " Day # Month Year Hour:Minute:Second AM/PM TimeZone
-  elseif window_width > 90
+  elseif display_width > 90
     return strftime ('%X %Z') " Hour:Minute:Second AM/PM TimeZone
-  elseif window_width > 85
+  elseif display_width > 85
     return strftime ('%H:%M') " Hour:Minute:Second
   else
     return ''
