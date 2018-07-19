@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.4
+" Version:    1.46.5
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.4'
+let g:vimrc_version = '1.46.5'
 
 " Settings {{{
 
@@ -723,6 +723,11 @@ nnoremap <S-up> <C-w>-
 nnoremap <S-left> <C-w><
 nnoremap <S-down> <C-w>+
 
+noremap <C-j> <C-w>+
+noremap <C-k> <C-w>-
+noremap <C-l> <C-w>>
+noremap <C-h> <C-w><
+
 " }}}
 " Movement {{{
 
@@ -754,8 +759,9 @@ function DeleteAllHiddenBuffers()
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
     silent execute 'bwipeout' buf
   endfor
+  echo "-- DELETED HIDDEN BUFFERS --"
 endfunction
-nnoremap <leader>dhb :call DeleteAllHiddenBuffers()<CR>
+nnoremap <silent> <leader>dhb :call DeleteAllHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -769,14 +775,6 @@ noremap <leader>hs :split<space>
 " Vertical
 "
 noremap <leader>vs :vsplit<space>
-
-" Easy window navigation
-" Move between windows with Ctrl-standard directions keys
-"
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
 
 " }}}
 " Tabs {{{
