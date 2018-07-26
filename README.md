@@ -15,6 +15,7 @@ Table of Contents
     - [Windows](#windows)
 5. [Color Schemes](#color-schemes)
 6. [Plugins](#plugins)
+7. [Frequently Asked Questions](#frequently-asked-questions)
 
 Why Use This?
 ------------
@@ -102,6 +103,9 @@ It uses `~/.vim` just as you would expect with Mac or Linux instead of
 `~/vimfiles` and behaves like a Unix terminal. I am aware there are other good
 terminals for Windows out there, but this is what I have been using.
 
+#### Linux
+Keep doing what you're doing. :penguin:
+
 Color Schemes
 -------------
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
@@ -141,3 +145,24 @@ Plugins
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
+
+Frequently Asked Questions
+--------------------------
+**Why not use [deocomplete](https://github.com/Shougo/deoplete.nvim)?**
+
+While I acknowledge the asynchronous autocomplete is far better than what
+neocomplete offers, deocomplete extremely annoying to install for Vim 8. Due to
+its required dependencies, I can't be bothered to install those (or can't
+guarantee I'll be able to install them), or any given computer I'm on.
+
+**What is your thought process in making your configurations?**
+
+1. Minimize the number of external dependencies as possible.
+    - This eases the installation process.
+2. Minimize conflicts with the default keymappings.
+    - This makes things easier for others used to default Vim, or other Vim
+      configurations.
+    - This prevents muscle memory from getting messed up when only default Vim
+      is available, or when minminal/standard Vim keymappings are available,
+      such as in other editors (Atom, Spacemacs, VSCode, Intellij, Pycharm,
+      Eclipse, repl.it etc.)
