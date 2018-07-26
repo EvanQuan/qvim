@@ -160,21 +160,24 @@ guarantee I'll be able to install them), or any given computer I'm on.
 1. Minimize the number of external dependencies as possible.
     - This eases the installation process.
     - Currently violations:
-        - Vim must be installed with Python support to enable jedi-vim and
-          vim-javacomplete2 to work.
+        - Vim must be installed with Python support to enable
+          [jedi-vim](https://github.com/davidhalter/jedi-vim) and
+          [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
+          to work.
         - Vim must be installed with lua or luajit support to enable
-          neocomplete to work.
-        - Powerline Fonts must be installed for Powerline symbols to render
-          properly.
-    - Failing to have Python/lua support or Powerline fonts is all handled in
-      settings.vim and the virmc so nothing breaks.
+          [neocomplete](https://github.com/Shougo/neocomplete.vim) to work.
+        - [Powerline
+          Fonts](https://powerline.readthedocs.io/en/latest/installation.html)
+          must be installed for Powerline symbols to render properly.
+    - However, failing to have Python/lua support or Powerline fonts can all be
+      accounted for in settings.vim and the virmc so nothing breaks.
 2. Minimize conflicts with the default keymappings.
     - This makes things easier for others used to default Vim, or other Vim
       configurations.
     - This prevents muscle memory from getting messed up when only default Vim
-      is available, or when minminal/standard Vim keymappings are available,
-      such as in other editors (Atom, Spacemacs, VSCode, Intellij, Pycharm,
-      Eclipse, repl.it etc.)
+      is available, or when minimal/standard Vim keymappings are available in
+      other editors (Atom, Spacemacs, VSCode, Intellij, Pycharm, Eclipse,
+      repl.it etc.)
 3. Compatibility with older versions of Vim (< 7.3).
     - I have "safety" checks through the vimrc so that things don't break for
       older versions.
