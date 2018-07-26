@@ -148,17 +148,26 @@ Plugins
 
 Frequently Asked Questions
 --------------------------
-**Why not use [deocomplete](https://github.com/Shougo/deoplete.nvim)?**
+**Why not use [deoplete](https://github.com/Shougo/deoplete.nvim)?**
 
 While I acknowledge the asynchronous autocomplete is far better than what
-neocomplete offers, deocomplete extremely annoying to install for Vim 8. Due to
+neocomplete offers, deoplete extremely annoying to install for Vim 8. Due to
 its required dependencies, I can't be bothered to install those (or can't
 guarantee I'll be able to install them), or any given computer I'm on.
 
-**What is your thought process in making your configurations?**
+**What is your thought process configuring Vim?**
 
 1. Minimize the number of external dependencies as possible.
     - This eases the installation process.
+    - Currently violations:
+        - Vim must be installed with Python support to enable jedi-vim and
+          vim-javacomplete2 to work.
+        - Vim must be installed with lua or luajit support to enable
+          neocomplete to work.
+        - Powerline Fonts must be installed for Powerline symbols to render
+          properly.
+    - Failing to have Python/lua support or Powerline fonts is all handled in
+      settings.vim and the virmc so nothing breaks.
 2. Minimize conflicts with the default keymappings.
     - This makes things easier for others used to default Vim, or other Vim
       configurations.
@@ -166,3 +175,12 @@ guarantee I'll be able to install them), or any given computer I'm on.
       is available, or when minminal/standard Vim keymappings are available,
       such as in other editors (Atom, Spacemacs, VSCode, Intellij, Pycharm,
       Eclipse, repl.it etc.)
+3. Compatibility with older versions of Vim (< 7.3).
+    - I have "safety" checks through the vimrc so that things don't break for
+      older versions.
+    - Some plugins I use take advantage of newer versions, but the nature of
+      their backwards compatibility is out of my hands (although most if not
+      all of them seem to either work or disable in older versions to avoid
+      breaking).
+    - This being said, I try to keep Vim up to date whenever I can so this has
+      never been a real problem for me.
