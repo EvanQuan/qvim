@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.46.5
+" Version:    1.47.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.46.5'
+let g:vimrc_version = '1.47.0'
 
 " Settings {{{
 
@@ -673,9 +673,11 @@ nnoremap <leader>gl :Git pull<CR>
 " }}}
 " Formatting {{{
 
-" Use ":" for Ex mode instead, use Q for formatting
+" Repeat last macro.
+" NOTE: Overwrites default for enter Ex-mode.
+" Use ":" for Ex mode instead (Command mode).
 "
-noremap Q gq
+noremap Q @@
 
 " Strip all trailing whitespace from the current file.
 "
@@ -1042,6 +1044,16 @@ vnoremap <expr>  ++  VMATH_YankAndAnalyse()
 nmap             ++  vip++
 
 " }}}
+
+" }}}
+" Programming {{{
+
+" Run current Python buffer
+"
+if has('autocmd')
+  autocmd FileType python nnoremap <buffer> <F5> :exec '!python' shellescape(@%, 1)<cr>
+  autocmd FileType python nnoremap <buffer> <leader>rf :exec '!python' shellescape(@%, 1)<cr>
+endif
 
 " }}}
 " Searching {{{
