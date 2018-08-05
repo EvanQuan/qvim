@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       gvimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.0.1
+" Version:    1.0.2
 "
 " Contains optional runtime configuration settings to initialize GUI Vim when
 " it starts. For Vim versions before 7.4, this should be linked to the
@@ -16,5 +16,5 @@ if has('win32') || has('win32')
 elseif has('gui_macvim')
   " MacVim cannot have its font changed directly. This enabled powerline fonts
   " for it.
-  set guifont=Meslo_LG_M_for_Powerline:h14
+  set guifont=Meslo_LG_M_for_Powerline:h12
 endif
