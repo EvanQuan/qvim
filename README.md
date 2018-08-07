@@ -121,7 +121,7 @@ Plugins
 - [html5.vim](https://github.com/othree/html5.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
-- [lightline-buffer](https://github.com/taohexx/lightline-buffer)
+- [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
 - [lightline.vim](https://github.com/itchyny/lightline.vim)
 - [neocomplete.vim](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
