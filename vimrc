@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.47.0
+" Version:    1.48.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -229,7 +229,7 @@ set foldnestmax=10 " 10 nested fold max
 set foldmethod=indent
 
 " }}}
-" Indentation {{{
+" Languages {{{
 
 " Default {{{
 
@@ -300,6 +300,8 @@ if has('autocmd')
   "
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
   autocmd Filetype jas setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
+
+  autocmd Filetype markdown setlocal spell
 endif
 
 " }}}
