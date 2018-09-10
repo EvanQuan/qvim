@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.48.0
+" Version:    1.48.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.48.0'
+let g:vimrc_version = '1.48.1'
 
 " Settings {{{
 
@@ -295,6 +295,12 @@ if has('autocmd')
   "
   autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
   autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
+
+  " 8-space hard tabs
+  "
+  " Make automatically defaults to hard tabs (because it doesn't allow for
+  " soft tabs, but the shiftwidth needs to be changed to be consistent)
+  autocmd Filetype make setlocal shiftwidth=8
 
   " 8-space soft tabs
   "
