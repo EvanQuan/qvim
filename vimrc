@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.48.1
+" Version:    1.48.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.48.1'
+let g:vimrc_version = '1.48.2'
 
 " Settings {{{
 
@@ -242,7 +242,7 @@ set formatoptions=tcqrn1
 " Number of spaces that a <Tab> in the file counts for.
 " Default 8
 "
-set tabstop=8 " 2
+set tabstop=4 " 2
 
 " Number of spaces to use for each step of (auto)indent.
 "
@@ -285,11 +285,16 @@ if has('autocmd')
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
-  " 4-space hard tabs
+  " 4-space soft tabs
   "   In accordance with PEP 8
   autocmd Filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
   "   tabstop=4 in case tabs are being used in existing file
   autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+  " 4-space hard tabs
+  "
+  " TODO: for now
+  autocmd Filetype cpp setlocal noexpandtab tabstop=4 shiftwidth=4
 
   " 2-space hard tabs
   "
