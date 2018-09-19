@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.48.2
+" Version:    1.48.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.48.2'
+let g:vimrc_version = '1.48.3'
 
 " Settings {{{
 
@@ -336,6 +336,8 @@ function! TabsOrSpaces() abort
 
   if numTabs > numSpaces
     setlocal noexpandtab " enable hard tabs
+  else
+    setlocal expandtab
   endif
 endfunction
 
