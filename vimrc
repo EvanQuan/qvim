@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.48.3
+" Version:    1.49.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -290,11 +290,8 @@ if has('autocmd')
   autocmd Filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
   "   tabstop=4 in case tabs are being used in existing file
   autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-  " 4-space hard tabs
-  "
-  " TODO: for now
-  autocmd Filetype cpp setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4
+  autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4
 
   " 2-space hard tabs
   "
@@ -2118,8 +2115,11 @@ set titlestring=%F
 " Also, visual indicators are not needed because tabs are already visualized
 " to distinguish them.
 "
-set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
-" set listchars=tab:»\ ,eol:¬,trail:␣,extends:>,precedes:<,space:·,nbsp:‡
+if g:show_whitespace == 2
+  set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
+else
+  set listchars=tab:»\ ,eol:¬,trail:␣,extends:>,precedes:<,space:·,nbsp:‡
+endif
 
 " Highlight trailing whitespace characters for increased visibility
 "
