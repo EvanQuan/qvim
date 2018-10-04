@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.49.0
+" Version:    1.50.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.48.3'
+let g:vimrc_version = '1.50.0'
 
 " Settings {{{
 
@@ -309,7 +309,9 @@ if has('autocmd')
   autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
   autocmd Filetype jas setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
 
+  " Spell check enabled
   autocmd Filetype markdown setlocal spell
+  autocmd Filetype text setlocal spell tabstop=8
 endif
 
 " }}}
@@ -679,8 +681,13 @@ nnoremap <leader>gp :Git push<CR>
 
 " Pull
 "
-cnoreabbrev gl Git pull
+cnoreabbrev gu Git pull
 nnoremap <leader>gl :Git pull<CR>
+
+" Log
+cnoreabbrev gl Git log
+nnoremap <leader>gl :Git log<CR>
+"
 
 " }}}
 " Formatting {{{
@@ -1708,9 +1715,10 @@ function! MyExpandtab() abort
 endfunction
 
 " File format (unix, dos, mac)
+" Formatted as LF, CRLF, CR
 "
 function! MyFileformat() abort
-  return winwidth(0) > 57 ? &fileformat : ''
+  return winwidth(0) > 57 ? (&fileformat == 'unix' ? 'LF' : &fileformat == 'dos' ? 'CRLF' : 'CR') : ''
 endfunction
 
 " File type (java, python, vim)
@@ -1738,7 +1746,7 @@ function! MyMode() abort
     \ &filetype == 'unite' ? 'Unite' :
     \ &filetype == 'vimfiler' ? 'VimFiler' :
     \ &filetype == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 70 ? lightline#mode() : ''
+    \ winwidth(0) > 75 ? lightline#mode() : ''
 endfunction
 
 " Signifies currently in CtrlP search mode.
