@@ -35,14 +35,16 @@ Hooray, that's it! You're all done!
 
 #### Additional Things
 
-1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
-`~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For earlier versions
-of Vim, create a dummy `~/.vimrc` file in your home directory that links to `~/.vim/vimrc`:
+1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
+   detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
+   earlier versions of Vim, create a dummy `~/.vimrc` file in your home
+   directory that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
+
 2. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
-and `_vimrc`:
+   and `_vimrc`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
 echo "source ~/vimfiles/vimrc" > ~/_vimrc
@@ -50,10 +52,12 @@ cd ~/vimfiles
 git submodule update --init --remote --merge --recursive
 bash ~/vimfiles/version/check_version.sh
 ```
-3. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-Once powerline fonts are installed, they need to be set in the terminal for them to appear correctly.
-On Mac, I use `Meslo LG M for Powerline 14`.
+3. (Optional) Install powerline and powerline fonts
+   [here](https://powerline.readthedocs.io/en/latest/installation.html).
+
+Once powerline fonts are installed, they need to be set in the terminal for
+them to appear correctly. On Mac, I use `Meslo LG M for Powerline 14`.
 
 4. If for some reason your terminal does not support italics, try this:
 ```bash
@@ -64,15 +68,14 @@ tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
 5. If all the colors are weird, or the whole background is solid blue, consider
-setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
-may not support 24-bit color.
+   setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
+   may not support 24-bit color.
 
 Updating
 --------
 To update everything, run `bash pull.sh`. If there is a new version of
-`settings.vim` available, your local copy will be replaced with a template
-of the newer version. Otherwise, your local `settings.vim` will be unchanged.
-
+`settings.vim` available, your local copy will be replaced with a template of
+the newer version. Otherwise, your local `settings.vim` will be unchanged.
 ```bash
 cd ~/.vim
 bash pull.sh
@@ -95,13 +98,13 @@ up regardless.
 #### Mac
 I strongly recommend that you use [iTerm2](https://www.iterm2.com/), as
 it is strictly better than the default terminal. It supports 24-bit color
-and has a bunch of other fancy stuff. Pretty much a necessity.
+and has a bunch of other fancy stuff.
 
 #### Windows
-Use [Git Bash](https://git-scm.com/downloads) instead of command prompt.
-It uses `~/.vim` just as you would expect with Mac or Linux instead of
-`~/vimfiles` and behaves like a Unix terminal. I am aware there are other good
-terminals for Windows out there, but this is what I have been using.
+Use [Git Bash](https://git-scm.com/downloads). It uses `~/.vim` just as you
+would expect with Mac or Linux instead of `~/vimfiles` and behaves like a Unix
+terminal. I am aware there are other good terminals for Windows out there, but
+this is what I have been using.
 
 #### Linux
 Keep doing what you're doing. :penguin:
