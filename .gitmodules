@@ -97,3 +97,6 @@
 [submodule "pack/plugins/start/lightline-buffer"]
 	path = pack/plugins/start/lightline-buffer
 	url = https://github.com/taohexxx/lightline-buffer
+[submodule "pack/plugins/start/vim-sleuth"]
+	path = pack/plugins/start/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth

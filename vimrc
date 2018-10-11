@@ -242,7 +242,7 @@ set formatoptions=tcqrn1
 " Number of spaces that a <Tab> in the file counts for.
 " Default 8
 "
-set tabstop=4 " 2
+set tabstop=8 " 2
 
 " Number of spaces to use for each step of (auto)indent.
 "
