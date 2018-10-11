@@ -35,14 +35,15 @@ Hooray, that's it! You're all done!
 
 #### Additional Things
 
-1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically detects
-`~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For earlier versions
-of Vim, create a dummy `~/.vimrc` file in your home directory that links to `~/.vim/vimrc`:
+1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
+   detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
+   earlier versions of Vim, create a dummy `~/.vimrc` file in your home
+   directory that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
 2. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
-and `_vimrc`:
+   and `_vimrc`:
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
 echo "source ~/vimfiles/vimrc" > ~/_vimrc
@@ -50,10 +51,11 @@ cd ~/vimfiles
 git submodule update --init --remote --merge --recursive
 bash ~/vimfiles/version/check_version.sh
 ```
-3. (Optional) Install powerline and powerline fonts [here](https://powerline.readthedocs.io/en/latest/installation.html).
+3. (Optional) Install Powerline and Powerline fonts
+   [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-Once powerline fonts are installed, they need to be set in the terminal for them to appear correctly.
-On Mac, I use `Meslo LG M for Powerline 14`.
+Once Powerline fonts are installed, they need to be set in the terminal for
+them to appear correctly. On Mac, I use `Meslo LG M for Powerline 14`.
 
 4. If for some reason your terminal does not support italics, try this:
 ```bash
@@ -64,8 +66,8 @@ tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
 5. If all the colors are weird, or the whole background is solid blue, consider
-setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
-may not support 24-bit color.
+   setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
+   may not support 24-bit color.
 
 Updating
 --------
@@ -143,6 +145,7 @@ Plugins
 - [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-surround](https://github.com/tpope/vim-surround)
+- [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
 
@@ -169,9 +172,9 @@ guarantee I'll be able to install them), or any given computer I'm on.
         - [Powerline
           Fonts](https://powerline.readthedocs.io/en/latest/installation.html)
           must be installed for Powerline symbols to render properly.
-    - However, failing to have Python/lua support or Powerline fonts can all be
+    - However, failing to have Python/Lua support or Powerline fonts can all be
       accounted for in settings.vim and the virmc so nothing breaks.
-2. Minimize conflicts with the default keymappings.
+2. Minimize conflicts with the default key mappings.
     - This makes things easier for others used to default Vim, or other Vim
       configurations.
     - This prevents muscle memory from getting messed up when only default Vim
