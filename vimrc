@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.50.0
+" Version:    1.50.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.50.0'
+let g:vimrc_version = '1.50.1'
 
 " Settings {{{
 
@@ -971,6 +971,8 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
 "
 map <leader>ct <plug>NERDCommenterToggle
 map <leader>tc <plug>NERDCommenterToggle
+" For some reason, Vim registers <C-/> as <C-_>
+map <C-_> <plug>NERDCommenterToggle
 
 " }}}
 " nerdtree {{{
@@ -1191,7 +1193,7 @@ function! ToggleColorColumn() abort
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
-nnoremap <leader>tcw :call ToggleColorColumn()<CR>
+nnoremap <leader>tmw :call ToggleColorColumn()<CR>
 
 " Toggle cursorcolumn visibility
 "
@@ -1203,7 +1205,7 @@ function! ToggleCursorColumn() abort
     echo "-- CURSORCOLUMN DISABLED --"
   endif
 endfunction
-nnoremap <leader>tcc :call ToggleCursorColumn()<CR>
+nnoremap <leader>tmc :call ToggleCursorColumn()<CR>
 
 
 " Toggle cursorline visibility
@@ -1216,7 +1218,7 @@ function! ToggleCursorLine() abort
     echo "-- CURSORLINE DISABLED --"
   endif
 endfunction
-nnoremap <leader>tcl :call ToggleCursorLine()<CR>
+nnoremap <leader>tml :call ToggleCursorLine()<CR>
 
 " Toggle spell check
 "
