@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.50.1
+" Version:    1.50.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.50.1'
+let g:vimrc_version = '1.50.2'
 
 " Settings {{{
 
@@ -242,7 +242,7 @@ set formatoptions=tcqrn1
 " Number of spaces that a <Tab> in the file counts for.
 " Default 8
 "
-set tabstop=8 " 2
+set tabstop=4 " 2
 
 " Number of spaces to use for each step of (auto)indent.
 "
@@ -302,7 +302,8 @@ if has('autocmd')
   "
   " Make automatically defaults to hard tabs (because it doesn't allow for
   " soft tabs, but the shiftwidth needs to be changed to be consistent)
-  autocmd Filetype make setlocal shiftwidth=8
+  autocmd Filetype make setlocal noexpandtab tabstop=8 shiftwidth=8
+  autocmd Filetype text setlocal noexpandtab tabstop=8 shiftwidth=8
 
   " 8-space soft tabs
   "
