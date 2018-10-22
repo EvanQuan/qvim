@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.51.0
+" Version:    1.52.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.51.0'
+let g:vimrc_version = '1.52.0'
 
 " Settings {{{
 
@@ -1350,6 +1350,12 @@ else
   nnoremap <silent> <leader>ven :vsplit ~/.vim/notes.txt<CR>
 endif
 
+" tmux
+"
+nnoremap <silent> <leader>et :edit ~/.tmux.conf<CR>
+nnoremap <silent> <leader>het :split ~/.tmux.conf<CR>
+nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<CR>
+
 " Get help on currently selected word
 "
 nnoremap <leader>h viwK
@@ -2213,7 +2219,8 @@ set titlestring=%F
 " to distinguish them.
 "
 if g:show_whitespace == 2
-  set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
+  set listchars=tab:»\ ,trail:·,extends:>,precedes:<,nbsp:‡
+  " set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
 else
   set listchars=tab:»\ ,eol:¬,trail:␣,extends:>,precedes:<,space:·,nbsp:‡
 endif
