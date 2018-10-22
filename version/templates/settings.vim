@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.13.0
+" Version:    1.13.1
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -56,14 +56,14 @@ let g:wrap_enabled = 1
 let g:wrap_width = 79
 " Show Whitespace {{{
 "   Render placeholders for invisible characters, such as tabs, spaces and
-"   newlines. Whitespace can be toggled at any time with the <leader>tw
+"   end-of-lines. Whitespace can be toggled at any time with the <leader>tw
 "   command.
 "   0: Off
 "     Whitespace is not visible by default.
 "   1: On
 "     Whitespace is visible by default.
-"   2: On
-"     Whitespace except spaces are visible by default.
+"   2: Minimal
+"     Whitespace is visible except for spaces and end-of-line characters.
 " }}}
 let g:show_whitespace = 2
 " Disable Cursor Blinking {{{
