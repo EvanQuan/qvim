@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.52.0
+" Version:    1.53.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.52.0'
+let g:vimrc_version = '1.53.0'
 
 " Settings {{{
 
@@ -26,26 +26,30 @@ let g:vimrc_version = '1.52.0'
 " Copy ~/.vim/template/settings.vim if there is no settings.vim file
 " in your ~/.vim/ directory.
 "
-" Set settings to 1.12.0 defaults if settings.vim does not exist.
+" Set settings to 1.13.1 defaults if settings.vim does not exist.
 "
 
 if (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/settings.vim"))
   source ~/vimfiles/settings.vim
+elseif (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/version/templates/settings.vim"))
+  source ~/vimfiles/version/templates/settings.vim
 elseif filereadable(expand("~/.vim/settings.vim"))
   source ~/.vim/settings.vim
+elseif filereadable(expand("~/.vim/version/templates/settings.vim"))
+  source ~/.vim/version/templates/settings.vim
 else
-  let g:minimalist_mode_enabled = 0
-  let g:performance_mode_enabled = 0
-  let g:standard_keybindings = 0
   let g:truecolor_enabled = 1
-  let g:special_symbols_enabled = 0
+  let g:special_symbols_enabled = 1
   let g:colorscheme_type = 3
   let g:wrap_enabled = 1
   let g:wrap_width = 79
-  let g:show_whitespace = 1
+  let g:show_whitespace = 2
   let g:cursor_blinking_disabled = 1
   let g:cursor_color = 1
   let g:escape_alternative_enabled = 0
+  let g:minimalist_mode_enabled = 0
+  let g:performance_mode_enabled = 0
+  let g:standard_keybindings = 0
 endif
 
 if g:minimalist_mode_enabled == 2
@@ -724,31 +728,17 @@ noremap <leader>sw :call StripWhitespace()<CR>
 function! StripCarriageReturns() abort
   echo "-- CARRIAGE RETURNS STRIPPED --"
 endfunction
-noremap <Leader>sc mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm :call StripCarriageReturns()<CR>
+noremap <Leader>sc mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()<CR>
 
 " }}}
 " Layout {{{
 
 " Resize windows
 "
-" These are a bit difficult to use and aren't very precise.
-" TODO: May be removed or changed in the future.
-nnoremap <silent> <leader>vrp :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <leader>vrm :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
-nnoremap <silent> <leader>hrp :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <leader>hrm :exe "resize " . (winheight(0) * 2/3)<CR>
-
-" These are very convenient, but use the arrow keys.
-"
-nnoremap <S-right> <C-w>>
-nnoremap <S-up> <C-w>-
-nnoremap <S-left> <C-w><
-nnoremap <S-down> <C-w>+
-
-noremap <C-j> <C-w>+
-noremap <C-k> <C-w>-
-noremap <C-l> <C-w>>
-noremap <C-h> <C-w><
+nnoremap <C-j> <C-w>+
+nnoremap <C-k> <C-w>-
+nnoremap <C-l> <C-w>>
+nnoremap <C-h> <C-w><
 
 " }}}
 " Movement {{{
@@ -759,13 +749,15 @@ noremap <C-h> <C-w><
 "
 " Next buffer
 "
-nnoremap gn :bnext<CR>
+" TODO: remove gn
 nnoremap <leader>nb :bnext<CR>
+nnoremap ]b :bnext<CR>
 
 " Previous buffer
 "
-nnoremap gp :bprevious<CR>
+" TODO: remove gp
 nnoremap <leader>pb :bprevious<CR>
+nnoremap [b :bprevious<CR>
 
 " Delete current buffer
 "
@@ -792,11 +784,19 @@ nnoremap <silent> <leader>dhb :call DeleteAllHiddenBuffers()<CR>
 
 " Horizontal
 "
-noremap <leader>hs :split<space>
+nnoremap <leader>hs :split<space>
 
 " Vertical
 "
-noremap <leader>vs :vsplit<space>
+nnoremap <leader>vs :vsplit<space>
+
+" Go to next window
+"
+nnoremap ]w <C-w>w
+
+" Go to previous window
+"
+nnoremap [w <C-w>W
 
 " }}}
 " Tabs {{{
@@ -805,27 +805,37 @@ noremap <leader>vs :vsplit<space>
 " TODO: Duplicate may be removed if it causes namespace conflicts.
 "
 cnoreabbrev nt tabe
-noremap <leader>nt :tabe<CR>
+nnoremap <leader>nt :tabe<CR>
 cnoreabbrev ot tabe
-noremap <leader>ot :tabe<CR>
+nnoremap <leader>ot :tabe<CR>
 
 " Go to tab :by number
 "
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<CR>
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+nnoremap <leader>0 :tablast<CR>
+
+" Go to next tab
+" Same as gt
+"
+nnoremap ]t :tabnext<CR>
+
+" Go to previous tab
+" Same as gT
+"
+nnoremap [t :tabprevious<CR>
 
 " Quit tab
 "
 cnoreabbrev qt tabclose
-noremap <leader>qt :tabclose<CR>
+nnoremap <leader>qt :tabclose<CR>
 
 " }}}
 " Session {{{
@@ -1073,7 +1083,7 @@ nmap             ++  vip++
 " Run current Python buffer
 "
 if has('autocmd')
-  autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<cr>
+  autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
 endif
 
 function! SaveAndExecutePython(isVerticalSplit)
@@ -1302,14 +1312,6 @@ function! ToggleSpellcheck() abort
   endif
 endfunction
 nnoremap <leader>ts :call ToggleSpellcheck()<CR>
-
-" Next misspelled word
-"
-nnoremap  <leader>ns ]s
-
-" Previous misspelled word
-"
-nnoremap  <leader>ps [s
 
 " }}}
 " Vimrc Editing {{{
