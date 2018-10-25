@@ -23,10 +23,20 @@ If you're lazy and want to use what I'm using, feel free to.
 
 Installation
 ------------
+
 Clone this repository and run `pull.sh`:
+
+#### Mac/Linux
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/.vim
 cd ~/.vim
+bash pull.sh
+```
+
+#### Windows
+```bash
+git clone https://github.com/EvanQuan/.vim ~/vimfiles
+cd ~/vimfiles
 bash pull.sh
 ```
 
@@ -43,23 +53,13 @@ Hooray, that's it! You're all done!
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
 
-2. If you are on Windows and are using gVim, clone for corresponding `vimfiles`
-   and `_vimrc`:
-```bash
-git clone https://github.com/EvanQuan/.vim ~/vimfiles
-echo "source ~/vimfiles/vimrc" > ~/_vimrc
-cd ~/vimfiles
-git submodule update --init --remote --merge --recursive
-bash ~/vimfiles/version/check_version.sh
-```
-
-3. (Optional) Install Powerline and Powerline fonts
+2. (Optional) Install Powerline and Powerline fonts
    [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
 Once Powerline fonts are installed, they need to be set in the terminal for
 them to appear correctly. On Mac, I use `Meslo LG M for Powerline 14`.
 
-4. If for some reason your terminal does not support italics, try this:
+3. If for some reason your terminal does not support italics, try this:
 ```bash
 echo "xterm-256color|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
@@ -67,7 +67,7 @@ echo "xterm-256color|xterm with 256 colors and italic,
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
 
-5. If all the colors are weird, or the whole background is solid blue, consider
+4. If all the colors are weird, or the whole background is solid blue, consider
    setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
    may not support 24-bit color.
 
@@ -76,17 +76,17 @@ Updating
 To update everything, run `bash pull.sh`. If there is a new version of
 `settings.vim` available, your local copy will be replaced with a template of
 the newer version. Otherwise, your local `settings.vim` will be unchanged.
+
+#### Mac/Linux
 ```bash
 cd ~/.vim
 bash pull.sh
 ```
 
-Alternatively, if you are on Windows and are using gVim, run this:
+#### Windows
 ```bash
 cd ~/vimfiles
-git pull origin master
-git submodule update --init --remote --merge --recursive
-bash version/check_version.sh
+bash pull.sh
 ```
 
 Recommendations
@@ -196,7 +196,7 @@ semantically related to the command they are trying to execute. What do the CTRL
 and Z keys have anything to do with "undoing the last action"? Having
 semantically-valued commands like `dsb` to **D**elete **S**urrounding
 **B**rackets or `cit` to **C**hange **I**n **T**ag makes using hundreds of
-commands n Vim without needing to memorize them easier.
+commands in Vim without needing to memorize them easier.
 
 
 **Why not use [Spacemacs](http://spacemacs.org/)/[Evil](https://github.com/emacs-evil/evil)/[Doom](https://github.com/hlissner/doom-emacs)?**
