@@ -15,7 +15,7 @@ Table of Contents
     - [Windows](#windows)
 5. [Color Schemes](#color-schemes)
 6. [Plugins](#plugins)
-7. [Frequently Asked Questions](#frequently-asked-questions)
+7. [Design Decisions](#design-decisions)
 
 Why Use This?
 ------------
@@ -104,7 +104,8 @@ and has a bunch of other fancy stuff.
 Use [Git Bash](https://git-scm.com/downloads). It uses `~/.vim` just as you
 would expect with Mac or Linux instead of `~/vimfiles` and behaves like a Unix
 terminal. I am aware there are other good terminals for Windows out there, but
-this is what I have been using.
+this is what I have been using. I am not well-versed in command prompt
+alternatives for Windows.
 
 #### Linux
 Keep doing what you're doing. :penguin:
@@ -150,16 +151,68 @@ Plugins
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
 
-Frequently Asked Questions
---------------------------
+Design Decisions
+----------------
 **Why not use [deoplete](https://github.com/Shougo/deoplete.nvim)?**
 
-While I acknowledge the asynchronous autocomplete is far better than what
-neocomplete offers, deoplete extremely annoying to install for Vim 8. Due to
-its required dependencies, I can't be bothered to install those (or can't
-guarantee I'll be able to install them), or any given computer I'm on.
+While I acknowledge deoplete's asynchronous autocomplete is far better than what
+neocomplete offers, deoplete is extremely annoying to install for Vim 8, since
+is primarily designed for Neovim. Due to its required dependencies, I can't be
+bothered to install those (or can't guarantee I'll be able to install them),
+for any given computer I'm on.
 
-**What is your thought process configuring Vim?**
+**Why not use [Neovim](https://neovim.io/)?**
+
+I do like the idea of Neovim, and these configurations are completely
+compatible with Neovim. The only thing I don't like about Neovim is how its
+integrated terminal is implemented compared to Vim. Since I use the integrated
+terminal fairly often, this difference alone has deterred me from switching to
+Neovim. It could be the case that this problem could be fixed through some
+extra configurations I am not aware of, but until I am aware of it, I have no
+plans on making the switch.
+
+**Why not use Emacs?**
+
+There are two parts points of comparison for this question, comparing Vim and
+Emacs as software, and as editing paradigms/styles/whatever you want to call
+it.
+
+I actually acknowledge that Emacs is better software than Vim. The decision to
+use Lisp for scripting is smarter than Vim's use of Vimscript, which has no use
+outside of Vim. Emacs is also not constrained as a command-line editor, being
+able to render images and other such things that I'm not aware of (since
+I haven't spent much time looking into Emacs).
+
+Comparing editing styles, I highly favour modal editing over the modifier key
+approach that Emacs (and basically every other editor I'm aware of) uses.
+Relying on modifier keys for commands, especially with pressing 3 or more keys
+at the same time, [is not particularly
+ergonomic](http://wiki.c2.com/?EmacsPinky).
+
+In general, many commands are difficult to memorize, as sometimes neither the
+modifier key(s) (CTRL, ALT, Command/Windows) nor the key being modified are
+semantically related to the command they are trying to execute. What do the CTRL
+and Z keys have anything to do with "undoing the last action"? Having
+semantically-valued commands like `dsb` to **D**elete **S**urrounding
+**B**rackets or `cit` to **C**hange **I**n **T**ag makes using hundreds of
+commands n Vim without needing to memorize them easier.
+
+
+**Why not use [Spacemacs](http://spacemacs.org/)/[Evil](https://github.com/emacs-evil/evil)/[Doom](https://github.com/hlissner/doom-emacs)?**
+
+The startup times are too long (10 seconds or more), which is a problem if I'm
+quickly editing files, especially over ssh. Being developed by large numbers of
+people over many years, they have a slew of custom key mappings which I am not
+familiar with, some of which I don't like. They also unavoidably miss certain
+Vim key mappings that I use often (like CTRL-A and CTRL-X), by virtue of being
+in Emacs.
+
+That being said, I can understand the appeal and strongly support all these
+projects. The idea of getting the best of both worlds by taking the strengths
+of both Vim and Emacs is something I support, even though in practice it
+doesn't work out for me.
+
+**Configuration Thought Process**
 
 1. Minimize the number of external dependencies as possible.
     - This eases the installation process.
