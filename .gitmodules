@@ -100,3 +100,6 @@
 [submodule "pack/plugins/start/vim-sleuth"]
 	path = pack/plugins/start/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "pack/plugins/start/vim-exchange"]
+	path = pack/plugins/start/vim-exchange
+	url = https://github.com/tommcdo/vim-exchange

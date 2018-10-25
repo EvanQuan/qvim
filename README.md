@@ -136,6 +136,7 @@ Plugins
 - [quick-scope](https://github.com/unblevable/quick-scope)
 - [tabular](https://github.com/godlygeek/tabular)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
+- [vim-exchange](https://github.com/tommcdo/vim-exchange)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
