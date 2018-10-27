@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.53.0
+" Version:    1.54.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.53.0'
+let g:vimrc_version = '1.54.0'
 
 " Settings {{{
 
@@ -136,12 +136,10 @@ endif
 " Lightline color scheme is consistent with main color scheme
 "
 if !g:minimalist_mode_enabled
-  if g:colorscheme_type
-    if g:colorscheme_type == 3 " Alternative
-      colorscheme onedark
-    else
-      colorscheme one
-    endif
+  if g:colorscheme_type >= 3
+    colorscheme onedark
+  elseif g:colorscheme_type >= 1
+    colorscheme one
   endif
 endif
 
@@ -935,6 +933,14 @@ nnoremap [a :ALEPreviousWrap<CR>
 inoremap <expr> <C-K> BDG_GetDigraph ()
 
 " }}}
+" ctrlp {{{
+" Repository: https://github.com/ctrlpvim/ctrlp.vim
+
+" Fuzzy find OR find file
+nnoremap <silent> <leader>ff :CtrlP<CR>
+
+" }}}
+
 " dragvisuals {{{
 
 " Arrow keys are used because they normally have no other use. However, this
@@ -995,9 +1001,14 @@ map <C-_> <plug>NERDCommenterToggle
 " Atom keybinding
 "
 nnoremap <silent> <C-\> :NERDTreeToggle<CR>
-" Alternative
+
+" Toggle tree
 "
 nnoremap <silent> <leader>tt :NERDTreeToggle<CR>
+
+" File tree
+"
+nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 
 " }}}
 " vim-gitgutter {{{
@@ -1617,12 +1628,10 @@ endif
 " Set lightline color scheme
 " Whether it is light or dark is determined in one package
 "
-if g:colorscheme_type
-  if g:colorscheme_type == 3
-    let g:lightline.colorscheme = 'onedark'
-  else
-    let g:lightline.colorscheme = 'one'
-  endif
+if g:colorscheme_type >= 3
+  let g:lightline.colorscheme = 'onedark'
+elseif g:colorscheme_type >= 1
+  let g:lightline.colorscheme = 'one'
 endif
 
 " }}}
@@ -2082,6 +2091,11 @@ endif
 " let &t_SR =+ "\<Esc>]12;rgb:e0/6c/75\x7"
 " NORMAL and VISUAL modes - green
 " let &t_EI =+ "\<Esc>]12;rgb:98/c3/79\x7"
+
+" }}}
+" Visibility {{{
+
+set cursorline
 
 " }}}
 
