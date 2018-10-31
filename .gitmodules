@@ -1,95 +1,95 @@
 [submodule "bundle/auto-pairs"]
-	path = bundle/auto-pairs
+	path = pack/plugins/start/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
 [submodule "bundle/indentLine"]
-	path = bundle/indentLine
+	path = pack/plugins/start/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
 [submodule "bundle/lightline.vim"]
-	path = bundle/lightline.vim
+	path = pack/plugins/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim.git
 [submodule "bundle/nerdcommenter"]
-	path = bundle/nerdcommenter
+	path = pack/plugins/start/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
 [submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
+	path = pack/plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule "bundle/vim-gitbranch"]
-	path = bundle/vim-gitbranch
+	path = pack/plugins/start/vim-gitbranch
 	url = https://github.com/itchyny/vim-gitbranch
 [submodule "bundle/vim-gitgutter"]
-	path = bundle/vim-gitgutter
+	path = pack/plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/vim-multiple-cursors"]
-	path = bundle/vim-multiple-cursors
+	path = pack/plugins/start/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors.git
 [submodule "bundle/vim-sensible"]
-	path = bundle/vim-sensible
+	path = pack/plugins/start/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
 [submodule "bundle/vim-surround"]
-	path = bundle/vim-surround
+	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule "bundle/jedi-vim"]
 	path = bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
 [submodule "bundle/html5.vim"]
-	path = bundle/html5.vim
+	path = pack/plugins/start/html5.vim
 	url = https://github.com/othree/html5.vim
 [submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
+	path = pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "bundle/nerdtree-git-plugin"]
-	path = bundle/nerdtree-git-plugin
+	path = pack/plugins/start/nerdtree-git-plugin
 	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
 [submodule "bundle/vim-closetag"]
-	path = bundle/vim-closetag
+	path = pack/plugins/start/vim-closetag
 	url = https://github.com/alvan/vim-closetag
 [submodule "bundle/vim-javacomplete2"]
-	path = bundle/vim-javacomplete2
+	path = pack/plugins/start/vim-javacomplete2
 	url = https://github.com/artur-shaik/vim-javacomplete2.git
 [submodule "bundle/vim-workspace"]
-	path = bundle/vim-workspace
+	path = pack/plugins/start/vim-workspace
 	url = https://github.com/thaerkh/vim-workspace
 [submodule "bundle/vim-repeat"]
-	path = bundle/vim-repeat
+	path = pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
 [submodule "bundle/tabular"]
-	path = bundle/tabular
+	path = pack/plugins/start/tabular
 	url = https://github.com/godlygeek/tabular
 [submodule "bundle/haskell-vim"]
-	path = bundle/haskell-vim
+	path = pack/plugins/start/haskell-vim
 	url = https://github.com/neovimhaskell/haskell-vim
 [submodule "bundle/vim-mkdir"]
-	path = bundle/vim-mkdir
+	path = pack/plugins/start/vim-mkdir
 	url = https://github.com/pbrisbin/vim-mkdir
 [submodule "bundle/vim-prolog"]
-	path = bundle/vim-prolog
+	path = pack/plugins/start/vim-prolog
 	url = https://github.com/mxw/vim-prolog
 [submodule "bundle/arm-syntax-vim"]
-	path = bundle/arm-syntax-vim
+	path = pack/plugins/start/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
 [submodule "bundle/vim-togglecursor"]
-	path = bundle/vim-togglecursor
+	path = pack/plugins/start/vim-togglecursor
 	url = https://github.com/jszakmeister/vim-togglecursor
 [submodule "bundle/vim-one"]
-	path = bundle/vim-one
+	path = pack/plugins/start/vim-one
 	url = https://github.com/rakr/vim-one
 [submodule "bundle/onedark.vim"]
 	path = bundle/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
 [submodule "bundle/quick-scope"]
-	path = bundle/quick-scope
+	path = pack/plugins/start/quick-scope
 	url = https://github.com/unblevable/quick-scope
 [submodule "bundle/ale"]
-	path = bundle/ale
+	path = pack/plugins/start/ale
 	url = https://github.com/w0rp/ale
 [submodule "bundle/prolog.vim"]
-	path = bundle/prolog.vim
+	path = pack/plugins/start/prolog.vim
 	url = https://github.com/adimit/prolog.vim
 [submodule "bundle/vim-rhubarb"]
-	path = bundle/vim-rhubarb
+	path = pack/plugins/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
 [submodule "bundle/neocomplete.vim"]
-	path = bundle/neocomplete.vim
+	path = pack/plugins/start/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
 [submodule "pack/plugins/start/lightline-buffer"]
 	path = pack/plugins/start/lightline-buffer
