@@ -8,11 +8,8 @@ Table of Contents
 -----------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
-    - [Additional Things](#additional-things)
-3. [Updating](#updating)
-4. [Recommendations](#recommendations)
-    - [Mac](#mac)
-    - [Windows](#windows)
+3. [Troubleshooting](#troubleshooting)
+4. [Updating](#updating)
 5. [Plugins](#plugins)
     - [Color Schemes](#color-schemes)
     - [Editing](#editing)
@@ -49,33 +46,71 @@ bash pull.sh
 Hooray, that's it! You're all done!
 
 
-#### Additional Things
+Troubleshooting
+---------------
 
-1. For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
-   detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
-   earlier versions of Vim, create a dummy `~/.vimrc` file in your home
-   directory that links to `~/.vim/vimrc`:
+#### Vimrc is not detected for Vim <= 7.3
+For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
+detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
+earlier versions of Vim, create a dummy `~/.vimrc` file in your home directory
+that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
 
-2. (Optional) Install Powerline and Powerline fonts
+#### Some characters in the UI are not rendering properly
+
+![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_powerline_error.png)
+
+There are 2 solutions:
+1. Install Powerline fonts
    [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
 Once Powerline fonts are installed, they need to be set in the terminal for
 them to appear correctly. On Mac, I use `Meslo LG M for Powerline 14`.
 
-3. If for some reason your terminal does not support italics, try this:
+2. Disable Powerline fonts
+
+Go to `settings.vim` and set `g:special_symbols_enabled = 0`. The resulting
+appearance will be:
+
+![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_powerline_fixed.png)
+
+#### Italic characters are not rendering
+
+If for some reason your terminal does not support italics, enable them:
 ```bash
 echo "xterm-256color|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
   use=xterm-256color," >> xterm-256color.terminfo.txt
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
+#### Everything is blue
 
-4. If all the colors are weird, or the whole background is solid blue, consider
-   setting `g:truecolor_enabled = 0` in `~/.vim/settings.vim` as your terminal
-   may not support 24-bit color.
+![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_error.png)
+
+There are 2 solutions:
+1. Use a terminal that supports 24-bit color (also called true color).
+
+##### Mac
+I strongly recommend [iTerm2](https://www.iterm2.com/) over the default
+terminal. It supports 24-bit color and has a bunch of other fancy stuff.
+
+##### Windows
+If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
+terminal for ssh instead, such as:
+- [Git Bash](https://git-scm.com/downloads)
+- [Mintty](https://mintty.github.io/)
+
+##### Linux
+You already know what you're doing. :penguin:
+
+2. Disable true color
+
+Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
+appearance will be be an altered version of the selected color scheme.
+
+![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
 
 Updating
 --------
@@ -94,27 +129,6 @@ bash pull.sh
 cd ~/vimfiles
 bash pull.sh
 ```
-
-Recommendations
----------------
-
-These don't necessarily relate to Vim, but I feel they are important to bring
-up regardless.
-
-#### Mac
-I strongly recommend that you use [iTerm2](https://www.iterm2.com/), as
-it is strictly better than the default terminal. It supports 24-bit color
-and has a bunch of other fancy stuff.
-
-#### Windows
-Use [Git Bash](https://git-scm.com/downloads). It uses `~/.vim` just as you
-would expect with Mac or Linux instead of `~/vimfiles` and behaves like a Unix
-terminal. I am aware there are other good terminals for Windows out there, but
-this is what I have been using. I am not well-versed in command prompt
-alternatives for Windows.
-
-#### Linux
-Keep doing what you're doing. :penguin:
 
 
 Plugins
