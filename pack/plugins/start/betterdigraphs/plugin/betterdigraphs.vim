@@ -30,8 +30,8 @@
 "##                                                                          ##
 "##      AE  -->  "[AE] diphthong"  -->  Æ                                   ##
 "##      ae  -->  "[ae] diphthong"  -->  æ                                   ##
-"##      TH  -->  "[TH]ORN]         -->  Þ                                   ##
-"##      th  -->  "[th]orn]         -->  þ                                   ##
+"##      TH  -->  "[TH]ORN          -->  Þ                                   ##
+"##      th  -->  "[th]orn          -->  þ                                   ##
 "##      EH  -->  "[E]T[H]          -->  Ð                                   ##
 "##      eh  -->  "[e]t[h]          -->  ð                                   ##
 "##      ss  -->  "long e[ss]"      -->  ß                                   ##
@@ -71,10 +71,11 @@
 "##                                                                          ##
 "##                                                                          ##
 "##  4. Brackets                                                             ##
-"##     ('l/r' for left/right; 's/c/d' for square/curly/double-angle)        ##
+"##     ('l/r' for left/right; 's/c/a/d' for square/curly/angle/double-angle)##
 "##                                                                          ##
 "##      ls  -->  [    rs  -->  ]                                            ##
 "##      lc  -->  {    rc  -->  }                                            ##
+"##      la  -->  <    ra  -->  >                                            ##
 "##      ld  -->  «    rd  -->  »                                            ##
 "##                                                                          ##
 "##                                                                          ##
@@ -139,11 +140,12 @@ highlight default link  BDG_Digraph_Table  SpecialKey
 
 " How many entries per line in the displayed table???
 let s:ENTRIES_PER_LINE = 6
-let s:INTER_ENTRY_GAP  = 2
+let s:INTER_ENTRY_GAP  = 3
+let s:ENTRY_WIDTH      = 8
 
 
 " Precompute spacings...
-let s:ENTRY_SPACING = repeat(" ", 9)
+let s:ENTRY_SPACING = repeat(" ", s:ENTRY_WIDTH)
 let s:GAP_SPACING   = repeat(" ", s:INTER_ENTRY_GAP)
 let s:BLANK_LINE    = [repeat(s:ENTRY_SPACING . s:GAP_SPACING, s:ENTRIES_PER_LINE) ]
 
@@ -161,7 +163,7 @@ function! s:get_digraphs ()
     redir => digraphs
     digraphs
     redir END
-    return substitute(digraphs,'\%d173', '-?','')   " Translate invisible soft-hyphen
+    return substitute(digraphs,'\%d173', '⌿','')   " Translate invisible soft-hyphen
 endfunction
 
 function! s:show_digraphs (digraphs, cursor_char, context)
@@ -197,9 +199,9 @@ function! s:filter_digraphs (digraphs, char)
 
     for line in range(len(digraphs))
         let filtered_line = []
-        for digraph_spec in split(digraphs[line], '.\{9}\zs  ')
-            let filtered_spec = substitute(digraph_spec,  '\C^.. --> [^'.a:char.'].\s*$', repeat(' ',9), '')
-            let filtered_spec = substitute(filtered_spec, '\C^.. --> \zs['.a:char.']\ze\S\s*$', ' ', '')
+        for digraph_spec in split(digraphs[line], '.\{' . s:ENTRY_WIDTH . '}\zs' . s:GAP_SPACING)
+            let filtered_spec = substitute(digraph_spec,  '\C^. --> [^'.a:char.'].\s*$', s:ENTRY_SPACING, '')
+            let filtered_spec = substitute(filtered_spec, '\C^. --> \zs['.a:char.']\ze\S\s*$', ' ', '')
             let filtered_line += [filtered_spec]
         endfor
         let digraphs[line] = join(filtered_line, s:GAP_SPACING) . s:GAP_SPACING
@@ -253,6 +255,7 @@ if !exists('g:BDG_digraphs')
     \
     \   'ls' : '[',       'rs' : ']',
     \   'lc' : '{',       'rc' : '}',
+    \   'la' : '<',       'ra' : '>',
     \   'ld' : '«',       'rd' : '»',
     \   '<<' : '«',       '>>' : '»',
     \
@@ -354,10 +357,10 @@ let s:digraph_table = []
 let current_line    = []
 for digraph in sort(items(g:BDG_digraphs), "\<SID>by_value")
     " Make soft hyphens printable...
-    let digraph[1] = (digraph[1] == '­') ? '-?' : digraph[1]
+    let digraph[1] = (digraph[1] == '­') ? '⌿' : digraph[1]
 
     " Construct next entry in table...
-    let current_line += [printf('%2s', digraph[1]) . ' --> ' . digraph[0]]
+    let current_line += [digraph[1] . ' --> ' . digraph[0]]
 
     " When next line of table is full, construct the line...
     if len(current_line) == s:ENTRIES_PER_LINE

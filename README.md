@@ -120,13 +120,16 @@ Plugins
 - [ale](https://github.com/w0rp/ale)
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
+- [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
 - [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
+- [dragvisuals](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/dragvisuals.vim)
 - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 - [html5.vim](https://github.com/othree/html5.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
 - [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
 - [lightline.vim](https://github.com/itchyny/lightline.vim)
+- [listtrans](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/listtrans.vim)
 - [neocomplete.vim](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
@@ -152,6 +155,7 @@ Plugins
 - [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
+- [vmath](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/vmath.vim)
 
 Design Decisions
 ----------------

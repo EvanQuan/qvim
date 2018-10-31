@@ -85,6 +85,31 @@ function! DVB_Drag (dir)
     endif
 endfunction
 
+function! DVB_Float (dir)
+    " No-op in Visual mode...
+    if mode() ==# 'v'
+        return "\<ESC>gv"
+
+    " Do Visual Line drag indirectly via temporary nmap
+    " (to ensure we have access to block position data)...
+    elseif mode() ==# 'V'
+        " Set up a temporary convenience...
+        exec "nnoremap <silent><expr><buffer>  M  \<SID>Float_Lines('".a:dir."')"
+
+        " Return instructions to implement the move and reset selection...
+        return '"vyM'
+
+    " Otherwise do Visual Block drag indirectly via temporary nmap
+    " (to ensure we have access to block position data)...
+    else
+        " Set up a temporary convenience...
+        exec "nnoremap <silent><expr><buffer>  M  \<SID>Float_Block('".a:dir."')"
+
+        " Return instructions to implement the move and reset selection...
+        return '"vyM'
+    endif
+endfunction
+
 " Duplicate selected block and place to the right...
 function! DVB_Duplicate ()
     exec "nnoremap <silent><expr><buffer>  M  \<SID>DuplicateBlock()"
@@ -137,7 +162,6 @@ function! s:Drag_Lines (dir)
         " Are all lines indented at least one space???
         let lines        = getline(line_left, line_right)
         let all_indented = match(lines, '^[^ ]') == -1
-        nohlsearch
 
         " If can't trim one space from start of each line, be a no-op...
         if !all_indented
@@ -146,7 +170,7 @@ function! s:Drag_Lines (dir)
         " Otherwise drag left by removing one space from start of each line...
         else
             return    s:NO_REPORT
-                  \ . "gv:s/^ //\<CR>"
+                  \ . "gv:s/^ //\<CR>:nohlsearch\<CR>"
                   \ . s:PREV_REPORT
                   \ . "gv"
         endif
@@ -255,7 +279,7 @@ function! s:Drag_Block (dir)
             let vcol = start_col - 2
             return   'gv'.square_up.'xhP'
                  \ . s:NO_REPORT
-                 \ . "gvhoho:s/\\s*$//\<CR>gv\<ESC>"
+                 \ . "gvhoho:s/\\s\\+$//e\<CR>gv\<ESC>"
                  \ . ':set virtualedit=' . prev_ve . "\<CR>"
                  \ . s:PREV_REPORT
                  \ . ":nohlsearch\<CR>gv"
@@ -276,8 +300,8 @@ function! s:Drag_Block (dir)
             return   'gv'.square_up.'xp'
                  \ . s:NO_REPORT
                  \ . "gvlolo"
-                 \ . ":s/\\s*$//\<CR>gv\<ESC>"
-                 \ . ':set virtualedit=' . prev_ve . "\<CR>"
+                 \ . ":s/\\s\\+$//e\<CR>gv\<ESC>"
+                 \ . ":nohlsearch\<CR>:set virtualedit=" . prev_ve . "\<CR>"
                  \ . s:PREV_REPORT
                  \ . (dollar_block ? 'gv$' : 'gv')
         else
@@ -300,7 +324,7 @@ function! s:Drag_Block (dir)
             let height = line_right - line_left + 1
             return  'gv'.square_up.'xkPgvkoko"vy'
                     \ . height
-                    \ . 'j:s/\s*$//'
+                    \ . 'j:s/\s\+$//e'
                     \ . "\<CR>:nohlsearch\<CR>:set virtualedit="
                     \ . prev_ve
                     \ . "\<CR>gv"
@@ -322,7 +346,7 @@ function! s:Drag_Block (dir)
 
         " If trimming whitespace, move to just above block to do it...
         if g:DVB_TrimWS
-            return   'gv'.square_up.'xjPgvjojo"vyk:s/\s*$//'
+            return   'gv'.square_up.'xjPgvjojo"vyk:s/\s\+$//e'
                     \ . "\<CR>:nohlsearch\<CR>:set virtualedit="
                     \ . prev_ve
                     \ . "\<CR>gv"

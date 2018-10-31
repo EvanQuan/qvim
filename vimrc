@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.54.0
+" Version:    1.55.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.54.0'
+let g:vimrc_version = '1.55.0'
 
 " Settings {{{
 
@@ -940,7 +940,6 @@ inoremap <expr> <C-K> BDG_GetDigraph ()
 nnoremap <silent> <leader>ff :CtrlP<CR>
 
 " }}}
-
 " dragvisuals {{{
 
 " Arrow keys are used because they normally have no other use. However, this
@@ -957,6 +956,14 @@ vmap  <expr>  <C-l>    DVB_Drag('right')
 vmap  <expr>  <C-j>    DVB_Drag('down')
 vmap  <expr>  <C-k>    DVB_Drag('up')
 vmap  <expr>  D        DVB_Duplicate()
+
+" }}}
+" listtrans {{{
+"
+
+" Toggles between a list and a bullet points.
+nnoremap <silent> <leader>l :call ListTrans_toggle_format()<CR>
+vnoremap <silent> <leader>l :call ListTrans_toggle_format('visual')<CR>
 
 " }}}
 " neocomplete {{{
