@@ -1,6 +1,6 @@
 My Vim Configuration
 ====================
-These are the current Vim settings I'm using.
+This is my personal [Vim](https://www.vim.org/) configuration.
 
 ![screenshot](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
 
@@ -13,9 +13,15 @@ Table of Contents
 4. [Recommendations](#recommendations)
     - [Mac](#mac)
     - [Windows](#windows)
-5. [Color Schemes](#color-schemes)
-6. [Plugins](#plugins)
-7. [Design Decisions](#design-decisions)
+5. [Plugins](#plugins)
+    - [Color Schemes](#color-schemes)
+    - [Editing](#editing)
+    - [File Navigation](#file-navigation)
+    - [Languages](#languages)
+    - [Linting](#linting)
+    - [User Interface](#user-interface)
+    - [Version Control](#version-control)
+6. [Design Decisions](#design-decisions)
 
 Why Use This?
 ------------
@@ -110,52 +116,62 @@ alternatives for Windows.
 #### Linux
 Keep doing what you're doing. :penguin:
 
-Color Schemes
--------------
-- [onedark.vim](https://github.com/joshdick/onedark.vim)
-- [vim-one](https://github.com/rakr/vim-one)
 
 Plugins
 -------
-- [ale](https://github.com/w0rp/ale)
-- [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
+### Color Schemes
+- [onedark.vim](https://github.com/joshdick/onedark.vim)
+- [vim-one](https://github.com/rakr/vim-one)
+
+### Editing
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
-- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
 - [dragvisuals](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/dragvisuals.vim)
-- [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
-- [html5.vim](https://github.com/othree/html5.vim)
-- [indentLine](https://github.com/Yggdroot/indentLine)
-- [jedi-vim](https://github.com/davidhalter/jedi-vim)
-- [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
-- [lightline.vim](https://github.com/itchyny/lightline.vim)
 - [listtrans](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/listtrans.vim)
 - [neocomplete.vim](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
-- [nerdtree](https://github.com/scrooloose/nerdtree)
-- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
-- [powerline](https://github.com/powerline/powerline)
-- [prolog.vim](https://github.com/adimit/prolog.vim)
-- [quick-scope](https://github.com/unblevable/quick-scope)
 - [tabular](https://github.com/godlygeek/tabular)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-exchange](https://github.com/tommcdo/vim-exchange)
-- [vim-fugitive](https://github.com/tpope/vim-fugitive)
-- [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
-- [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
-- [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-- [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
-- [vim-prolog](https://github.com/mxw/vim-prolog)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
-- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-speeddating](https://github.com/tpope/vim-speeddating)
 - [vim-surround](https://github.com/tpope/vim-surround)
-- [vim-sleuth](https://github.com/tpope/vim-sleuth)
-- [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
 - [vmath](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/vmath.vim)
+
+### File Navigation
+- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
+- [nerdtree](https://github.com/scrooloose/nerdtree)
+- [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
+
+### Languages
+- [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
+- [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
+- [html5.vim](https://github.com/othree/html5.vim)
+- [prolog.vim](https://github.com/adimit/prolog.vim)
+- [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
+- [vim-prolog](https://github.com/mxw/vim-prolog)
+
+### Linting
+- [ale](https://github.com/w0rp/ale)
+- [jedi-vim](https://github.com/davidhalter/jedi-vim)
+
+### User Interface
+- [indentLine](https://github.com/Yggdroot/indentLine)
+- [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
+- [lightline.vim](https://github.com/itchyny/lightline.vim)
+- [quick-scope](https://github.com/unblevable/quick-scope)
+- [vim-sleuth](https://github.com/tpope/vim-sleuth)
+- [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
+
+### Version Control
+- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+- [vim-fugitive](https://github.com/tpope/vim-fugitive)
+- [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
+- [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
 Design Decisions
 ----------------
