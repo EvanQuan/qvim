@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.56.0
+" Version:    1.56.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -306,6 +306,8 @@ if has('autocmd')
   " soft tabs, but the shiftwidth needs to be changed to be consistent)
   autocmd Filetype make setlocal noexpandtab tabstop=8 shiftwidth=8
   autocmd Filetype text setlocal noexpandtab tabstop=8 shiftwidth=8
+  " Console text
+  autocmd Filetype output setlocal noexpandtab tabstop=8 shiftwidth=8
 
   " 8-space soft tabs
   "
@@ -833,7 +835,6 @@ nnoremap [t :tabprevious<CR>
 " Quit tab
 "
 cnoreabbrev qt tabclose
-nnoremap <leader>qt :tabclose<CR>
 
 " }}}
 " Session {{{
@@ -1158,6 +1159,7 @@ function! SaveAndRunPython3(isVerticalSplit)
   setlocal modifiable
   %delete _
 
+  echo "Running " . shellescape(s:current_buffer_file_path, 1) . " ..."
   " add the console output
   silent execute ".!python3 " . shellescape(s:current_buffer_file_path, 1)
 
@@ -1190,6 +1192,7 @@ nnoremap <leader>ver :vsplit run.sh<CR>
 nnoremap <leader>rr :!bash run.sh<CR>
 function! RunRun(isVerticalSplit)
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
+  echo "Running run.sh ..."
 
   " save and reload current file
   silent execute "update | edit"
@@ -1266,6 +1269,7 @@ nnoremap <silent> <leader>rm :!make<CR>
 
 function! RunMakefile(isVerticalSplit)
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
+  echo "Running makefile ..."
 
   " save and reload current file
   silent execute "update | edit"
