@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.55.0
+" Version:    1.56.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.55.0'
+let g:vimrc_version = '1.56.0'
 
 " Settings {{{
 
@@ -177,12 +177,12 @@ if has('win32')
   set guioptions-=t
 endif
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"Use 24-bit (true color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 "
 if g:truecolor_enabled
-  if (empty($TMUX))
+  " if (empty($TMUX))
     if (has("nvim"))
       "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -192,7 +192,7 @@ if g:truecolor_enabled
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
     if (has("termguicolors"))
       set termguicolors
-    endif
+    " endif
   endif
 endif
 
@@ -850,6 +850,13 @@ nnoremap <leader>cd :cd %:p:h<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Non-modifier approach to moving up and down half a window
+"
+nnoremap <leader>j <C-d>
+vnoremap <leader>j <C-d>
+nnoremap <leader>k <C-u>
+vnoremap <leader>k <C-u>
+
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
@@ -1104,7 +1111,7 @@ if has('autocmd')
   autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
 endif
 
-function! SaveAndExecutePython(isVerticalSplit)
+function! SaveAndRunPython3(isVerticalSplit)
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
 
   " save and reload current file
@@ -1171,9 +1178,161 @@ function! SaveAndExecutePython(isVerticalSplit)
 endfunction
 
 " Bind to save file if modified and execute python script in a buffer.
-nnoremap <silent> <leader>hrf :call SaveAndExecutePython(0)<CR>
-nnoremap <silent> <leader>vrf :call SaveAndExecutePython(1)<CR>
-" vnoremap <silent> <leader>vrf :<C-u>call SaveAndExecutePython()<CR>
+nnoremap <silent> <leader>hrf :call SaveAndRunPython3(0)<CR>
+nnoremap <silent> <leader>vrf :call SaveAndRunPython3(1)<CR>
+" vnoremap <silent> <leader>vrf :<C-u>call SaveAndRunPython3()<CR>
+
+" Run.sh
+"
+nnoremap <leader>er :edit run.sh<CR>
+nnoremap <leader>her :split run.sh<CR>
+nnoremap <leader>ver :vsplit run.sh<CR>
+nnoremap <leader>rr :!bash run.sh<CR>
+function! RunRun(isVerticalSplit)
+  " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
+
+  " save and reload current file
+  silent execute "update | edit"
+
+  " get file path of current file
+  let s:current_buffer_file_path = expand("%")
+
+  let s:output_buffer_name = "Python"
+  let s:output_buffer_filetype = "output"
+
+  " reuse existing buffer window if it exists otherwise create a new one
+  if !exists("s:buf_nr") || !bufexists(s:buf_nr)
+    if a:isVerticalSplit
+      silent execute 'vertical new ' . s:output_buffer_name
+    else
+      silent execute 'botright new ' . s:output_buffer_name
+    endif
+    let s:buf_nr = bufnr('%')
+  elseif bufwinnr(s:buf_nr) == -1
+    if a:isVerticalSplit
+      silent execute 'vertical new'
+    else
+      silent execute 'botright new'
+    endif
+    silent execute s:buf_nr . 'buffer'
+  elseif bufwinnr(s:buf_nr) != bufwinnr('%')
+    silent execute bufwinnr(s:buf_nr) . 'wincmd w'
+  endif
+
+  silent execute "setlocal filetype=" . s:output_buffer_filetype
+  setlocal bufhidden=delete
+  setlocal buftype=nofile
+  setlocal noswapfile
+  setlocal nobuflisted
+  setlocal winfixheight
+  setlocal cursorline " make it easy to distinguish
+  setlocal nonumber
+  setlocal norelativenumber
+  setlocal showbreak=""
+
+  " clear the buffer
+  setlocal noreadonly
+  setlocal modifiable
+  %delete _
+
+  " add the console output
+  silent execute ".!bash run.sh"
+
+  " resize window to content length
+  " Note: This is annoying because if you print a lot of lines then your
+  "       code buffer is forced to a height of one line every time you run
+  "       this function.
+  "       However without this line the buffer starts off as a default size
+  "       and if you resize the buffer then it keeps that custom size after
+  "       repeated runs of this function.
+  "       But if you close the output buffer then it returns to using the
+  "       default size when its recreated
+  " execute 'resize' . line('$')
+
+  " make the buffer non modifiable
+  setlocal readonly
+  setlocal nomodifiable
+endfunction
+
+nnoremap <silent> <leader>hrr :call RunRun(0)<CR>
+nnoremap <silent> <leader>vrr :call RunRun(1)<CR>
+
+
+" Makefile
+nnoremap <leader>em :edit makefile<CR>
+nnoremap <leader>hem :split makefile<CR>
+nnoremap <leader>vem :vsplit makefile<CR>
+nnoremap <silent> <leader>rm :!make<CR>
+
+function! RunMakefile(isVerticalSplit)
+  " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
+
+  " save and reload current file
+  silent execute "update | edit"
+
+  " get file path of current file
+  let s:current_buffer_file_path = expand("%")
+
+  let s:output_buffer_name = "Make"
+  let s:output_buffer_filetype = "output"
+
+  " reuse existing buffer window if it exists otherwise create a new one
+  if !exists("s:buf_nr") || !bufexists(s:buf_nr)
+    if a:isVerticalSplit
+      silent execute 'vertical new ' . s:output_buffer_name
+    else
+      silent execute 'botright new ' . s:output_buffer_name
+    endif
+    let s:buf_nr = bufnr('%')
+  elseif bufwinnr(s:buf_nr) == -1
+    if a:isVerticalSplit
+      silent execute 'vertical new'
+    else
+      silent execute 'botright new'
+    endif
+    silent execute s:buf_nr . 'buffer'
+  elseif bufwinnr(s:buf_nr) != bufwinnr('%')
+    silent execute bufwinnr(s:buf_nr) . 'wincmd w'
+  endif
+
+  silent execute "setlocal filetype=" . s:output_buffer_filetype
+  setlocal bufhidden=delete
+  setlocal buftype=nofile
+  setlocal noswapfile
+  setlocal nobuflisted
+  setlocal winfixheight
+  setlocal cursorline " make it easy to distinguish
+  setlocal nonumber
+  setlocal norelativenumber
+  setlocal showbreak=""
+
+  " clear the buffer
+  setlocal noreadonly
+  setlocal modifiable
+  %delete _
+
+  " add the console output
+  silent execute ".!make "
+
+  " resize window to content length
+  " Note: This is annoying because if you print a lot of lines then your
+  "       code buffer is forced to a height of one line every time you run
+  "       this function.
+  "       However without this line the buffer starts off as a default size
+  "       and if you resize the buffer then it keeps that custom size after
+  "       repeated runs of this function.
+  "       But if you close the output buffer then it returns to using the
+  "       default size when its recreated
+  " execute 'resize' . line('$')
+
+  " make the buffer non modifiable
+  setlocal readonly
+  setlocal nomodifiable
+endfunction
+
+" Bind to save file if modified and execute python script in a buffer.
+nnoremap <silent> <leader>hrm :call RunMakefile(0)<CR>
+nnoremap <silent> <leader>vrm :call RunMakefile(1)<CR>
 
 " }}}
 " Searching {{{
