@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.0
+" Version:    1.57.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.0'
+let g:vimrc_version = '1.57.1'
 
 " Settings {{{
 
@@ -28,15 +28,19 @@ let g:vimrc_version = '1.57.0'
 "
 " Set settings to 1.13.1 defaults if settings.vim does not exist.
 "
+if has('win32') || has('win64')
+  let $MYVIMHOME = '~/vimfiles'
+else
+  let $MYVIMHOME = '~/.vim'
+endif
 
-if (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/settings.vim"))
-  source ~/vimfiles/settings.vim
-elseif (has('win32') || has('win64')) && filereadable(expand("~/vimfiles/version/templates/settings.vim"))
-  source ~/vimfiles/version/templates/settings.vim
-elseif filereadable(expand("~/.vim/settings.vim"))
-  source ~/.vim/settings.vim
-elseif filereadable(expand("~/.vim/version/templates/settings.vim"))
-  source ~/.vim/version/templates/settings.vim
+let $MYSETTINGS = $MYVIMHOME . "/settings.vim"
+let $MYNOTES = $MYVIMHOME . "/notes.txt"
+
+if filereadable(expand($MYSETTINGS))
+  source $MYVIMHOME/settings.vim
+elseif filereadable(expand($MYVIMHOME . "/version/templates/settings.vim"))
+  source $MYVIMHOME/version/templates/settings.vim
 else
   let g:truecolor_enabled = 1
   let g:special_symbols_enabled = 1
@@ -749,14 +753,10 @@ nnoremap <C-h> <C-w><
 "
 " Next buffer
 "
-" TODO: remove gn
-nnoremap <leader>nb :bnext<CR>
 nnoremap ]b :bnext<CR>
 
 " Previous buffer
 "
-" TODO: remove gp
-nnoremap <leader>pb :bprevious<CR>
 nnoremap [b :bprevious<CR>
 
 " Delete current buffer
@@ -802,10 +802,6 @@ nnoremap [w <C-w>W
 " Tabs {{{
 
 " Open new tab
-" TODO: Duplicate may be removed if it causes namespace conflicts.
-"
-cnoreabbrev nt tabe
-nnoremap <leader>nt :tabe<CR>
 cnoreabbrev ot tabe
 nnoremap <leader>ot :tabe<CR>
 
@@ -924,8 +920,6 @@ nnoremap <leader>ta :ALEToggle<CR>
 
 " Move between ale linting errors
 "
-nnoremap <leader>na :ALENextWrap<CR>
-nnoremap <leader>pa :ALEPreviousWrap<CR>
 nnoremap ]a :ALENextWrap<CR>
 nnoremap [a :ALEPreviousWrap<CR>
 
@@ -1040,51 +1034,51 @@ nmap [h <Plug>GitGutterPrevHunk
 " Repository: https://github.com/artur-shaik/vim-javacomplete2
 
 " Enable smart (trying to guess import option) inserting class imports with F4
-nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-inoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" inoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 " To enable usual (will ask for import option) inserting class imports with F5
-nnoremap <F5> <Plug>(JavaComplete-Imports-Add)
-inoremap <F5> <Plug>(JavaComplete-Imports-Add)
+" nnoremap <F5> <Plug>(JavaComplete-Imports-Add)
+" inoremap <F5> <Plug>(JavaComplete-Imports-Add)
 " To add all missing imports with F6
-nnoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-inoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" nnoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" inoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 " To remove all missing imports with F7
-nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
-nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
+" nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+" nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+" nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+" nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
 
-inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
-inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
-inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
-inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+" inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+" inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+" inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+" inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
 
-nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+" nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
-inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+" inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
-nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+" nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+" nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+" nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+" nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+" nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
 
-inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
-inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
-inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+" inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+" inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+" nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+" nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-workspace {{{
@@ -1356,7 +1350,7 @@ map N Nzz
 
 " clear search highlighting
 "
-nnoremap <leader><leader> :nohlsearch<CR>
+nnoremap <leader><space> :nohlsearch<CR>
 
 " Convenient command to see the different between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -1495,65 +1489,36 @@ endfunction
 nnoremap <leader>ts :call ToggleSpellcheck()<CR>
 
 " }}}
-" Vimrc Editing {{{
+" Vim Configuration Editing {{{
 
-nnoremap <silent> <leader>ev :edit $MYVIMRC<CR>
-
-" Allows for naming
-" nnoremap <Plug>(open-vimrc) :edit $MYVIMRC<CR>
-" nmap <leader>ev <Plug>(open-vimrc)
+" Edit vimrc
 "
-" map <silent> <leader>ev :e $MYVIMRC<CR>
-" let g:lmap.f.d = ['e $MYVIMRC', 'Open vimrc']
-
+nnoremap <silent> <leader>ev :edit $MYVIMRC<CR>
 nnoremap <silent> <leader>hev :split $MYVIMRC<CR>
 nnoremap <silent> <leader>vev :vsplit $MYVIMRC<CR>
 nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
-if has('win32') || has('win64')
-  " Edit vimrc
-  "
-  " nnoremap <silent> <leader>ev :edit ~/vimfiles/vimrc<CR>
-  " nnoremap <silent> <leader>hev :split ~/vimfiles/vimrc<CR>
-  " nnoremap <silent> <leader>vev :vsplit ~/vimfiles/vimrc<CR>
 
-  " Reload vimrc
-  " NOTE: Does not reload lightline color scheme if changed
-  "
-  " nnoremap <silent> <leader>rv :source ~/vimfiles/vimrc<CR>
+" Reload vimrc
+"
+nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
 
-  " Open settings.vim
-  "
-  nnoremap <silent> <leader>es :edit ~/vimfiles/settings.vim<CR>
-  nnoremap <silent> <leader>hes :split ~/vimfiles/settings.vim<CR>
-  nnoremap <silent> <leader>ves :vsplit ~/vimfiles/settings.vim<CR>
+" Open settings.vim
+"
+nnoremap <silent> <leader>es :edit $MYSETTINGS<CR>
+nnoremap <silent> <leader>hes :split $MYSETTINGS<CR>
+nnoremap <silent> <leader>ves :vsplit $MYSETTINGS<CR>
 
-  " Open notes.txt
-  "
-  nnoremap <silent> <leader>en :edit ~/vimfiles/notes.txt<CR>
-  nnoremap <silent> <leader>hen :split ~/vimfiles/notes.txt<CR>
-  nnoremap <silent> <leader>ven :vsplit ~/vimfiles/notes.txt<CR>
-else
-  " nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
-  " nnoremap <silent> <leader>hev :split ~/.vim/vimrc<CR>
-  " nnoremap <silent> <leader>vev :vsplit ~/.vim/vimrc<CR>
-  " nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
-  nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
-  nnoremap <silent> <leader>hes :split ~/.vim/settings.vim<CR>
-  nnoremap <silent> <leader>ves :vsplit ~/.vim/settings.vim<CR>
-  nnoremap <silent> <leader>en :edit ~/.vim/notes.txt<CR>
-  nnoremap <silent> <leader>hen :split ~/.vim/notes.txt<CR>
-  nnoremap <silent> <leader>ven :vsplit ~/.vim/notes.txt<CR>
-endif
+" Open notes.txt
+"
+nnoremap <silent> <leader>en :edit $MYNOTES<CR>
+nnoremap <silent> <leader>hen :split $MYNOTES<CR>
+nnoremap <silent> <leader>ven :vsplit $MYNOTES<CR>
 
 " tmux
 "
 nnoremap <silent> <leader>et :edit ~/.tmux.conf<CR>
 nnoremap <silent> <leader>het :split ~/.tmux.conf<CR>
 nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<CR>
-
-" Get help on currently selected word
-"
-nnoremap <leader>h viwK
 
 " }}}
 " Visibility {{{
@@ -1573,7 +1538,7 @@ noremap <leader>tw :call ToggleWhitespace()<CR>
 " Refresh syntax highlighting in case it gets messed up
 " TODO: Never actually tested this. Doesn't work?
 "
-nnoremap <leader>rh <ESC>:execute 'colo' colors_name<CR>:syntax sync fromstart<CR>
+nnoremap <leader>rh :execute 'colo' colors_name<CR>:syntax sync fromstart<CR>
 
 " Toggle absolute and relative line numbers
 "
@@ -2190,8 +2155,6 @@ endif
 " vim-leader-guide {{{
 " Repository: https://github.com/hecal3/vim-leader-guide
 
-" TODO test performance
-
 " Define prefix dictionary
 let g:lmap =  {}
 
@@ -2219,6 +2182,112 @@ let g:lmap =  {}
 " " let g:lmap.f.w = ['w', 'Write file']
 
 " " Create new menus not based on existing mappings:
+let g:lmap[' '] = [':nohlsearch<CR>', 'Remove highlighting']
+let g:lmap['0'] = [':tablast<CR>', 'Tab last']
+let g:lmap['1'] = ['1gt', 'Tab 1']
+let g:lmap['2'] = ['2gt', 'Tab 2']
+let g:lmap['3'] = ['3gt', 'Tab 3']
+let g:lmap['4'] = ['4gt', 'Tab 4']
+let g:lmap['5'] = ['5gt', 'Tab 5']
+let g:lmap['6'] = ['6gt', 'Tab 6']
+let g:lmap['7'] = ['7gt', 'Tab 7']
+let g:lmap['8'] = ['8gt', 'Tab 8']
+let g:lmap['9'] = ['9gt', 'Tab 9']
+let g:lmap.b = [':shell<CR>', 'Bash shell']
+let g:lmap.c = {
+                \'name' : 'Comment',
+                \}
+let g:lmap.d = {
+                \'name' : 'Delete',
+                \}
+let g:lmap.e = {
+                \'name' : 'Edit',
+                \'m' : [':edit makefile<CR>', 'makefile'],
+                \'n' : [':edit <CR>', 'Notes'],
+                \'r' : [':edit makefile<CR>', 'run.sh'],
+                \'s' : [':edit makefile<CR>', 'settings.vim'],
+                \'t' : [':edit makefile<CR>', 'Tmux config'],
+                \'v' : [':edit makefile<CR>', 'vimrc'],
+                \}
+let g:lmap.f = {
+                \'name' : 'File',
+                \'d' : ['!make', 'Diff'],
+                \'f' : [':CtrlP<CR>', 'Find'],
+                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
+                \}
+let g:lmap.g = {
+                \'name' : 'Git',
+                \}
+let g:lmap.h = {
+                \'name' : 'Horizontal',
+                \}
+let g:lmap.j = ['<C-d>', 'Go down half a page']
+let g:lmap.k = ['<C-d>', 'Go up half a page']
+let g:lmap.l = [':call ListTrans_toggle_format()<CR>', 'List Format Translation']
+let g:lmap.o = {
+                \'name' : 'Open',
+                \'t' : [':tabe', 'New Tab'],
+                \}
+let g:lmap.p = {
+                \'name' : 'Paste',
+                \'a' : {
+                        \'name' : 'Around',
+                        \'"' : ['"_da"P', 'Double Quotes'],
+                        \"'" : ["\"_da'P", 'Single Quotes'],
+                        \'Q' : ["\"_da'P", 'Single Quotes'],
+                        \'q' : ['"_da"P', 'Double Quotes'],
+                        \'w' : ['"_dawP', 'Word'],
+                        \},
+                \'i' : {
+                        \'name' : 'In',
+                        \'"' : ['"_di"P', 'Double Quotes'],
+                        \"'" : ["\"_di'P", 'Single Quotes'],
+                        \"(" : ["\"_di(P", 'Parentheses'],
+                        \")" : ["\"_di)P", 'Parentheses'],
+                        \"<" : ["\"_di)P", '<'],
+                        \">" : ["\"_di)P", '>'],
+                        \"[" : ["\"_di)P", 'Brackets'],
+                        \"]" : ["\"_di)P", 'Brackets'],
+                        \"{" : ["\"_di)P", 'Braces'],
+                        \"}" : ["\"_di)P", 'Braces'],
+                        \"B" : ["\"_di}P", 'Braces'],
+                        \"b" : ["\"_di)P", 'Parentheses'],
+                        \"l" : ["\"_ddP", 'Line'],
+                        \'Q' : ["\"_di'P", 'Single Quotes'],
+                        \'q' : ['"_di"P', 'Double Quotes'],
+                        \'t' : ['"_ditP', 'Tag'],
+                        \'w' : ['"_diwP', 'Word'],
+                        \},
+                \}
+let g:lmap.q = [':bprevious<bar>split<bar>bnext<bar>bdelete<CR>', 'Quit current buffer']
+let g:lmap.r = {
+                \'name' : 'Run',
+                \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                \'m' : ['!make', 'makefile'],
+                \'p' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
+                \'r' : [':!bash run.sh<CR>', 'run.sh'],
+                \'t' : [':retab<CR>', 'Retab'],
+                \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                \}
+let g:lmap.s = {
+                \'name' : 'Strip',
+                \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()<CR>", 'Carriage returns'],
+                \'w' : [':call StripWhitespace()<CR>', 'Whitespace'],
+                \}
+let g:lmap.t = {
+                \'name' : 'Toggle',
+                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
+                \'m' : {
+                        \'name' : 'Mouse',
+                        \'c' : [':call ToggleCursorColumn()<CR>', 'Column'],
+                        \'l' : [':call ToggleCursorLine()<CR>', 'Line'],
+                        \'w' : [':call ToggleColorColumn()<CR>', 'Width indicator'],
+                        \}
+                \}
+let g:lmap.v = {
+                \'name' : 'Vertical',
+                \}
+let g:lmap.w = [':ToggleWorkspace', 'Workspace']
 " let g:lmap.g = {
 "                 \'name' : 'Git Menu',
 "                 \'s' : ['Gstatus', 'Git Status'],
