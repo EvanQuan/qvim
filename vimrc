@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.1
+" Version:    1.57.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.1'
+let g:vimrc_version = '1.57.2'
 
 " Settings {{{
 
@@ -467,7 +467,7 @@ nnoremap <leader>sgf :%s//g<Left><Left>
 
 " In File
 "
-nnoremap <leader>sif :%s/
+nnoremap <leader>sff :%s/
 
 " Global Line
 "
@@ -475,7 +475,7 @@ nnoremap <leader>sgl :s//g<Left><Left>
 
 " In Line
 "
-nnoremap <leader>sil :s/
+nnoremap <leader>sfl :s/
 
 " }}}
 " Paste {{{
@@ -638,13 +638,13 @@ nnoremap <leader>tf <C-^>
 nnoremap \ za
 nnoremap <CR> za
 
-" Change folder settings
+" Change fold marker settings
 "
 nnoremap <leader>cff :set fdm=manual<CR>
 nnoremap <leader>cfi :set fdm=indent<CR>
 nnoremap <leader>cfm :set fdm=marker<CR>
 nnoremap <leader>cfs :set fdm=syntax<CR>
-nnoremap <leader>cfd :set fdm=diff<CR>"
+nnoremap <leader>cfd :set fdm=diff<CR>
 
 " }}}
 " Git {{{
@@ -775,7 +775,7 @@ function DeleteAllHiddenBuffers()
   endfor
   echo "-- DELETED HIDDEN BUFFERS --"
 endfunction
-nnoremap <silent> <leader>dhb :call DeleteAllHiddenBuffers()<CR>
+nnoremap <silent> <leader>dh :call DeleteAllHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -2158,31 +2158,8 @@ endif
 " Define prefix dictionary
 let g:lmap =  {}
 
-" " Second level dictionaries:
-" let g:lmap.f = { 'name' : 'File Menu' }
-" let g:lmap.o = { 'name' : 'Open Stuff' }
-" " 'name' is a special field. It will define the name of the group.
-" " leader-f is the "File Menu" group.
-" " Unnamed groups will show a default string
-
-" " Provide commands and descriptions for existing mappings
-" nmap <silent> <leader>fd :e $MYVIMRC<CR>
-" let g:lmap.f.d = ['e $MYVIMRC', 'Open vimrc']
-
-" nmap <silent> <leader>fs :so %<CR>
-" " let g:lmap.f.s = ['so %', 'Source file']
-
-" nmap <silent> <leader>oo  :copen<CR>
-" " let g:lmap.o.o = ['copen', 'Open quickfix']
-
-" map <silent> <leader>ol  :lopen<CR>
-" " let g:lmap.o.l = ['lopen', 'Open locationlist']
-
-" nmap <silent> <leader>fw :w<CR>
-" " let g:lmap.f.w = ['w', 'Write file']
-
-" " Create new menus not based on existing mappings:
-let g:lmap[' '] = [':nohlsearch<CR>', 'Remove highlighting']
+" Create new menus not based on existing mappings:
+let g:lmap[' '] = [':nohlsearch<CR>', 'Clear highlighting']
 let g:lmap['0'] = [':tablast<CR>', 'Tab last']
 let g:lmap['1'] = ['1gt', 'Tab 1']
 let g:lmap['2'] = ['2gt', 'Tab 2']
@@ -2195,13 +2172,37 @@ let g:lmap['8'] = ['8gt', 'Tab 8']
 let g:lmap['9'] = ['9gt', 'Tab 9']
 let g:lmap.b = [':shell<CR>', 'Bash shell']
 let g:lmap.c = {
-                \'name' : 'Comment',
+                \'name' : 'Comment...',
+                \'$' : ['<plug>NERDCommenterToEOL', 'to EOL'],
+                \'A' : ['<plug>NERDCommenterToEOL', 'Append'],
+                \'a' : ['<plug>NERDCommenterAltDelims', 'Alternative delimiters'],
+                \'b' : ['<plug>NERDCommenterAlignBoth', 'align Both'],
+                \'c' : ['<plug>NERDCommenterComment', 'Comment'],
+                \'d' : [':cd %:p:h<CR>', 'Change Directory'],
+                \'f' : {
+                      \'name' : 'Change Fold marker...',
+                      \'d' : [':set fdm=diff<CR>', 'Diff'],
+                      \'f' : [':set fdm=manual<CR>', 'Manual'],
+                      \'i' : [':set fdm=indent<CR>', 'Indentation'],
+                      \'m' : [':set fdm=marker<CR>', 'Marker'],
+                      \'s' : [':set fdm=syntax<CR>', 'Syntax'],
+                      \},
+                \'i' : ['<plug>NERDCommenterInvert', 'Invert'],
+                \'l' : ['<plug>NERDCommenterAlignLeft', 'align Left'],
+                \'m' : ['<plug>NERDCommenterMinimal', 'Minimal'],
+                \'n' : ['<plug>NERDCommenterNested', 'Nested'],
+                \'s' : ['<plug>NERDCommenterSexy', 'Sexy'],
+                \'t' : ['<plug>NERDCommenterToggle', 'Toggle'],
+                \'u' : ['<plug>NERDCommenterUncomment', 'Uncomment'],
+                \'y' : ['<plug>NERDCommenterYank', 'Yank'],
                 \}
 let g:lmap.d = {
-                \'name' : 'Delete',
+                \'name' : 'Delete...',
+                \'b' : [':previous<bar>split<bar>bnext<bar>bdelete<CR>', 'Buffer'],
+                \'h' : [':call DeleteAllHiddenBuffers()<CR>', 'Hidden buffers'],
                 \}
 let g:lmap.e = {
-                \'name' : 'Edit',
+                \'name' : 'Edit...',
                 \'m' : [':edit makefile<CR>', 'makefile'],
                 \'n' : [':edit <CR>', 'Notes'],
                 \'r' : [':edit makefile<CR>', 'run.sh'],
@@ -2210,28 +2211,57 @@ let g:lmap.e = {
                 \'v' : [':edit makefile<CR>', 'vimrc'],
                 \}
 let g:lmap.f = {
-                \'name' : 'File',
+                \'name' : 'File...',
                 \'d' : ['!make', 'Diff'],
                 \'f' : [':CtrlP<CR>', 'Find'],
                 \'t' : [':NERDTreeToggle<CR>', 'Tree'],
                 \}
 let g:lmap.g = {
-                \'name' : 'Git',
+                \'name' : 'Git...',
+                \'a' : [':Git add .<CR>', 'Add all'],
+                \'b' : [':Gbrowse<CR>', 'Browse on Github'],
+                \'c' : [':Gcommit<CR>', 'Commit'],
+                \'d' : [':Gdiff<CR>', 'Diff'],
+                \'l' : [':Git log<CR>', 'Log'],
+                \'u' : [':Gpull<CR>',   'Pull'],
+                \'p' : [':Gpush<CR>',   'Push'],
+                \'w' : [':Gwrite<CR>',  'Write'],
+                \'s' : [':Gstatus<CR>', 'Status'],
                 \}
 let g:lmap.h = {
-                \'name' : 'Horizontal',
+                \'name' : 'Horizontal...',
+                \'s' : [':split<space>', 'Split window'],
+                \'t' : [':terminal<CR>', 'Split Terminal'],
+                \'e' : {
+                        \'name' : 'Edit...',
+                        \'m' : [':edit makefile<CR>', 'makefile'],
+                        \'n' : [':edit <CR>', 'Notes'],
+                        \'r' : [':edit makefile<CR>', 'run.sh'],
+                        \'s' : [':edit makefile<CR>', 'settings.vim'],
+                        \'t' : [':edit makefile<CR>', 'Tmux config'],
+                        \'v' : [':edit makefile<CR>', 'vimrc'],
+                        \},
+                \'r' : {
+                        \'name' : 'Run...',
+                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                        \'m' : ['!make', 'makefile'],
+                        \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
+                        \'r' : [':!bash run.sh<CR>', 'run.sh'],
+                        \'t' : [':retab<CR>', 'Retab'],
+                        \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                        \},
                 \}
 let g:lmap.j = ['<C-d>', 'Go down half a page']
 let g:lmap.k = ['<C-d>', 'Go up half a page']
 let g:lmap.l = [':call ListTrans_toggle_format()<CR>', 'List Format Translation']
 let g:lmap.o = {
-                \'name' : 'Open',
+                \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
                 \}
 let g:lmap.p = {
-                \'name' : 'Paste',
+                \'name' : 'Paste...',
                 \'a' : {
-                        \'name' : 'Around',
+                        \'name' : 'Around...',
                         \'"' : ['"_da"P', 'Double Quotes'],
                         \"'" : ["\"_da'P", 'Single Quotes'],
                         \'Q' : ["\"_da'P", 'Single Quotes'],
@@ -2239,7 +2269,7 @@ let g:lmap.p = {
                         \'w' : ['"_dawP', 'Word'],
                         \},
                 \'i' : {
-                        \'name' : 'In',
+                        \'name' : 'In...',
                         \'"' : ['"_di"P', 'Double Quotes'],
                         \"'" : ["\"_di'P", 'Single Quotes'],
                         \"(" : ["\"_di(P", 'Parentheses'],
@@ -2261,49 +2291,72 @@ let g:lmap.p = {
                 \}
 let g:lmap.q = [':bprevious<bar>split<bar>bnext<bar>bdelete<CR>', 'Quit current buffer']
 let g:lmap.r = {
-                \'name' : 'Run',
+                \'name' : 'Run...',
                 \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
                 \'m' : ['!make', 'makefile'],
-                \'p' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
+                \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
                 \'r' : [':!bash run.sh<CR>', 'run.sh'],
                 \'t' : [':retab<CR>', 'Retab'],
                 \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
                 \}
 let g:lmap.s = {
-                \'name' : 'Strip',
+                \'name' : 'Strip...',
                 \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()<CR>", 'Carriage returns'],
+                \'g' : {
+                        \'name' : 'Substitute Globally in...',
+                        \'f' : [':%s//g<Left><Left>', 'File'],
+                        \'l' : [':s//g<Left><Left>', 'Line'],
+                        \},
+                \'f' : {
+                        \'name' : 'Substitute First in...',
+                        \'f' : [':%s/<Left><Left>', 'File'],
+                        \'l' : [':s/<Left><Left>', 'Line'],
+                        \},
                 \'w' : [':call StripWhitespace()<CR>', 'Whitespace'],
                 \}
 let g:lmap.t = {
-                \'name' : 'Toggle',
-                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
+                \'name' : 'Toggle...',
+                \'a' : [':ALEToggle<CR>', 'ALE linting'],
+                \'c' : [':NERDCommenterToggle<CR>', 'Comment'],
+                \'f' : ['<C-^>', 'File'],
+                \'i' : [':call ToggleTabs()', 'Identation'],
+                \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
                 \'m' : {
-                        \'name' : 'Mouse',
+                        \'name' : 'Mouse...',
                         \'c' : [':call ToggleCursorColumn()<CR>', 'Column'],
                         \'l' : [':call ToggleCursorLine()<CR>', 'Line'],
                         \'w' : [':call ToggleColorColumn()<CR>', 'Width indicator'],
-                        \}
+                        \},
+                \'p' : [':call TogglePasteMode()', 'Paste mode'],
+                \'r' : [':call ToggleRelativeLineNumbers()', 'Relative line numbers'],
+                \'s' : [':call ToggleSpellcheck()', 'Spellcheck'],
+                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
+                \'w' : [':call ToggleWhitespace()<CR>', 'Whitespace'],
                 \}
 let g:lmap.v = {
-                \'name' : 'Vertical',
+                \'name' : 'Vertical...',
+                \'s' : [':vsplit<space>', 'Split window'],
+                \'t' : [':vertical terminal<CR>', 'Split Terminal'],
+                \'e' : {
+                        \'name' : 'Edit...',
+                        \'m' : [':edit makefile<CR>', 'makefile'],
+                        \'n' : [':edit <CR>', 'Notes'],
+                        \'r' : [':edit makefile<CR>', 'run.sh'],
+                        \'s' : [':edit makefile<CR>', 'settings.vim'],
+                        \'t' : [':edit makefile<CR>', 'Tmux config'],
+                        \'v' : [':edit makefile<CR>', 'vimrc'],
+                        \},
+                \'r' : {
+                        \'name' : 'Run...',
+                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                        \'m' : ['!make', 'makefile'],
+                        \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
+                        \'r' : [':!bash run.sh<CR>', 'run.sh'],
+                        \'t' : [':retab<CR>', 'Retab'],
+                        \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                        \},
                 \}
 let g:lmap.w = [':ToggleWorkspace', 'Workspace']
-" let g:lmap.g = {
-"                 \'name' : 'Git Menu',
-"                 \'s' : ['Gstatus', 'Git Status'],
-"                 \'u' : ['Gpull',   'Git Pull'],
-"                 \'p' : ['Gpush',   'Git Push'],
-"                 \'c' : ['Gcommit', 'Git Commit'],
-"                 \'w' : ['Gwrite',  'Git Write'],
-"                 \}
-
-" " If you use NERDCommenter:
-" let g:lmap.c = { 'name' : 'Comments' }
-" " Define some descriptions
-" let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
-" let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
-" The Descriptions for other mappings defined by NerdCommenter, will default
-" to their respective commands.
 
 " Bind leader key <Space> to open leader guide prompt
 "
