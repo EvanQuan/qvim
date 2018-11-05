@@ -11,6 +11,7 @@ Table of Contents
 3. [Troubleshooting](#troubleshooting)
 4. [Updating](#updating)
 5. [Plugins](#plugins)
+    - [Plugin Manager](#plugin-manager)
     - [Color Schemes](#color-schemes)
     - [Editing](#editing)
     - [File Navigation](#file-navigation)
@@ -133,6 +134,10 @@ bash pull.sh
 
 Plugins
 -------
+
+### Plugin Manager
+- [pathogen](https://github.com/tpope/vim-pathogen)
+
 ### Color Schemes
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
 - [vim-one](https://github.com/rakr/vim-one)
@@ -162,10 +167,10 @@ Plugins
 
 ### Languages
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
-- [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
-- [html5.vim](https://github.com/othree/html5.vim)
 - [prolog.vim](https://github.com/adimit/prolog.vim)
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
+- [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
+- [vim-polyglot](https://github.com/sheerun/vim-polyglot)
 - [vim-prolog](https://github.com/mxw/vim-prolog)
 
 ### Linting
@@ -274,6 +279,9 @@ doesn't work out for me.
 3. Compatibility with older versions of Vim (< 7.3).
     - I have "safety" checks through the vimrc so that things don't break for
       older versions.
+    - I stick with [Pathogen](https://github.com/tpope/vim-pathogen) over the
+      native plugin manager that comes with Vim 8 so that it is compatible with
+      Vim 7.
     - Some plugins I use take advantage of newer versions, but the nature of
       their backwards compatibility is out of my hands (although most if not
       all of them seem to either work or disable in older versions to avoid

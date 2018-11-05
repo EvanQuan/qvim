@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.56.1
+" Version:    1.57.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.56.0'
+let g:vimrc_version = '1.57.0'
 
 " Settings {{{
 
@@ -1497,17 +1497,29 @@ nnoremap <leader>ts :call ToggleSpellcheck()<CR>
 " }}}
 " Vimrc Editing {{{
 
+nnoremap <silent> <leader>ev :edit $MYVIMRC<CR>
+
+" Allows for naming
+" nnoremap <Plug>(open-vimrc) :edit $MYVIMRC<CR>
+" nmap <leader>ev <Plug>(open-vimrc)
+"
+" map <silent> <leader>ev :e $MYVIMRC<CR>
+" let g:lmap.f.d = ['e $MYVIMRC', 'Open vimrc']
+
+nnoremap <silent> <leader>hev :split $MYVIMRC<CR>
+nnoremap <silent> <leader>vev :vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
 if has('win32') || has('win64')
   " Edit vimrc
   "
-  nnoremap <silent> <leader>ev :edit ~/vimfiles/vimrc<CR>
-  nnoremap <silent> <leader>hev :split ~/vimfiles/vimrc<CR>
-  nnoremap <silent> <leader>vev :vsplit ~/vimfiles/vimrc<CR>
+  " nnoremap <silent> <leader>ev :edit ~/vimfiles/vimrc<CR>
+  " nnoremap <silent> <leader>hev :split ~/vimfiles/vimrc<CR>
+  " nnoremap <silent> <leader>vev :vsplit ~/vimfiles/vimrc<CR>
 
   " Reload vimrc
   " NOTE: Does not reload lightline color scheme if changed
   "
-  nnoremap <silent> <leader>rv :source ~/vimfiles/vimrc<CR>
+  " nnoremap <silent> <leader>rv :source ~/vimfiles/vimrc<CR>
 
   " Open settings.vim
   "
@@ -1521,10 +1533,10 @@ if has('win32') || has('win64')
   nnoremap <silent> <leader>hen :split ~/vimfiles/notes.txt<CR>
   nnoremap <silent> <leader>ven :vsplit ~/vimfiles/notes.txt<CR>
 else
-  nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
-  nnoremap <silent> <leader>hev :split ~/.vim/vimrc<CR>
-  nnoremap <silent> <leader>vev :vsplit ~/.vim/vimrc<CR>
-  nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
+  " nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<CR>
+  " nnoremap <silent> <leader>hev :split ~/.vim/vimrc<CR>
+  " nnoremap <silent> <leader>vev :vsplit ~/.vim/vimrc<CR>
+  " nnoremap <silent> <leader>rv :source ~/.vim/vimrc<CR>
   nnoremap <silent> <leader>es :edit ~/.vim/settings.vim<CR>
   nnoremap <silent> <leader>hes :split ~/.vim/settings.vim<CR>
   nnoremap <silent> <leader>ves :vsplit ~/.vim/settings.vim<CR>
@@ -2173,6 +2185,62 @@ set updatetime=100 " [ms] Default: 4000
 if has('autocmd')
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
 endif
+
+" }}}
+" vim-leader-guide {{{
+" Repository: https://github.com/hecal3/vim-leader-guide
+
+" TODO test performance
+
+" Define prefix dictionary
+let g:lmap =  {}
+
+" " Second level dictionaries:
+" let g:lmap.f = { 'name' : 'File Menu' }
+" let g:lmap.o = { 'name' : 'Open Stuff' }
+" " 'name' is a special field. It will define the name of the group.
+" " leader-f is the "File Menu" group.
+" " Unnamed groups will show a default string
+
+" " Provide commands and descriptions for existing mappings
+" nmap <silent> <leader>fd :e $MYVIMRC<CR>
+" let g:lmap.f.d = ['e $MYVIMRC', 'Open vimrc']
+
+" nmap <silent> <leader>fs :so %<CR>
+" " let g:lmap.f.s = ['so %', 'Source file']
+
+" nmap <silent> <leader>oo  :copen<CR>
+" " let g:lmap.o.o = ['copen', 'Open quickfix']
+
+" map <silent> <leader>ol  :lopen<CR>
+" " let g:lmap.o.l = ['lopen', 'Open locationlist']
+
+" nmap <silent> <leader>fw :w<CR>
+" " let g:lmap.f.w = ['w', 'Write file']
+
+" " Create new menus not based on existing mappings:
+" let g:lmap.g = {
+"                 \'name' : 'Git Menu',
+"                 \'s' : ['Gstatus', 'Git Status'],
+"                 \'u' : ['Gpull',   'Git Pull'],
+"                 \'p' : ['Gpush',   'Git Push'],
+"                 \'c' : ['Gcommit', 'Git Commit'],
+"                 \'w' : ['Gwrite',  'Git Write'],
+"                 \}
+
+" " If you use NERDCommenter:
+" let g:lmap.c = { 'name' : 'Comments' }
+" " Define some descriptions
+" let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+" let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+" The Descriptions for other mappings defined by NerdCommenter, will default
+" to their respective commands.
+
+" Bind leader key <Space> to open leader guide prompt
+"
+call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 
 " }}}
 " vim-togglecursor {{{
