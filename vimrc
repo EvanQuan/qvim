@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.3
+" Version:    1.57.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.3'
+let g:vimrc_version = '1.57.4'
 
 " Settings {{{
 
@@ -2247,12 +2247,9 @@ let g:lmap.h = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                        \'f' : [":call SaveAndRunPython3(0)", 'Python 3'],
                         \'r' : [':!bash run.sh', 'run.sh'],
-                        \'t' : [':retab', 'Retab'],
-                        \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                         \},
                 \}
 let g:lmap.j = ['<C-d>', 'Go down half a page']
@@ -2321,7 +2318,7 @@ let g:lmap.s = {
 let g:lmap.t = {
                 \'name' : 'Toggle...',
                 \'a' : [':ALEToggle', 'ALE linting'],
-                \'c' : [':NERDCommenterToggle', 'Comment'],
+                \'c' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Comment'],
                 \'f' : ['<C-^>', 'File'],
                 \'i' : [':call ToggleTabs()', 'Identation'],
                 \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
@@ -2352,12 +2349,9 @@ let g:lmap.v = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                        \'f' : [":call SaveAndRunPython3(1)", 'Python 3'],
                         \'r' : [':!bash run.sh', 'run.sh'],
-                        \'t' : [':retab', 'Retab'],
-                        \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                         \},
                 \}
 let g:lmap.w = [':ToggleWorkspace', 'Workspace']
