@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.2
+" Version:    1.57.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,7 +16,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.2'
+let g:vimrc_version = '1.57.3'
 
 " Settings {{{
 
@@ -761,13 +761,17 @@ nnoremap [b :bprevious<CR>
 
 " Delete current buffer
 "
-nnoremap <leader>q :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
-nnoremap <leader>db :bprevious<bar>split<bar>bnext<bar>bdelete<CR>
+function! DeleteCurrentBuffer() abort
+  execute "bprevious|split|bnext|bdelete"
+  echo "-- BUFFER DELETED --"
+endfunction
+nnoremap <leader>q :call DeleteCurrentBuffer()<CR>
+nnoremap <leader>db :call DeleteCurrentBuffer()<CR>
 
 " Delete all buffers except the currently focused one.
 " Convenient when hidden buffers accumulate over time.
 "
-function DeleteAllHiddenBuffers()
+function! DeleteHiddenBuffers() abort
   let tpbl=[]
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
@@ -775,7 +779,7 @@ function DeleteAllHiddenBuffers()
   endfor
   echo "-- DELETED HIDDEN BUFFERS --"
 endfunction
-nnoremap <silent> <leader>dh :call DeleteAllHiddenBuffers()<CR>
+nnoremap <silent> <leader>dh :call DeleteHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -2159,8 +2163,8 @@ endif
 let g:lmap =  {}
 
 " Create new menus not based on existing mappings:
-let g:lmap[' '] = [':nohlsearch<CR>', 'Clear highlighting']
-let g:lmap['0'] = [':tablast<CR>', 'Tab last']
+let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
+let g:lmap['0'] = [':tablast', 'Tab last']
 let g:lmap['1'] = ['1gt', 'Tab 1']
 let g:lmap['2'] = ['2gt', 'Tab 2']
 let g:lmap['3'] = ['3gt', 'Tab 3']
@@ -2170,90 +2174,90 @@ let g:lmap['6'] = ['6gt', 'Tab 6']
 let g:lmap['7'] = ['7gt', 'Tab 7']
 let g:lmap['8'] = ['8gt', 'Tab 8']
 let g:lmap['9'] = ['9gt', 'Tab 9']
-let g:lmap.b = [':shell<CR>', 'Bash shell']
+let g:lmap.b = [':shell', 'Bash shell']
 let g:lmap.c = {
                 \'name' : 'Comment...',
-                \'$' : ['<plug>NERDCommenterToEOL', 'to EOL'],
-                \'A' : ['<plug>NERDCommenterToEOL', 'Append'],
-                \'a' : ['<plug>NERDCommenterAltDelims', 'Alternative delimiters'],
-                \'b' : ['<plug>NERDCommenterAlignBoth', 'align Both'],
-                \'c' : ['<plug>NERDCommenterComment', 'Comment'],
-                \'d' : [':cd %:p:h<CR>', 'Change Directory'],
+                \'$' : ['call feedkeys("\<plug>NERDCommenterToEOL")', 'to EOL'],
+                \'A' : ['call feedkeys("\<plug>NERDCommenterAppend")', 'Append'],
+                \'a' : ['call feedkeys("\<plug>NERDCommenterAltDelims")', 'Alternative delimiters'],
+                \'b' : ['call feedkeys("\<plug>NERDCommenterAlignBoth")', 'align Both'],
+                \'c' : ['call feedkeys("\<plug>NERDCommenterComment")', 'Comment'],
+                \'d' : [':cd %:p:h', 'Change Directory'],
                 \'f' : {
                       \'name' : 'Change Fold marker...',
-                      \'d' : [':set fdm=diff<CR>', 'Diff'],
-                      \'f' : [':set fdm=manual<CR>', 'Manual'],
-                      \'i' : [':set fdm=indent<CR>', 'Indentation'],
-                      \'m' : [':set fdm=marker<CR>', 'Marker'],
-                      \'s' : [':set fdm=syntax<CR>', 'Syntax'],
+                      \'d' : [':set fdm=diff', 'Diff'],
+                      \'f' : [':set fdm=manual', 'Manual'],
+                      \'i' : [':set fdm=indent', 'Indentation'],
+                      \'m' : [':set fdm=marker', 'Marker'],
+                      \'s' : [':set fdm=syntax', 'Syntax'],
                       \},
-                \'i' : ['<plug>NERDCommenterInvert', 'Invert'],
-                \'l' : ['<plug>NERDCommenterAlignLeft', 'align Left'],
-                \'m' : ['<plug>NERDCommenterMinimal', 'Minimal'],
-                \'n' : ['<plug>NERDCommenterNested', 'Nested'],
-                \'s' : ['<plug>NERDCommenterSexy', 'Sexy'],
-                \'t' : ['<plug>NERDCommenterToggle', 'Toggle'],
-                \'u' : ['<plug>NERDCommenterUncomment', 'Uncomment'],
-                \'y' : ['<plug>NERDCommenterYank', 'Yank'],
+                \'i' : ['call feedkeys("\<plug>NERDCommenterInvert")', 'Invert'],
+                \'l' : ['call feedkeys("\<plug>NERDCommenterAlignLeft")', 'align Left'],
+                \'m' : ['call feedkeys("\<plug>NERDCommenterMinimal")', 'Minimal'],
+                \'n' : ['call feedkeys("\<plug>NERDCommenterNested")', 'Nested'],
+                \'s' : ['call feedkeys("\<plug>NERDCommenterSexy")', 'Sexy'],
+                \'t' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Toggle'],
+                \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
+                \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
                 \}
 let g:lmap.d = {
                 \'name' : 'Delete...',
-                \'b' : [':previous<bar>split<bar>bnext<bar>bdelete<CR>', 'Buffer'],
-                \'h' : [':call DeleteAllHiddenBuffers()<CR>', 'Hidden buffers'],
+                \'b' : [':call DeleteCurrentBuffer()', 'Buffer'],
+                \'h' : [':call DeleteHiddenBuffers()', 'Hidden buffers'],
                 \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
-                \'m' : [':edit makefile<CR>', 'makefile'],
-                \'n' : [':edit <CR>', 'Notes'],
-                \'r' : [':edit makefile<CR>', 'run.sh'],
-                \'s' : [':edit makefile<CR>', 'settings.vim'],
-                \'t' : [':edit makefile<CR>', 'Tmux config'],
-                \'v' : [':edit makefile<CR>', 'vimrc'],
+                \'m' : [':edit makefile', 'makefile'],
+                \'n' : [':edit notes.txt', 'Notes'],
+                \'r' : [':edit run.sh', 'run.sh'],
+                \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
+                \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
+                \'v' : [':edit $MYVIMRC', 'vimrc'],
                 \}
 let g:lmap.f = {
                 \'name' : 'File...',
                 \'d' : ['!make', 'Diff'],
-                \'f' : [':CtrlP<CR>', 'Find'],
-                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
+                \'f' : [':CtrlP', 'Find'],
+                \'t' : [':NERDTreeToggle', 'Tree'],
                 \}
 let g:lmap.g = {
                 \'name' : 'Git...',
-                \'a' : [':Git add .<CR>', 'Add all'],
-                \'b' : [':Gbrowse<CR>', 'Browse on Github'],
-                \'c' : [':Gcommit<CR>', 'Commit'],
-                \'d' : [':Gdiff<CR>', 'Diff'],
-                \'l' : [':Git log<CR>', 'Log'],
-                \'u' : [':Gpull<CR>',   'Pull'],
-                \'p' : [':Gpush<CR>',   'Push'],
-                \'w' : [':Gwrite<CR>',  'Write'],
-                \'s' : [':Gstatus<CR>', 'Status'],
+                \'a' : [':Git add .', 'Add all'],
+                \'b' : [':Gbrowse', 'Browse on Github'],
+                \'c' : [':Gcommit', 'Commit'],
+                \'d' : [':Gdiff', 'Diff'],
+                \'l' : [':Git log', 'Log'],
+                \'u' : [':Gpull',   'Pull'],
+                \'p' : [':Gpush',   'Push'],
+                \'w' : [':Gwrite',  'Write'],
+                \'s' : [':Gstatus', 'Status'],
                 \}
 let g:lmap.h = {
                 \'name' : 'Horizontal...',
                 \'s' : [':split<space>', 'Split window'],
-                \'t' : [':terminal<CR>', 'Split Terminal'],
+                \'t' : [':terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'m' : [':edit makefile<CR>', 'makefile'],
-                        \'n' : [':edit <CR>', 'Notes'],
-                        \'r' : [':edit makefile<CR>', 'run.sh'],
-                        \'s' : [':edit makefile<CR>', 'settings.vim'],
-                        \'t' : [':edit makefile<CR>', 'Tmux config'],
-                        \'v' : [':edit makefile<CR>', 'vimrc'],
+                        \'m' : [':edit makefile', 'makefile'],
+                        \'n' : [':edit notes.txt', 'Notes'],
+                        \'r' : [':edit run.sh', 'run.sh'],
+                        \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
+                        \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
+                        \'v' : [':edit $MYVIMRC', 'vimrc'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
-                        \'r' : [':!bash run.sh<CR>', 'run.sh'],
-                        \'t' : [':retab<CR>', 'Retab'],
-                        \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                        \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                        \'r' : [':!bash run.sh', 'run.sh'],
+                        \'t' : [':retab', 'Retab'],
+                        \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                         \},
                 \}
 let g:lmap.j = ['<C-d>', 'Go down half a page']
 let g:lmap.k = ['<C-d>', 'Go up half a page']
-let g:lmap.l = [':call ListTrans_toggle_format()<CR>', 'List Format Translation']
+let g:lmap.l = [':call ListTrans_toggle_format()', 'List Format Translation']
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
@@ -2289,19 +2293,19 @@ let g:lmap.p = {
                         \'w' : ['"_diwP', 'Word'],
                         \},
                 \}
-let g:lmap.q = [':bprevious<bar>split<bar>bnext<bar>bdelete<CR>', 'Quit current buffer']
+let g:lmap.q = [':call DeleteCurrentBuffer()', 'Quit buffer']
 let g:lmap.r = {
                 \'name' : 'Run...',
-                \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                 \'m' : ['!make', 'makefile'],
-                \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
-                \'r' : [':!bash run.sh<CR>', 'run.sh'],
-                \'t' : [':retab<CR>', 'Retab'],
-                \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                \'r' : [':!bash run.sh', 'run.sh'],
+                \'t' : [':retab', 'Retab'],
+                \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                 \}
 let g:lmap.s = {
                 \'name' : 'Strip...',
-                \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()<CR>", 'Carriage returns'],
+                \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()", 'Carriage returns'],
                 \'g' : {
                         \'name' : 'Substitute Globally in...',
                         \'f' : [':%s//g<Left><Left>', 'File'],
@@ -2312,48 +2316,48 @@ let g:lmap.s = {
                         \'f' : [':%s/<Left><Left>', 'File'],
                         \'l' : [':s/<Left><Left>', 'Line'],
                         \},
-                \'w' : [':call StripWhitespace()<CR>', 'Whitespace'],
+                \'w' : [':call StripWhitespace()', 'Whitespace'],
                 \}
 let g:lmap.t = {
                 \'name' : 'Toggle...',
-                \'a' : [':ALEToggle<CR>', 'ALE linting'],
-                \'c' : [':NERDCommenterToggle<CR>', 'Comment'],
+                \'a' : [':ALEToggle', 'ALE linting'],
+                \'c' : [':NERDCommenterToggle', 'Comment'],
                 \'f' : ['<C-^>', 'File'],
                 \'i' : [':call ToggleTabs()', 'Identation'],
                 \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
                 \'m' : {
                         \'name' : 'Mouse...',
-                        \'c' : [':call ToggleCursorColumn()<CR>', 'Column'],
-                        \'l' : [':call ToggleCursorLine()<CR>', 'Line'],
-                        \'w' : [':call ToggleColorColumn()<CR>', 'Width indicator'],
+                        \'c' : [':call ToggleCursorColumn()', 'Column'],
+                        \'l' : [':call ToggleCursorLine()', 'Line'],
+                        \'w' : [':call ToggleColorColumn()', 'Width indicator'],
                         \},
                 \'p' : [':call TogglePasteMode()', 'Paste mode'],
                 \'r' : [':call ToggleRelativeLineNumbers()', 'Relative line numbers'],
                 \'s' : [':call ToggleSpellcheck()', 'Spellcheck'],
-                \'t' : [':NERDTreeToggle<CR>', 'Tree'],
-                \'w' : [':call ToggleWhitespace()<CR>', 'Whitespace'],
+                \'t' : [':NERDTreeToggle', 'Tree'],
+                \'w' : [':call ToggleWhitespace()', 'Whitespace'],
                 \}
 let g:lmap.v = {
                 \'name' : 'Vertical...',
                 \'s' : [':vsplit<space>', 'Split window'],
-                \'t' : [':vertical terminal<CR>', 'Split Terminal'],
+                \'t' : [':vertical terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'m' : [':edit makefile<CR>', 'makefile'],
-                        \'n' : [':edit <CR>', 'Notes'],
-                        \'r' : [':edit makefile<CR>', 'run.sh'],
-                        \'s' : [':edit makefile<CR>', 'settings.vim'],
-                        \'t' : [':edit makefile<CR>', 'Tmux config'],
-                        \'v' : [':edit makefile<CR>', 'vimrc'],
+                        \'m' : [':edit makefile', 'makefile'],
+                        \'n' : [':edit notes.txt', 'Notes'],
+                        \'r' : [':edit run.sh', 'run.sh'],
+                        \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
+                        \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
+                        \'v' : [':edit $MYVIMRC', 'vimrc'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart<CR>", 'Refresh syntax highlighting'],
+                        \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":execute '!python3' shellescape(@%, 1)<CR>", 'Python 3'],
-                        \'r' : [':!bash run.sh<CR>', 'run.sh'],
-                        \'t' : [':retab<CR>', 'Retab'],
-                        \'v' : [':source $MYVIMRC<CR>', 'Reload vimrc'],
+                        \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                        \'r' : [':!bash run.sh', 'run.sh'],
+                        \'t' : [':retab', 'Retab'],
+                        \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                         \},
                 \}
 let g:lmap.w = [':ToggleWorkspace', 'Workspace']
