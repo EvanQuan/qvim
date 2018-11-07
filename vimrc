@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.4
+" Version:    1.57.5
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -13,20 +13,18 @@
 "
 " Initial Setup {{{
 
+" The first steps necessary to set up everything.
+
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.4'
+let g:vimrc_version = '1.57.5'
 
-" Settings {{{
+" Path {{{
 
-" The first steps necessary to set up everything.
-
-" settings.vim determines how some configurations are set
-" Copy ~/.vim/template/settings.vim if there is no settings.vim file
-" in your ~/.vim/ directory.
-"
-" Set settings to 1.13.1 defaults if settings.vim does not exist.
+" Operating system determines the vim home directory.
+" NOTE: Mintty will not consider itself as Windows, despite being so, which
+" may cause problems with settings involving Powerline symbols.
 "
 if has('win32') || has('win64')
   let $MYVIMHOME = '~/vimfiles'
@@ -34,9 +32,25 @@ else
   let $MYVIMHOME = '~/.vim'
 endif
 
+" $MYVIMRC already exists as a path variable, but defaults to ~/.vimrc
+" if it exists. To prevent this, it is redefined to ensure that it links
+" to this one.
+"
+let $MYVIMRC = $MYVIMHOME . "/vimrc"
 let $MYSETTINGS = $MYVIMHOME . "/settings.vim"
 let $MYNOTES = $MYVIMHOME . "/notes.txt"
 
+" }}}
+" Settings {{{
+
+" settings.vim determines how some configurations are set
+" Copy ~/.vim/template/settings.vim if there is no settings.vim file
+" in your ~/.vim/ directory.
+"
+" In case settings.vim does not exist, settings.vim template is used.
+" If that also does not exist, setting variables directly defined here.
+" Set settings to 1.13.1 defaults if settings.vim does not exist.
+"
 if filereadable(expand($MYSETTINGS))
   source $MYVIMHOME/settings.vim
 elseif filereadable(expand($MYVIMHOME . "/version/templates/settings.vim"))
@@ -71,13 +85,13 @@ set statusline=
 " }}}
 " Plugins {{{
 
-
 " Use Vim settings, rather than  Vi settings.
 " This must be first because it changes other options as a side effect.
 "
 set nocompatible
 
-" Helps force plugins to load correctly when it is turned back on below
+" Helps force plugins to load correctly when it is turned back on after
+" pathogen#infect()
 "
 filetype off
 
@@ -461,21 +475,41 @@ nnoremap dH d^
 " }}}
 " Substitute {{{
 
-" Global File
+" Globally in File
 "
-nnoremap <leader>sgf :%s//g<Left><Left>
+function! SubstituteGloballyInFile() abort
+  let old = input("Replace: ")
+  let new = input("With: ")
+  execute "%s/" . old . "/" . new . "/g"
+endfunction
+nnoremap <silent> <leader>sgf :call SubstituteGloballyInFile()<CR>
 
-" In File
+" First in File
 "
-nnoremap <leader>sff :%s/
+function! SubstituteFirstInFile() abort
+  let old = input("Replace: ")
+  let new = input("With: ")
+  execute "%s/" . old . "/" . new
+endfunction
+nnoremap <silent> <leader>sff :call SubstituteFirstInFile()<CR>
 
-" Global Line
+" Globally in Line
 "
-nnoremap <leader>sgl :s//g<Left><Left>
+function! SubstituteGloballyInLine() abort
+  let old = input("Replace: ")
+  let new = input("With: ")
+  execute "s/" . old . "/" . new . "/g"
+endfunction
+nnoremap <leader>sgl :call SubstituteGloballyInLine()<CR>
 
 " In Line
 "
-nnoremap <leader>sfl :s/
+function! SubstituteFirstInLine() abort
+  let old = input("Replace: ")
+  let new = input("With: ")
+  execute "s/" . old . "/" . new
+endfunction
+nnoremap <leader>sfl :call SubstituteFirstInLine()<CR>
 
 " }}}
 " Paste {{{
@@ -786,12 +820,25 @@ nnoremap <silent> <leader>dh :call DeleteHiddenBuffers()<CR>
 
 " Split open new window
 
+" NOTE: Functions exist to allow for user input for vim-leader-guide
+" but at the cost of no filename autocomplete. This is suboptimal.
+" If command is done fast enough without prompting vim-leader-guide, then
+" filename completion works.
+
 " Horizontal
 "
+function! HorizontalSplit() abort
+  let file_name = input("Horizontal split: ")
+  execute "split " . file_name
+endfunction
 nnoremap <leader>hs :split<space>
 
 " Vertical
 "
+function! VerticalSplit() abort
+  let file_name = input("Vertical split: ")
+  execute "vsplit " . file_name
+endfunction
 nnoremap <leader>vs :vsplit<space>
 
 " Go to next window
@@ -853,10 +900,10 @@ nnoremap k gk
 
 " Non-modifier approach to moving up and down half a window
 "
-nnoremap <leader>j <C-d>
-vnoremap <leader>j <C-d>
-nnoremap <leader>k <C-u>
-vnoremap <leader>k <C-u>
+nnoremap gj <C-d>
+vnoremap gj <C-d>
+nnoremap gk <C-u>
+vnoremap gk <C-u>
 
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
@@ -1032,6 +1079,11 @@ nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 "
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+
+" Stage and undo hunks
+"
+nmap <leader>ghs <Plug>GitGutterStageHunk
+nmap <leader>ghu <Plug>GitGutterUndoHunk
 
 " }}}
 " vim-javacomplete2 {{{
@@ -1613,7 +1665,7 @@ set ttyfast
 " }}}
 
 " }}}
-" Plugin Settings {{{
+" Plugin Configuration {{{
 
 if !g:minimalist_mode_enabled
 " arm-syntax-vim {{{
@@ -1683,7 +1735,16 @@ let g:indentLine_char = '│'
 
 " Requires python support to work. If Vim build does not support jedi, then
 " don't load the plugin.
-if !has('python3') && !has('python')
+"
+if has('python3') || has('python')
+  let g:jedi#goto_command = "<leader>jd"
+  let g:jedi#goto_assignments_command = "<leader>ja"
+  let g:jedi#goto_definitions_command = ""
+  let g:jedi#documentation_command = "K"
+  let g:jedi#usages_command = "<leader>ju"
+  let g:jedi#completions_command = "<C-Space>"
+  let g:jedi#rename_command = "<leader>jr"
+else
   let g:jedi#auto_initialization = 0
   let g:jedi#squelch_py_warning = 1
 endif
@@ -2147,6 +2208,8 @@ let g:closetag_close_shortcut = '<leader>>'
 "
 set updatetime=100 " [ms] Default: 4000
 
+" let g:gitgutter_map_keys = 0
+
 " }}}
 " vim-javacomplete2 {{{
 " Repository: https://github.com/artur-shaik/vim-javacomplete2
@@ -2226,6 +2289,11 @@ let g:lmap.g = {
                 \'b' : [':Gbrowse', 'Browse on Github'],
                 \'c' : [':Gcommit', 'Commit'],
                 \'d' : [':Gdiff', 'Diff'],
+                \'h' : {
+                        \'name' : 'Hunk',
+                        \'s' : 'Stage',
+                        \'u' : 'Undo',
+                        \},
                 \'l' : [':Git log', 'Log'],
                 \'u' : [':Gpull',   'Pull'],
                 \'p' : [':Gpush',   'Push'],
@@ -2234,7 +2302,7 @@ let g:lmap.g = {
                 \}
 let g:lmap.h = {
                 \'name' : 'Horizontal...',
-                \'s' : [':split<space>', 'Split window'],
+                \'s' : [':call HorizontalSplit()', 'Split window'],
                 \'t' : [':terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
@@ -2252,9 +2320,14 @@ let g:lmap.h = {
                         \'r' : [':!bash run.sh', 'run.sh'],
                         \},
                 \}
-let g:lmap.j = ['<C-d>', 'Go down half a page']
-let g:lmap.k = ['<C-d>', 'Go up half a page']
-let g:lmap.l = [':call ListTrans_toggle_format()', 'List Format Translation']
+let g:lmap.j = {
+                \'name' : 'Jedi...',
+                \'a' : [':call jedi#goto_assignments()', 'Assignment'],
+                \'d' : [':call jedi#goto()', 'Definition'],
+                \'r' : [':call jedi#rename()', 'Rename'],
+                \'u' : [':call jedi#usages()', 'Usages'],
+                \}
+let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
@@ -2305,13 +2378,13 @@ let g:lmap.s = {
                 \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()", 'Carriage returns'],
                 \'g' : {
                         \'name' : 'Substitute Globally in...',
-                        \'f' : [':%s//g<Left><Left>', 'File'],
-                        \'l' : [':s//g<Left><Left>', 'Line'],
+                        \'f' : [':call SubstituteGloballyInFile()', 'File'],
+                        \'l' : [':call SubstituteGloballyInLine()', 'Line'],
                         \},
                 \'f' : {
                         \'name' : 'Substitute First in...',
-                        \'f' : [':%s/<Left><Left>', 'File'],
-                        \'l' : [':s/<Left><Left>', 'Line'],
+                        \'f' : [':call SubstituteFirstInFile()', 'File'],
+                        \'l' : [':call SubstituteFirstInLine()', 'Line'],
                         \},
                 \'w' : [':call StripWhitespace()', 'Whitespace'],
                 \}
@@ -2336,7 +2409,7 @@ let g:lmap.t = {
                 \}
 let g:lmap.v = {
                 \'name' : 'Vertical...',
-                \'s' : [':vsplit<space>', 'Split window'],
+                \'s' : [':call VerticalSplit()', 'Split window'],
                 \'t' : [':vertical terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
