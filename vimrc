@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.57.5
+" Version:    1.58.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.57.5'
+let g:vimrc_version = '1.58.0'
 
 " Path {{{
 
@@ -672,7 +672,7 @@ nnoremap <leader>tf <C-^>
 nnoremap \ za
 nnoremap <CR> za
 
-" Change fold marker settings
+" Change fold method settings
 "
 nnoremap <leader>cff :set fdm=manual<CR>
 nnoremap <leader>cfi :set fdm=indent<CR>
@@ -840,6 +840,13 @@ function! VerticalSplit() abort
   execute "vsplit " . file_name
 endfunction
 nnoremap <leader>vs :vsplit<space>
+
+" Directional movement
+"
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
 
 " Go to next window
 "
@@ -1141,7 +1148,7 @@ nmap <leader>ghu <Plug>GitGutterUndoHunk
 " Repository: https://github.com/thaerkh/vim-workspace
 
 " Toggle enable/disable workspace
-nnoremap <leader>w :ToggleWorkspace<CR>
+nnoremap <leader>tW :ToggleWorkspace<CR>
 
 " }}}
 " vmath {{{
@@ -2247,7 +2254,7 @@ let g:lmap.c = {
                 \'c' : ['call feedkeys("\<plug>NERDCommenterComment")', 'Comment'],
                 \'d' : [':cd %:p:h', 'Change Directory'],
                 \'f' : {
-                      \'name' : 'Change Fold marker...',
+                      \'name' : 'Change Fold method...',
                       \'d' : [':set fdm=diff', 'Diff'],
                       \'f' : [':set fdm=manual', 'Manual'],
                       \'i' : [':set fdm=indent', 'Indentation'],
@@ -2291,8 +2298,8 @@ let g:lmap.g = {
                 \'d' : [':Gdiff', 'Diff'],
                 \'h' : {
                         \'name' : 'Hunk',
-                        \'s' : 'Stage',
-                        \'u' : 'Undo',
+                        \'s' : ['call feedkeys("\<plug>iGitGutterStageHunk")', 'Stage'],
+                        \'u' : ['call feedkeys("\<plug>iGitGutterUndoHunk")', 'Undo'],
                         \},
                 \'l' : [':Git log', 'Log'],
                 \'u' : [':Gpull',   'Pull'],
@@ -2332,6 +2339,7 @@ let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
                 \}
+" TODO fix these. Escape
 let g:lmap.p = {
                 \'name' : 'Paste...',
                 \'a' : {
@@ -2346,17 +2354,17 @@ let g:lmap.p = {
                         \'name' : 'In...',
                         \'"' : ['"_di"P', 'Double Quotes'],
                         \"'" : ["\"_di'P", 'Single Quotes'],
-                        \"(" : ["\"_di(P", 'Parentheses'],
-                        \")" : ["\"_di)P", 'Parentheses'],
-                        \"<" : ["\"_di)P", '<'],
-                        \">" : ["\"_di)P", '>'],
-                        \"[" : ["\"_di)P", 'Brackets'],
-                        \"]" : ["\"_di)P", 'Brackets'],
-                        \"{" : ["\"_di)P", 'Braces'],
-                        \"}" : ["\"_di)P", 'Braces'],
-                        \"B" : ["\"_di}P", 'Braces'],
-                        \"b" : ["\"_di)P", 'Parentheses'],
-                        \"l" : ["\"_ddP", 'Line'],
+                        \"(" : ['"_di(P', 'Parentheses'],
+                        \")" : ['"_di)P', 'Parentheses'],
+                        \"<" : ['"_di)P', '<'],
+                        \">" : ['"_di)P', '>'],
+                        \"[" : ['"_di)P', 'Brackets'],
+                        \"]" : ['"_di)P', 'Brackets'],
+                        \"{" : ['"_di)P', 'Braces'],
+                        \"}" : ['"_di)P', 'Braces'],
+                        \"B" : ['"_di}P', 'Braces'],
+                        \"b" : ['"_di)P', 'Parentheses'],
+                        \"l" : ['"_ddP', 'Line'],
                         \'Q' : ["\"_di'P", 'Single Quotes'],
                         \'q' : ['"_di"P', 'Double Quotes'],
                         \'t' : ['"_ditP', 'Tag'],
@@ -2406,6 +2414,7 @@ let g:lmap.t = {
                 \'s' : [':call ToggleSpellcheck()', 'Spellcheck'],
                 \'t' : [':NERDTreeToggle', 'Tree'],
                 \'w' : [':call ToggleWhitespace()', 'Whitespace'],
+                \'W' : [':ToggleWorkspace', 'Workspace'],
                 \}
 let g:lmap.v = {
                 \'name' : 'Vertical...',
@@ -2427,7 +2436,13 @@ let g:lmap.v = {
                         \'r' : [':!bash run.sh', 'run.sh'],
                         \},
                 \}
-let g:lmap.w = [':ToggleWorkspace', 'Workspace']
+let g:lmap.w = {
+                \ 'name' : 'Window...',
+                \ 'h' : ['<C-w>h', 'Left'],
+                \ 'j' : ['<C-w>j', 'Down'],
+                \ 'k' : ['<C-w>k', 'Up'],
+                \ 'l' : ['<C-w>l', 'Right'],
+                \}
 
 " Bind leader key <Space> to open leader guide prompt
 "
