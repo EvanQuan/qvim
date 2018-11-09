@@ -1,12 +1,12 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.58.0
+" Version:    1.59.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
-" this as the d user vimrc file.
+" this as the default user vimrc file.
 "
 " Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.58.0'
+let g:vimrc_version = '1.59.0'
 
 " Path {{{
 
@@ -905,7 +905,8 @@ nnoremap <leader>cd :cd %:p:h<CR>
 nnoremap j gj
 nnoremap k gk
 
-" Non-modifier approach to moving up and down half a window
+" Non-modifier approach to moving up and down half a window. Since j and
+" k already use gj/gk, we might as well make use of these bindings.
 "
 nnoremap gj <C-d>
 vnoremap gj <C-d>
@@ -924,11 +925,12 @@ runtime! macros/matchit.vim
 " Applying h (move left) moves the cursor left by 2 so hl (left then right),
 " makes the behaviour the same as regular ESC
 "
-if g:escape_alternative_enabled
-  " INSERT and REPLACE
+if g:escape_alternative_enabled == 1
   inoremap aa <ESC>hl
-  " VISUAL
   vnoremap aa <ESC>hl
+elseif g:escape_alternative_enabled == 2
+  inoremap jk <ESC>hl
+  vnoremap jk <ESC>hl
 endif
 
 " }}}
@@ -1577,11 +1579,17 @@ nnoremap <silent> <leader>en :edit $MYNOTES<CR>
 nnoremap <silent> <leader>hen :split $MYNOTES<CR>
 nnoremap <silent> <leader>ven :vsplit $MYNOTES<CR>
 
-" tmux
+" .tmux.conf
 "
 nnoremap <silent> <leader>et :edit ~/.tmux.conf<CR>
 nnoremap <silent> <leader>het :split ~/.tmux.conf<CR>
 nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<CR>
+
+" .bashrc
+"
+nnoremap <silent> <leader>eb :edit ~/.bashrc<CR>
+nnoremap <silent> <leader>heb :split ~/.bashrc<CR>
+nnoremap <silent> <leader>veb :vsplit ~/.bashrc<CR>
 
 " }}}
 " Visibility {{{
@@ -2277,6 +2285,7 @@ let g:lmap.d = {
                 \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
+                \'b' : [':edit ~/.bashrc', 'bashrc'],
                 \'m' : [':edit makefile', 'makefile'],
                 \'n' : [':edit notes.txt', 'Notes'],
                 \'r' : [':edit run.sh', 'run.sh'],
@@ -2313,6 +2322,7 @@ let g:lmap.h = {
                 \'t' : [':terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
+                        \'b' : [':edit ~/.bashrc', 'bashrc'],
                         \'m' : [':edit makefile', 'makefile'],
                         \'n' : [':edit notes.txt', 'Notes'],
                         \'r' : [':edit run.sh', 'run.sh'],
@@ -2422,6 +2432,7 @@ let g:lmap.v = {
                 \'t' : [':vertical terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
+                        \'b' : [':edit ~/.bashrc', 'bashrc'],
                         \'m' : [':edit makefile', 'makefile'],
                         \'n' : [':edit notes.txt', 'Notes'],
                         \'r' : [':edit run.sh', 'run.sh'],
@@ -2759,6 +2770,8 @@ autocmd BufNewFile,BufRead *.pro set filetype=prolog
 " Java assembly
 "
 autocmd BufNewFile,BufRead *.jas set filetype=jas
+
+autocmd BufNewFile,BufRead *.tex set filetype=tex
 
 " }}}
 " History {{{

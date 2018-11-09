@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.13.1
+" Version:    1.13.2
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -29,7 +29,7 @@ let g:truecolor_enabled = 1
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:special_symbols_enabled = 1
+let g:special_symbols_enabled = 0
 " Color Scheme {{{
 "   Affects overall color scheme and lightline color scheme
 "   0: None
