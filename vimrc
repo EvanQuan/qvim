@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.59.0
+" Version:    1.59.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.59.0'
+let g:vimrc_version = '1.59.1'
 
 " Path {{{
 
@@ -1745,6 +1745,7 @@ let g:haskell_indent_guard = 4 " 2
 let g:indentLine_fileTypeExclude = ['help', 'text', '']
 " let g:indentLine_char = '┆'
 let g:indentLine_char = '│'
+
 " }}}
 " jedi-vim {{{
 
@@ -2460,6 +2461,16 @@ let g:lmap.w = {
 call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+
+" }}}
+" vim-polyglot {{{
+" Repository: https://github.com/sheerun/vim-polyglot
+
+" These language plugins have syntax concealing, which is extremely annoying.
+" indentLine conflicts with this, as it automatically sets conceallevel=2
+" To resolve this, indentLine takes precidence.
+"
+let g:polyglot_disabled = ['markdown', 'tex']
 
 " }}}
 " vim-togglecursor {{{

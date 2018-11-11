@@ -2,13 +2,17 @@ My Vim Configuration
 ====================
 This is my personal [Vim](https://www.vim.org/) configuration.
 
-![screenshot](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
+![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
 
 Table of Contents
 -----------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
 3. [Troubleshooting](#troubleshooting)
+    - [Vimrc is not detected](#vimrc-is-not-detected)
+    - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
+    - [Italic characters are not rendering](#italic-characters-are-not-rendering)
+    - [Everything is blue](#everything-is-blue)
 4. [Updating](#updating)
 5. [Plugins](#plugins)
     - [Plugin Manager](#plugin-manager)
@@ -50,7 +54,7 @@ Hooray, that's it! You're all done!
 Troubleshooting
 ---------------
 
-#### Vimrc is not detected for Vim <= 7.3
+#### Vimrc is not detected
 For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
 detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
 earlier versions of Vim, create a dummy `~/.vimrc` file in your home directory
@@ -58,6 +62,7 @@ that links to `~/.vim/vimrc`:
 ```bash
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
+Better yet, just update Vim.
 
 #### Some characters in the UI are not rendering properly
 
@@ -86,6 +91,7 @@ echo "xterm-256color|xterm with 256 colors and italic,
   use=xterm-256color," >> xterm-256color.terminfo.txt
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
+
 #### Everything is blue
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_error.png)
@@ -169,7 +175,6 @@ Plugins
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [prolog.vim](https://github.com/adimit/prolog.vim)
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-- [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
 - [vim-polyglot](https://github.com/sheerun/vim-polyglot)
 - [vim-prolog](https://github.com/mxw/vim-prolog)
 
@@ -182,6 +187,7 @@ Plugins
 - [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
 - [lightline.vim](https://github.com/itchyny/lightline.vim)
 - [quick-scope](https://github.com/unblevable/quick-scope)
+- [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
 - [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 
@@ -196,57 +202,62 @@ Design Decisions
 ----------------
 **Why not use [deoplete](https://github.com/Shougo/deoplete.nvim)?**
 
-While I acknowledge deoplete's asynchronous autocomplete is far better than what
-neocomplete offers, deoplete is extremely annoying to install for Vim 8, since
-is primarily designed for Neovim. Due to its required dependencies, I can't be
-bothered to install those (or can't guarantee I'll be able to install them),
-for any given computer I'm on.
+While I acknowledge deoplete's asynchronous autocomplete is far better than
+what neocomplete offers, deoplete is extremely annoying to install for Vim 8,
+since is primarily designed for Neovim. Due to its required dependencies,
+I can't be bothered to install those (or can't guarantee I'll be able to
+install them), for any given computer I'm on.
 
 **Why not use [Neovim](https://neovim.io/)?**
 
-I do like the idea of Neovim, and these configurations are completely
-compatible with Neovim. The only thing I don't like about Neovim is how its
-integrated terminal is implemented compared to Vim. Since I use the integrated
-terminal fairly often, this difference alone has deterred me from switching to
-Neovim. It could be the case that this problem could be fixed through some
-extra configurations I am not aware of, but until I am aware of it, I have no
-plans on making the switch.
+I do like the idea of Neovim, and these configurations are mostly compatible
+with it. The only thing I don't like about Neovim is how its integrated
+terminal is implemented compared to Vim. Since I use the integrated terminal
+fairly often, this difference alone has deterred me from switching to Neovim.
+It could be the case that this problem could be fixed through some extra
+configurations I am not aware of, but until I am aware of it, I have no plans
+on making the switch.
 
 **Why not use Emacs?**
 
-There are two parts points of comparison for this question, comparing Vim and
-Emacs as software, and as editing paradigms/styles/whatever you want to call
-it.
+While this question warrants an entire discussion on its own, I can briefly
+explain my view. There are two parts points of comparison for this question,
+comparing Vim and Emacs as software, and as editing styles.
 
 I actually acknowledge that Emacs is better software than Vim. The decision to
 use Lisp for scripting is smarter than Vim's use of Vimscript, which has no use
 outside of Vim. Emacs is also not constrained as a command-line editor, being
 able to render images and other such things that I'm not aware of (since
-I haven't spent much time looking into Emacs).
+I haven't spent much time looking into Emacs). Overall, I would say that Emacs
+more configurable than Vim, which is a big plus.
 
-Comparing editing styles, I highly favour modal editing over the modifier key
-approach that Emacs (and basically every other editor I'm aware of) uses.
-Relying on modifier keys for commands, especially with pressing 3 or more keys
-at the same time, [is not particularly
-ergonomic](http://wiki.c2.com/?EmacsPinky).
+However, comparing editing styles, I highly favour Vim's modal editing over
+Emacs's modifier key approach. Relying on modifier keys suffers from two main
+problems:
+1. [It's not particularly ergonomic](http://wiki.c2.com/?EmacsPinky), which can
+   contribute to repetitive strain injuries.
+2. It is often not very intuitive, which makes memorizing a large number of
+   commands difficult.
 
-In general, many commands are difficult to memorize, as sometimes neither the
-modifier key(s) (CTRL, ALT, Command/Windows) nor the key being modified are
-semantically related to the command they are trying to execute. What do the CTRL
-and Z keys have anything to do with "undoing the last action"? Having
-semantically-valued commands like `dsb` to **D**elete **S**urrounding
-**B**rackets or `cit` to **C**hange **I**n **T**ag makes using hundreds of
-commands in Vim without needing to memorize them easier.
+With Vim's modal-editing, key presses for commands can be sequentially-ordered,
+and remain semantically-valued, fixing both of those problems.
 
+Finally, straight out of the box, I find Vim's movement key-mappings and
+editing commands involving text objects most useful. This plays an important
+role because a significant portion of my time editing with Vim key-mappings is
+not actually in Vim itself. Almost every half-decent editor and IDE out there
+provides an option for Vim key-mappings (and sometimes Emacs as well). Most of
+the time, these key-mappings are minimal and are not open for configuration.
+For this, Vim wins me over for its default capabilities.
 
 **Why not use [Spacemacs](http://spacemacs.org/)/[Evil](https://github.com/emacs-evil/evil)/[Doom](https://github.com/hlissner/doom-emacs)?**
 
-The startup times are too long (10 seconds or more), which is a problem if I'm
-quickly editing files, especially over ssh. Being developed by large numbers of
-people over many years, they have a slew of custom key mappings which I am not
-familiar with, some of which I don't like. They also unavoidably miss certain
-Vim key mappings that I use often (like CTRL-A and CTRL-X), by virtue of being
-in Emacs.
+The startup times are too long, which is a problem if I'm quickly editing
+files, especially over ssh. Being developed by large numbers of people over
+many years, they have a slew of custom key mappings which I am not familiar
+with, some of which I don't like. They also unavoidably miss certain Vim key
+mappings that I use often (like CTRL-A and CTRL-X), by virtue of being in
+Emacs.
 
 That being said, I can understand the appeal and strongly support all these
 projects. The idea of getting the best of both worlds by taking the strengths
@@ -274,7 +285,7 @@ doesn't work out for me.
       configurations.
     - This prevents muscle memory from getting messed up when only default Vim
       is available, or when minimal/standard Vim keymappings are available in
-      other editors (Atom, Spacemacs, VSCode, Intellij, Pycharm, Eclipse,
+      other editors (Atom, VSCode, Intellij, Eclipse, Visual Studios, overleaf,
       repl.it etc.)
 3. Compatibility with older versions of Vim (< 7.3).
     - I have "safety" checks through the vimrc so that things don't break for
