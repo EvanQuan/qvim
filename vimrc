@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.59.1
+" Version:    1.60.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.59.1'
+let g:vimrc_version = '1.60.0'
 
 " Path {{{
 
@@ -383,6 +383,11 @@ let mapleader = " "
 
 " }}}
 " Editing {{{
+
+" Incrementing and decrementing numbers
+"
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 " Command mode {{{
 
@@ -902,8 +907,8 @@ nnoremap <leader>cd :cd %:p:h<CR>
 " Move up/down by visual lines instead of by 'literal' lines
 " Good for when there is soft wrapping
 "
-nnoremap j gj
-nnoremap k gk
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 
 " Non-modifier approach to moving up and down half a window. Since j and
 " k already use gj/gk, we might as well make use of these bindings.
@@ -1157,8 +1162,8 @@ nnoremap <leader>tW :ToggleWorkspace<CR>
 
 " Calculates sum, average, min, and max of a selection of numbers.
 "
-vnoremap <expr>  ++  VMATH_YankAndAnalyse()
-nmap             ++  vip++
+vnoremap <leader>m y:call VMATH_Analyse()<CR>
+nnoremap <leader>m vipy:call VMATH_Analyse()<CR>
 
 " }}}
 
@@ -2346,6 +2351,9 @@ let g:lmap.j = {
                 \'u' : [':call jedi#usages()', 'Usages'],
                 \}
 let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
+" TODO Figure out how to have it work for both normal and visual mode
+" let g:lmap.m = ['visual' : 'Sum/Average/Min/Max']
+
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
