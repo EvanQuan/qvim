@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.60.0
+" Version:    1.61.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.60.0'
+let g:vimrc_version = '1.61.0'
 
 " Path {{{
 
@@ -769,9 +769,10 @@ noremap <leader>sw :call StripWhitespace()<CR>
 " Use when the encodings gets messed up.
 "
 function! StripCarriageReturns() abort
+  execute "normal mmHmt:%s/\<C-V>\<CR>//ge\<CR>'tzt'm"
   echo "-- CARRIAGE RETURNS STRIPPED --"
 endfunction
-noremap <Leader>sc mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()<CR>
+noremap <leader>sc :call StripCarriageReturns()<CR>
 
 " }}}
 " Layout {{{
@@ -2189,6 +2190,14 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
 " }}}
+" nerdtree {{{
+" Repository: https://github.com/scrooloose/nerdtree
+
+" Show hidden files by default (bound to I)
+"
+let NERDTreeShowHidden = 1
+
+" }}}
 " quick-scope {{{
 
 if g:performance_mode_enabled
@@ -2293,7 +2302,7 @@ let g:lmap.e = {
                 \'name' : 'Edit...',
                 \'b' : [':edit ~/.bashrc', 'bashrc'],
                 \'m' : [':edit makefile', 'makefile'],
-                \'n' : [':edit notes.txt', 'Notes'],
+                \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
                 \'r' : [':edit run.sh', 'run.sh'],
                 \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
                 \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
@@ -2330,7 +2339,7 @@ let g:lmap.h = {
                         \'name' : 'Edit...',
                         \'b' : [':edit ~/.bashrc', 'bashrc'],
                         \'m' : [':edit makefile', 'makefile'],
-                        \'n' : [':edit notes.txt', 'Notes'],
+                        \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
                         \'r' : [':edit run.sh', 'run.sh'],
                         \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
                         \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
@@ -2363,31 +2372,31 @@ let g:lmap.p = {
                 \'name' : 'Paste...',
                 \'a' : {
                         \'name' : 'Around...',
-                        \'"' : ['"_da"P', 'Double Quotes'],
-                        \"'" : ["\"_da'P", 'Single Quotes'],
-                        \'Q' : ["\"_da'P", 'Single Quotes'],
-                        \'q' : ['"_da"P', 'Double Quotes'],
-                        \'w' : ['"_dawP', 'Word'],
+                        \'"' : ["normal \"_da\"P", 'Double Quotes'],
+                        \"'" : ["normal \"_da'P", 'Single Quotes'],
+                        \'Q' : ["normal \"_da'P", 'Single Quotes'],
+                        \'q' : ["normal \"_da\"P", 'Double Quotes'],
+                        \'w' : ["normal \"_dawP", 'Word'],
                         \},
                 \'i' : {
                         \'name' : 'In...',
-                        \'"' : ['"_di"P', 'Double Quotes'],
-                        \"'" : ["\"_di'P", 'Single Quotes'],
-                        \"(" : ['"_di(P', 'Parentheses'],
-                        \")" : ['"_di)P', 'Parentheses'],
-                        \"<" : ['"_di)P', '<'],
-                        \">" : ['"_di)P', '>'],
-                        \"[" : ['"_di)P', 'Brackets'],
-                        \"]" : ['"_di)P', 'Brackets'],
-                        \"{" : ['"_di)P', 'Braces'],
-                        \"}" : ['"_di)P', 'Braces'],
-                        \"B" : ['"_di}P', 'Braces'],
-                        \"b" : ['"_di)P', 'Parentheses'],
-                        \"l" : ['"_ddP', 'Line'],
-                        \'Q' : ["\"_di'P", 'Single Quotes'],
-                        \'q' : ['"_di"P', 'Double Quotes'],
-                        \'t' : ['"_ditP', 'Tag'],
-                        \'w' : ['"_diwP', 'Word'],
+                        \'"' : ["normal \"_di\"P", 'Double Quotes'],
+                        \"'" : ["normal \"_di'P", 'Single Quotes'],
+                        \"(" : ["normal \"_di(P", 'Parentheses'],
+                        \")" : ["normal \"_di)P", 'Parentheses'],
+                        \"<" : ["normal \"_di)P", '<'],
+                        \">" : ["normal \"_di)P", '>'],
+                        \"[" : ["normal \"_di)P", 'Brackets'],
+                        \"]" : ["normal \"_di)P", 'Brackets'],
+                        \"{" : ["normal \"_di)P", 'Braces'],
+                        \"}" : ["normal \"_di)P", 'Braces'],
+                        \"B" : ["normal \"_di}P", 'Braces'],
+                        \"b" : ["normal \"_di)P", 'Parentheses'],
+                        \"l" : ["normal \"_ddP", 'Line'],
+                        \'Q' : ["normal \"_di'P", 'Single Quotes'],
+                        \'q' : ["normal \"_di\"P", 'Double Quotes'],
+                        \'t' : ["normal \"_ditP", 'Tag'],
+                        \'w' : ["normal \"_diwP", 'Word'],
                         \},
                 \}
 let g:lmap.q = [':call DeleteCurrentBuffer()', 'Quit buffer']
@@ -2402,7 +2411,7 @@ let g:lmap.r = {
                 \}
 let g:lmap.s = {
                 \'name' : 'Strip...',
-                \'c' : ["mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm :call StripCarriageReturns()", 'Carriage returns'],
+                \'c' : [":call StripCarriageReturns()", 'Carriage returns'],
                 \'g' : {
                         \'name' : 'Substitute Globally in...',
                         \'f' : [':call SubstituteGloballyInFile()', 'File'],
@@ -2443,7 +2452,7 @@ let g:lmap.v = {
                         \'name' : 'Edit...',
                         \'b' : [':edit ~/.bashrc', 'bashrc'],
                         \'m' : [':edit makefile', 'makefile'],
-                        \'n' : [':edit notes.txt', 'Notes'],
+                        \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
                         \'r' : [':edit run.sh', 'run.sh'],
                         \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
                         \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
@@ -2458,10 +2467,10 @@ let g:lmap.v = {
                 \}
 let g:lmap.w = {
                 \ 'name' : 'Window...',
-                \ 'h' : ['<C-w>h', 'Left'],
-                \ 'j' : ['<C-w>j', 'Down'],
-                \ 'k' : ['<C-w>k', 'Up'],
-                \ 'l' : ['<C-w>l', 'Right'],
+                \ 'h' : ["normal \<C-w>h", 'Left'],
+                \ 'j' : ["normal \<C-w>j", 'Down'],
+                \ 'k' : ["normal \<C-w>k", 'Up'],
+                \ 'l' : ["normal \<C-w>l", 'Right'],
                 \}
 
 " Bind leader key <Space> to open leader guide prompt
