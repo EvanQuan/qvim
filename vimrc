@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.60.1
+" Version:    1.61.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Used incase vimrc version is relevant.
 "
-let g:vimrc_version = '1.60.1'
+let g:vimrc_version = '1.61.0'
 
 " Path {{{
 
@@ -983,6 +983,13 @@ nnoremap <leader>rt :retab<CR>
 " items, quickfix items, signs, current jobs, etc., globally.
 "
 nnoremap <leader>ta :ALEToggle<CR>
+
+nnoremap <leader>ad :ALEDetail<CR>
+nnoremap <leader>ag :ALEGoToDefinition<CR>
+nnoremap <leader>ah :ALEHover<CR>
+nnoremap <leader>ar :ALEFindReferences<CR>
+nnoremap <leader>as :ALEFixSuggest<CR>
+nnoremap <leader>at :ALEToggle<CR>
 
 " Move between ale linting errors
 "
@@ -2267,6 +2274,15 @@ let g:lmap['6'] = ['6gt', 'Tab 6']
 let g:lmap['7'] = ['7gt', 'Tab 7']
 let g:lmap['8'] = ['8gt', 'Tab 8']
 let g:lmap['9'] = ['9gt', 'Tab 9']
+let g:lmap.a = {
+                \'name' : 'ALE...',
+                \ 'a' : [':ALEDetail', 'Detail'],
+                \ 'g' : [':ALEGoToDefinition', 'Go to definition'],
+                \ 'h' : [':ALEHover', 'Hover'],
+                \ 'r' : [':ALEFindReferences', 'References'],
+                \ 's' : [':ALEFixSuggest', 'Suggest fix'],
+                \ 't' : [':ALEToggle', 'Toggle'],
+                \}
 let g:lmap.b = [':shell', 'Bash shell']
 let g:lmap.c = {
                 \'name' : 'Comment...',
