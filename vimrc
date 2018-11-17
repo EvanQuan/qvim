@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.61.0
+" Version:    1.61.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -16,9 +16,9 @@
 " The first steps necessary to set up everything.
 
 " Version
-" Used incase vimrc version is relevant.
+" Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.61.0'
+let g:vimrc_version = '1.61.1'
 
 " Path {{{
 
@@ -295,6 +295,9 @@ set copyindent
 
 " }}}
 " Language-Specific {{{
+
+" These are the defaults for when vim-sleuth does not detect already existing
+" whitespace styling.
 
 if has('autocmd')
   " 2-space soft tabs
@@ -1184,7 +1187,7 @@ if has('autocmd')
   autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
 endif
 
-function! SaveAndRunPython3(isVerticalSplit)
+function! SaveAndRunPython3(isVerticalSplit) abort
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
 
   " save and reload current file
@@ -1262,7 +1265,7 @@ nnoremap <leader>er :edit run.sh<CR>
 nnoremap <leader>her :split run.sh<CR>
 nnoremap <leader>ver :vsplit run.sh<CR>
 nnoremap <leader>rr :!bash run.sh<CR>
-function! RunRun(isVerticalSplit)
+function! RunRun(isVerticalSplit) abort
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
   echo "Running run.sh ..."
 
@@ -1339,7 +1342,7 @@ nnoremap <leader>hem :split makefile<CR>
 nnoremap <leader>vem :vsplit makefile<CR>
 nnoremap <silent> <leader>rm :!make<CR>
 
-function! RunMakefile(isVerticalSplit)
+function! RunMakefile(isVerticalSplit) abort
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
   echo "Running makefile ..."
 
@@ -2383,7 +2386,6 @@ let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
                 \}
-" TODO fix these. Escape
 let g:lmap.p = {
                 \'name' : 'Paste...',
                 \'a' : {
@@ -2881,12 +2883,11 @@ set diffopt+=vertical
 " }}}
 " Vimrc Organization {{{
 
-" Folds everything by default in vimrc only.
-" Folds are determined by {{{}}} markers
-
-" Set modelines to parse to 1
-" This is normally dangerous to do for security reasons, but is necessary for
-" organizational folding for this file
+" Set modelines to parse for 1 command so that category folding is defaulted
+" for this file. Folds are determined by "{{{" and "}}}" markers This is not
+" usually advised due to potential security issues that were raised in the
+" past.
+"
 " Google "vim modeline vulnerability"
 "
 set modelines=1

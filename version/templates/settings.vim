@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.13.2
+" Version:    1.13.3
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -129,12 +129,11 @@ let g:performance_mode_enabled = 0
 let g:standard_keybindings = 0
 " Settings Organization {{{
 
-" Folds everything by default in settings only.
-" Folds are determined by {{{}}} markers
-
-" Set modelines to parse to 1
-" This is normally dangerous to do for security reasons, but is necessary for
-" organizational folding for this file
+" Set modelines to parse for 1 command so that category folding is defaulted
+" for this file. Folds are determined by "{{{" and "}}}" markers This is not
+" usually advised due to potential security issues that were raised in the
+" past.
+"
 " Google "vim modeline vulnerability"
 "
 set modelines=1
