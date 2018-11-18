@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.61.1
+" Version:    1.62.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.61.1'
+let g:vimrc_version = '1.62.0'
 
 " Path {{{
 
@@ -1181,62 +1181,115 @@ nnoremap <leader>m vipy:call VMATH_Analyse()<CR>
 " }}}
 " Programming {{{
 
-" Run current Python buffer
+" Run current buffer
 "
-if has('autocmd')
-  autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
-endif
 
-function! SaveAndRunPython3(isVerticalSplit) abort
+let g:runnable_programs = {
+                            \ 'python' : 'python3',
+                            \ 'sh' : 'bash',
+                            \ 'make' : 'make',
+                            \}
+" if has('autocmd')
+  " autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
+  " autocmd FileType sh nnoremap <buffer> <leader>rf :execute '!bash' shellescape(@%, 1)<CR>
+" endif
+function! HasExtension(fileName, extension) abort
+  " Returns true if the fileName has the specified extension
+  " TODO can be improved
+  return a:fileName =~ ".*\." . a:extension . "$"
+endfunction
+
+function! DetermineRunCommand(fileName) abort
+  " Returns the run command of the fileName
+  " If not runnable, resturns empty string
+  return HasExtension(a:fileName, "py'") ? "python3"
+        \ : HasExtension(a:fileName, "sh'") ? "bash" 
+        \ : a:fileName == "'makefile'" ? "make" : ""
+endfunction
+
+
+function! SaveAndRunFile(...) abort
+  " TODO return here
+  " Echo if fileName desn't exist
+  "
+  " Parameters:
+  "   a:1 char splitType
+  "     'n' - No split
+  "     'h' - Horizontal split
+  "     'v' - Vertical split
+  "   a:2 string fileName
+  "     default - current file
+  "
   " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
 
-  " save and reload current file
-  silent execute "update | edit"
 
-  " get file path of current file
-  let s:current_buffer_file_path = expand("%")
+  " Evaluate fileName
+  " no fileName inputted, default to self
+  " DEBUG
+  " echo "a:0 " . a:0
+  " echo "a:1 " . a:1
+  let s:file_to_run = shellescape(expand((a:0 == 1 ? "%" : a:2)), 1)
 
-  let s:output_buffer_name = "Python"
-  let s:output_buffer_filetype = "output"
+  " If not split, then output is terminal
+  " Otherwise, the output replaces the current buffer contents
+  let s:output_type = a:1 == 'n' ? "" : "."
+  let s:command = DetermineRunCommand(s:file_to_run)
+  let s:final_command = s:command == "" ? "echo 'This file type cannot be ran.'" : s:output_type . "!" . s:command . (s:command == "make" ? "" : " " . s:file_to_run)
 
-  " reuse existing buffer window if it exists otherwise create a new one
-  if !exists("s:buf_nr") || !bufexists(s:buf_nr)
-    if a:isVerticalSplit
-      silent execute 'vertical new ' . s:output_buffer_name
-    else
-      silent execute 'botright new ' . s:output_buffer_name
-    endif
-    let s:buf_nr = bufnr('%')
-  elseif bufwinnr(s:buf_nr) == -1
-    if a:isVerticalSplit
-      silent execute 'vertical new'
-    else
-      silent execute 'botright new'
-    endif
-    silent execute s:buf_nr . 'buffer'
-  elseif bufwinnr(s:buf_nr) != bufwinnr('%')
-    silent execute bufwinnr(s:buf_nr) . 'wincmd w'
+  " Don't save and reload current file not in file
+  if s:command != "" && &filetype != ""
+    silent execute "update | edit"
   endif
 
-  silent execute "setlocal filetype=" . s:output_buffer_filetype
-  setlocal bufhidden=delete
-  setlocal buftype=nofile
-  setlocal noswapfile
-  setlocal nobuflisted
-  setlocal winfixheight
-  setlocal cursorline " make it easy to distinguish
-  setlocal nonumber
-  setlocal norelativenumber
-  setlocal showbreak=""
+  " DEBUG
+  " echo "file_to_run: " .  s:file_to_run
+  " echo "output_type: " .  s:output_type
+  " echo "command: " .  s:command
+  " echo "final_command: " .  s:final_command
+  " get file path of current file
+  " let s:current_buffer_file_path = expand("%")
 
-  " clear the buffer
-  setlocal noreadonly
-  setlocal modifiable
-  %delete _
+  " Evaluate splitType
+  " If vertical or horizontal split, then create output buffer
+  if s:command != "" && (a:1 == 'v' || a:1 == 'h')
 
-  echo "Running " . shellescape(s:current_buffer_file_path, 1) . " ..."
-  " add the console output
-  silent execute ".!python3 " . shellescape(s:current_buffer_file_path, 1)
+    let s:splitType = a:1 == 'v' ? 'vertical' : 'botright'
+
+    let s:output_buffer_name = "Output"
+    let s:output_buffer_filetype = "output"
+    " reuse existing buffer window if it exists otherwise create a new one
+    if !exists("s:buf_nr") || !bufexists(s:buf_nr)
+      silent execute s:splitType . ' new ' . s:output_buffer_name
+      let s:buf_nr = bufnr('%')
+    elseif bufwinnr(s:buf_nr) == -1
+      silent execute s:splitType . ' new'
+      silent execute s:buf_nr . 'buffer'
+    elseif bufwinnr(s:buf_nr) != bufwinnr('%')
+      silent execute bufwinnr(s:buf_nr) . 'wincmd w'
+    endif
+
+    silent execute "setlocal filetype=" . s:output_buffer_filetype
+    setlocal bufhidden=delete
+    setlocal buftype=nofile
+    setlocal noswapfile
+    setlocal nobuflisted
+    setlocal winfixheight
+    setlocal cursorline " make it easy to distinguish
+    setlocal nonumber
+    setlocal norelativenumber
+    setlocal showbreak=""
+
+    " clear the buffer
+    setlocal noreadonly
+    setlocal modifiable
+    %delete _
+
+    " echo "Running " . shellescape(s:current_buffer_file_path, 1) . " ..."
+  echon 'Running ' . s:file_to_run . ' ... '
+  endif
+
+  " Execute file
+  execute s:final_command
 
   " resize window to content length
   " Note: This is annoying because if you print a lot of lines then your
@@ -1250,168 +1303,38 @@ function! SaveAndRunPython3(isVerticalSplit) abort
   " execute 'resize' . line('$')
 
   " make the buffer non modifiable
-  setlocal readonly
-  setlocal nomodifiable
+  if s:command != "" && (a:1 == 'v' || a:1 == 'h')
+    setlocal readonly
+    setlocal nomodifiable
+    echon "DONE"
+  endif
 endfunction
 
-" Bind to save file if modified and execute python script in a buffer.
-nnoremap <silent> <leader>hrf :call SaveAndRunPython3(0)<CR>
-nnoremap <silent> <leader>vrf :call SaveAndRunPython3(1)<CR>
-" vnoremap <silent> <leader>vrf :<C-u>call SaveAndRunPython3()<CR>
+" Bind to save file if modified and execute script in a buffer.
+"
+nnoremap <silent> <leader>rf :call SaveAndRunFile('n')<CR>
+nnoremap <silent> <leader>hrf :call SaveAndRunFile('h')<CR>
+nnoremap <silent> <leader>vrf :call SaveAndRunFile('v')<CR>
 
 " Run.sh
 "
 nnoremap <leader>er :edit run.sh<CR>
 nnoremap <leader>her :split run.sh<CR>
 nnoremap <leader>ver :vsplit run.sh<CR>
-nnoremap <leader>rr :!bash run.sh<CR>
-function! RunRun(isVerticalSplit) abort
-  " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
-  echo "Running run.sh ..."
 
-  " save and reload current file
-  silent execute "update | edit"
-
-  " get file path of current file
-  let s:current_buffer_file_path = expand("%")
-
-  let s:output_buffer_name = "Python"
-  let s:output_buffer_filetype = "output"
-
-  " reuse existing buffer window if it exists otherwise create a new one
-  if !exists("s:buf_nr") || !bufexists(s:buf_nr)
-    if a:isVerticalSplit
-      silent execute 'vertical new ' . s:output_buffer_name
-    else
-      silent execute 'botright new ' . s:output_buffer_name
-    endif
-    let s:buf_nr = bufnr('%')
-  elseif bufwinnr(s:buf_nr) == -1
-    if a:isVerticalSplit
-      silent execute 'vertical new'
-    else
-      silent execute 'botright new'
-    endif
-    silent execute s:buf_nr . 'buffer'
-  elseif bufwinnr(s:buf_nr) != bufwinnr('%')
-    silent execute bufwinnr(s:buf_nr) . 'wincmd w'
-  endif
-
-  silent execute "setlocal filetype=" . s:output_buffer_filetype
-  setlocal bufhidden=delete
-  setlocal buftype=nofile
-  setlocal noswapfile
-  setlocal nobuflisted
-  setlocal winfixheight
-  setlocal cursorline " make it easy to distinguish
-  setlocal nonumber
-  setlocal norelativenumber
-  setlocal showbreak=""
-
-  " clear the buffer
-  setlocal noreadonly
-  setlocal modifiable
-  %delete _
-
-  " add the console output
-  silent execute ".!bash run.sh"
-
-  " resize window to content length
-  " Note: This is annoying because if you print a lot of lines then your
-  "       code buffer is forced to a height of one line every time you run
-  "       this function.
-  "       However without this line the buffer starts off as a default size
-  "       and if you resize the buffer then it keeps that custom size after
-  "       repeated runs of this function.
-  "       But if you close the output buffer then it returns to using the
-  "       default size when its recreated
-  " execute 'resize' . line('$')
-
-  " make the buffer non modifiable
-  setlocal readonly
-  setlocal nomodifiable
-endfunction
-
-nnoremap <silent> <leader>hrr :call RunRun(0)<CR>
-nnoremap <silent> <leader>vrr :call RunRun(1)<CR>
-
+nnoremap <silent> <leader>rr :call SaveAndRunFile('n', 'run.sh')<CR>
+nnoremap <silent> <leader>hrr :call SaveAndRunFile('h', 'run.sh')<CR>
+nnoremap <silent> <leader>vrr :call SaveAndRunFile('v', 'run.sh')<CR>
 
 " Makefile
+"
 nnoremap <leader>em :edit makefile<CR>
 nnoremap <leader>hem :split makefile<CR>
 nnoremap <leader>vem :vsplit makefile<CR>
-nnoremap <silent> <leader>rm :!make<CR>
 
-function! RunMakefile(isVerticalSplit) abort
-  " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
-  echo "Running makefile ..."
-
-  " save and reload current file
-  silent execute "update | edit"
-
-  " get file path of current file
-  let s:current_buffer_file_path = expand("%")
-
-  let s:output_buffer_name = "Make"
-  let s:output_buffer_filetype = "output"
-
-  " reuse existing buffer window if it exists otherwise create a new one
-  if !exists("s:buf_nr") || !bufexists(s:buf_nr)
-    if a:isVerticalSplit
-      silent execute 'vertical new ' . s:output_buffer_name
-    else
-      silent execute 'botright new ' . s:output_buffer_name
-    endif
-    let s:buf_nr = bufnr('%')
-  elseif bufwinnr(s:buf_nr) == -1
-    if a:isVerticalSplit
-      silent execute 'vertical new'
-    else
-      silent execute 'botright new'
-    endif
-    silent execute s:buf_nr . 'buffer'
-  elseif bufwinnr(s:buf_nr) != bufwinnr('%')
-    silent execute bufwinnr(s:buf_nr) . 'wincmd w'
-  endif
-
-  silent execute "setlocal filetype=" . s:output_buffer_filetype
-  setlocal bufhidden=delete
-  setlocal buftype=nofile
-  setlocal noswapfile
-  setlocal nobuflisted
-  setlocal winfixheight
-  setlocal cursorline " make it easy to distinguish
-  setlocal nonumber
-  setlocal norelativenumber
-  setlocal showbreak=""
-
-  " clear the buffer
-  setlocal noreadonly
-  setlocal modifiable
-  %delete _
-
-  " add the console output
-  silent execute ".!make "
-
-  " resize window to content length
-  " Note: This is annoying because if you print a lot of lines then your
-  "       code buffer is forced to a height of one line every time you run
-  "       this function.
-  "       However without this line the buffer starts off as a default size
-  "       and if you resize the buffer then it keeps that custom size after
-  "       repeated runs of this function.
-  "       But if you close the output buffer then it returns to using the
-  "       default size when its recreated
-  " execute 'resize' . line('$')
-
-  " make the buffer non modifiable
-  setlocal readonly
-  setlocal nomodifiable
-endfunction
-
-" Bind to save file if modified and execute python script in a buffer.
-nnoremap <silent> <leader>hrm :call RunMakefile(0)<CR>
-nnoremap <silent> <leader>vrm :call RunMakefile(1)<CR>
+nnoremap <silent> <leader>rm :call SaveAndRunFile('n', 'makefile')<CR>
+nnoremap <silent> <leader>hrm :call SaveAndRunFile('h', 'makefile')<CR>
+nnoremap <silent> <leader>vrm :call SaveAndRunFile('v', 'makefile')<CR>
 
 " }}}
 " Searching {{{
@@ -2263,7 +2186,7 @@ endif
 " Repository: https://github.com/hecal3/vim-leader-guide
 
 " Define prefix dictionary
-let g:lmap =  {}
+let g:lmap = {}
 
 " Create new menus not based on existing mappings:
 let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
@@ -2367,7 +2290,7 @@ let g:lmap.h = {
                 \'r' : {
                         \'name' : 'Run...',
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":call SaveAndRunPython3(0)", 'Python 3'],
+                        \'f' : [":call SaveAndRunFile('h')", 'File'],
                         \'r' : [':!bash run.sh', 'run.sh'],
                         \},
                 \}
@@ -2422,7 +2345,7 @@ let g:lmap.r = {
                 \'name' : 'Run...',
                 \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                 \'m' : ['!make', 'makefile'],
-                \'f' : [":execute '!python3' shellescape(@%, 1)", 'Python 3'],
+                \'f' : [":call SaveAndRunFile('n')", 'File'],
                 \'r' : [':!bash run.sh', 'run.sh'],
                 \'t' : [':retab', 'Retab'],
                 \'v' : [':source $MYVIMRC', 'Reload vimrc'],
@@ -2479,7 +2402,7 @@ let g:lmap.v = {
                 \'r' : {
                         \'name' : 'Run...',
                         \'m' : ['!make', 'makefile'],
-                        \'f' : [":call SaveAndRunPython3(1)", 'Python 3'],
+                        \'f' : [":call SaveAndRunFile('v')", 'File'],
                         \'r' : [':!bash run.sh', 'run.sh'],
                         \},
                 \}
