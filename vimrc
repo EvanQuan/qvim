@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.62.0
+" Version:    1.63.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.62.0'
+let g:vimrc_version = '1.63.0'
 
 " Path {{{
 
@@ -802,27 +802,26 @@ nnoremap ]b :bnext<CR>
 "
 nnoremap [b :bprevious<CR>
 
-" Delete current buffer
+" Quit current buffer
 "
-function! DeleteCurrentBuffer() abort
+function! QuitCurrentBuffer() abort
   execute "bprevious|split|bnext|bdelete"
-  echo "-- BUFFER DELETED --"
+  echo "-- QUIT BUFFER --"
 endfunction
-nnoremap <leader>q :call DeleteCurrentBuffer()<CR>
-nnoremap <leader>db :call DeleteCurrentBuffer()<CR>
+nnoremap <leader>qb :call QuitCurrentBuffer()<CR>
 
-" Delete all buffers except the currently focused one.
+" Quit all buffers except the currently focused one.
 " Convenient when hidden buffers accumulate over time.
 "
-function! DeleteHiddenBuffers() abort
+function! QuitHiddenBuffers() abort
   let tpbl=[]
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
     silent execute 'bwipeout' buf
   endfor
-  echo "-- DELETED HIDDEN BUFFERS --"
+  echo "-- QUIT HIDDEN BUFFERS --"
 endfunction
-nnoremap <silent> <leader>dh :call DeleteHiddenBuffers()<CR>
+nnoremap <silent> <leader>qh :call QuitHiddenBuffers()<CR>
 
 " }}}
 " Windows {{{
@@ -865,6 +864,10 @@ nnoremap ]w <C-w>w
 "
 nnoremap [w <C-w>W
 
+" Quit window
+"
+nnoremap <leader>qw :x<CR>
+
 " }}}
 " Tabs {{{
 
@@ -898,12 +901,17 @@ nnoremap [t :tabprevious<CR>
 " Quit tab
 "
 cnoreabbrev qt tabclose
+nnoremap <leader>qt tabclose
 
 " }}}
 " Session {{{
 
-" cd vim into the directory of the current buffer
-nnoremap <leader>cd :cd %:p:h<CR>
+function! ChangeDirectory() abort
+  " cd vim into the directory of the current buffer
+  execute ":cd %:p:h"
+  echo "Changed current working directory to " . getcwd()
+endfunction
+nnoremap <leader>cd :call ChangeDirectory()<CR>
 
 " }}}
 " Within Window {{{
@@ -963,9 +971,9 @@ vnoremap <Tab> >gv
 function! ToggleTabs() abort
   set expandtab!
   if &expandtab
-    echo "-- SOFT TABS (SPACES) --"
+    echo "-- SOFT TABS (" . &softtabstop . " SPACES) --"
   else
-    echo "-- HARD TABS (TABS) --"
+    echo "-- HARD TABS (" . &tabstop . " SPACES) --"
   endif
 endfunction
 nnoremap <leader>ti :call ToggleTabs()<CR>
@@ -1234,7 +1242,7 @@ function! SaveAndRunFile(...) abort
   " Otherwise, the output replaces the current buffer contents
   let s:output_type = a:1 == 'n' ? "" : "."
   let s:command = DetermineRunCommand(s:file_to_run)
-  let s:final_command = s:command == "" ? "echo 'This file type cannot be ran.'" : s:output_type . "!" . s:command . (s:command == "make" ? "" : " " . s:file_to_run)
+  let s:final_command = s:command == "" ? "echo '" . (&filetype == "" ? "no ft" : &filetype) . " files cannot be ran.'" : s:output_type . "!" . s:command . (s:command == "make" ? "" : " " . s:file_to_run)
 
   " Don't save and reload current file not in file
   if s:command != "" && &filetype != ""
@@ -1453,7 +1461,7 @@ function! ToggleColorColumn() abort
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
-nnoremap <leader>tmw :call ToggleColorColumn()<CR>
+nnoremap <leader>thw :call ToggleColorColumn()<CR>
 
 " Toggle cursorcolumn visibility
 "
@@ -1465,7 +1473,7 @@ function! ToggleCursorColumn() abort
     echo "-- CURSORCOLUMN DISABLED --"
   endif
 endfunction
-nnoremap <leader>tmc :call ToggleCursorColumn()<CR>
+nnoremap <leader>thc :call ToggleCursorColumn()<CR>
 
 
 " Toggle cursorline visibility
@@ -1478,7 +1486,7 @@ function! ToggleCursorLine() abort
     echo "-- CURSORLINE DISABLED --"
   endif
 endfunction
-nnoremap <leader>tml :call ToggleCursorLine()<CR>
+nnoremap <leader>thl :call ToggleCursorLine()<CR>
 
 " Toggle spell check
 "
@@ -2217,7 +2225,7 @@ let g:lmap.c = {
                 \'a' : ['call feedkeys("\<plug>NERDCommenterAltDelims")', 'Alternative delimiters'],
                 \'b' : ['call feedkeys("\<plug>NERDCommenterAlignBoth")', 'align Both'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterComment")', 'Comment'],
-                \'d' : [':cd %:p:h', 'Change Directory'],
+                \'d' : [':call ChangeDirectory()', 'Change Directory'],
                 \'f' : {
                       \'name' : 'Change Fold method...',
                       \'d' : [':set fdm=diff', 'Diff'],
@@ -2234,11 +2242,6 @@ let g:lmap.c = {
                 \'t' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Toggle'],
                 \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
                 \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
-                \}
-let g:lmap.d = {
-                \'name' : 'Delete...',
-                \'b' : [':call DeleteCurrentBuffer()', 'Buffer'],
-                \'h' : [':call DeleteHiddenBuffers()', 'Hidden buffers'],
                 \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
@@ -2303,8 +2306,8 @@ let g:lmap.j = {
                 \}
 let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 " TODO Figure out how to have it work for both normal and visual mode
-" let g:lmap.m = ['visual' : 'Sum/Average/Min/Max']
-
+" let g:lmap.m = ['normal y:call VMATH_Analyse()', 'Sum/Average/Min/Max']
+" let g:lmap.visual.m = ['normal vipy:call VMATH_Analyse()', 'Sum/Average/Min/Max']
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'t' : [':tabe', 'New Tab'],
@@ -2340,7 +2343,13 @@ let g:lmap.p = {
                         \'w' : ["normal \"_diwP", 'Word'],
                         \},
                 \}
-let g:lmap.q = [':call DeleteCurrentBuffer()', 'Quit buffer']
+let g:lmap.q = {
+                \'name' : 'Quit...',
+                \'b' : [':call QuitCurrentBuffer()', 'Buffer'],
+                \'h' : [':call QuitHiddenBuffers()', 'Hidden buffers'],
+                \'t' : [':tabclose', 'Tab'],
+                \'w' : [':x', 'Window'],
+                \}
 let g:lmap.r = {
                 \'name' : 'Run...',
                 \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
@@ -2369,15 +2378,15 @@ let g:lmap.t = {
                 \'name' : 'Toggle...',
                 \'a' : [':ALEToggle', 'ALE linting'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Comment'],
-                \'f' : ['<C-^>', 'File'],
-                \'i' : [':call ToggleTabs()', 'Identation'],
-                \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
-                \'m' : {
-                        \'name' : 'Mouse...',
+                \'f' : ["normal \<C-^>", 'File'],
+                \'h' : {
+                        \'name' : 'Highlight...',
                         \'c' : [':call ToggleCursorColumn()', 'Column'],
                         \'l' : [':call ToggleCursorLine()', 'Line'],
                         \'w' : [':call ToggleColorColumn()', 'Width indicator'],
                         \},
+                \'i' : [':call ToggleTabs()', 'Identation'],
+                \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
                 \'p' : [':call TogglePasteMode()', 'Paste mode'],
                 \'r' : [':call ToggleRelativeLineNumbers()', 'Relative line numbers'],
                 \'s' : [':call ToggleSpellcheck()', 'Spellcheck'],
