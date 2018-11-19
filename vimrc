@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.63.0
+" Version:    1.64.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.63.0'
+let g:vimrc_version = '1.64.0'
 
 " Path {{{
 
@@ -338,6 +338,10 @@ if has('autocmd')
   " Spell check enabled
   autocmd Filetype markdown setlocal spell
   autocmd Filetype text setlocal spell tabstop=8
+
+  " Keyword
+  " Easier browsing between pages in :help
+  autocmd Filetype help setlocal keywordprg=:help
 endif
 
 " }}}
