@@ -182,6 +182,9 @@ Plugins
 - [ale](https://github.com/w0rp/ale)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
 
+### Programming
+- [vim-executioner](https://github.com/EvanQuan/vim-executioner)
+
 ### User Interface
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
