@@ -106,3 +106,6 @@
 [submodule "bundle/vim-leader-guide"]
 	path = bundle/vim-leader-guide
 	url = https://github.com/hecal3/vim-leader-guide
+[submodule "bundle/vim-executioner"]
+	path = bundle/vim-executioner
+	url = https://github.com/EvanQuan/vim-executioner

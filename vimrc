@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.64.0
+" Version:    1.65.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.64.0'
+let g:vimrc_version = '1.65.0'
 
 " Path {{{
 
@@ -1108,6 +1108,36 @@ nnoremap <silent> <leader>tt :NERDTreeToggle<CR>
 nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 
 " }}}
+" vim-executioner {{{
+" Repository: https://github.com/EvanQuan/vim-executioner
+
+" Run current buffer
+"
+nnoremap <silent> <leader>rf :Executioner<CR>
+nnoremap <silent> <leader>hrf :ExecutionerHorizontal<CR>
+nnoremap <silent> <leader>vrf :ExecutionerVertical<CR>
+
+" Run.sh
+"
+nnoremap <leader>er :edit run.sh<CR>
+nnoremap <leader>her :split run.sh<CR>
+nnoremap <leader>ver :vsplit run.sh<CR>
+
+nnoremap <silent> <leader>rr :Executioner run.sh<CR>
+nnoremap <silent> <leader>hrr :ExecutionerHorizontal run.sh<CR>
+nnoremap <silent> <leader>vrr :ExecutionerVertical run.sh<CR>
+
+" Makefile
+"
+nnoremap <leader>em :edit makefile<CR>
+nnoremap <leader>hem :split makefile<CR>
+nnoremap <leader>vem :vsplit makefile<CR>
+
+nnoremap <silent> <leader>rm :Executioner makefile<CR>
+nnoremap <silent> <leader>hrm :ExecutionerHorizontal makefile<CR>
+nnoremap <silent> <leader>vrm :ExecutionerVertical makefile<CR>
+
+" }}}
 " vim-gitgutter {{{
 
 " Repository: https://github.com/airblade/vim-gitgutter
@@ -1189,164 +1219,6 @@ vnoremap <leader>m y:call VMATH_Analyse()<CR>
 nnoremap <leader>m vipy:call VMATH_Analyse()<CR>
 
 " }}}
-
-" }}}
-" Programming {{{
-
-" Run current buffer
-"
-
-let g:runnable_programs = {
-                            \ 'python' : 'python3',
-                            \ 'sh' : 'bash',
-                            \ 'make' : 'make',
-                            \}
-" if has('autocmd')
-  " autocmd FileType python nnoremap <buffer> <leader>rf :execute '!python3' shellescape(@%, 1)<CR>
-  " autocmd FileType sh nnoremap <buffer> <leader>rf :execute '!bash' shellescape(@%, 1)<CR>
-" endif
-function! HasExtension(fileName, extension) abort
-  " Returns true if the fileName has the specified extension
-  " TODO can be improved
-  return a:fileName =~ ".*\." . a:extension . "$"
-endfunction
-
-function! DetermineRunCommand(fileName) abort
-  " Returns the run command of the fileName
-  " If not runnable, resturns empty string
-  return HasExtension(a:fileName, "py'") ? "python3"
-        \ : HasExtension(a:fileName, "sh'") ? "bash" 
-        \ : a:fileName == "'makefile'" ? "make" : ""
-endfunction
-
-
-function! SaveAndRunFile(...) abort
-  " TODO return here
-  " Echo if fileName desn't exist
-  "
-  " Parameters:
-  "   a:1 char splitType
-  "     'n' - No split
-  "     'h' - Horizontal split
-  "     'v' - Vertical split
-  "   a:2 string fileName
-  "     default - current file
-  "
-  " SOURCE [reusable window]: https://github.com/fatih/vim-go/blob/master/autoload/go/ui.vim
-
-
-  " Evaluate fileName
-  " no fileName inputted, default to self
-  " DEBUG
-  " echo "a:0 " . a:0
-  " echo "a:1 " . a:1
-  let s:file_to_run = shellescape(expand((a:0 == 1 ? "%" : a:2)), 1)
-
-  " If not split, then output is terminal
-  " Otherwise, the output replaces the current buffer contents
-  let s:output_type = a:1 == 'n' ? "" : "."
-  let s:command = DetermineRunCommand(s:file_to_run)
-  let s:final_command = s:command == "" ? "echo '" . (&filetype == "" ? "no ft" : &filetype) . " files cannot be ran.'" : s:output_type . "!" . s:command . (s:command == "make" ? "" : " " . s:file_to_run)
-
-  " Don't save and reload current file not in file
-  if s:command != "" && &filetype != ""
-    silent execute "update | edit"
-  endif
-
-  " DEBUG
-  " echo "file_to_run: " .  s:file_to_run
-  " echo "output_type: " .  s:output_type
-  " echo "command: " .  s:command
-  " echo "final_command: " .  s:final_command
-  " get file path of current file
-  " let s:current_buffer_file_path = expand("%")
-
-  " Evaluate splitType
-  " If vertical or horizontal split, then create output buffer
-  if s:command != "" && (a:1 == 'v' || a:1 == 'h')
-
-    let s:splitType = a:1 == 'v' ? 'vertical' : 'botright'
-
-    let s:output_buffer_name = "Output"
-    let s:output_buffer_filetype = "output"
-    " reuse existing buffer window if it exists otherwise create a new one
-    if !exists("s:buf_nr") || !bufexists(s:buf_nr)
-      silent execute s:splitType . ' new ' . s:output_buffer_name
-      let s:buf_nr = bufnr('%')
-    elseif bufwinnr(s:buf_nr) == -1
-      silent execute s:splitType . ' new'
-      silent execute s:buf_nr . 'buffer'
-    elseif bufwinnr(s:buf_nr) != bufwinnr('%')
-      silent execute bufwinnr(s:buf_nr) . 'wincmd w'
-    endif
-
-    silent execute "setlocal filetype=" . s:output_buffer_filetype
-    setlocal bufhidden=delete
-    setlocal buftype=nofile
-    setlocal noswapfile
-    setlocal nobuflisted
-    setlocal winfixheight
-    setlocal cursorline " make it easy to distinguish
-    setlocal nonumber
-    setlocal norelativenumber
-    setlocal showbreak=""
-
-    " clear the buffer
-    setlocal noreadonly
-    setlocal modifiable
-    %delete _
-
-    " echo "Running " . shellescape(s:current_buffer_file_path, 1) . " ..."
-  echon 'Running ' . s:file_to_run . ' ... '
-  endif
-
-  " Execute file
-  execute s:final_command
-
-  " resize window to content length
-  " Note: This is annoying because if you print a lot of lines then your
-  "       code buffer is forced to a height of one line every time you run
-  "       this function.
-  "       However without this line the buffer starts off as a default size
-  "       and if you resize the buffer then it keeps that custom size after
-  "       repeated runs of this function.
-  "       But if you close the output buffer then it returns to using the
-  "       default size when its recreated
-  " execute 'resize' . line('$')
-
-  " make the buffer non modifiable
-  if s:command != "" && (a:1 == 'v' || a:1 == 'h')
-    setlocal readonly
-    setlocal nomodifiable
-    echon "DONE"
-  endif
-endfunction
-
-" Bind to save file if modified and execute script in a buffer.
-"
-nnoremap <silent> <leader>rf :call SaveAndRunFile('n')<CR>
-nnoremap <silent> <leader>hrf :call SaveAndRunFile('h')<CR>
-nnoremap <silent> <leader>vrf :call SaveAndRunFile('v')<CR>
-
-" Run.sh
-"
-nnoremap <leader>er :edit run.sh<CR>
-nnoremap <leader>her :split run.sh<CR>
-nnoremap <leader>ver :vsplit run.sh<CR>
-
-nnoremap <silent> <leader>rr :call SaveAndRunFile('n', 'run.sh')<CR>
-nnoremap <silent> <leader>hrr :call SaveAndRunFile('h', 'run.sh')<CR>
-nnoremap <silent> <leader>vrr :call SaveAndRunFile('v', 'run.sh')<CR>
-
-" Makefile
-"
-nnoremap <leader>em :edit makefile<CR>
-nnoremap <leader>hem :split makefile<CR>
-nnoremap <leader>vem :vsplit makefile<CR>
-
-nnoremap <silent> <leader>rm :call SaveAndRunFile('n', 'makefile')<CR>
-nnoremap <silent> <leader>hrm :call SaveAndRunFile('h', 'makefile')<CR>
-nnoremap <silent> <leader>vrm :call SaveAndRunFile('v', 'makefile')<CR>
 
 " }}}
 " Searching {{{
@@ -2175,6 +2047,12 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 let g:closetag_close_shortcut = '<leader>>'
+" }}}
+" vim-executioner {{{
+" Repository: https://github.com/EvanQuan/vim-executioner
+
+" TODO
+
 " }}}
 " vim-gitgutter {{{
 " Repository: https://github.com/airblade/vim-gitgutter
