@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.65.0
+" Version:    1.65.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.65.0'
+let g:vimrc_version = '1.65.1'
 
 " Path {{{
 
@@ -2174,9 +2174,9 @@ let g:lmap.h = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'m' : ['!make', 'makefile'],
-                        \'f' : [":call SaveAndRunFile('h')", 'File'],
-                        \'r' : [':!bash run.sh', 'run.sh'],
+                        \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
+                        \'f' : [":ExecutionerHorizontal", 'File'],
+                        \'r' : [':ExecutionerHorizontal run.sh', 'run.sh'],
                         \},
                 \}
 let g:lmap.j = {
@@ -2235,9 +2235,9 @@ let g:lmap.q = {
 let g:lmap.r = {
                 \'name' : 'Run...',
                 \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
-                \'m' : ['!make', 'makefile'],
-                \'f' : [":call SaveAndRunFile('n')", 'File'],
-                \'r' : [':!bash run.sh', 'run.sh'],
+                \'m' : [':Executioner makefile', 'makefile'],
+                \'f' : [":Executioner", 'File'],
+                \'r' : [':Executioner run.sh', 'run.sh'],
                 \'t' : [':retab', 'Retab'],
                 \'v' : [':source $MYVIMRC', 'Reload vimrc'],
                 \}
@@ -2292,9 +2292,9 @@ let g:lmap.v = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'m' : ['!make', 'makefile'],
-                        \'f' : [":call SaveAndRunFile('v')", 'File'],
-                        \'r' : [':!bash run.sh', 'run.sh'],
+                        \'m' : [':ExecutionerVertical makefile', 'makefile'],
+                        \'f' : [":ExecutionerVertical", 'File'],
+                        \'r' : [':ExecutionerVertical run.sh', 'run.sh'],
                         \},
                 \}
 let g:lmap.w = {
