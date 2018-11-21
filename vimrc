@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.65.1
+" Version:    1.66.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.65.1'
+let g:vimrc_version = '1.66.0'
 
 " Path {{{
 
@@ -483,6 +483,12 @@ nnoremap dL d$
 " From start of Line
 "
 nnoremap dH d^
+
+" }}}
+" Search {{{
+
+" Word
+nnoremap <leader>/w /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>N
 
 " }}}
 " Substitute {{{
