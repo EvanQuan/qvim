@@ -1123,7 +1123,7 @@ nnoremap <silent> <leader>rf :Executioner<CR>
 nnoremap <silent> <leader>hrf :ExecutionerHorizontal<CR>
 nnoremap <silent> <leader>vrf :ExecutionerVertical<CR>
 
-" Run.sh
+" run.sh
 "
 nnoremap <leader>er :edit run.sh<CR>
 nnoremap <leader>her :split run.sh<CR>
