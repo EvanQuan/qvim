@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.66.0
+" Version:    1.67.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -485,12 +485,6 @@ nnoremap dL d$
 nnoremap dH d^
 
 " }}}
-" Search {{{
-
-" Word
-nnoremap <leader>/w /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>N
-
-" }}}
 " Substitute {{{
 
 " Globally in File
@@ -707,46 +701,37 @@ nnoremap <leader>cfd :set fdm=diff<CR>
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
 "
-cnoreabbrev gb Gbrowse
 nnoremap <leader>gb :Gbrowse<CR>
 
 " Diff
 "
-cnoreabbrev gd Gdiff
 nnoremap <leader>gd :Gdiff<CR>
 
 " Status
 "
-cnoreabbrev gs Gstatus
 nnoremap <leader>gs :Gstatus<CR>
 
 " Add/Stage all in current directory
 "
-cnoreabbrev ga Git add .
 nnoremap <leader>ga :Git add .<CR>
 
 " Write to the current file's path and stage the results.
 "
-cnoreabbrev gw Gwrite
 nnoremap <leader>gw :Gwrite<CR>
 
 " Commit
 "
-cnoreabbrev gc Gcommit
 nnoremap <leader>gc :Gcommit<CR>
 
 " Push
 "
-cnoreabbrev gp Git push
 nnoremap <leader>gp :Git push<CR>
 
 " Pull
 "
-cnoreabbrev gu Git pull
 nnoremap <leader>gl :Git pull<CR>
 
 " Log
-cnoreabbrev gl Git log
 nnoremap <leader>gl :Git log<CR>
 "
 
@@ -882,7 +867,6 @@ nnoremap <leader>qw :x<CR>
 " Tabs {{{
 
 " Open new tab
-cnoreabbrev ot tabe
 nnoremap <leader>ot :tabe<CR>
 
 " Go to tab :by number
@@ -910,7 +894,6 @@ nnoremap [t :tabprevious<CR>
 
 " Quit tab
 "
-cnoreabbrev qt tabclose
 nnoremap <leader>qt tabclose
 
 " }}}
@@ -1257,6 +1240,13 @@ endif
 " Bind it for convenience
 map <leader>fd :DiffOrig<CR>
 
+" Next instance of word
+"
+nnoremap <leader>/ /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>Nn
+" Previous instance of word
+"
+nnoremap <leader>? ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>Nn
+
 " }}}
 " Standard {{{
 
@@ -1311,15 +1301,11 @@ endif
 if has("terminal")
   " in-editor terminal only works with some terminals
   " Vertical split with terminal
-  cnoreabbrev vt vertical terminal
   noremap <leader>vt :vertical terminal<CR>
   " Horizontal split with terminal
-  cnoreabbrev ht terminal
   noremap <leader>ht :terminal<CR>
 else
   " Default to shell when terminal is not available
-  cnoreabbrev vt shell
-  cnoreabbrev ht shell
   noremap <leader>vt :shell<CR>
   noremap <leader>ht :shell<CR>
 endif
