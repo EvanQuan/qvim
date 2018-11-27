@@ -9,6 +9,7 @@ Table of Contents
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
 3. [Troubleshooting](#troubleshooting)
+    - [Plugins are not installed](#plugins-are-not-installed)
     - [Vimrc is not detected](#vimrc-is-not-detected)
     - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
     - [Italic characters are not rendering](#italic-characters-are-not-rendering)
@@ -41,6 +42,8 @@ cd ~/.vim
 bash pull.sh
 ```
 
+Open Vim and execute `:PlugInstall`
+
 #### Windows
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/vimfiles
@@ -48,11 +51,18 @@ cd ~/vimfiles
 bash pull.sh
 ```
 
+Open Vim and execute `:PlugInstall`
+
 Hooray, that's it! You're all done!
 
 
 Troubleshooting
 ---------------
+
+#### Plugins are not installed
+
+[vim-plug](https://github.com/junegunn/vim-plug) manages the installation of
+all the plugins. Open Vim and execute `:PlugInstall`.
 
 #### Vimrc is not detected
 For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
@@ -131,18 +141,21 @@ cd ~/.vim
 bash pull.sh
 ```
 
+Open Vim and execute `:PlugInstall`
+
 #### Windows
 ```bash
 cd ~/vimfiles
 bash pull.sh
 ```
 
+Open Vim and execute `:PlugInstall`
 
 Plugins
 -------
 
 ### Plugin Manager
-- [pathogen](https://github.com/tpope/vim-pathogen)
+- [vim-plug](https://github.com/junegunn/vim-plug)
 
 ### Color Schemes
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
@@ -157,6 +170,7 @@ Plugins
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [tabular](https://github.com/godlygeek/tabular)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
+- [vim-endwise](https://github.com/tpope/vim-endwise)
 - [vim-exchange](https://github.com/tommcdo/vim-exchange)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
@@ -293,7 +307,7 @@ doesn't work out for me.
 3. Compatibility with older versions of Vim (< 7.3).
     - I have "safety" checks through the vimrc so that things don't break for
       older versions.
-    - I stick with [Pathogen](https://github.com/tpope/vim-pathogen) over the
+    - I stick with [vim-plug](https://github.com/junegunn/vim-plug) over the
       native plugin manager that comes with Vim 8 so that it is compatible with
       Vim 7.
     - Some plugins I use take advantage of newer versions, but the nature of

@@ -2,6 +2,9 @@
 *.swp
 *.swo
 
+# Plugins
+plugged
+
 # settings
 settings.vim
 

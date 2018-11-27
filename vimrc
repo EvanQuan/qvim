@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.67.1
+" Version:    2.0.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.67.1'
+let g:vimrc_version = '2.0.0'
 
 " Path {{{
 
@@ -36,9 +36,9 @@ endif
 " if it exists. To prevent this, it is redefined to ensure that it links
 " to this one.
 "
-let $MYVIMRC = $MYVIMHOME . "/vimrc"
-let $MYSETTINGS = $MYVIMHOME . "/settings.vim"
-let $MYNOTES = $MYVIMHOME . "/notes.txt"
+let $MYVIMRC = $MYVIMHOME . '/vimrc'
+let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
+let $MYNOTES = $MYVIMHOME . '/notes.txt'
 
 " }}}
 " Settings {{{
@@ -53,7 +53,7 @@ let $MYNOTES = $MYVIMHOME . "/notes.txt"
 "
 if filereadable(expand($MYSETTINGS))
   source $MYVIMHOME/settings.vim
-elseif filereadable(expand($MYVIMHOME . "/version/templates/settings.vim"))
+elseif filereadable(expand($MYVIMHOME . '/version/templates/settings.vim'))
   source $MYVIMHOME/version/templates/settings.vim
 else
   let g:truecolor_enabled = 1
@@ -98,7 +98,51 @@ filetype off
 " Load plugins with pathogen from bundle/{} and pack/{}/start/{} directories.
 "
 if !g:minimalist_mode_enabled
-  execute pathogen#infect()
+  " execute pathogen#infect()
+  call plug#begin('~/.vim/plugged')
+  Plug $MYVIMHOME . '/bundle/betterdigraphs'
+  Plug $MYVIMHOME . '/bundle/dragvisuals'
+  Plug $MYVIMHOME . '/bundle/listtrans'
+  Plug $MYVIMHOME . '/bundle/vmath'
+  Plug 'ARM9/arm-syntax-vim'
+  Plug 'EvanQuan/vim-executioner'
+  Plug 'Shougo/neocomplete.vim'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'Yggdroot/indentLine'
+  Plug 'adimit/prolog.vim'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'alvan/vim-closetag'
+  Plug 'artur-shaik/vim-javacomplete2'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'davidhalter/jedi-vim'
+  Plug 'godlygeek/tabular'
+  Plug 'hecal3/vim-leader-guide'
+  Plug 'itchyny/lightline.vim'
+  Plug 'itchyny/vim-gitbranch'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'joshdick/onedark.vim'
+  Plug 'jszakmeister/vim-togglecursor'
+  Plug 'mxw/vim-prolog'
+  Plug 'pbrisbin/vim-mkdir'
+  Plug 'rakr/vim-one'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'scrooloose/nerdtree'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'taohexxx/lightline-buffer'
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'thaerkh/vim-workspace'
+  Plug 'tommcdo/vim-exchange'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-speeddating'
+  Plug 'tpope/vim-surround'
+  Plug 'unblevable/quick-scope'
+  Plug 'w0rp/ale'
+  call plug#end()
 endif
 
 " Help tags are loaded from all packages
