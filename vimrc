@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.67.0
+" Version:    1.67.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -18,7 +18,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '1.66.0'
+let g:vimrc_version = '1.67.1'
 
 " Path {{{
 
@@ -478,10 +478,12 @@ nnoremap diQ di'
 
 " Until end of Line
 "
+"TODO delete?
 nnoremap dL d$
 
 " From start of Line
 "
+"TODO delete?
 nnoremap dH d^
 
 " }}}
@@ -491,7 +493,13 @@ nnoremap dH d^
 "
 function! SubstituteGloballyInFile() abort
   let old = input("Replace: ")
+  if old == ""
+    return
+  endif
   let new = input("With: ")
+  if new == ""
+    return
+  endif
   execute "%s/" . old . "/" . new . "/g"
 endfunction
 nnoremap <silent> <leader>sgf :call SubstituteGloballyInFile()<CR>
@@ -500,7 +508,13 @@ nnoremap <silent> <leader>sgf :call SubstituteGloballyInFile()<CR>
 "
 function! SubstituteFirstInFile() abort
   let old = input("Replace: ")
+  if old == ""
+    return
+  endif
   let new = input("With: ")
+  if new == ""
+    return
+  endif
   execute "%s/" . old . "/" . new
 endfunction
 nnoremap <silent> <leader>sff :call SubstituteFirstInFile()<CR>
@@ -509,7 +523,13 @@ nnoremap <silent> <leader>sff :call SubstituteFirstInFile()<CR>
 "
 function! SubstituteGloballyInLine() abort
   let old = input("Replace: ")
+  if old == ""
+    return
+  endif
   let new = input("With: ")
+  if new == ""
+    return
+  endif
   execute "s/" . old . "/" . new . "/g"
 endfunction
 nnoremap <leader>sgl :call SubstituteGloballyInLine()<CR>
@@ -518,7 +538,13 @@ nnoremap <leader>sgl :call SubstituteGloballyInLine()<CR>
 "
 function! SubstituteFirstInLine() abort
   let old = input("Replace: ")
+  if old == ""
+    return
+  endif
   let new = input("With: ")
+  if new == ""
+    return
+  endif
   execute "s/" . old . "/" . new
 endfunction
 nnoremap <leader>sfl :call SubstituteFirstInLine()<CR>
@@ -1222,8 +1248,8 @@ vnoremap / /\v
 
 " Going to next/previous search moves cursor to the centre of the screen.
 "
-map n nzz
-map N Nzz
+noremap n nzz
+noremap N Nzz
 
 " clear search highlighting
 "
@@ -1242,6 +1268,12 @@ map <leader>fd :DiffOrig<CR>
 
 " Next instance of word
 "
+" function! s:SearchNextWordOnCursor()
+  " TODO return here
+  " execute "normal /\\\<\<C-R>=expand('\<cword>')\<CR>\\>\\C\<CR>``gn\<ESC>Nn"
+  " execute "normal "
+" endfunction
+" nnoremap <leader>/ call s:SearchNextWordOnCursor()
 nnoremap <leader>/ /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>Nn
 " Previous instance of word
 "
