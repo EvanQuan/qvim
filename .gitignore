@@ -28,3 +28,6 @@ notes.txt
 # Test files
 test.*
 Test.*
+
+# Run.sh
+run.sh
