@@ -165,9 +165,9 @@ Plugins
 ### Editing
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
+- [completor.vim](https://github.com/maralla/completor.vim)
 - [dragvisuals](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/dragvisuals.vim)
 - [listtrans](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/listtrans.vim)
-- [neocomplete.vim](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [tabular](https://github.com/godlygeek/tabular)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
@@ -218,14 +218,6 @@ Plugins
 
 Design Decisions
 ----------------
-**Why not use [deoplete](https://github.com/Shougo/deoplete.nvim)?**
-
-While I acknowledge deoplete's asynchronous autocomplete is far better than
-what neocomplete offers, deoplete is extremely annoying to install for Vim 8,
-since is primarily designed for Neovim. Due to its required dependencies,
-I can't be bothered to install those (or can't guarantee I'll be able to
-install them), for any given computer I'm on.
-
 **Why not use [Neovim](https://neovim.io/)?**
 
 I do like the idea of Neovim, and these configurations are mostly compatible

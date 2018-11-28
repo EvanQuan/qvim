@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.13.3
+" Version:    1.14.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -56,16 +56,26 @@ let g:wrap_enabled = 1
 let g:wrap_width = 79
 " Show Whitespace {{{
 "   Render placeholders for invisible characters, such as tabs, spaces and
-"   end-of-lines. Whitespace can be toggled at any time with the <leader>tw
+"   new lines. Whitespace can be toggled at any time with the <leader>tw
 "   command.
 "   0: Off
 "     Whitespace is not visible by default.
 "   1: On
 "     Whitespace is visible by default.
 "   2: Minimal
-"     Whitespace is visible except for spaces and end-of-line characters.
+"     Whitespace is visible except for spaces and new line characters.
 " }}}
 let g:show_whitespace = 2
+" Escape Alternative {{{
+"   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
+"   done, this provides a lazy alternative.
+"   0: Disabled
+"   1: Enabled
+"     Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
+"   2: Enabled
+"     Sets "jk" and "kj" as ESCAPE in INSERT, REPLACE and VISUAL modes
+" }}}
+let g:escape_alternative_enabled = 0
 " Disable Cursor Blinking {{{
 "   Cursor blinking can be distracting as the cursor location can be
 "   momentarily lost while moving and changing modes.
@@ -84,27 +94,6 @@ let g:cursor_blinking_disabled = 1
 "   3: Red
 " }}}
 let g:cursor_color = 1
-" Escape Alternative {{{
-"   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
-"   done, this provides a lazy alternative.
-"   0: Disabled
-"   1: Enabled
-"     Sets "aa" as ESCAPE in INSERT, REPLACE and VISUAL modes
-" }}}
-let g:escape_alternative_enabled = 0
-" Minimalistic Mode {{{
-"   Similar to `vim --clean` (Vim default settings, no plugins, no viminfo),
-"   except special settings and keybindings still enabled.
-"   0: Disabled
-"     Everything runs as normal. All plugins and special settings and
-"     keybindings are used.
-"   1: Enabled
-"     Do not load any plugins but still use special settings and  keybindings.
-"   2: Vim Defaults
-"     Use Vim defaults straight out of the box. Use nothing from this
-"     repository.
-" }}}
-let g:minimalist_mode_enabled = 0
 " Performance Mode {{{
 "   Disables certain settings and plugins that may cause poor performance on
 "   some machines. These usually involve plugins and settings that slow down
@@ -127,16 +116,3 @@ let g:performance_mode_enabled = 0
 "     Loads $VIMRUNTIME/mswin.vim
 " }}}
 let g:standard_keybindings = 0
-" Settings Organization {{{
-
-" Set modelines to parse for 1 command so that category folding is defaulted
-" for this file. Folds are determined by "{{{" and "}}}" markers This is not
-" usually advised due to potential security issues that were raised in the
-" past.
-"
-" Google "vim modeline vulnerability"
-"
-set modelines=1
-
-" }}}
-" vim:foldmethod=marker:foldlevel=0

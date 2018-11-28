@@ -1,1 +1,0 @@
-pull_helper.sh
