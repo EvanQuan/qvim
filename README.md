@@ -22,6 +22,7 @@ Table of Contents
     - [File Navigation](#file-navigation)
     - [Languages](#languages)
     - [Linting](#linting)
+    - [Programming](#programming)
     - [User Interface](#user-interface)
     - [Version Control](#version-control)
 6. [Design Decisions](#design-decisions)
