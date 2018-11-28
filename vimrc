@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.0.1
+" Version:    2.1.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.0.1'
+let g:vimrc_version = '2.1.0'
 
 " Path {{{
 
@@ -64,15 +64,8 @@ else
   let g:cursor_blinking_disabled = 1
   let g:cursor_color = 1
   let g:escape_alternative_enabled = 0
-  let g:minimalist_mode_enabled = 0
   let g:performance_mode_enabled = 0
   let g:standard_keybindings = 0
-endif
-
-if g:minimalist_mode_enabled == 2
-  " This sets the behaviour to be identical to default Vim.
-  source $VIMRUNTIME/defaults.vim
-  finish
 endif
 
 " Set statusline to nothing for later commands that increment onto statusline.
@@ -98,52 +91,51 @@ filetype off
 
 " Load plugins with vim-plug from plugged directory
 "
-if !g:minimalist_mode_enabled
-  call plug#begin('~/.vim/plugged')
-  Plug $MYVIMHOME . '/plugged/betterdigraphs'
-  Plug $MYVIMHOME . '/plugged/dragvisuals'
-  Plug $MYVIMHOME . '/plugged/listtrans'
-  Plug $MYVIMHOME . '/plugged/vmath'
-  Plug 'ARM9/arm-syntax-vim'
-  Plug 'EvanQuan/vim-executioner'
-  Plug 'Shougo/neocomplete.vim'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'Yggdroot/indentLine'
-  Plug 'adimit/prolog.vim'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'alvan/vim-closetag'
-  Plug 'artur-shaik/vim-javacomplete2'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'davidhalter/jedi-vim'
-  Plug 'godlygeek/tabular'
-  Plug 'hecal3/vim-leader-guide'
-  Plug 'itchyny/lightline.vim'
-  Plug 'itchyny/vim-gitbranch'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'joshdick/onedark.vim'
-  Plug 'jszakmeister/vim-togglecursor'
-  Plug 'mxw/vim-prolog'
-  Plug 'pbrisbin/vim-mkdir'
-  Plug 'rakr/vim-one'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'scrooloose/nerdtree'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'taohexxx/lightline-buffer'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'thaerkh/vim-workspace'
-  Plug 'tommcdo/vim-exchange'
-  Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'tpope/vim-sensible'
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-speeddating'
-  Plug 'tpope/vim-surround'
-  Plug 'unblevable/quick-scope'
-  Plug 'w0rp/ale'
-  call plug#end()
-endif
+call plug#begin('~/.vim/plugged')
+Plug $MYVIMHOME . '/plugged/betterdigraphs'
+Plug $MYVIMHOME . '/plugged/dragvisuals'
+Plug $MYVIMHOME . '/plugged/listtrans'
+Plug $MYVIMHOME . '/plugged/vmath'
+Plug 'ARM9/arm-syntax-vim'
+Plug 'EvanQuan/vim-executioner'
+" Plug 'Shougo/neocomplete.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Yggdroot/indentLine'
+Plug 'adimit/prolog.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'godlygeek/tabular'
+Plug 'hecal3/vim-leader-guide'
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'jiangmiao/auto-pairs'
+Plug 'joshdick/onedark.vim'
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'maralla/completor.vim'
+Plug 'mxw/vim-prolog'
+Plug 'pbrisbin/vim-mkdir'
+Plug 'rakr/vim-one'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'taohexxx/lightline-buffer'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thaerkh/vim-workspace'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'unblevable/quick-scope'
+Plug 'w0rp/ale'
+call plug#end()
 
 " For plugins to load correctly
 " Only do this part when compiled with support for autocommands
@@ -192,12 +184,10 @@ endif
 " Determine color scheme based on settings.vim
 " Lightline color scheme is consistent with main color scheme
 "
-if !g:minimalist_mode_enabled
-  if g:colorscheme_type >= 3
-    colorscheme onedark
-  elseif g:colorscheme_type >= 1
-    colorscheme one
-  endif
+if g:colorscheme_type >= 3
+  colorscheme onedark
+elseif g:colorscheme_type >= 1
+  colorscheme one
 endif
 
 " }}}
@@ -343,7 +333,7 @@ if has('autocmd')
   "
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
+  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2 foldmethod=marker foldlevel=0
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
@@ -524,6 +514,13 @@ nnoremap dL d$
 "
 "TODO delete?
 nnoremap dH d^
+
+" }}}
+" Spelling {{{
+
+" Suggest spellcheck fixes for current word
+"
+noremap <leader>ss z=
 
 " }}}
 " Substitute {{{
@@ -751,11 +748,11 @@ nnoremap <CR> za
 
 " Change fold method settings
 "
-nnoremap <leader>cff :set fdm=manual<CR>
-nnoremap <leader>cfi :set fdm=indent<CR>
-nnoremap <leader>cfm :set fdm=marker<CR>
-nnoremap <leader>cfs :set fdm=syntax<CR>
-nnoremap <leader>cfd :set fdm=diff<CR>
+nnoremap <leader>Cff :set fdm=manual<CR>
+nnoremap <leader>Cfi :set fdm=indent<CR>
+nnoremap <leader>Cfm :set fdm=marker<CR>
+nnoremap <leader>Cfs :set fdm=syntax<CR>
+nnoremap <leader>Cfd :set fdm=diff<CR>
 
 " }}}
 " Git {{{
@@ -826,7 +823,7 @@ function! StripWhitespace() abort
   call cursor(1, c)
   echo "-- WHITESPACE STRIPPED --"
 endfunction
-noremap <leader>sw :call StripWhitespace()<CR>
+noremap <leader>Sw :call StripWhitespace()<CR>
 
 " Remove all carriage returns (displayed as ^M) from the current file.
 " Use when the encodings gets messed up.
@@ -835,7 +832,7 @@ function! StripCarriageReturns() abort
   execute "normal mmHmt:%s/\<C-V>\<CR>//ge\<CR>'tzt'm"
   echo "-- CARRIAGE RETURNS STRIPPED --"
 endfunction
-noremap <leader>sc :call StripCarriageReturns()<CR>
+noremap <leader>Sc :call StripCarriageReturns()<CR>
 
 " }}}
 " Layout {{{
@@ -927,6 +924,11 @@ nnoremap [w <C-w>W
 " Quit window
 "
 nnoremap <leader>qw :x<CR>
+nnoremap <leader>wq :x<CR>
+
+" Split
+nnoremap <leader>ws <C-w>s
+nnoremap <leader>wv <C-w>v
 
 " }}}
 " Tabs {{{
@@ -936,16 +938,16 @@ nnoremap <leader>ot :tabe<CR>
 
 " Go to tab :by number
 "
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
-nnoremap <leader>0 :tablast<CR>
+" nnoremap <leader>1 1gt
+" nnoremap <leader>2 2gt
+" nnoremap <leader>3 3gt
+" nnoremap <leader>4 4gt
+" nnoremap <leader>5 5gt
+" nnoremap <leader>6 6gt
+" nnoremap <leader>7 7gt
+" nnoremap <leader>8 8gt
+" nnoremap <leader>9 9gt
+" nnoremap <leader>0 :tablast<CR>
 
 " Go to next tab
 " Same as gt
@@ -969,7 +971,7 @@ function! ChangeDirectory() abort
   execute ":cd %:p:h"
   echo "Changed current working directory to " . getcwd()
 endfunction
-nnoremap <leader>cd :call ChangeDirectory()<CR>
+nnoremap <leader>Cd :call ChangeDirectory()<CR>
 
 " }}}
 " Within Window {{{
@@ -1006,6 +1008,8 @@ if g:escape_alternative_enabled == 1
 elseif g:escape_alternative_enabled == 2
   inoremap jk <ESC>hl
   vnoremap jk <ESC>hl
+  inoremap kj <ESC>hl
+  vnoremap kj <ESC>hl
 endif
 
 " }}}
@@ -1040,7 +1044,7 @@ nnoremap <leader>ti :call ToggleTabs()<CR>
 " white-space using the new tabstop value given. If you do not specify a new
 " tabstop size or it is zero, Vim uses the current value of 'tabstop'.
 "
-nnoremap <leader>rt :retab<CR>
+nnoremap <leader>Rt :retab<CR>
 
 " }}}
 " Plugins {{{
@@ -1258,6 +1262,16 @@ nmap <leader>ghu <Plug>GitGutterUndoHunk
 " nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
+" vim-plugin {{{
+
+noremap <leader>Pc :PlugClean<CR>
+noremap <leader>Pi :PlugDiff<CR>
+noremap <leader>Pn :PlugSnapshot<CR>
+noremap <leader>Ps :PlugStatus<CR>
+noremap <leader>Pu :PlugUpdate<CR>
+noremap <leader>Pg :PlugUpgrade<CR>
+
+" }}}
 " vim-workspace {{{
 " Repository: https://github.com/thaerkh/vim-workspace
 
@@ -1269,8 +1283,12 @@ nnoremap <leader>tW :ToggleWorkspace<CR>
 
 " Calculates sum, average, min, and max of a selection of numbers.
 "
+function! VMath() abort
+  call feedkeys("vipy:call VMATH_Analyse()\<CR>")
+endfunction
+nnoremap <leader>m :call VMath()<CR>
 vnoremap <leader>m y:call VMATH_Analyse()<CR>
-nnoremap <leader>m vipy:call VMATH_Analyse()<CR>
+" nnoremap <leader>m vipy:call VMATH_Analyse()<CR>
 
 " }}}
 
@@ -1304,19 +1322,6 @@ if !exists(":DiffOrig")
 endif
 " Bind it for convenience
 map <leader>fd :DiffOrig<CR>
-
-" Next instance of word
-"
-" function! s:SearchNextWordOnCursor()
-  " TODO return here
-  " execute "normal /\\\<\<C-R>=expand('\<cword>')\<CR>\\>\\C\<CR>``gn\<ESC>Nn"
-  " execute "normal "
-" endfunction
-" nnoremap <leader>/ call s:SearchNextWordOnCursor()
-nnoremap <leader>/ /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>Nn
-" Previous instance of word
-"
-nnoremap <leader>? ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``gn<ESC>Nn
 
 " }}}
 " Standard {{{
@@ -1384,7 +1389,7 @@ endif
 " which opens the terminal in a new buffer.
 " It can be closed with "exit" or "Ctrl-D".
 "
-noremap <leader>b :shell<CR>
+noremap <leader>ob :shell<CR>
 
 " }}}
 " User Interface {{{
@@ -1447,11 +1452,10 @@ nnoremap <leader>ts :call ToggleSpellcheck()<CR>
 nnoremap <silent> <leader>ev :edit $MYVIMRC<CR>
 nnoremap <silent> <leader>hev :split $MYVIMRC<CR>
 nnoremap <silent> <leader>vev :vsplit $MYVIMRC<CR>
-nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
 
 " Reload vimrc
 "
-nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
+nnoremap <silent> <leader>Rv :source $MYVIMRC<CR>
 
 " Open settings.vim
 "
@@ -1495,7 +1499,7 @@ noremap <leader>tw :call ToggleWhitespace()<CR>
 " Refresh syntax highlighting in case it gets messed up
 " TODO: Never actually tested this. Doesn't work?
 "
-nnoremap <leader>rh :execute 'colo' colors_name<CR>:syntax sync fromstart<CR>
+nnoremap <leader>Rh :execute 'colo' colors_name<CR>:syntax sync fromstart<CR>
 
 " Toggle absolute and relative line numbers
 "
@@ -1568,7 +1572,6 @@ set ttyfast
 " }}}
 " Plugin Configuration {{{
 
-if !g:minimalist_mode_enabled
 " arm-syntax-vim {{{
 " Repository: https://github.com/ARM9/arm-syntax-vim
 
@@ -2143,16 +2146,16 @@ let g:lmap = {}
 
 " Create new menus not based on existing mappings:
 let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
-let g:lmap['0'] = [':tablast', 'Tab last']
-let g:lmap['1'] = ['1gt', 'Tab 1']
-let g:lmap['2'] = ['2gt', 'Tab 2']
-let g:lmap['3'] = ['3gt', 'Tab 3']
-let g:lmap['4'] = ['4gt', 'Tab 4']
-let g:lmap['5'] = ['5gt', 'Tab 5']
-let g:lmap['6'] = ['6gt', 'Tab 6']
-let g:lmap['7'] = ['7gt', 'Tab 7']
-let g:lmap['8'] = ['8gt', 'Tab 8']
-let g:lmap['9'] = ['9gt', 'Tab 9']
+" let g:lmap['0'] = [':tablast', 'Tab last']
+" let g:lmap['1'] = ['1gt', 'Tab 1']
+" let g:lmap['2'] = ['2gt', 'Tab 2']
+" let g:lmap['3'] = ['3gt', 'Tab 3']
+" let g:lmap['4'] = ['4gt', 'Tab 4']
+" let g:lmap['5'] = ['5gt', 'Tab 5']
+" let g:lmap['6'] = ['6gt', 'Tab 6']
+" let g:lmap['7'] = ['7gt', 'Tab 7']
+" let g:lmap['8'] = ['8gt', 'Tab 8']
+" let g:lmap['9'] = ['9gt', 'Tab 9']
 let g:lmap.a = {
                 \'name' : 'ALE...',
                 \ 'a' : [':ALEDetail', 'Detail'],
@@ -2162,7 +2165,6 @@ let g:lmap.a = {
                 \ 's' : [':ALEFixSuggest', 'Suggest fix'],
                 \ 't' : [':ALEToggle', 'Toggle'],
                 \}
-let g:lmap.b = [':shell', 'Bash shell']
 let g:lmap.c = {
                 \'name' : 'Comment...',
                 \'$' : ['call feedkeys("\<plug>NERDCommenterToEOL")', 'to EOL'],
@@ -2170,15 +2172,6 @@ let g:lmap.c = {
                 \'a' : ['call feedkeys("\<plug>NERDCommenterAltDelims")', 'Alternative delimiters'],
                 \'b' : ['call feedkeys("\<plug>NERDCommenterAlignBoth")', 'align Both'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterComment")', 'Comment'],
-                \'d' : [':call ChangeDirectory()', 'Change Directory'],
-                \'f' : {
-                      \'name' : 'Change Fold method...',
-                      \'d' : [':set fdm=diff', 'Diff'],
-                      \'f' : [':set fdm=manual', 'Manual'],
-                      \'i' : [':set fdm=indent', 'Indentation'],
-                      \'m' : [':set fdm=marker', 'Marker'],
-                      \'s' : [':set fdm=syntax', 'Syntax'],
-                      \},
                 \'i' : ['call feedkeys("\<plug>NERDCommenterInvert")', 'Invert'],
                 \'l' : ['call feedkeys("\<plug>NERDCommenterAlignLeft")', 'align Left'],
                 \'m' : ['call feedkeys("\<plug>NERDCommenterMinimal")', 'Minimal'],
@@ -2187,6 +2180,18 @@ let g:lmap.c = {
                 \'t' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Toggle'],
                 \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
                 \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
+                \}
+let g:lmap.C = {
+                \ 'name' : 'Change...',
+                \ 'd' : ['call ChangeDirectory()', 'Directory'],
+                \ 'f' : {
+                          \'name' : 'Fold method...',
+                          \'d' : [':set fdm=diff', 'Diff'],
+                          \'f' : [':set fdm=manual', 'Manual'],
+                          \'i' : [':set fdm=indent', 'Indentation'],
+                          \'m' : [':set fdm=marker', 'Marker'],
+                          \'s' : [':set fdm=syntax', 'Syntax'],
+                          \}
                 \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
@@ -2238,7 +2243,7 @@ let g:lmap.h = {
                 \'r' : {
                         \'name' : 'Run...',
                         \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
-                        \'f' : [":ExecutionerHorizontal", 'File'],
+                        \'f' : [':ExecutionerHorizontal', 'File'],
                         \'r' : [':ExecutionerHorizontal run.sh', 'run.sh'],
                         \},
                 \}
@@ -2251,11 +2256,22 @@ let g:lmap.j = {
                 \}
 let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 " TODO Figure out how to have it work for both normal and visual mode
-" let g:lmap.m = ['normal y:call VMATH_Analyse()', 'Sum/Average/Min/Max']
+let g:lmap.m = ['call VMath()', 'Sum/Average/Min/Max']
+" let g:lmap.m = ['visual ipy:call VMATH_Analyse()', 'Sum/Average/Min/Max']
 " let g:lmap.visual.m = ['normal vipy:call VMATH_Analyse()', 'Sum/Average/Min/Max']
 let g:lmap.o = {
                 \'name' : 'Open...',
-                \'t' : [':tabe', 'New Tab'],
+                \'b' : ['shell', 'Bash shell'],
+                \'t' : ['tabe', 'New Tab'],
+                \}
+let g:lmap.P = {
+                \ 'name' : 'Plugin...',
+                \ 'c' : ['PlugClean', 'Clean'],
+                \ 'i' : ['PlugInstall', 'Install'],
+                \ 'n' : ['PlugSnapshot', 'Snapshot'],
+                \ 's' : ['PlugStatus', 'Status'],
+                \ 'u' : ['PlugUpdate', 'Update'],
+                \ 'g' : ['PlugUpgrade', 'Upgrade'],
                 \}
 let g:lmap.p = {
                 \'name' : 'Paste...',
@@ -2295,29 +2311,36 @@ let g:lmap.q = {
                 \'t' : [':tabclose', 'Tab'],
                 \'w' : [':x', 'Window'],
                 \}
+let g:lmap.R = {
+                \'name' : 'Reload...',
+                \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Syntax highlighting'],
+                \'v' : [':source $MYVIMRC', 'vimrc'],
+                \'t' : [':retab', 'Tabs'],
+                \}
 let g:lmap.r = {
                 \'name' : 'Run...',
-                \'h' : [":execute 'colo' colors_name<CR>:syntax sync fromstart", 'Refresh syntax highlighting'],
                 \'m' : [':Executioner makefile', 'makefile'],
                 \'f' : [":Executioner", 'File'],
                 \'r' : [':Executioner run.sh', 'run.sh'],
-                \'t' : [':retab', 'Retab'],
-                \'v' : [':source $MYVIMRC', 'Reload vimrc'],
+                \}
+let g:lmap.S = {
+                \ 'name' : 'Strip...',
+                \ 'c' : [":call StripCarriageReturns()", 'Carriage returns'],
+                \ 'w' : [':call StripWhitespace()', 'Whitespace'],
                 \}
 let g:lmap.s = {
-                \'name' : 'Strip...',
-                \'c' : [":call StripCarriageReturns()", 'Carriage returns'],
+                \'name' : 'Substitute...',
                 \'g' : {
-                        \'name' : 'Substitute Globally in...',
+                        \'name' : 'Globally in...',
                         \'f' : [':call SubstituteGloballyInFile()', 'File'],
                         \'l' : [':call SubstituteGloballyInLine()', 'Line'],
                         \},
                 \'f' : {
-                        \'name' : 'Substitute First in...',
+                        \'name' : 'First in...',
                         \'f' : [':call SubstituteFirstInFile()', 'File'],
                         \'l' : [':call SubstituteFirstInLine()', 'Line'],
                         \},
-                \'w' : [':call StripWhitespace()', 'Whitespace'],
+                \'s' : ['normal z=', 'Spellcheck fix'],
                 \}
 let g:lmap.t = {
                 \'name' : 'Toggle...',
@@ -2366,7 +2389,11 @@ let g:lmap.w = {
                 \ 'j' : ["normal \<C-w>j", 'Down'],
                 \ 'k' : ["normal \<C-w>k", 'Up'],
                 \ 'l' : ["normal \<C-w>l", 'Right'],
+                \ 'q' : [":x", 'Quit'],
+                \ 's' : ["normal \<C-w>s", 'Horizontal split'],
+                \ 'v' : ["normal \<C-w>v", 'Vertical split'],
                 \}
+" let g:lmap.['/'][1] = 'Search next word'
 
 " Bind leader key <Space> to open leader guide prompt
 "
@@ -2414,7 +2441,6 @@ endif
 let g:workspace_autosave_always = 0
 
 " }}}
-endif
 
 " }}}
 " User Interface {{{
@@ -2569,11 +2595,7 @@ set showtabline=2
 
 " do not show default INSERT mode below since this is what lightline does
 " If lightline is disabled, then show it.
-if g:minimalist_mode_enabled
-  set showmode
-elseif !g:minimalist_mode_enabled
-  set noshowmode
-end
+set noshowmode
 
 " }}}
 " Text Wrapping {{{
@@ -2758,16 +2780,3 @@ set diffopt+=vertical
 " }}}
 
 " }}}
-" Vimrc Organization {{{
-
-" Set modelines to parse for 1 command so that category folding is defaulted
-" for this file. Folds are determined by "{{{" and "}}}" markers This is not
-" usually advised due to potential security issues that were raised in the
-" past.
-"
-" Google "vim modeline vulnerability"
-"
-set modelines=1
-
-" }}}
-" vim:foldmethod=marker:foldlevel=0
