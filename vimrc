@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.0.0
+" Version:    2.0.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -10,7 +10,6 @@
 "
 " Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
-"
 " Initial Setup {{{
 
 " The first steps necessary to set up everything.
@@ -18,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.0.0'
+let g:vimrc_version = '2.0.1'
 
 " Path {{{
 
@@ -91,19 +90,20 @@ set statusline=
 set nocompatible
 
 " Helps force plugins to load correctly when it is turned back on after
-" pathogen#infect()
+" plugins are loaded.
+"
+" Note: This may be unecessary with vim-plug as plugin manager.
 "
 filetype off
 
-" Load plugins with pathogen from bundle/{} and pack/{}/start/{} directories.
+" Load plugins with vim-plug from plugged directory
 "
 if !g:minimalist_mode_enabled
-  " execute pathogen#infect()
   call plug#begin('~/.vim/plugged')
-  Plug $MYVIMHOME . '/bundle/betterdigraphs'
-  Plug $MYVIMHOME . '/bundle/dragvisuals'
-  Plug $MYVIMHOME . '/bundle/listtrans'
-  Plug $MYVIMHOME . '/bundle/vmath'
+  Plug $MYVIMHOME . '/plugged/betterdigraphs'
+  Plug $MYVIMHOME . '/plugged/dragvisuals'
+  Plug $MYVIMHOME . '/plugged/listtrans'
+  Plug $MYVIMHOME . '/plugged/vmath'
   Plug 'ARM9/arm-syntax-vim'
   Plug 'EvanQuan/vim-executioner'
   Plug 'Shougo/neocomplete.vim'
@@ -144,11 +144,6 @@ if !g:minimalist_mode_enabled
   Plug 'w0rp/ale'
   call plug#end()
 endif
-
-" Help tags are loaded from all packages
-" NOTE: Currently disabled as it causes git issues in tracking submodules
-"
-" Helptags
 
 " For plugins to load correctly
 " Only do this part when compiled with support for autocommands
