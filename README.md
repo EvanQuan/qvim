@@ -8,12 +8,10 @@ Table of Contents
 -----------------
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
-3. [Troubleshooting](#troubleshooting)
-    - [Plugins are not installed](#plugins-are-not-installed)
-    - [Vimrc is not detected](#vimrc-is-not-detected)
-    - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
-    - [Italic characters are not rendering](#italic-characters-are-not-rendering)
-    - [Everything is blue](#everything-is-blue)
+3. [External Dependencies](#external-dependencies)
+    - [Powerline Fonts](#powerline-fonts)
+    - [Python Language Server](#python-language-server)
+    - [Lua Support](#lua-support)
 4. [Updating](#updating)
 5. [Plugins](#plugins)
     - [Plugin Manager](#plugin-manager)
@@ -25,7 +23,13 @@ Table of Contents
     - [Programming](#programming)
     - [User Interface](#user-interface)
     - [Version Control](#version-control)
-6. [Design Decisions](#design-decisions)
+6. [Troubleshooting](#troubleshooting)
+    - [Plugins are not installed](#plugins-are-not-installed)
+    - [Vimrc is not detected](#vimrc-is-not-detected)
+    - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
+    - [Italic characters are not rendering](#italic-characters-are-not-rendering)
+    - [Everything is blue](#everything-is-blue)
+7. [Design Decisions](#design-decisions)
 
 Why Use This?
 ------------
@@ -56,6 +60,129 @@ Open Vim and execute `:PlugInstall`
 
 Hooray, that's it! You're all done!
 
+External Dependencies
+---------------------
+No one likes having to install external dependencies, which is why all of mine
+are optional. That being said, installing these may improve your Vim
+experience.
+
+### Powerline Fonts
+
+By default, Powerline symbols are disabled in `settings.vim`. But if you want
+to make your status line look fancy, you can install them
+[here](https://powerline.readthedocs.io/en/latest/installation.html).
+
+### Python Language Server
+
+[ale](https://github.com/w0rp/ale) requires some extra stuff  to do its linting
+for Python. You can install the [Language Server
+Protocol](https://github.com/palantir/python-language-server) for Python
+linting with:
+```bash
+pip install 'python-language-server'
+```
+You can install [Flake8](https://flake8.pycqa.org/een/latest) for style guide
+enforcement with:
+```bash
+python<version> -m pip install flake8
+```
+where `<version>` is the Python version you have installed, be it `3.4`, `3.7`
+etc.
+
+### Lua Support
+
+If Vim is installed without Lua support (`:echo has('lua')` responds with `1`),
+then autocomplete features from
+[completor.vim](https://github.com/maralla/completor.vim) or
+[neocomplete](https://github.com/Shougo/neocomplete.vim) will not work.
+
+Updating
+--------
+To update everything, run `bash pull.sh`. If there is a new version of
+`settings.vim` available, your local copy will be replaced with a template of
+the newer version. Otherwise, your local `settings.vim` will be unchanged.
+
+#### Mac/Linux
+```bash
+cd ~/.vim
+bash pull.sh
+```
+
+Open Vim and execute `:PlugInstall`
+
+#### Windows
+```bash
+cd ~/vimfiles
+bash pull.sh
+```
+
+Open Vim and execute `:PlugInstall`
+
+Plugins
+-------
+
+### Plugin Manager
+- [vim-plug](https://github.com/junegunn/vim-plug)
+
+### Color Schemes
+- [onedark.vim](https://github.com/joshdick/onedark.vim)
+- [vim-one](https://github.com/rakr/vim-one)
+
+### Editing
+- [auto-pairs](https://github.com/jiangmiao/auto-pairs)
+- [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
+- [completor.vim](https://github.com/maralla/completor.vim)
+- [dragvisuals](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/dragvisuals.vim)
+- [listtrans](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/listtrans.vim)
+- [neocomplete](https://github.com/Shougo/neocomplete.vim)
+- [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
+- [tabular](https://github.com/godlygeek/tabular)
+- [vim-closetag](https://github.com/alvan/vim-closetag)
+- [vim-endwise](https://github.com/tpope/vim-endwise)
+- [vim-exchange](https://github.com/tommcdo/vim-exchange)
+- [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
+- [vim-repeat](https://github.com/tpope/vim-repeat)
+- [vim-sensible](https://github.com/tpope/vim-sensible)
+- [vim-speeddating](https://github.com/tpope/vim-speeddating)
+- [vim-surround](https://github.com/tpope/vim-surround)
+- [vim-workspace](https://github.com/thaerkh/vim-workspace)
+- [vmath](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/vmath.vim)
+
+### File Navigation
+- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
+- [nerdtree](https://github.com/scrooloose/nerdtree)
+- [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
+
+### Language Support
+- [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
+- [prolog.vim](https://github.com/adimit/prolog.vim)
+- [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
+- [vim-polyglot](https://github.com/sheerun/vim-polyglot)
+- [vim-prolog](https://github.com/mxw/vim-prolog)
+- [vim-pythonsense](https://github.com/jeetsukumaran/vim-pythonsense)
+
+### Linting
+- [ale](https://github.com/w0rp/ale)
+- [jedi-vim](https://github.com/davidhalter/jedi-vim)
+
+### Programming
+- [vim-executioner](https://github.com/EvanQuan/vim-executioner)
+
+### User Interface
+- [indentLine](https://github.com/Yggdroot/indentLine)
+- [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
+- [lightline.vim](https://github.com/itchyny/lightline.vim)
+- [quick-scope](https://github.com/unblevable/quick-scope)
+- [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
+- [vim-sleuth](https://github.com/tpope/vim-sleuth)
+- [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
+
+### Version Control
+- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+- [vim-fugitive](https://github.com/tpope/vim-fugitive)
+- [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
+- [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
 Troubleshooting
 ---------------
@@ -129,92 +256,6 @@ Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
 appearance will be be an altered version of the selected color scheme.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
-
-Updating
---------
-To update everything, run `bash pull.sh`. If there is a new version of
-`settings.vim` available, your local copy will be replaced with a template of
-the newer version. Otherwise, your local `settings.vim` will be unchanged.
-
-#### Mac/Linux
-```bash
-cd ~/.vim
-bash pull.sh
-```
-
-Open Vim and execute `:PlugInstall`
-
-#### Windows
-```bash
-cd ~/vimfiles
-bash pull.sh
-```
-
-Open Vim and execute `:PlugInstall`
-
-Plugins
--------
-
-### Plugin Manager
-- [vim-plug](https://github.com/junegunn/vim-plug)
-
-### Color Schemes
-- [onedark.vim](https://github.com/joshdick/onedark.vim)
-- [vim-one](https://github.com/rakr/vim-one)
-
-### Editing
-- [auto-pairs](https://github.com/jiangmiao/auto-pairs)
-- [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
-- [completor.vim](https://github.com/maralla/completor.vim)
-- [dragvisuals](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/dragvisuals.vim)
-- [listtrans](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/listtrans.vim)
-- [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
-- [tabular](https://github.com/godlygeek/tabular)
-- [vim-closetag](https://github.com/alvan/vim-closetag)
-- [vim-endwise](https://github.com/tpope/vim-endwise)
-- [vim-exchange](https://github.com/tommcdo/vim-exchange)
-- [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
-- [vim-repeat](https://github.com/tpope/vim-repeat)
-- [vim-sensible](https://github.com/tpope/vim-sensible)
-- [vim-speeddating](https://github.com/tpope/vim-speeddating)
-- [vim-surround](https://github.com/tpope/vim-surround)
-- [vim-workspace](https://github.com/thaerkh/vim-workspace)
-- [vmath](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/vmath.vim)
-
-### File Navigation
-- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
-- [nerdtree](https://github.com/scrooloose/nerdtree)
-- [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
-
-### Languages
-- [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
-- [prolog.vim](https://github.com/adimit/prolog.vim)
-- [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-- [vim-polyglot](https://github.com/sheerun/vim-polyglot)
-- [vim-prolog](https://github.com/mxw/vim-prolog)
-
-### Linting
-- [ale](https://github.com/w0rp/ale)
-- [jedi-vim](https://github.com/davidhalter/jedi-vim)
-
-### Programming
-- [vim-executioner](https://github.com/EvanQuan/vim-executioner)
-
-### User Interface
-- [indentLine](https://github.com/Yggdroot/indentLine)
-- [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
-- [lightline.vim](https://github.com/itchyny/lightline.vim)
-- [quick-scope](https://github.com/unblevable/quick-scope)
-- [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
-- [vim-sleuth](https://github.com/tpope/vim-sleuth)
-- [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
-
-### Version Control
-- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
-- [vim-fugitive](https://github.com/tpope/vim-fugitive)
-- [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
-- [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
-- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
 Design Decisions
 ----------------
