@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.1.0
+" Version:    2.1.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.1.0'
+let g:vimrc_version = '2.1.1'
 
 " Path {{{
 
@@ -96,15 +96,14 @@ Plug $MYVIMHOME . '/plugged/betterdigraphs'
 Plug $MYVIMHOME . '/plugged/dragvisuals'
 Plug $MYVIMHOME . '/plugged/listtrans'
 Plug $MYVIMHOME . '/plugged/vmath'
-Plug 'ARM9/arm-syntax-vim'
+Plug 'ARM9/arm-syntax-vim', { 'for': 'arm' }
 Plug 'EvanQuan/vim-executioner'
-" Plug 'Shougo/neocomplete.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'Yggdroot/indentLine'
-Plug 'adimit/prolog.vim'
+Plug 'adimit/prolog.vim', { 'for': 'prolog' }
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
-Plug 'artur-shaik/vim-javacomplete2'
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'godlygeek/tabular'
@@ -114,12 +113,16 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'maralla/completor.vim'
-Plug 'mxw/vim-prolog'
+if (has('python') || has('python3')) && has('job') && has('timers') && has('lambda')
+  Plug 'maralla/completor.vim'
+else
+  Plug 'Shougo/neocomplete.vim'
+endif
+Plug 'mxw/vim-prolog', { 'for': 'prolog'}
 Plug 'pbrisbin/vim-mkdir'
 Plug 'rakr/vim-one'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'sheerun/vim-polyglot'
 Plug 'taohexxx/lightline-buffer'
 Plug 'terryma/vim-multiple-cursors'
@@ -378,31 +381,32 @@ endif
 
 " As a priority, soft or hard tab indentation is determined by what is already
 " being used in the current file.
-"
-function! TabsOrSpaces() abort
-  " Determines whether to use spaces or tabs on the current buffer.
-  if getfsize(bufname("%")) > 256000
-    " If the file is very large, just use the default, since it will take too
-    " long to determine which tab type to use.
-    return
-  endif
+" TODO remove due to sleuth?
 
-  " To determine priority, get the number of tab indentations and space
-  " indentations, and choose the one that is used more frequently
-  let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
-  let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\ "'))
+" function! TabsOrSpaces() abort
+"   " Determines whether to use spaces or tabs on the current buffer.
+"   if getfsize(bufname("%")) > 256000
+"     " If the file is very large, just use the default, since it will take too
+"     " long to determine which tab type to use.
+"     return
+"   endif
 
-  if numTabs > numSpaces
-    setlocal noexpandtab " enable hard tabs
-  else
-    setlocal expandtab
-  endif
-endfunction
+"   " To determine priority, get the number of tab indentations and space
+"   " indentations, and choose the one that is used more frequently
+"   let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+"   let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\ "'))
 
-" Call the function after opening a buffer
-if has('autocmd')
-  autocmd BufReadPost * call TabsOrSpaces()
-endif
+"   if numTabs > numSpaces
+"     setlocal noexpandtab " enable hard tabs
+"   else
+"     setlocal expandtab
+"   endif
+" endfunction
+
+" " Call the function after opening a buffer
+" if has('autocmd')
+"   autocmd BufReadPost * call TabsOrSpaces()
+" endif
 
 " }}}
 
@@ -1265,7 +1269,8 @@ nmap <leader>ghu <Plug>GitGutterUndoHunk
 " vim-plugin {{{
 
 noremap <leader>Pc :PlugClean<CR>
-noremap <leader>Pi :PlugDiff<CR>
+noremap <leader>Pi :PlugInstall<CR>
+noremap <leader>Pd :PlugDiff<CR>
 noremap <leader>Pn :PlugSnapshot<CR>
 noremap <leader>Ps :PlugStatus<CR>
 noremap <leader>Pu :PlugUpdate<CR>
@@ -2267,11 +2272,12 @@ let g:lmap.o = {
 let g:lmap.P = {
                 \ 'name' : 'Plugin...',
                 \ 'c' : ['PlugClean', 'Clean'],
+                \ 'd' : ['PlugDiff', 'Diff'],
+                \ 'g' : ['PlugUpgrade', 'Upgrade'],
                 \ 'i' : ['PlugInstall', 'Install'],
                 \ 'n' : ['PlugSnapshot', 'Snapshot'],
                 \ 's' : ['PlugStatus', 'Status'],
                 \ 'u' : ['PlugUpdate', 'Update'],
-                \ 'g' : ['PlugUpgrade', 'Upgrade'],
                 \}
 let g:lmap.p = {
                 \'name' : 'Paste...',
