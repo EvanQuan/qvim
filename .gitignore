@@ -26,8 +26,8 @@ note.txt
 notes.txt
 
 # Test files
-test.*
-Test.*
+test*
+Test*
 
 # Run.sh
 run.sh
