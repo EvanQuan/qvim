@@ -140,13 +140,13 @@ Plugins
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-endwise](https://github.com/tpope/vim-endwise)
 - [vim-exchange](https://github.com/tommcdo/vim-exchange)
+- [vim-mathematize](https://github.com/EvanQuan/vim-mathematize)
 - [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 - [vim-repeat](https://github.com/tpope/vim-repeat)
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-speeddating](https://github.com/tpope/vim-speeddating)
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
-- [vmath](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/vmath.vim)
 
 ### File Navigation
 - [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)

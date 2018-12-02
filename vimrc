@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.2.0
+" Version:    2.3.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.2.0'
+let g:vimrc_version = '2.3.0'
 
 " Path {{{
 
@@ -36,6 +36,8 @@ endif
 " to this one.
 "
 let $MYVIMRC = $MYVIMHOME . '/vimrc'
+let $MYPLUGINS = $MYVIMHOME . '/plugged'
+let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
 let $MYNOTES = $MYVIMHOME . '/notes.txt'
 
@@ -91,7 +93,7 @@ filetype off
 
 " Load plugins with vim-plug from plugged directory
 "
-call plug#begin('~/.vim/plugged')
+call plug#begin($MYPLUGINS)
 " Color scheme {{{
 
 Plug 'joshdick/onedark.vim'
@@ -101,14 +103,14 @@ Plug 'rakr/vim-one'
 " Editing {{{
 
 Plug 'jiangmiao/auto-pairs'
-Plug $MYVIMHOME . '/plugged/betterdigraphs'
+Plug $MYGITPLUGINS . '/betterdigraphs'
 if (has('python') || has('python3')) && has('job') && has('timers') && has('lambda')
   Plug 'maralla/completor.vim'
 else
   Plug 'Shougo/neocomplete.vim'
 endif
-Plug $MYVIMHOME . '/plugged/dragvisuals'
-Plug $MYVIMHOME . '/plugged/listtrans'
+Plug $MYGITPLUGINS . '/dragvisuals'
+Plug $MYGITPLUGINS . '/listtrans'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'alvan/vim-closetag'
@@ -120,13 +122,13 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'thaerkh/vim-workspace'
-Plug $MYVIMHOME . '/plugged/vmath'
+Plug 'EvanQuan/vim-mathematize'
 
 " }}}
 " File Navigation {{{
 
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'pbrisbin/vim-mkdir'
 
 " }}}
@@ -171,7 +173,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
 
 " }}}
-
 call plug#end()
 
 " For plugins to load correctly
@@ -1318,16 +1319,13 @@ noremap <leader>Pg :PlugUpgrade<Return>
 nnoremap <leader>tW :ToggleWorkspace<Return>
 
 " }}}
-" vmath {{{
+" vim-mathematize {{{
+" Repository: https://github.com/EvanQuan/vim-mathematize
 
-" Calculates sum, average, min, and max of a selection of numbers.
+" Calculates math stuff based on visual selection.
 "
-function! VMath() abort
-  call feedkeys("vipy:call VMATH_Analyse()\<Return>")
-endfunction
-nnoremap <leader>m :call VMath()<Return>
-vnoremap <leader>m y:call VMATH_Analyse()<Return>
-" nnoremap <leader>m vipy:call VMATH_Analyse()<Return>
+xnoremap <silent> <leader>m y:call g:mathematize#analyze()<Return>
+nnoremap <silent> <leader>m vipy:call g:mathematize#analyze()<Return>
 
 " }}}
 
@@ -2321,9 +2319,7 @@ let g:lmap.j = {
                 \}
 let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 " TODO Figure out how to have it work for both normal and visual mode
-let g:lmap.m = ['call VMath()', 'Sum/Average/Min/Max']
-" let g:lmap.m = ['visual ipy:call VMATH_Analyse()', 'Sum/Average/Min/Max']
-" let g:lmap.visual.m = ['normal vipy:call VMATH_Analyse()', 'Sum/Average/Min/Max']
+let g:lmap.m = ["normal vipy:call g:mathematize#analyze()\<Return>", 'Math']
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'b' : ['shell', 'Bash shell'],
