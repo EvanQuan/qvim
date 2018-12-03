@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.0.0
+" Version:    2.0.1
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -46,13 +46,13 @@ let g:colorscheme_type = 3
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:hightlight_cursor_line = 1
+let g:highlight_cursor_line = 1
 " Highlight Cursor Column {{{
 "   Highlight the column the cursor is currently on.
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:hightlight_cursor_column = 0
+let g:highlight_cursor_column = 0
 " Highlight Width Indicator {{{
 "   Highlight the column to indicate g:wrap_width
 "   0: Disabled
