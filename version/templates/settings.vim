@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.14.0
+" Version:    1.15.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -76,6 +76,14 @@ let g:show_whitespace = 2
 "     Sets "jk" and "kj" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:escape_alternative_enabled = 0
+" Python 3 Execution {{{
+"   In order for the executioner.vim plugin to work properly for Python 3, it
+"   must know the right command to run in the terminal. Set it according to
+"   how it works on your machine. .bashrc aliases do not count.
+"   0: if `python` executes `python3` in the terminal
+"   1: if `python3` executes `python3` in the terminal
+" }}}
+let g:python3_execution = 1
 " Disable Cursor Blinking {{{
 "   Cursor blinking can be distracting as the cursor location can be
 "   momentarily lost while moving and changing modes.
