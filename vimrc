@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.4.0
+" Version:    2.5.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,19 +17,15 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.4.0'
+let g:vimrc_version = '2.5.0'
 
 " Path {{{
 
 " Operating system determines the vim home directory.
-" NOTE: Mintty will not consider itself as Windows, despite being so, which
-" may cause problems with settings involving Powerline symbols.
+" NOTE: As of vimrc 2.0.0, with vim-plug as a manager, operating system
+" difference problem can be bypassed with a uniform plugin runtime path.
 "
-if has('win32') || has('win64')
-  let $MYVIMHOME = '~/vimfiles'
-else
-  let $MYVIMHOME = '~/.vim'
-endif
+let $MYVIMHOME = '~/.vim'
 
 " $MYVIMRC already exists as a path variable, but defaults to ~/.vimrc
 " if it exists. To prevent this, it is redefined to ensure that it links

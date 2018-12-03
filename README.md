@@ -13,7 +13,7 @@ Table of Contents
     - [Python Language Server](#python-language-server)
     - [Lua Support](#lua-support)
 4. [Updating](#updating)
-5. [Plugins](#plugins)
+5. [Plugin List](#plugin-list)
     - [Plugin Manager](#plugin-manager)
     - [Color Schemes](#color-schemes)
     - [Editing](#editing)
@@ -38,25 +38,21 @@ If you're lazy and want to use what I'm using, feel free to.
 Installation
 ------------
 
-Clone this repository and run `pull.sh`:
+Clone this repository and run `pull.sh` as follows:
 
-#### Mac/Linux
 ```bash
 git clone https://github.com/EvanQuan/.vim ~/.vim
 cd ~/.vim
 bash pull.sh
 ```
 
-Open Vim and execute `:PlugInstall`
+Open Vim and execute `:PlugInstall`. Close and restart Vim.
 
 #### Windows
-```bash
-git clone https://github.com/EvanQuan/.vim ~/vimfiles
-cd ~/vimfiles
-bash pull.sh
-```
 
-Open Vim and execute `:PlugInstall`
+Bash (`.sh`) files are not executable on Windows by default. One solution is to
+install [Git Bash](https://git-scm.com/downloads) or
+[Cygwin](https://cygwin.com/install.html) to run `pull.sh`.
 
 Hooray, that's it! You're all done!
 
@@ -74,7 +70,7 @@ to make your status line look fancy, you can install them
 
 ### Python Language Server
 
-[ale](https://github.com/w0rp/ale) requires some extra stuff  to do its linting
+[ale](https://github.com/w0rp/ale) requires some extra stuff to do its linting
 for Python. You can install the [Language Server
 Protocol](https://github.com/palantir/python-language-server) for Python
 linting with:
@@ -86,8 +82,9 @@ enforcement with:
 ```bash
 python<version> -m pip install flake8
 ```
-where `<version>` is the Python version you have installed, be it `3.4`, `3.7`
-etc.
+where `<version>` is the Python version you have installed, such as `3.4` or
+`3.7`. If running `python` in your terminal already runs some version of Python
+3, then no version number needs to be included.
 
 ### Lua Support
 
@@ -98,11 +95,13 @@ then autocomplete features from
 
 Updating
 --------
-To update everything, run `bash pull.sh`. If there is a new version of
+
+### Vimrc configuration
+
+To update your configuration, run `bash pull.sh`. If there is a new version of
 `settings.vim` available, your local copy will be replaced with a template of
 the newer version. Otherwise, your local `settings.vim` will be unchanged.
 
-#### Mac/Linux
 ```bash
 cd ~/.vim
 bash pull.sh
@@ -110,16 +109,13 @@ bash pull.sh
 
 Open Vim and execute `:PlugInstall`
 
-#### Windows
-```bash
-cd ~/vimfiles
-bash pull.sh
-```
+### Plugins
 
-Open Vim and execute `:PlugInstall`
+To update your plugins, open up Vim and execute `:PlugUpdate`. Close and
+restart Vim.
 
-Plugins
--------
+Plugin List
+-----------
 
 ### Plugin Manager
 - [vim-plug](https://github.com/junegunn/vim-plug)
@@ -190,7 +186,7 @@ Troubleshooting
 #### Plugins are not installed
 
 [vim-plug](https://github.com/junegunn/vim-plug) manages the installation of
-all the plugins. Open Vim and execute `:PlugInstall`.
+all the plugins. Open Vim and execute `:PlugInstall`. Close and restart Vim.
 
 #### Vimrc is not detected
 For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
