@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.8.0
+" Version:    2.9.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.8.0'
+let g:vimrc_version = '2.9.0'
 
 " Path {{{
 
@@ -1357,11 +1357,14 @@ nnoremap <leader>tW :ToggleWorkspace<Return>
 " Analayze
 "
 xnoremap <silent> <leader>ma y:call g:vmath_plus#analyze()<Return>
+xnoremap <silent> <leader>mba y:call g:vmath_plus#analyze_buffer()<Return>
 nnoremap <silent> <leader>ma vipy:call g:vmath_plus#analyze()<Return>
+nnoremap <silent> <leader>mba vipy:call g:vmath_plus#analyze_buffer()<Return>
 
 " Report
 "
 noremap <silent> <leader>mr :call g:vmath_plus#report()<Return>
+noremap <silent> <leader>mbr :call g:vmath_plus#report_buffer()<Return>
 
 " }}}
 
@@ -2385,6 +2388,11 @@ let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 let g:lmap.m = {
                 \'name' : 'Math...',
                 \'a' : ["normal vipy:call g:vmath_plus#analyze()\<Return>", 'Analyze'],
+                \'b' : {
+                        \ 'name' : 'Buffer...',
+                        \ 'a' : ["normal vipy:call g:vmath_plus#analyze_buffer()\<Return>", 'Analyze'],
+                        \ 'r' : ['call g:vmath_plus#report_buffer()', 'Report'],
+                        \},
                 \'r' : ['call g:vmath_plus#report()', 'Report'],
                 \}
 let g:lmap.o = {
