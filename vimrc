@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.5.0
+" Version:    2.6.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.5.0'
+let g:vimrc_version = '2.6.0'
 
 " Path {{{
 
@@ -49,7 +49,7 @@ let $MYNOTES = $MYVIMHOME . '/notes.txt'
 "
 " In case settings.vim does not exist, settings.vim template is used.
 " If that also does not exist, setting variables directly defined here.
-" Set settings to 1.13.1 defaults if settings.vim does not exist.
+" Set settings to 2.0.0 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
   source $MYSETTINGS
@@ -59,15 +59,16 @@ else
   let g:truecolor_enabled = 1
   let g:special_symbols_enabled = 1
   let g:colorscheme_type = 3
+  let g:highlight_cursor_line = 1
+  let g:highlight_cursor_column = 0
+  let g:highlight_width_indicator = 1
+  let g:line_numbers = 2
   let g:wrap_enabled = 1
   let g:wrap_width = 79
   let g:show_whitespace = 2
-  let g:cursor_blinking_disabled = 1
-  let g:cursor_color = 1
   let g:escape_alternative_enabled = 0
   let g:python3_execution = 1
-  let g:performance_mode_enabled = 0
-  let g:standard_keybindings = 0
+  let g:cursor_color = 1
 endif
 
 " Set statusline to nothing for later commands that increment onto statusline.
@@ -1394,8 +1395,7 @@ map <leader>fd :DiffOrig<Return>
 " Standard {{{
 
 " These are from $VIMRUNTIME/mswin.vim
-" Compatible bindings to always be on. Incompatible bindings require
-" g:standard_keybindings to be enabled.
+" Compatible bindings to always be on.
 "
 
 if has("clipboard")
@@ -1430,12 +1430,6 @@ if has("gui")
   nnoremap <expr> <C-F> has("gui_running") ? ":promptrepl\<Return>" : "\<C-H>"
   inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<Return>" : "\<C-H>"
   cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<Return>" : "\<C-H>"
-endif
-
-if g:standard_keybindings
-  " Contains many incompatible changes.
-  "
-  source $VIMRUNTIME/mswin.vim
 endif
 
 " }}}
@@ -2154,13 +2148,6 @@ let g:NERDDefaultAlign = 'left'
 let NERDTreeShowHidden = 1
 
 " }}}
-" quick-scope {{{
-
-if g:performance_mode_enabled
-  let g:qs_enable=0
-endif
-
-" }}}
 " vim-closetag {{{
 " Repository: https://github.com/alvan/vim-closetag
 
@@ -2497,20 +2484,18 @@ let g:polyglot_disabled = ['markdown', 'tex']
 
 " Cursor changes shapes with each mode. Cursor blinking is also disabled.
 "
-if g:cursor_blinking_disabled
-  " The default cursor shape. It is used in all modes except insert mode.
-  "
-  let g:togglecursor_default = 'block' " Not blinking
-  " The insert mode cursor shape.
-  "
-  let g:togglecursor_insert = 'line' " Not blinking
-  " The replace mode cursor shape
-  "
-  let g:togglecursor_replace = 'underline' " Not blinking
-  " The cursor shape when exiting vim.
-  "
-  let g:togglecursor_leave = 'block' " Not blinking
-endif
+" The default cursor shape. It is used in all modes except insert mode.
+"
+let g:togglecursor_default = 'block' " Not blinking
+" The insert mode cursor shape.
+"
+let g:togglecursor_insert = 'line' " Not blinking
+" The replace mode cursor shape
+"
+let g:togglecursor_replace = 'underline' " Not blinking
+" The cursor shape when exiting vim.
+"
+let g:togglecursor_leave = 'block' " Not blinking
 
 " }}}
 " vim-workspace {{{
@@ -2581,7 +2566,13 @@ endif
 " }}}
 " Visibility {{{
 
-set cursorline
+if g:highlight_cursor_line
+  set cursorline
+endif
+
+if g:highlight_cursor_column
+  set cursorcolumn
+endif
 
 " }}}
 
@@ -2619,22 +2610,25 @@ set guioptions = " No scroll bars
 " }}}
 " Line Numbers {{{
 
-" Print the line number in front of each line.
-"
-set number
-if !g:performance_mode_enabled
+if g:line_numbers
+  " Print the line number in front of each line.
+  "
+  set number
   " Changes the displayed number to relative to the cursor.
   "
-  set relativenumber
-  if has('autocmd')
-    " Absolute number on INSERT and REPLACE modes
-    "
-    autocmd InsertEnter * :set number norelativenumber
-    " Hybrid relative number on NORMAL and VISUAL modes
-    "
-    autocmd InsertLeave * :set relativenumber
+  if g:line_numbers == 2
+    set relativenumber
+    if has('autocmd')
+      " Absolute number on INSERT and REPLACE modes
+      "
+      autocmd InsertEnter * :set number norelativenumber
+      " Hybrid relative number on NORMAL and VISUAL modes
+      "
+      autocmd InsertLeave * :set relativenumber
+    endif
   endif
 endif
+
 
 " }}}
 " Status Line {{{
@@ -2682,10 +2676,6 @@ set noshowmode
 
 if g:wrap_enabled
   set wrap
-  " wrap_width is visualized as highlighted column
-  if !g:performance_mode_enabled
-    execute "set colorcolumn=".g:wrap_width
-  endif
   if g:wrap_enabled == 1 " soft wrap
     set linebreak " line breaks only occur when the user explicitly makes them
     set textwidth=0 " disable text width limit
@@ -2696,6 +2686,11 @@ if g:wrap_enabled
 else
   set nowrap
   set textwidth=0
+endif
+
+if g:highlight_width_indicator
+  " wrap_width is visualized as highlighted column
+  execute "set colorcolumn=".g:wrap_width
 endif
 
 " }}}
