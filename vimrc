@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.6.0
+" Version:    2.7.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.6.0'
+let g:vimrc_version = '2.7.0'
 
 " Path {{{
 
@@ -39,6 +39,9 @@ let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
 let $MYSETTINGSTEMPLATE = $MYTEMPLATES . '/settings.vim'
 let $MYNOTES = $MYVIMHOME . '/notes.txt'
+let $MYGVIMRC = $MYVIMHOME . '/gvimrc'
+let $MYWINDOWSVIMRC = '~/_vimrc'
+let $MYWINDOWSVIMRCTEMPLATE = $MYTEMPLATES . '/_vimrc'
 
 " }}}
 " Settings {{{
@@ -933,16 +936,16 @@ nnoremap <silent> <leader>qh :call QuitHiddenBuffers()<Return>
 " Horizontal
 "
 function! HorizontalSplit() abort
-  let file_name = input("Horizontal split: ")
-  execute "split " . file_name
+  " This function exists for vim-leader-guide compatibility
+  call feedkeys(":split ")
 endfunction
 nnoremap <leader>hs :split<space>
 
 " Vertical
 "
 function! VerticalSplit() abort
-  let file_name = input("Vertical split: ")
-  execute "vsplit " . file_name
+  " This function exists for vim-leader-guide compatibility
+  call feedkeys(":vsplit ")
 endfunction
 nnoremap <leader>vs :vsplit<space>
 
@@ -1513,6 +1516,24 @@ nnoremap <leader>ts :call ToggleSpellcheck()<Return>
 nnoremap <silent> <leader>ev :edit $MYVIMRC<Return>
 nnoremap <silent> <leader>hev :split $MYVIMRC<Return>
 nnoremap <silent> <leader>vev :vsplit $MYVIMRC<Return>
+
+" Edit Windows _vimrc
+"
+nnoremap <silent> <leader>ew :edit $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <leader>hew :split $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <leader>vew :vsplit $MYWINDOWSVIMRC<Return>
+
+" Edit Windows _vimrc template
+"
+nnoremap <silent> <leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
+
+" Edit gvimrc
+"
+nnoremap <silent> <leader>eg :edit $MYGVIMRC<Return>
+nnoremap <silent> <leader>heg :split $MYGVIMRC<Return>
+nnoremap <silent> <leader>veg :vsplit $MYGVIMRC<Return>
 
 " Reload vimrc
 "
@@ -2261,6 +2282,7 @@ let g:lmap.C = {
 let g:lmap.e = {
                 \'name' : 'Edit...',
                 \'b' : [':edit ~/.bashrc', 'bashrc'],
+                \'g' : [':edit $MYGVIMRC', 'gvimrc'],
                 \'m' : [':edit makefile', 'makefile'],
                 \'n' : [':edit $MYNOTES', 'Notes'],
                 \'r' : [':edit run.sh', 'run.sh'],
@@ -2268,6 +2290,8 @@ let g:lmap.e = {
                 \'S' : [':edit $MYSETTINGSTEMPLATE', 'settings.vim template'],
                 \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
                 \'v' : [':edit $MYVIMRC', 'vimrc'],
+                \'w' : [':edit $MYWINDOWSVIMRC', 'Windows vimrc'],
+                \'W' : [':edit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                 \}
 let g:lmap.f = {
                 \'name' : 'File...',
@@ -2299,6 +2323,7 @@ let g:lmap.h = {
                 \'e' : {
                         \'name' : 'Edit...',
                         \'b' : [':split ~/.bashrc', 'bashrc'],
+                        \'g' : [':split $MYGVIMRC', 'gvimrc'],
                         \'m' : [':split makefile', 'makefile'],
                         \'n' : [':split $MYNOTES', 'Notes'],
                         \'r' : [':split run.sh', 'run.sh'],
@@ -2306,6 +2331,8 @@ let g:lmap.h = {
                         \'S' : [':split $MYSETTINGSTEMPLATE', 'settings.vim template'],
                         \'t' : [':split ~/.tmux.conf', 'Tmux config'],
                         \'v' : [':split $MYVIMRC', 'vimrc'],
+                        \'w' : [':split $MYWINDOWSVIMRC', 'Windows vimrc'],
+                        \'W' : [':split $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
@@ -2435,6 +2462,7 @@ let g:lmap.v = {
                 \'e' : {
                         \'name' : 'Edit...',
                         \'b' : [':vsplit ~/.bashrc', 'bashrc'],
+                        \'g' : [':vsplit $MYGVIMRC', 'gvimrc'],
                         \'m' : [':vsplit makefile', 'makefile'],
                         \'n' : [':vsplit $MYNOTES', 'Notes'],
                         \'r' : [':vsplit run.sh', 'run.sh'],
@@ -2442,6 +2470,8 @@ let g:lmap.v = {
                         \'S' : [':vsplit $MYSETTINGSTEMPLATE', 'settings.vim template'],
                         \'t' : [':vsplit ~/.tmux.conf', 'Tmux config'],
                         \'v' : [':vsplit $MYVIMRC', 'vimrc'],
+                        \'w' : [':vsplit $MYWINDOWSVIMRC', 'Windows vimrc'],
+                        \'W' : [':vsplit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
