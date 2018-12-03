@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.7.0
+" Version:    2.7.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.7.0'
+let g:vimrc_version = '2.7.1'
 
 " Path {{{
 
@@ -59,19 +59,45 @@ if filereadable(expand($MYSETTINGS))
 elseif filereadable(expand($MYSETTINGSTEMPLATE))
   source $MYSETTINGSTEMPLATE
 else
-  let g:truecolor_enabled = 1
-  let g:special_symbols_enabled = 1
-  let g:colorscheme_type = 3
-  let g:highlight_cursor_line = 1
-  let g:highlight_cursor_column = 0
-  let g:highlight_width_indicator = 1
-  let g:line_numbers = 2
-  let g:wrap_enabled = 1
-  let g:wrap_width = 79
-  let g:show_whitespace = 2
-  let g:escape_alternative_enabled = 0
-  let g:python3_execution = 1
-  let g:cursor_color = 1
+  if !exists('g:truecolor_enabled')
+    let g:truecolor_enabled = 1
+  endif
+  if !exists('g:special_symbols_enabled')
+    let g:special_symbols_enabled = 1
+  endif
+  if !exists('g:colorscheme_type')
+    let g:colorscheme_type = 3
+  endif
+  if !exists('g:highlight_cursor_line')
+    let g:highlight_cursor_line = 1
+  endif
+  if !exists('g:highlight_cursor_column')
+    let g:highlight_cursor_column = 0
+  endif
+  if !exists('g:highlight_width_indicator')
+    let g:highlight_width_indicator = 1
+  endif
+  if !exists('g:line_numbers')
+    let g:line_numbers = 2
+  endif
+  if !exists('g:wrap_enabled')
+    let g:wrap_enabled = 1
+  endif
+  if !exists('g:wrap_width')
+    let g:wrap_width = 79
+  endif
+  if !exists('g:show_whitespace')
+    let g:show_whitespace = 2
+  endif
+  if !exists('g:escape_alternative_enabled')
+    let g:escape_alternative_enabled = 0
+  endif
+  if !exists('g:python3_execution')
+    let g:python3_execution = 1
+  endif
+  if !exists('g:cursor_color')
+    let g:cursor_color = 1
+  endif
 endif
 
 " Set statusline to nothing for later commands that increment onto statusline.
