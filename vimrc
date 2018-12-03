@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.3.0
+" Version:    2.4.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.3.0'
+let g:vimrc_version = '2.4.0'
 
 " Path {{{
 
@@ -38,7 +38,10 @@ endif
 let $MYVIMRC = $MYVIMHOME . '/vimrc'
 let $MYPLUGINS = $MYVIMHOME . '/plugged'
 let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
+let $MYVERSION = $MYVIMHOME . '/version'
+let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
+let $MYSETTINGSTEMPLATE = $MYTEMPLATES . '/settings.vim'
 let $MYNOTES = $MYVIMHOME . '/notes.txt'
 
 " }}}
@@ -53,9 +56,9 @@ let $MYNOTES = $MYVIMHOME . '/notes.txt'
 " Set settings to 1.13.1 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
-  source $MYVIMHOME/settings.vim
-elseif filereadable(expand($MYVIMHOME . '/version/templates/settings.vim'))
-  source $MYVIMHOME/version/templates/settings.vim
+  source $MYSETTINGS
+elseif filereadable(expand($MYSETTINGSTEMPLATE))
+  source $MYSETTINGSTEMPLATE
 else
   let g:truecolor_enabled = 1
   let g:special_symbols_enabled = 1
@@ -66,6 +69,7 @@ else
   let g:cursor_blinking_disabled = 1
   let g:cursor_color = 1
   let g:escape_alternative_enabled = 0
+  let g:python3_execution = 1
   let g:performance_mode_enabled = 0
   let g:standard_keybindings = 0
 endif
@@ -1386,6 +1390,10 @@ endif
 " Bind it for convenience
 map <leader>fd :DiffOrig<Return>
 
+" TODO figure out. May have to do with window jumping setting
+" noremap * *:%s///gn<Return>
+" noremap * *<C-O>:%s///gn<CR>
+
 " }}}
 " Standard {{{
 
@@ -1525,6 +1533,12 @@ nnoremap <silent> <leader>Rv :source $MYVIMRC<Return>
 nnoremap <silent> <leader>es :edit $MYSETTINGS<Return>
 nnoremap <silent> <leader>hes :split $MYSETTINGS<Return>
 nnoremap <silent> <leader>ves :vsplit $MYSETTINGS<Return>
+
+" Open settings.vim template
+"
+nnoremap <silent> <leader>eS :edit $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <leader>heS :split $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <leader>veS :vsplit $MYSETTINGSTEMPLATE<Return>
 
 " Open notes.txt
 "
@@ -2180,7 +2194,12 @@ let g:closetag_close_shortcut = '<leader>>'
 " vim-executioner {{{
 " Repository: https://github.com/EvanQuan/vim-executioner
 
-" TODO
+let g:executioner#extensions = {}
+if g:python3_execution == 0
+  let g:executioner#extensions['py'] = 'python %'
+else
+  let g:executioner#extensions['py'] = 'python3 %'
+endif
 
 " }}}
 " vim-gitgutter {{{
@@ -2260,9 +2279,10 @@ let g:lmap.e = {
                 \'name' : 'Edit...',
                 \'b' : [':edit ~/.bashrc', 'bashrc'],
                 \'m' : [':edit makefile', 'makefile'],
-                \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
+                \'n' : [':edit $MYNOTES', 'Notes'],
                 \'r' : [':edit run.sh', 'run.sh'],
-                \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
+                \'s' : [':edit $MYSETTINGS', 'settings.vim'],
+                \'S' : [':edit $MYSETTINGSTEMPLATE', 'settings.vim template'],
                 \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
                 \'v' : [':edit $MYVIMRC', 'vimrc'],
                 \}
@@ -2295,13 +2315,14 @@ let g:lmap.h = {
                 \'t' : [':terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'b' : [':edit ~/.bashrc', 'bashrc'],
-                        \'m' : [':edit makefile', 'makefile'],
-                        \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
-                        \'r' : [':edit run.sh', 'run.sh'],
-                        \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
-                        \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
-                        \'v' : [':edit $MYVIMRC', 'vimrc'],
+                        \'b' : [':split ~/.bashrc', 'bashrc'],
+                        \'m' : [':split makefile', 'makefile'],
+                        \'n' : [':split $MYNOTES', 'Notes'],
+                        \'r' : [':split run.sh', 'run.sh'],
+                        \'s' : [':split $MYSETTINGS', 'settings.vim'],
+                        \'S' : [':split $MYSETTINGSTEMPLATE', 'settings.vim template'],
+                        \'t' : [':split ~/.tmux.conf', 'Tmux config'],
+                        \'v' : [':split $MYVIMRC', 'vimrc'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
@@ -2430,13 +2451,14 @@ let g:lmap.v = {
                 \'t' : [':vertical terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'b' : [':edit ~/.bashrc', 'bashrc'],
-                        \'m' : [':edit makefile', 'makefile'],
-                        \'n' : [':edit $MYVIMHOME/notes.txt', 'Notes'],
-                        \'r' : [':edit run.sh', 'run.sh'],
-                        \'s' : [':edit $MYVIMHOME/settings.vim', 'settings.vim'],
-                        \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
-                        \'v' : [':edit $MYVIMRC', 'vimrc'],
+                        \'b' : [':vsplit ~/.bashrc', 'bashrc'],
+                        \'m' : [':vsplit makefile', 'makefile'],
+                        \'n' : [':vsplit $MYNOTES', 'Notes'],
+                        \'r' : [':vsplit run.sh', 'run.sh'],
+                        \'s' : [':vsplit $MYSETTINGS', 'settings.vim'],
+                        \'S' : [':vsplit $MYSETTINGSTEMPLATE', 'settings.vim template'],
+                        \'t' : [':vsplit ~/.tmux.conf', 'Tmux config'],
+                        \'v' : [':vsplit $MYVIMRC', 'vimrc'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
