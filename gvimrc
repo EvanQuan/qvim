@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       gvimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    1.0.4
+" Version:    1.0.5
 "
 " Contains optional runtime configuration settings to initialize GUI Vim when
 " it starts. For Vim versions before 7.4, this should be linked to the
@@ -10,9 +10,6 @@
 "
 " Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
-
-" Appearance {{{
-
 " Font {{{
 
 " Lightline needs powerline fonts to work correctly. While this can be easily
@@ -35,19 +32,3 @@ elseif has('gui_macvim')
 endif
 
 " }}}
-
-" }}}
-" Vimrc Organization {{{
-
-" Folds everything by default in vimrc only.
-" Folds are determined by {{{}}} markers
-
-" Set modelines to parse to 1
-" This is normally dangerous to do for security reasons, but is necessary for
-" organizational folding for this file
-" Google "vim modeline vulnerability"
-"
-set modelines=1
-
-" }}}
-" vim:foldmethod=marker:foldlevel=0
