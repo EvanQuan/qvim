@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.7.2
+" Version:    2.8.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.7.2'
+let g:vimrc_version = '2.8.0'
 
 " Path {{{
 
@@ -1353,9 +1353,15 @@ nnoremap <leader>tW :ToggleWorkspace<Return>
 " Repository: https://github.com/EvanQuan/vmath-plus
 
 " Calculates math stuff based on visual selection.
+
+" Analayze
 "
-xnoremap <silent> <leader>m y:call g:vmath_plus#analyze()<Return>
-nnoremap <silent> <leader>m vipy:call g:vmath_plus#analyze()<Return>
+xnoremap <silent> <leader>ma y:call g:vmath_plus#analyze()<Return>
+nnoremap <silent> <leader>ma vipy:call g:vmath_plus#analyze()<Return>
+
+" Report
+"
+noremap <silent> <leader>mr :call g:vmath_plus#report()<Return>
 
 " }}}
 
@@ -2376,7 +2382,11 @@ let g:lmap.j = {
                 \}
 let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 " TODO Figure out how to have it work for both normal and visual mode
-let g:lmap.m = ["normal vipy:call g:vmath_plus#analyze()\<Return>", 'Math']
+let g:lmap.m = {
+                \'name' : 'Math...',
+                \'a' : ["normal vipy:call g:vmath_plus#analyze()\<Return>", 'Analyze'],
+                \'r' : ['call g:vmath_plus#report()', 'Report'],
+                \}
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'b' : ['shell', 'Bash shell'],
