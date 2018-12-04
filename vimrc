@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.9.0
+" Version:    2.9.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.9.0'
+let g:vimrc_version = '2.9.1'
 
 " Path {{{
 
@@ -1176,11 +1176,10 @@ vmap  <expr>  D        DVB_Duplicate()
 
 " }}}
 " listtrans {{{
-"
 
 " Toggles between a list and a bullet points.
-nnoremap <silent> <leader>l :call ListTrans_toggle_format()<Return>
-vnoremap <silent> <leader>l :call ListTrans_toggle_format('visual')<Return>
+nnoremap <silent> <leader>tL :call ListTrans_toggle_format()<Return>
+vnoremap <silent> <leader>tL :call ListTrans_toggle_format('visual')<Return>
 
 " }}}
 " neocomplete {{{
@@ -2279,7 +2278,7 @@ let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
 " let g:lmap['9'] = ['9gt', 'Tab 9']
 let g:lmap.a = {
                 \'name' : 'ALE...',
-                \ 'a' : [':ALEDetail', 'Detail'],
+                \ 'd' : [':ALEDetail', 'Detail'],
                 \ 'g' : [':ALEGoToDefinition', 'Go to definition'],
                 \ 'h' : [':ALEHover', 'Hover'],
                 \ 'r' : [':ALEFindReferences', 'References'],
@@ -2383,7 +2382,6 @@ let g:lmap.j = {
                 \'r' : [':call jedi#rename()', 'Rename'],
                 \'u' : [':call jedi#usages()', 'Usages'],
                 \}
-let g:lmap.l = [':call ListTrans_toggle_format()', 'List translate']
 " TODO Figure out how to have it work for both normal and visual mode
 let g:lmap.m = {
                 \'name' : 'Math...',
@@ -2491,6 +2489,7 @@ let g:lmap.t = {
                         \'w' : [':call ToggleColorColumn()', 'Width indicator'],
                         \},
                 \'i' : [':call ToggleTabs()', 'Identation'],
+                \'L' : [':call ListTrans_toggle_format()', 'List'],
                 \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
                 \'p' : [':call TogglePasteMode()', 'Paste mode'],
                 \'r' : [':call ToggleRelativeLineNumbers()', 'Relative line numbers'],
