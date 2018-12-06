@@ -75,7 +75,11 @@ for Python. You can install the [Language Server
 Protocol](https://github.com/palantir/python-language-server) for Python
 linting with:
 ```bash
-pip install 'python-language-server'
+pip install 'python-language-server[all]'
+```
+or
+```bash
+pip3 install 'python-language-server[all]'
 ```
 You can install [Flake8](https://flake8.pycqa.org/een/latest) for style guide
 enforcement with:
