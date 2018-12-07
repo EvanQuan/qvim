@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.9.1
+" Version:    2.10.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.9.1'
+let g:vimrc_version = '2.10.0'
 
 " Path {{{
 
@@ -1237,6 +1237,14 @@ nnoremap <silent> <leader>ft :NERDTreeToggle<Return>
 " vim-executioner {{{
 " Repository: https://github.com/EvanQuan/vim-executioner
 
+" TODO move some of these
+
+" README.md
+"
+nnoremap <leader>eR :edit README.md<Return>
+nnoremap <leader>heR :split README.md<Return>
+nnoremap <leader>veR :vsplit README.md<Return>
+
 " Run current buffer
 "
 nnoremap <silent> <leader>rf :Executioner<Return>
@@ -2319,6 +2327,7 @@ let g:lmap.e = {
                 \'g' : [':edit $MYGVIMRC', 'gvimrc'],
                 \'m' : [':edit makefile', 'makefile'],
                 \'n' : [':edit $MYNOTES', 'Notes'],
+                \'R' : [':edit README.md', 'README.md'],
                 \'r' : [':edit run.sh', 'run.sh'],
                 \'s' : [':edit $MYSETTINGS', 'settings.vim'],
                 \'S' : [':edit $MYSETTINGSTEMPLATE', 'settings.vim template'],
@@ -2360,6 +2369,7 @@ let g:lmap.h = {
                         \'g' : [':split $MYGVIMRC', 'gvimrc'],
                         \'m' : [':split makefile', 'makefile'],
                         \'n' : [':split $MYNOTES', 'Notes'],
+                        \'R' : [':split README.md', 'README.md'],
                         \'r' : [':split run.sh', 'run.sh'],
                         \'s' : [':split $MYSETTINGS', 'settings.vim'],
                         \'S' : [':split $MYSETTINGSTEMPLATE', 'settings.vim template'],
@@ -2508,6 +2518,7 @@ let g:lmap.v = {
                         \'g' : [':vsplit $MYGVIMRC', 'gvimrc'],
                         \'m' : [':vsplit makefile', 'makefile'],
                         \'n' : [':vsplit $MYNOTES', 'Notes'],
+                        \'R' : [':vsplit README.md', 'README.md'],
                         \'r' : [':vsplit run.sh', 'run.sh'],
                         \'s' : [':vsplit $MYSETTINGS', 'settings.vim'],
                         \'S' : [':vsplit $MYSETTINGSTEMPLATE', 'settings.vim template'],
