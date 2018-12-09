@@ -53,6 +53,7 @@ Open Vim and execute `:PlugInstall`. Close and restart Vim.
 Bash (`.sh`) files are not executable on Windows by default. One solution is to
 install [Git Bash](https://git-scm.com/downloads) or
 [Cygwin](https://cygwin.com/install.html) to run `pull.sh`.
+I may later make a `.bat` script to make things easier for Windows.
 
 Hooray, that's it! You're all done!
 
@@ -206,7 +207,7 @@ Better yet, just update Vim.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_powerline_error.png)
 
-There are 2 solutions:
+There are two solutions:
 1. Install Powerline fonts
    [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
@@ -237,23 +238,25 @@ tic -o ~/.terminfo xterm-256color.terminfo.txt
 There are 2 solutions:
 1. Use a terminal that supports 24-bit color (also called true color).
 
-##### Mac
-I strongly recommend [iTerm2](https://www.iterm2.com/) over the default
-terminal. It supports 24-bit color and has a bunch of other fancy stuff.
+    **Mac**
 
-##### Windows
-If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
-terminal for ssh instead, such as:
-- [Git Bash](https://git-scm.com/downloads)
-- [Mintty](https://mintty.github.io/)
+    I strongly recommend [iTerm2](https://www.iterm2.com/) over the default
+    terminal. It supports 24-bit color and has a bunch of other fancy stuff.
 
-##### Linux
-You already know what you're doing. :penguin:
+    **Windows**
+
+    If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
+    terminal for ssh instead, such as [Git Bash](https://git-scm.com/downloads)
+    or [Mintty](https://mintty.github.io/).
+
+    **Linux**
+
+    You already know what you're doing. :penguin:
 
 2. Disable true color
 
-Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
-appearance will be be an altered version of the selected color scheme.
+    Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
+    appearance will be be an altered version of the selected color scheme.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
 
