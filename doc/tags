@@ -1,3 +1,13 @@
 qvim	qvim.txt	/*qvim*
-qvim-plus-contents	qvim.txt	/*qvim-plus-contents*
+qvim-contents	qvim.txt	/*qvim-contents*
+qvim-dependencies	qvim.txt	/*qvim-dependencies*
+qvim-editing-style	qvim.txt	/*qvim-editing-style*
+qvim-emacs	qvim.txt	/*qvim-emacs*
+qvim-neovim	qvim.txt	/*qvim-neovim*
+qvim-personal	qvim.txt	/*qvim-personal*
+qvim-philosophy	qvim.txt	/*qvim-philosophy*
+qvim-vim	qvim.txt	/*qvim-vim*
+qvim-vim-in-emacs	qvim.txt	/*qvim-vim-in-emacs*
+qvim-why	qvim.txt	/*qvim-why*
+qvim-why-not	qvim.txt	/*qvim-why-not*
 qvim.txt	qvim.txt	/*qvim.txt*
