@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.11.0
+" Version:    2.12.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.11.0'
+let g:vimrc_version = '2.12.0'
 
 " Path {{{
 
@@ -320,30 +320,13 @@ endif
 "
 set foldenable
 
-" Starting fold level for opening a new buffer. If it is set to 0, all folds
-" will be closed. Setting it ti 99 would guarantee folds are always open. So,
-" setting it to 10 here ensure that only very nested blocks of code are folded
-" when opening a buffer.
+" After setting fold method to identation by default for a while, I have found
+" that I have never actually used folding in my work. However, I find that
+" "{{{", "}}}" delimited auto-folding to be very useful in for arbitrary
+" projects of different langauges.
 "
-set foldlevelstart=10 " open most fold by default
-
-" Folds can be nested. Setting a max on the number of folds guards against too
-" many folds.
-"
-set foldnestmax=10 " 10 nested fold max
-
-" This tells Vim to fold based on indentation.Other acceptable values are:
-" marker: Folds symbols {}
-"   Java, C, C++
-" manual: Folds are created manually
-" indent: Lines with equal indent form a fold
-"   Python, Haskell
-" expr:   'foldexpr' gives the fold level of a line
-" syntax: syntax highlighting items specify folds
-" diff:   fold text that is not changed
-" Run :help foldmethod for more details
-"
-set foldmethod=indent
+set foldmethod=marker
+set foldlevel=0
 
 " }}}
 " Languages {{{
@@ -402,7 +385,6 @@ if has('autocmd')
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
-                              \ foldmethod=marker foldlevel=0
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
