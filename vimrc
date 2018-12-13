@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.10.0
+" Version:    2.11.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.10.0'
+let g:vimrc_version = '2.11.0'
 
 " Path {{{
 
@@ -401,7 +401,8 @@ if has('autocmd')
   "
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2 foldmethod=marker foldlevel=0
+  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
+                              \ foldmethod=marker foldlevel=0
   " TODO: This is not working for some reason?
   autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
@@ -438,7 +439,8 @@ if has('autocmd')
 
   " Keyword
   " Easier browsing between pages in :help
-  autocmd Filetype help setlocal keywordprg=:help
+  autocmd Filetype help setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
+                               \ keywordprg=:help
 endif
 
 " }}}
@@ -677,6 +679,10 @@ noremap <leader>tp :call TogglePasteMode()<Return>
 " Leader prefix added to prevent input lag for normal 'p'
 " Current disabled, as special paste commands requires leader prefix.
 " nnoremap pp p
+
+" System Clipboard
+"
+noremap <leader>ps "+p
 
 " Around/In Word
 "
@@ -1662,8 +1668,6 @@ noremap <leader>tl :call ToggleLineNumbers()<Return>
 " }}}
 " Performance {{{
 
-" Rendering {{{
-
 " When this option is set, the screen will not be redrawn while executing
 " macros, registers and other command that have not been typed. Also, updating
 " the window title is postponed.
@@ -1696,8 +1700,6 @@ set ttyfast
 " Default 3000
 "
 " set synmaxcol=128
-
-" }}}
 
 " }}}
 " Plugin Configuration {{{
@@ -2448,6 +2450,7 @@ let g:lmap.p = {
                         \'t' : ["normal \"_ditP", 'Tag'],
                         \'w' : ["normal \"_diwP", 'Word'],
                         \},
+                \'s' : ["normal \"+p", 'System Clipboard'],
                 \}
 let g:lmap.q = {
                 \'name' : 'Quit...',
