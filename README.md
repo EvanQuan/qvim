@@ -41,7 +41,7 @@ Installation
 Clone this repository and run `pull.sh` as follows:
 
 ```bash
-git clone https://github.com/EvanQuan/.vim ~/.vim
+git clone https://github.com/EvanQuan/qvim ~/.vim
 cd ~/.vim
 bash pull.sh
 ```
