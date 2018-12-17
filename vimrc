@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.12.0
+" Version:    2.12.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.12.0'
+let g:vimrc_version = '2.12.1'
 
 " Path {{{
 
@@ -34,6 +34,8 @@ let $MYVIMHOME = '~/.vim'
 let $MYVIMRC = $MYVIMHOME . '/vimrc'
 let $MYPLUGINS = $MYVIMHOME . '/plugged'
 let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
+let $MYDOC = $MYVIMHOME . '/doc'
+let $MYDOCTAGS = $MYDOC . '/tags'
 let $MYVERSION = $MYVIMHOME . '/version'
 let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
@@ -232,6 +234,13 @@ if has('autocmd')
   augroup END
 
 endif
+
+" }}}
+" Tags {{{
+
+" This lets Windows detect qvim docs
+"
+set runtimepath+=$MYVIMHOME
 
 " }}}
 
@@ -580,63 +589,19 @@ noremap <leader>ss z=
 
 " Globally in File
 "
-function! SubstituteGloballyInFile() abort
-  let old = input("Replace: ")
-  if old == ""
-    return
-  endif
-  let new = input("With: ")
-  if new == ""
-    return
-  endif
-  execute "%s/" . old . "/" . new . "/g"
-endfunction
-nnoremap <silent> <leader>sgf :call SubstituteGloballyInFile()<Return>
+noremap <silent> <leader>sgf :%s//g<Left><Left>
 
 " First in File
 "
-function! SubstituteFirstInFile() abort
-  let old = input("Replace: ")
-  if old == ""
-    return
-  endif
-  let new = input("With: ")
-  if new == ""
-    return
-  endif
-  execute "%s/" . old . "/" . new
-endfunction
-nnoremap <silent> <leader>sff :call SubstituteFirstInFile()<Return>
+noremap <silent> <leader>sff :%s//<Left>
 
 " Globally in Line
 "
-function! SubstituteGloballyInLine() abort
-  let old = input("Replace: ")
-  if old == ""
-    return
-  endif
-  let new = input("With: ")
-  if new == ""
-    return
-  endif
-  execute "s/" . old . "/" . new . "/g"
-endfunction
-nnoremap <leader>sgl :call SubstituteGloballyInLine()<Return>
+noremap <leader>sgl :s//g<Left><Left>
 
 " In Line
 "
-function! SubstituteFirstInLine() abort
-  let old = input("Replace: ")
-  if old == ""
-    return
-  endif
-  let new = input("With: ")
-  if new == ""
-    return
-  endif
-  execute "s/" . old . "/" . new
-endfunction
-nnoremap <leader>sfl :call SubstituteFirstInLine()<Return>
+noremap <leader>sfl :s//<Left>
 
 " }}}
 " Paste {{{
@@ -863,9 +828,9 @@ nnoremap <leader>gl :Git log<Return>
 "
 noremap Q @@
 
-" Strip all trailing whitespace from the current file.
+" Delete all trailing whitespace from the current file.
 "
-function! StripWhitespace() abort
+function! DeleteTrailingWhitespace() abort
   " Store last search
   let _s=@/
   " Store cursor position
@@ -878,18 +843,18 @@ function! StripWhitespace() abort
   let @/=_s
   " Restore cursor position
   call cursor(1, c)
-  echo "-- WHITESPACE STRIPPED --"
+  echo "-- DELETED TRAILING WHITESPACE --"
 endfunction
-noremap <leader>Sw :call StripWhitespace()<Return>
+noremap <leader>dw :call DeleteTrailingWhitespace()<Return>
 
 " Remove all carriage returns (displayed as ^M) from the current file.
 " Use when the encodings gets messed up.
 "
-function! StripCarriageReturns() abort
+function! DeleteCarriageReturns() abort
   execute "normal mmHmt:%s/\<C-V>\<Return>//ge\<Return>'tzt'm"
-  echo "-- CARRIAGE RETURNS STRIPPED --"
+  echo "-- DELETED CARRIAGE RETURNS --"
 endfunction
-noremap <leader>Sc :call StripCarriageReturns()<Return>
+noremap <leader>dc :call DeleteCarriageReturns()<Return>
 
 " }}}
 " Layout {{{
@@ -2305,6 +2270,11 @@ let g:lmap.C = {
                           \'s' : [':set fdm=syntax', 'Syntax'],
                           \}
                 \}
+let g:lmap.d = {
+                \ 'name' : 'Delete...',
+                \ 'c' : [":call DeleteCarriageReturns()", 'Carriage returns'],
+                \ 'w' : [':call DeleteTrailingWhitespace()', 'Trailing Whitespace'],
+                \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
                 \'b' : [':edit ~/.bashrc', 'bashrc'],
@@ -2453,22 +2423,17 @@ let g:lmap.r = {
                 \'f' : [":Executioner", 'File'],
                 \'r' : [':Executioner run.sh', 'run.sh'],
                 \}
-let g:lmap.S = {
-                \ 'name' : 'Strip...',
-                \ 'c' : [":call StripCarriageReturns()", 'Carriage returns'],
-                \ 'w' : [':call StripWhitespace()', 'Whitespace'],
-                \}
 let g:lmap.s = {
                 \'name' : 'Substitute...',
                 \'g' : {
                         \'name' : 'Globally in...',
-                        \'f' : [':call SubstituteGloballyInFile()', 'File'],
-                        \'l' : [':call SubstituteGloballyInLine()', 'Line'],
+                        \'f' : ['call feedkeys(":%s//g\<Left>\<Left>")', 'File'],
+                        \'l' : ['call feedkeys(":s//g\<Left>\<Left>")', 'Line'],
                         \},
                 \'f' : {
                         \'name' : 'First in...',
-                        \'f' : [':call SubstituteFirstInFile()', 'File'],
-                        \'l' : [':call SubstituteFirstInLine()', 'Line'],
+                        \'f' : ['call feedkeys(":%s//\<Left>")', 'File'],
+                        \'l' : ['call feedkeys(":s//\<Left>")', 'Line'],
                         \},
                 \'s' : ['normal z=', 'Spellcheck fix'],
                 \}
@@ -2807,7 +2772,10 @@ endif
 " Visual autocomplete for command menu
 " Use tab to autocomplete
 "
+" TODO are both of these necessary?
+"
 set wildmenu
+set wildmode=longest,list,full
 
 " }}}
 " Buffer {{{
