@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.12.2
+" Version:    2.13.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.12.2'
+let g:vimrc_version = '2.13.0'
 
 " Path {{{
 
@@ -589,11 +589,11 @@ noremap <leader>ss z=
 
 " Globally in File
 "
-noremap <silent> <leader>sgf :%s//g<Left><Left>
+noremap <leader>sgf :%s//g<Left><Left>
 
 " First in File
 "
-noremap <silent> <leader>sff :%s//<Left>
+noremap <leader>sff :%s//<Left>
 
 " Globally in Line
 "
@@ -817,7 +817,14 @@ nnoremap <leader>gl :Git pull<Return>
 
 " Log
 nnoremap <leader>gl :Git log<Return>
+
+" Edit config
 "
+nnoremap <leader>ge :Git config -e<Return>
+
+" Edit global config
+"
+nnoremap <leader>gg :Git config --global -e<Return>
 
 " }}}
 " Formatting {{{
@@ -2244,13 +2251,13 @@ let g:lmap.a = {
                 \}
 let g:lmap.c = {
                 \'name' : 'Comment...',
-                \'$' : ['call feedkeys("\<plug>NERDCommenterToEOL")', 'to EOL'],
+                \'$' : ['call feedkeys("\<plug>NERDCommenterToEOL")', 'To EOL'],
                 \'A' : ['call feedkeys("\<plug>NERDCommenterAppend")', 'Append'],
                 \'a' : ['call feedkeys("\<plug>NERDCommenterAltDelims")', 'Alternative delimiters'],
-                \'b' : ['call feedkeys("\<plug>NERDCommenterAlignBoth")', 'align Both'],
+                \'b' : ['call feedkeys("\<plug>NERDCommenterAlignBoth")', 'Align both'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterComment")', 'Comment'],
                 \'i' : ['call feedkeys("\<plug>NERDCommenterInvert")', 'Invert'],
-                \'l' : ['call feedkeys("\<plug>NERDCommenterAlignLeft")', 'align Left'],
+                \'l' : ['call feedkeys("\<plug>NERDCommenterAlignLeft")', 'Align left'],
                 \'m' : ['call feedkeys("\<plug>NERDCommenterMinimal")', 'Minimal'],
                 \'n' : ['call feedkeys("\<plug>NERDCommenterNested")', 'Nested'],
                 \'s' : ['call feedkeys("\<plug>NERDCommenterSexy")', 'Sexy'],
@@ -2273,7 +2280,7 @@ let g:lmap.C = {
 let g:lmap.d = {
                 \ 'name' : 'Delete...',
                 \ 'c' : [":call DeleteCarriageReturns()", 'Carriage returns'],
-                \ 'w' : [':call DeleteTrailingWhitespace()', 'Trailing Whitespace'],
+                \ 'w' : [':call DeleteTrailingWhitespace()', 'Trailing whitespace'],
                 \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
@@ -2302,6 +2309,8 @@ let g:lmap.g = {
                 \'b' : [':Gbrowse', 'Browse on Github'],
                 \'c' : [':Gcommit', 'Commit'],
                 \'d' : [':Gdiff', 'Diff'],
+                \'e' : [':Git config -e', 'Edit config'],
+                \'g' : [':Git config --global -e', 'Edit global config'],
                 \'h' : {
                         \'name' : 'Hunk',
                         \'s' : ['call feedkeys("\<plug>iGitGutterStageHunk")', 'Stage'],
@@ -2376,16 +2385,16 @@ let g:lmap.p = {
                 \'name' : 'Paste...',
                 \'a' : {
                         \'name' : 'Around...',
-                        \'"' : ["normal \"_da\"P", 'Double Quotes'],
-                        \"'" : ["normal \"_da'P", 'Single Quotes'],
-                        \'Q' : ["normal \"_da'P", 'Single Quotes'],
-                        \'q' : ["normal \"_da\"P", 'Double Quotes'],
+                        \'"' : ["normal \"_da\"P", 'Double quotes'],
+                        \"'" : ["normal \"_da'P", 'Single quotes'],
+                        \'Q' : ["normal \"_da'P", 'Single quotes'],
+                        \'q' : ["normal \"_da\"P", 'Double quotes'],
                         \'w' : ["normal \"_dawP", 'Word'],
                         \},
                 \'i' : {
                         \'name' : 'In...',
-                        \'"' : ["normal \"_di\"P", 'Double Quotes'],
-                        \"'" : ["normal \"_di'P", 'Single Quotes'],
+                        \'"' : ["normal \"_di\"P", 'Double quotes'],
+                        \"'" : ["normal \"_di'P", 'Single quotes'],
                         \"(" : ["normal \"_di(P", 'Parentheses'],
                         \")" : ["normal \"_di)P", 'Parentheses'],
                         \"<" : ["normal \"_di)P", '<'],
@@ -2397,8 +2406,8 @@ let g:lmap.p = {
                         \"B" : ["normal \"_di}P", 'Braces'],
                         \"b" : ["normal \"_di)P", 'Parentheses'],
                         \"l" : ["normal \"_ddP", 'Line'],
-                        \'Q' : ["normal \"_di'P", 'Single Quotes'],
-                        \'q' : ["normal \"_di\"P", 'Double Quotes'],
+                        \'Q' : ["normal \"_di'P", 'Single quotes'],
+                        \'q' : ["normal \"_di\"P", 'Double quotes'],
                         \'t' : ["normal \"_ditP", 'Tag'],
                         \'w' : ["normal \"_diwP", 'Word'],
                         \},
