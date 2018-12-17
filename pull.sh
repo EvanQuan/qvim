@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull.sh
-# Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.2.0
+# Maintainer: https://github.com/EvanQuan/qvim/
+# Version:    2.2.1
 #
 # Pull
 # Designed to work even if repo pulling implementation changes by executing
