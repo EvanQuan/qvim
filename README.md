@@ -29,11 +29,13 @@ Table of Contents
     - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
     - [Italic characters are not rendering](#italic-characters-are-not-rendering)
     - [Everything is blue](#everything-is-blue)
-7. [Design Decisions](#design-decisions)
 
 Why Use This?
 ------------
-If you're lazy and want to use what I'm using, feel free to.
+If you're lazy and want to use what I'm using, feel free to. However, note that
+each person's Vim configuration is tailored to that person's workflow, and not
+necessarily anyone else's. This is why I recommend that people customize Vim to
+best fit their own needs.
 
 Installation
 ------------
@@ -259,97 +261,3 @@ There are 2 solutions:
     appearance will be be an altered version of the selected color scheme.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
-
-Design Decisions
-----------------
-**Why not use [Neovim](https://neovim.io/)?**
-
-I do like the idea of Neovim, and these configurations are mostly compatible
-with it. The only thing I don't like about Neovim is how its integrated
-terminal is implemented compared to Vim. Since I use the integrated terminal
-fairly often, this difference alone has deterred me from switching to Neovim.
-It could be the case that this problem could be fixed through some extra
-configurations I am not aware of, but until I am aware of it, I have no plans
-on making the switch.
-
-**Why not use Emacs?**
-
-While this question warrants an entire discussion on its own, I can briefly
-explain my view. There are two parts points of comparison for this question,
-comparing Vim and Emacs as software, and as editing styles.
-
-I actually acknowledge that Emacs is better software than Vim. The decision to
-use Lisp for scripting is smarter than Vim's use of Vimscript, which has no use
-outside of Vim. Emacs is also not constrained as a command-line editor, being
-able to render images and other such things that I'm not aware of (since
-I haven't spent much time looking into Emacs). Overall, I would say that Emacs
-more configurable than Vim, which is a big plus.
-
-However, comparing editing styles, I highly favour Vim's modal editing over
-Emacs's modifier key approach. Relying on modifier keys suffers from two main
-problems:
-1. [It's not particularly ergonomic](http://wiki.c2.com/?EmacsPinky), which can
-   contribute to repetitive strain injuries.
-2. It is often not very intuitive, which makes memorizing a large number of
-   commands difficult.
-
-With Vim's modal-editing, key presses for commands can be sequentially-ordered,
-and remain semantically-valued, fixing both of those problems.
-
-Finally, straight out of the box, I find Vim's movement key-mappings and
-editing commands involving text objects most useful. This plays an important
-role because a significant portion of my time editing with Vim key-mappings is
-not actually in Vim itself. Almost every half-decent editor and IDE out there
-provides an option for Vim key-mappings (and sometimes Emacs as well). Most of
-the time, these key-mappings are minimal and are not open for configuration.
-For this, Vim wins me over for its default capabilities.
-
-**Why not use [Spacemacs](http://spacemacs.org/)/[Evil](https://github.com/emacs-evil/evil)/[Doom](https://github.com/hlissner/doom-emacs)?**
-
-The startup times are too long, which is a problem if I'm quickly editing
-files, especially over ssh. Being developed by large numbers of people over
-many years, they have a slew of custom key mappings which I am not familiar
-with, some of which I don't like. They also unavoidably miss certain Vim key
-mappings that I use often (like CTRL-A and CTRL-X), by virtue of being in
-Emacs.
-
-That being said, I can understand the appeal and strongly support all these
-projects. The idea of getting the best of both worlds by taking the strengths
-of both Vim and Emacs is something I support, even though in practice it
-doesn't work out for me.
-
-**Configuration Thought Process**
-
-1. Minimize the number of external dependencies as possible.
-    - This eases the installation process.
-    - Currently violations:
-        - Vim must be installed with Python support to enable
-          [jedi-vim](https://github.com/davidhalter/jedi-vim) and
-          [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-          to work.
-        - Vim must be installed with lua or luajit support to enable
-          [neocomplete](https://github.com/Shougo/neocomplete.vim) to work.
-        - [Powerline
-          Fonts](https://powerline.readthedocs.io/en/latest/installation.html)
-          must be installed for Powerline symbols to render properly.
-    - However, failing to have Python/Lua support or Powerline fonts can all be
-      accounted for in settings.vim and the virmc so nothing breaks.
-2. Minimize conflicts with the default key mappings.
-    - This makes things easier for others used to default Vim, or other Vim
-      configurations.
-    - This prevents muscle memory from getting messed up when only default Vim
-      is available, or when minimal/standard Vim keymappings are available in
-      other editors (Atom, VSCode, Intellij, Eclipse, Visual Studios, overleaf,
-      repl.it etc.)
-3. Compatibility with older versions of Vim (< 7.3).
-    - I have "safety" checks through the vimrc so that things don't break for
-      older versions.
-    - I stick with [vim-plug](https://github.com/junegunn/vim-plug) over the
-      native plugin manager that comes with Vim 8 so that it is compatible with
-      Vim 7.
-    - Some plugins I use take advantage of newer versions, but the nature of
-      their backwards compatibility is out of my hands (although most if not
-      all of them seem to either work or disable in older versions to avoid
-      breaking).
-    - This being said, I try to keep Vim up to date whenever I can so this has
-      never been a real problem for me.
