@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
-" Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.12.1
+" Maintainer: https://github.com/EvanQuan/qvim/
+" Version:    2.12.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.12.1'
+let g:vimrc_version = '2.12.2'
 
 " Path {{{
 

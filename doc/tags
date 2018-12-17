@@ -3,8 +3,8 @@ qvim-contents	qvim.txt	/*qvim-contents*
 qvim-dependencies	qvim.txt	/*qvim-dependencies*
 qvim-editing-style	qvim.txt	/*qvim-editing-style*
 qvim-mappings	qvim.txt	/*qvim-mappings*
-qvim-personal	qvim.txt	/*qvim-personal*
 qvim-philosophy	qvim.txt	/*qvim-philosophy*
-qvim-vim	qvim.txt	/*qvim-vim*
 qvim-why	qvim.txt	/*qvim-why*
+qvim-why-configure	qvim.txt	/*qvim-why-configure*
+qvim-why-vim	qvim.txt	/*qvim-why-vim*
 qvim.txt	qvim.txt	/*qvim.txt*

@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull_helper.sh
-# Maintainer: https://github.com/EvanQuan/.vim/
-# Version:    2.0.0
+# Maintainer: https://github.com/EvanQuan/qvim/
+# Version:    2.0.1
 #
 # Pull Helper
 # If pulling implementation changes are made, they are made here to allow

@@ -19,23 +19,33 @@ CONTENTS                                                         *qvim-contents*
 
         1. Intro........................................|qvim|
         2. Why? ........................................|qvim-why|
-                2.1 Vim.................................|qvim-vim|
-                2.2 Personal Configuration..............|qvim-personal|
+                2.1 Vim.................................|qvim-why-vim|
+                2.2 Personal Configuration..............|qvim-why-configure|
         3. Configuration Philosophy.....................|qvim-philosophy|
                 3.1 Dependencies........................|qvim-dependencies|
                 3.2 Default Mappings....................|qvim-mappings|
                 3.3 Editing Style.......................|qvim-editing-style|
+
 ==============================================================================
 1. Intro                                                                  *qvim*
+
+You are using Evan Quan's Vim configuration files. The most updated version of
+the files can be found at:
+
+        https://github.com/EvanQuan/qvim/
+
+The following documentation describes some history behind this configuration
+as well as the thought process behind designing it.
 
 ==============================================================================
 2. Why?                                                               *qvim-why*
 
-------------------------------------------------------------------------------
-2.1 Vim                                                               *qvim-vim*
 
 ------------------------------------------------------------------------------
-2.2 Personal Configuration                                       *qvim-personal*
+2.1 Vim                                                           *qvim-why-vim*
+
+------------------------------------------------------------------------------
+2.2 Personal Configuration                                  *qvim-why-configure*
 
 ==============================================================================
 3. Configuration Philosophy                                    *qvim-philosophy*

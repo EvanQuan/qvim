@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
-" Maintainer: https://github.com/EvanQuan/.vim/
-" Version:    2.0.1
+" Maintainer: https://github.com/EvanQuan/qvim/
+" Version:    2.0.2
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
