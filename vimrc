@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.13.0'
+let g:vimrc_version = '2.13.1'
 
 " Path {{{
 
@@ -54,7 +54,7 @@ let $MYWINDOWSVIMRCTEMPLATE = $MYTEMPLATES . '/_vimrc'
 "
 " In case settings.vim does not exist, settings.vim template is used.
 " If that also does not exist, setting variables directly defined here.
-" Set settings to 2.0.0 defaults if settings.vim does not exist.
+" Set settings to 2.0.3 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
   source $MYSETTINGS
@@ -86,7 +86,7 @@ else
     let g:wrap_enabled = 1
   endif
   if !exists('g:wrap_width')
-    let g:wrap_width = 79
+    let g:wrap_width = 78
   endif
   if !exists('g:show_whitespace')
     let g:show_whitespace = 2
@@ -177,7 +177,9 @@ Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
 " Linting {{{
 
 Plug 'w0rp/ale'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+" Plug 'davidhalter/jedi-vim'
+" Plug 'python-mode/python-mode', { 'branch': 'develop' , 'for': 'python'}
 
 " }}}
 " Programming {{{
@@ -1467,7 +1469,7 @@ function! ToggleColorColumn() abort
     set colorcolumn=0
     echo "-- COLORCOLUMN DISABLED --"
   else
-    execute "set colorcolumn=".g:wrap_width
+    execute "set colorcolumn=".(g:wrap_width + 1)
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
@@ -1724,6 +1726,8 @@ let g:indentLine_char = '│'
 " }}}
 " jedi-vim {{{
 
+" TODO this may be replaced with python-mode
+" let g:pymode_python = 'python3'
 " Requires python support to work. If Vim build does not support jedi, then
 " don't load the plugin.
 "
@@ -2733,7 +2737,7 @@ endif
 
 if g:highlight_width_indicator
   " wrap_width is visualized as highlighted column
-  execute "set colorcolumn=".g:wrap_width
+  execute "set colorcolumn=".(g:wrap_width+1)
 endif
 
 " }}}
