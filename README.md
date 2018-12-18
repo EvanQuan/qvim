@@ -141,6 +141,7 @@ Plugin List
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [tabular](https://github.com/godlygeek/tabular)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
+- [vim-easy-align](https://github.com/junegunn/vim-easy-align)
 - [vim-endwise](https://github.com/tpope/vim-endwise)
 - [vim-exchange](https://github.com/tommcdo/vim-exchange)
 - [vim-mathematize](https://github.com/EvanQuan/vim-mathematize)
@@ -172,6 +173,7 @@ Plugin List
 - [vim-executioner](https://github.com/EvanQuan/vim-executioner)
 
 ### User Interface
+- [goyo.vim](https://github.com/junegunn/goyo.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
 - [lightline.vim](https://github.com/itchyny/lightline.vim)

@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.13.2
+" Version:    2.14.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.13.2'
+let g:vimrc_version = '2.14.0'
 
 " Path {{{
 
@@ -146,6 +146,7 @@ Plug $MYGITPLUGINS . '/listtrans'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'alvan/vim-closetag'
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-endwise'
 Plug 'tommcdo/vim-exchange'
 Plug 'terryma/vim-multiple-cursors'
@@ -189,6 +190,7 @@ Plug 'EvanQuan/vim-executioner'
 " }}}
 " User Interface {{{
 
+Plug 'junegunn/goyo.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'taohexxx/lightline-buffer'
 Plug 'itchyny/lightline.vim'
@@ -470,7 +472,7 @@ endif
 " }}}
 
 " }}}
-" Shortcuts {{{
+" Mappings {{{
 
 " Leader Key {{{
 
@@ -1077,266 +1079,6 @@ nnoremap <leader>ti :call ToggleTabs()<Return>
 nnoremap <leader>Rt :retab<Return>
 
 " }}}
-" Plugins {{{
-
-" ale {{{
-" Repository: https://github.com/w0rp/ale
-
-" Enable or disable ALE linting, including all of its autocmd events, loclist
-" items, quickfix items, signs, current jobs, etc., globally.
-"
-nnoremap <leader>ta :ALEToggle<Return>
-
-nnoremap <leader>ad :ALEDetail<Return>
-nnoremap <leader>ag :ALEGoToDefinition<Return>
-nnoremap <leader>ah :ALEHover<Return>
-nnoremap <leader>ar :ALEFindReferences<Return>
-nnoremap <leader>as :ALEFixSuggest<Return>
-nnoremap <leader>at :ALEToggle<Return>
-
-" Move between ale linting errors
-"
-nnoremap ]a :ALENextWrap<Return>
-nnoremap [a :ALEPreviousWrap<Return>
-
-"}}}
-" betterdigraphs {{{
-
-" NOTE: Does not currently work as expected. In terms of automatically
-" completing the digraphs, it works, but the visual prompt is broken.
-" Don't now if this is due to conflicts with other settings or plugins, or
-" because the plugin is so old that its behaviour is outdated in newer
-" versions of Vim.
-"
-inoremap <expr> <C-K> BDG_GetDigraph ()
-
-" }}}
-" ctrlp {{{
-" Repository: https://github.com/ctrlpvim/ctrlp.vim
-
-" Fuzzy find OR find file
-nnoremap <silent> <leader>ff :CtrlP<Return>
-
-" }}}
-" dragvisuals {{{
-
-" Arrow keys are used because they normally have no other use. However, this
-" breaks home row flow so <C-hjkl> is used instead. <S-hjkl> was considered as
-" a slightly more ergonomic alternative, but it removes the default <S-hjkl>
-" features, so it was avoided.
-"
-vmap  <expr>  <left>   DVB_Drag('left')
-vmap  <expr>  <right>  DVB_Drag('right')
-vmap  <expr>  <down>   DVB_Drag('down')
-vmap  <expr>  <up>     DVB_Drag('up')
-vmap  <expr>  <C-h>    DVB_Drag('left')
-vmap  <expr>  <C-l>    DVB_Drag('right')
-vmap  <expr>  <C-j>    DVB_Drag('down')
-vmap  <expr>  <C-k>    DVB_Drag('up')
-vmap  <expr>  D        DVB_Duplicate()
-
-" }}}
-" listtrans {{{
-
-" Toggles between a list and a bullet points.
-nnoremap <silent> <leader>tL :call ListTrans_toggle_format()<Return>
-vnoremap <silent> <leader>tL :call ListTrans_toggle_format('visual')<Return>
-
-" }}}
-" neocomplete {{{
-" Repository: https://github.com/Shougo/neocomplete.vim
-
-" <Return>: completes currently selected option and closes popup.
-"
-inoremap <silent> <Return> <C-r>=<SID>MyReturnNeocompletion()<Return>
-function! s:MyReturnNeocompletion()
-  " return (pumvisible() ? "\<C-y>" : "" ) . "\<Return>"
-  " For no inserting <Return> key.
-  return pumvisible() ? "\<C-y>" : "\<Return>"
-endfunction
-
-" <TAB>: completion.
-" Selects further options beyond initial one. Must press <Return> to actually
-" finish completion.
-inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
-
-" }}}
-" nerdcommenter {{{
-" Repository: https://github.com/scrooloose/nerdcommenter
-
-" NOTE: May need to remove one of these in the future for namespace.
-" NOTE: tc currently hangs because it is overloaded with toggle cursor column
-" (tcc) toggle cursor line (tcl), and toggle color column (tcw) commands.
-" May need to rebind those in the future as they are not commonly used.
-"
-map <leader>ct <plug>NERDCommenterToggle
-map <leader>tc <plug>NERDCommenterToggle
-" For some reason, Vim registers <C-/> as <C-_>
-map <C-_> <plug>NERDCommenterToggle
-
-" }}}
-" nerdtree {{{
-" Repository: https://github.com/scrooloose/nerdtree
-
-" autocmd VimEnter * NERDTree " tree is open on start
-" autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
-
-" Atom keybinding
-"
-nnoremap <silent> <C-\> :NERDTreeToggle<Return>
-
-" Toggle tree
-"
-nnoremap <silent> <leader>tt :NERDTreeToggle<Return>
-
-" File tree
-"
-nnoremap <silent> <leader>ft :NERDTreeToggle<Return>
-
-" }}}
-" vim-executioner {{{
-" Repository: https://github.com/EvanQuan/vim-executioner
-
-" TODO move some of these
-
-" README.md
-"
-nnoremap <leader>eR :edit README.md<Return>
-nnoremap <leader>heR :split README.md<Return>
-nnoremap <leader>veR :vsplit README.md<Return>
-
-" Run current buffer
-"
-nnoremap <silent> <leader>rf :Executioner<Return>
-nnoremap <silent> <leader>hrf :ExecutionerHorizontal<Return>
-nnoremap <silent> <leader>vrf :ExecutionerVertical<Return>
-
-" run.sh
-"
-nnoremap <leader>er :edit run.sh<Return>
-nnoremap <leader>her :split run.sh<Return>
-nnoremap <leader>ver :vsplit run.sh<Return>
-
-nnoremap <silent> <leader>rr :Executioner run.sh<Return>
-nnoremap <silent> <leader>hrr :ExecutionerHorizontal run.sh<Return>
-nnoremap <silent> <leader>vrr :ExecutionerVertical run.sh<Return>
-
-" Makefile
-"
-nnoremap <leader>em :edit makefile<Return>
-nnoremap <leader>hem :split makefile<Return>
-nnoremap <leader>vem :vsplit makefile<Return>
-
-nnoremap <silent> <leader>rm :Executioner makefile<Return>
-nnoremap <silent> <leader>hrm :ExecutionerHorizontal makefile<Return>
-nnoremap <silent> <leader>vrm :ExecutionerVertical makefile<Return>
-
-" }}}
-" vim-gitgutter {{{
-
-" Repository: https://github.com/airblade/vim-gitgutter
-
-" Move to next/previous hunk
-"
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-
-" Stage and undo hunks
-"
-nmap <leader>ghs <Plug>GitGutterStageHunk
-nmap <leader>ghu <Plug>GitGutterUndoHunk
-
-" }}}
-" vim-javacomplete2 {{{
-" Repository: https://github.com/artur-shaik/vim-javacomplete2
-
-" Enable smart (trying to guess import option) inserting class imports with F4
-" nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" inoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" To enable usual (will ask for import option) inserting class imports with F5
-" nnoremap <F5> <Plug>(JavaComplete-Imports-Add)
-" inoremap <F5> <Plug>(JavaComplete-Imports-Add)
-" To add all missing imports with F6
-" nnoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" inoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" To remove all missing imports with F7
-" nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-" inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-
-" nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-" nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-" nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-" nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
-
-" inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
-" inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
-" inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
-" inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
-
-" nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-
-" inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-
-" nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-" nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-" nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-" nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-" nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-" nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-" nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-" nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
-
-" inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
-" inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
-" inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-
-" vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-" vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-" vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-
-" nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-" nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
-
-" }}}
-" vim-plugin {{{
-
-noremap <leader>Pc :PlugClean<Return>
-noremap <leader>Pi :PlugInstall<Return>
-noremap <leader>Pd :PlugDiff<Return>
-noremap <leader>Pn :PlugSnapshot<Return>
-noremap <leader>Ps :PlugStatus<Return>
-noremap <leader>Pu :PlugUpdate<Return>
-noremap <leader>Pg :PlugUpgrade<Return>
-
-" }}}
-" vim-workspace {{{
-" Repository: https://github.com/thaerkh/vim-workspace
-
-" Toggle enable/disable workspace
-nnoremap <leader>tW :ToggleWorkspace<Return>
-
-" }}}
-" vmath-plus {{{
-" Repository: https://github.com/EvanQuan/vmath-plus
-
-" Calculates math stuff based on visual selection.
-
-" Analayze
-"
-xnoremap <silent> <leader>ma y:call g:vmath_plus#analyze()<Return>
-xnoremap <silent> <leader>mba y:call g:vmath_plus#analyze_buffer()<Return>
-nnoremap <silent> <leader>ma vipy:call g:vmath_plus#analyze()<Return>
-nnoremap <silent> <leader>mba vipy:call g:vmath_plus#analyze_buffer()<Return>
-
-" Report
-"
-noremap <silent> <leader>mr :call g:vmath_plus#report()<Return>
-noremap <silent> <leader>mbr :call g:vmath_plus#report_buffer()<Return>
-
-" }}}
-
-" }}}
 " Searching {{{
 
 " Enable "very magic" search mode
@@ -1657,8 +1399,29 @@ set ttyfast
 " set synmaxcol=128
 
 " }}}
-" Plugin Configuration {{{
+" Plugins {{{
 
+" ale {{{
+" Repository: https://github.com/w0rp/ale
+
+" Enable or disable ALE linting, including all of its autocmd events, loclist
+" items, quickfix items, signs, current jobs, etc., globally.
+"
+nnoremap <leader>ta :ALEToggle<Return>
+
+nnoremap <leader>ad :ALEDetail<Return>
+nnoremap <leader>ag :ALEGoToDefinition<Return>
+nnoremap <leader>ah :ALEHover<Return>
+nnoremap <leader>ar :ALEFindReferences<Return>
+nnoremap <leader>as :ALEFixSuggest<Return>
+nnoremap <leader>at :ALEToggle<Return>
+
+" Move between ale linting errors
+"
+nnoremap ]a :ALENextWrap<Return>
+nnoremap [a :ALEPreviousWrap<Return>
+
+"}}}
 " arm-syntax-vim {{{
 " Repository: https://github.com/ARM9/arm-syntax-vim
 
@@ -1666,8 +1429,22 @@ set ttyfast
 "
 autocmd BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
 " }}}
+" betterdigraphs {{{
+
+" NOTE: Does not currently work as expected. In terms of automatically
+" completing the digraphs, it works, but the visual prompt is broken.
+" Don't now if this is due to conflicts with other settings or plugins, or
+" because the plugin is so old that its behaviour is outdated in newer
+" versions of Vim.
+"
+inoremap <expr> <C-K> BDG_GetDigraph ()
+
+" }}}
 " ctrlp.vim {{{
-" Repository: https://github.com/kien/ctrlp.vim
+" Repository: https://github.com/ctrlpvim/ctrlp.vim
+
+" Fuzzy find OR find file
+nnoremap <silent> <leader>ff :CtrlP<Return>
 
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
@@ -1686,9 +1463,48 @@ let g:ctrlp_custom_ignore = {
 " }}}
 " dragvisuals {{{
 
+" Arrow keys are used because they normally have no other use. However, this
+" breaks home row flow so <C-hjkl> is used instead. <S-hjkl> was considered as
+" a slightly more ergonomic alternative, but it removes the default <S-hjkl>
+" features, so it was avoided.
+"
+vmap  <expr>  <left>   DVB_Drag('left')
+vmap  <expr>  <right>  DVB_Drag('right')
+vmap  <expr>  <down>   DVB_Drag('down')
+vmap  <expr>  <up>     DVB_Drag('up')
+vmap  <expr>  <C-h>    DVB_Drag('left')
+vmap  <expr>  <C-l>    DVB_Drag('right')
+vmap  <expr>  <C-j>    DVB_Drag('down')
+vmap  <expr>  <C-k>    DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
+
 " Remove any introduced trailing whitespace after moving
 "
 let g:DVB_TrimWS = 1
+
+" }}}
+" goyo.vim {{{
+" Repository: https://github.com/junegunn/goyo.vim
+
+nnoremap <silent> <leader>tg :Goyo<Return>
+
+" Avoid line numbers changing on insert
+"
+if has('autocmd')
+  function! s:goyo_enter()
+      autocmd! InsertEnter *
+      autocmd! InsertLeave *
+  endfunction
+
+  function! s:goyo_leave()
+      autocmd InsertEnter * :set number norelativenumber
+      autocmd InsertLeave * :set relativenumber
+  endfunction
+
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+endif
+
 
 " }}}
 " haskell-vim {{{
@@ -2124,6 +1940,13 @@ let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
 
 " }}}
+" listtrans {{{
+
+" Toggles between a list and a bullet points.
+nnoremap <silent> <leader>tL :call ListTrans_toggle_format()<Return>
+vnoremap <silent> <leader>tL :call ListTrans_toggle_format('visual')<Return>
+
+" }}}
 " neocomplete {{{
 " Repository: https://github.com/Shougo/neocomplete.vim
 
@@ -2147,6 +1970,21 @@ let g:neocomplete#enable_smart_case = 1
 "
 let g:neocomplete#sources#syntax#min_key_word_length = 3
 
+" <Return>: completes currently selected option and closes popup.
+"
+inoremap <silent> <Return> <C-r>=<SID>MyReturnNeocompletion()<Return>
+function! s:MyReturnNeocompletion()
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<Return>"
+  " For no inserting <Return> key.
+  return pumvisible() ? "\<C-y>" : "\<Return>"
+endfunction
+
+" <TAB>: completion.
+" Selects further options beyond initial one. Must press <Return> to actually
+" finish completion.
+inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
+
 
 " }}}
 " nerdcommeter {{{
@@ -2161,6 +1999,16 @@ let g:NERDSpaceDelims = 1
 "
 let g:NERDDefaultAlign = 'left'
 
+" NOTE: May need to remove one of these in the future for namespace.
+" NOTE: tc currently hangs because it is overloaded with toggle cursor column
+" (tcc) toggle cursor line (tcl), and toggle color column (tcw) commands.
+" May need to rebind those in the future as they are not commonly used.
+"
+map <leader>ct <plug>NERDCommenterToggle
+map <leader>tc <plug>NERDCommenterToggle
+" For some reason, Vim registers <C-/> as <C-_>
+map <C-_> <plug>NERDCommenterToggle
+
 " }}}
 " nerdtree {{{
 " Repository: https://github.com/scrooloose/nerdtree
@@ -2168,6 +2016,21 @@ let g:NERDDefaultAlign = 'left'
 " Show hidden files by default (bound to I)
 "
 let NERDTreeShowHidden = 1
+
+" autocmd VimEnter * NERDTree " tree is open on start
+" autocmd VimEnter * wincmd p " cursor starts in main window and not NERDtree
+
+" Atom keybinding
+"
+nnoremap <silent> <C-\> :NERDTreeToggle<Return>
+
+" Toggle tree
+"
+nnoremap <silent> <leader>tt :NERDTreeToggle<Return>
+
+" File tree
+"
+nnoremap <silent> <leader>ft :NERDTreeToggle<Return>
 
 " }}}
 " vim-closetag {{{
@@ -2206,6 +2069,40 @@ else
   let g:executioner#extensions['py'] = 'python3 %'
 endif
 
+" Repository: https://github.com/EvanQuan/vim-executioner
+
+" README.md
+"
+nnoremap <leader>eR :edit README.md<Return>
+nnoremap <leader>heR :split README.md<Return>
+nnoremap <leader>veR :vsplit README.md<Return>
+
+" Run current buffer
+"
+nnoremap <silent> <leader>rf :Executioner<Return>
+nnoremap <silent> <leader>hrf :ExecutionerHorizontal<Return>
+nnoremap <silent> <leader>vrf :ExecutionerVertical<Return>
+
+" run.sh
+"
+nnoremap <leader>er :edit run.sh<Return>
+nnoremap <leader>her :split run.sh<Return>
+nnoremap <leader>ver :vsplit run.sh<Return>
+
+nnoremap <silent> <leader>rr :Executioner run.sh<Return>
+nnoremap <silent> <leader>hrr :ExecutionerHorizontal run.sh<Return>
+nnoremap <silent> <leader>vrr :ExecutionerVertical run.sh<Return>
+
+" Makefile
+"
+nnoremap <leader>em :edit makefile<Return>
+nnoremap <leader>hem :split makefile<Return>
+nnoremap <leader>vem :vsplit makefile<Return>
+
+nnoremap <silent> <leader>rm :Executioner makefile<Return>
+nnoremap <silent> <leader>hrm :ExecutionerHorizontal makefile<Return>
+nnoremap <silent> <leader>vrm :ExecutionerVertical makefile<Return>
+
 " }}}
 " vim-gitgutter {{{
 " Repository: https://github.com/airblade/vim-gitgutter
@@ -2214,7 +2111,16 @@ endif
 "
 set updatetime=100 " [ms] Default: 4000
 
-" let g:gitgutter_map_keys = 0
+" Move to next/previous hunk
+"
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
+" Stage and undo hunks
+"
+nmap <leader>ghs <Plug>GitGutterStageHunk
+nmap <leader>ghu <Plug>GitGutterUndoHunk
+
 
 " }}}
 " vim-javacomplete2 {{{
@@ -2223,6 +2129,53 @@ set updatetime=100 " [ms] Default: 4000
 if has('autocmd')
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
 endif
+
+" Enable smart (trying to guess import option) inserting class imports with F4
+" nnoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" inoremap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" To enable usual (will ask for import option) inserting class imports with F5
+" nnoremap <F5> <Plug>(JavaComplete-Imports-Add)
+" inoremap <F5> <Plug>(JavaComplete-Imports-Add)
+" To add all missing imports with F6
+" nnoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" inoremap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" To remove all missing imports with F7
+" nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+" nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+" nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+" nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
+
+" inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+" inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+" inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+" inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+
+" nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+" inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+" nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+" nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+" nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+" nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+" nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+
+" inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+" inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+" inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+" vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+" nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+" nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-leader-guide {{{
@@ -2454,6 +2407,7 @@ let g:lmap.t = {
                 \'a' : [':ALEToggle', 'ALE linting'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Comment'],
                 \'f' : ["normal \<C-^>", 'File'],
+                \'g' : ["Goyo", 'Goyo'],
                 \'h' : {
                         \'name' : 'Highlight...',
                         \'c' : [':call ToggleCursorColumn()', 'Column'],
@@ -2515,6 +2469,18 @@ nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<Return>
 vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<Return>
 
 " }}}
+" vim-plug {{{
+" Repository: https://github.com/junegunn/vim-plug
+
+noremap <leader>Pc :PlugClean<Return>
+noremap <leader>Pi :PlugInstall<Return>
+noremap <leader>Pd :PlugDiff<Return>
+noremap <leader>Pn :PlugSnapshot<Return>
+noremap <leader>Ps :PlugStatus<Return>
+noremap <leader>Pu :PlugUpdate<Return>
+noremap <leader>Pg :PlugUpgrade<Return>
+
+" }}}
 " vim-polyglot {{{
 " Repository: https://github.com/sheerun/vim-polyglot
 
@@ -2550,6 +2516,27 @@ let g:togglecursor_leave = 'block' " Not blinking
 " Set if workspace automatically writes to file with every edit
 "
 let g:workspace_autosave_always = 0
+
+" Toggle enable/disable workspace
+nnoremap <leader>tW :ToggleWorkspace<Return>
+
+" }}}
+" vmath-plus {{{
+" Repository: https://github.com/EvanQuan/vmath-plus
+
+" Calculates math stuff based on visual selection.
+
+" Analayze
+"
+xnoremap <silent> <leader>ma y:call g:vmath_plus#analyze()<Return>
+xnoremap <silent> <leader>mba y:call g:vmath_plus#analyze_buffer()<Return>
+nnoremap <silent> <leader>ma vipy:call g:vmath_plus#analyze()<Return>
+nnoremap <silent> <leader>mba vipy:call g:vmath_plus#analyze_buffer()<Return>
+
+" Report
+"
+noremap <silent> <leader>mr :call g:vmath_plus#report()<Return>
+noremap <silent> <leader>mbr :call g:vmath_plus#report_buffer()<Return>
 
 " }}}
 

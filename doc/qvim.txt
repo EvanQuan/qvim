@@ -97,7 +97,10 @@ commonly-known mappings have a greater importance over the lesser-known
 esoteric ones. In other words, I have kept these common default mappings with
 their default behaviour. There are two reasons for this:
 
-First, it makes working default or minimalist Vim key-mappings easier.
+First, it makes working with default or minimalist Vim key-mappings easier.
+
+
+Second, it makes others
 
 ------------------------------------------------------------------------------
 3.3.2 Redundancy                                               *qvim-redundancy*
