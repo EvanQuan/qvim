@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.0.2
+" Version:    2.0.3
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine.
@@ -80,7 +80,7 @@ let g:wrap_enabled = 1
 " Text Wrap Width {{{
 "   The number of columns for hard wrapping and highlighted column.
 " }}}
-let g:wrap_width = 79
+let g:wrap_width = 78
 " Show Whitespace {{{
 "   Render placeholders for invisible characters, such as tabs, spaces and
 "   new lines. Whitespace can be toggled at any time with the <leader>tw
