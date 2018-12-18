@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.13.0
+" Version:    2.13.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -17,7 +17,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.13.1'
+let g:vimrc_version = '2.13.2'
 
 " Path {{{
 
@@ -396,8 +396,7 @@ if has('autocmd')
   autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
-  " TODO: This is not working for some reason?
-  autocmd Filetype nerdtree setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+        \ textwidth=78
 
   " 4-space soft tabs
   "   In accordance with PEP 8
@@ -427,13 +426,13 @@ if has('autocmd')
   autocmd Filetype jas setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
 
   " Spell check enabled
-  autocmd Filetype markdown setlocal spell
+  autocmd Filetype markdown setlocal spell textwidth=78
   autocmd Filetype text setlocal spell tabstop=8
 
   " Keyword
   " Easier browsing between pages in :help
   autocmd Filetype help setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
-                               \ keywordprg=:help
+                               \ keywordprg=:help textwidth=78
 endif
 
 " }}}
