@@ -32,10 +32,10 @@ Table of Contents
 
 Why Use This?
 ------------
-If you're lazy and want to use what I'm using, feel free to. However, note that
-each person's Vim configuration is tailored to that person's workflow, and not
-necessarily anyone else's. This is why I recommend that people customize Vim to
-best fit their own needs.
+If you're lazy and want to use what I'm using, feel free to. However, note
+that each person's Vim configuration is tailored to that person's workflow,
+and not necessarily anyone else's. This is why I recommend that people
+customize Vim to best fit their own needs.
 
 Installation
 ------------
@@ -52,10 +52,10 @@ Open Vim and execute `:PlugInstall`. Close and restart Vim.
 
 #### Windows
 
-Bash (`.sh`) files are not executable on Windows by default. One solution is to
-install [Git Bash](https://git-scm.com/downloads) or
-[Cygwin](https://cygwin.com/install.html) to run `pull.sh`.
-I may later make a `.bat` script to make things easier for Windows.
+Bash (`.sh`) files are not executable on Windows by default. One solution is
+to install [Git Bash](https://git-scm.com/downloads) or
+[Cygwin](https://cygwin.com/install.html) to run `pull.sh`. I may later make
+a `.bat` script to make things easier for Windows.
 
 Hooray, that's it! You're all done!
 
@@ -90,13 +90,13 @@ enforcement with:
 python<version> -m pip install flake8
 ```
 where `<version>` is the Python version you have installed, such as `3.4` or
-`3.7`. If running `python` in your terminal already runs some version of Python
-3, then no version number needs to be included.
+`3.7`. If running `python` in your terminal already runs some version of
+Python 3, then no version number needs to be included.
 
 ### Lua Support
 
-If Vim is installed without Lua support (`:echo has('lua')` responds with `1`),
-then autocomplete features from
+If Vim is installed without Lua support (`:echo has('lua')` responds with
+`1`), then autocomplete features from
 [completor.vim](https://github.com/maralla/completor.vim) or
 [neocomplete](https://github.com/Shougo/neocomplete.vim) will not work.
 
@@ -248,8 +248,9 @@ There are 2 solutions:
     **Windows**
 
     If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
-    terminal for ssh instead, such as [Git Bash](https://git-scm.com/downloads)
-    or [Mintty](https://mintty.github.io/).
+    terminal for ssh instead, such as [Git
+    Bash](https://git-scm.com/downloads) or
+    [Mintty](https://mintty.github.io/).
 
     **Linux**
 

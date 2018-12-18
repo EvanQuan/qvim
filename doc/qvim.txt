@@ -1,5 +1,4 @@
-*qvim.txt*                               Evan Quan's personal Vim configuration.
-
+*qvim.txt*     For Vim version 8.1       Evan Quan's personal Vim configuration.
 
                                       _                                        ~
                                      (_)                                       ~
@@ -10,24 +9,25 @@
                              | |                                               ~
                              |_|  Begone Foul Emacs!                           ~
 
-
-
                              Reference Manual                                  ~
 
 ==============================================================================
 CONTENTS                                                         *qvim-contents*
 
-        1. Intro........................................|qvim|
-        2. Why? ........................................|qvim-why|
-                2.1 Vim.................................|qvim-why-vim|
-                2.2 Personal Configuration..............|qvim-why-configure|
-        3. Configuration Philosophy.....................|qvim-philosophy|
-                3.1 Dependencies........................|qvim-dependencies|
-                3.2 Default Mappings....................|qvim-mappings|
-                3.3 Editing Style.......................|qvim-editing-style|
+    1. Intro....................................|qvim-intro|
+    2. History..................................|qvim-history|
+        2.1 Vim.................................|qvim-history-vim|
+        2.2 Configuration.......................|qvim-history-configuration|
+    3. Configuration Philosophy.................|qvim-philosophy|
+        3.1 Minimalism..........................|qvim-minimalism|
+        3.2 Dependencies........................|qvim-dependencies|
+        3.3 Mappings............................|qvim-mappings|
+            3.3.1 Defaults......................|qvim-defaults|
+            3.3.2 Redundancy....................|qvim-redundancy|
+            3.3.3 Editing Style.................|qvim-editing-style|
 
 ==============================================================================
-1. Intro                                                                  *qvim*
+1. Intro                                                            *qvim-intro*
 
 You are using Evan Quan's Vim configuration files. The most updated version of
 the files can be found at:
@@ -38,24 +38,33 @@ The following documentation describes some history behind this configuration
 as well as the thought process behind designing it.
 
 ==============================================================================
-2. Why?                                                               *qvim-why*
-
-
-------------------------------------------------------------------------------
-2.1 Vim                                                           *qvim-why-vim*
+2. History                                                        *qvim-history*
 
 ------------------------------------------------------------------------------
-2.2 Personal Configuration                                  *qvim-why-configure*
+2.1 Vim                                                       *qvim-history-vim*
+
+------------------------------------------------------------------------------
+2.2 Configuration                                   *qvim-history-configuration*
+
+------------------------------------------------------------------------------
+2.3 Use                                                           *qvim-why-use*
 
 ==============================================================================
 3. Configuration Philosophy                                    *qvim-philosophy*
 
-There are 3 main principles I try to abide to when configuring Vim to my
-liking: minimize dependencies, minimize conflicts with default key mappings,
-and stay consistent with Vim's key mapping style.
+There are a few main principles I try to abide to when configuring Vim to my
+liking: account for lacking dependencies, minimize conflicts with default key
+mappings, make use of redundant default key mappings, and stay consistent with
+Vim's key mapping style.
 
 ------------------------------------------------------------------------------
-3.1 Dependencies                                             *qvim-dependencies*
+3.1 Minimalism                                                 *qvim-minimalism*
+
+
+------------------------------------------------------------------------------
+3.2 Dependencies                                             *qvim-dependencies*
+
+With Vim's vast ecosystem of plugins, I have a lot ot choose from.
 
 1. Minimize the number of external dependencies as possible.
     - This eases the installation process.
@@ -69,22 +78,40 @@ and stay consistent with Vim's key mapping style.
         - [Powerline
           Fonts](https://powerline.readthedocs.io/en/latest/installation.html)
           must be installed for Powerline symbols to render properly.
-    - However, failing to have Python/Lua support or Powerline fonts can all be
-      accounted for in settings.vim and the virmc so nothing breaks.
+    - However, failing to have Python/Lua support or Powerline fonts can all
+      be accounted for in settings.vim and the virmc so nothing breaks.
 
 ------------------------------------------------------------------------------
-4.2 Default Mappings                                             *qvim-mappings*
+3.3 Mappings                                                     *qvim-mappings*
+
+I have both remapped many keys as well as created new mappings. Whether I'm
+adding new mappings in the future, or changing and deleting old ones, these
+are some points I keep in mind to make my and anyone else's experience as
+smooth as possible.
+
+------------------------------------------------------------------------------
+3.3.1 Defaults                                                   *qvim-defaults*
+
+I try to respect Vim's default mappings as much as possible, with
+commonly-known mappings have a greater importance over the lesser-known
+esoteric ones. In other words, I have kept these common default mappings with
+their default behaviour. There are two reasons for this:
+
+First, it makes working default or minimalist Vim key-mappings easier.
+
+------------------------------------------------------------------------------
+3.3.2 Redundancy                                               *qvim-redundancy*
 
 2. Minimize conflicts with the default key mappings.
     - This makes things easier for others used to default Vim, or other Vim
       configurations.
     - This prevents muscle memory from getting messed up when only default Vim
       is available, or when minimal/standard Vim keymappings are available in
-      other editors (Atom, VSCode, Intellij, Eclipse, Visual Studios, overleaf,
-      repl.it etc.)
+      other editors (Atom, VSCode, Intellij, Eclipse, Visual Studios,
+      overleaf, repl.it etc.)
 
 ------------------------------------------------------------------------------
-4.3 Editing Style                                           *qvim-editing-style*
+3.3.3 Editing Style                                         *qvim-editing-style*
 
 ------------------------------------------------------------------------------
 vim:tw=78:ts=8:ft=help:noet:nospell:expandtab
