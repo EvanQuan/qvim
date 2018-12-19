@@ -1,12 +1,15 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.14.0
+" Version:    2.14.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
 " file as described in the README.md file. Later versions automatically detect
-" this as the default user vimrc file.
+" this as the default user vimrc file. You can learn more about this
+" configuraion with:
+"
+"     :help qvim
 "
 " Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
@@ -17,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.14.0'
+let g:vimrc_version = '2.14.1'
 
 " Path {{{
 
@@ -490,28 +493,6 @@ let mapleader = " "
 nnoremap + <C-a>
 nnoremap - <C-x>
 
-" Command mode {{{
-
-" Write
-" Capitalization doesn't matter
-"
-cnoreabbrev W w
-
-" Write and quit
-" Capitalization doesn't matter
-"
-cnoreabbrev WQ wq
-cnoreabbrev wQ wq
-cnoreabbrev Wq wq
-cnoreabbrev X x
-
-" Quit
-"
-cnoreabbrev Q q
-cnoreabbrev Q! q!
-
-
-" }}}
 " Change {{{
 
 " Replaces the word under cursor with whatever you want
@@ -569,16 +550,6 @@ nnoremap diq di"
 "
 nnoremap daQ da'
 nnoremap diQ di'
-
-" Until end of Line
-"
-"TODO delete?
-nnoremap dL d$
-
-" From start of Line
-"
-"TODO delete?
-nnoremap dH d^
 
 " }}}
 " Spelling {{{
@@ -782,9 +753,6 @@ nnoremap <leader>Cfd :set fdm=diff<Return>
 " }}}
 " Git {{{
 
-" TODO - Potentially remove leader key remapping (stick with command mode
-" re-abbreviation, to open space up for more leader commands)
-"
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
 "
@@ -1134,10 +1102,6 @@ if !exists(":DiffOrig")
 endif
 " Bind it for convenience
 map <leader>fd :DiffOrig<Return>
-
-" TODO figure out. May have to do with window jumping setting
-" noremap * *:%s///gn<Return>
-" noremap * *<C-O>:%s///gn<CR>
 
 " }}}
 " Standard {{{

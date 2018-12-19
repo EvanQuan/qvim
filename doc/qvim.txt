@@ -112,8 +112,6 @@ as YouCompleteMe (https://valloric.github.io/YouCompleteMe/), and deoplete
 a fair amount of work, or may not be possible if I don't have the required
 permissions on the machine I'm on.
 
-There are also a few fuzzy finder plugins available. |CtrlP| TODO
-
 Resolve where dependencies cannot be met~
 
 Powerline fonts provides a nice aesthetic improvement to the status line and
@@ -142,26 +140,101 @@ smooth as possible.
 I try to respect Vim's default mappings as much as possible, with
 commonly-known mappings have a greater importance over the lesser-known ones.
 In other words, I have kept these common default mappings with their default
-behaviour. There are two reasons for this:
+behaviour, even if more useful options exist. There are two main reasons for
+this:
 
-First, it makes working with default or minimalist Vim key-mappings easier.
+Maintaining Muscle Memory~
 
+There are occasional moments where I am not working with my own personally
+configured Vim. Either, I'm working with vanilla Vim/Vi, or far more likely,
+I'm working in some other editor or IDE with basic Vim emulation. Going back
+and forth between basic Vim and my own configuration can be occasionally
+disorienting when the controls don't match up. For example, for a few months,
+I used to swap |:| and |;| as such: >
 
-Second, it makes others
+        noremap ; :
+        noremap : ;
+>
+At the time, I very often used |:| for commands, and rarely used |;| so
+I thought it would be better to swap them since I would not longer need to
+press <Shift> to start a command. Turns out that ergonomically this was
+actually a pretty good. However, I found myself messing up whenever I was
+using Vim keymappings in my other editors (Eclipse, Visual Studio and Atom at
+the time). It wasn't just the one key change too, I had a fairly large number
+of rebound keys. Eventually I decided to swap back and get use to Vim's
+defaults.
+
+Usability for Others~
+
+For the few other people who actually use this configuration besides myself,
+having sane defaults makes learning and using Vim much easier. Since the only
+way to figure out what I've changed is by testing it out or searching through
+my |vimrc|, changing everything would only serve to confuse and frustrate
+others.
 
 ------------------------------------------------------------------------------
 3.3.2 Redundancy                                               *qvim-redundancy*
 
-2. Minimize conflicts with the default key mappings.
-    - This makes things easier for others used to default Vim, or other Vim
-      configurations.
-    - This prevents muscle memory from getting messed up when only default Vim
-      is available, or when minimal/standard Vim keymappings are available in
-      other editors (Atom, VSCode, Intellij, Eclipse, Visual Studios,
-      overleaf, repl.it etc.)
+At direct odds with my goal to maintain Vim's defaults, I also strive to make
+use of Vim's redundant default key mappings. In my eyes, these keys would have
+better utility doing something else, especially since they can be achieved by
+other means. In determining which redundant mapping to override, I consider
+the following questions. I will use the keys |j| and |+| and my decision to
+remap out of them as an example of how these questions are applied.
+
+Which mapping is more commonly used or known for this task?~
+Some keys are fairly well-known for what they do. It may because they have
+a good mneumonic or accomplish some common or useful task. With |j| and |+|
+as examples:
+
+        1. Both move the cursor 1 line down by default.
+        2. Both can be prepended with a [count] to move that number of lines
+           down.
+
+However, |j| is well-known for accomplishing this task. If I were to remap |j|
+to do some other completely unrelated task, someone who does not expect the
+change may accidentally do some very unexpected things.
+
+On the other hand, most people don't know what |+| does in normal mode, and
+even those who do probably don't use it. If I were to remap |+|, most people
+would not notice and so would not be disrupted.
+
+Considering this alone, |+| becomes a good candidate to remap.
+
+How does the ergonomics of this key relate to the frequency of this task?~
+Typically, more frequent tasks should have higher priority for ergonomic
+key mappings over infrequent tasks. |j| sits on the home row, making it easily
+accessible, while |+| sits two rows above, and requires <Shift> as a modifier
+key to press.
+
+|j| is probably one of the most frequently used movement commands, while |+|
+barely, if ever, gets used for movement. This further justifies the remapping
+of |+| so it can be better used.
+
+Which mapping has a better menumonic/semantic value for this task?~
+To reduce memory load and ease learning, key mappings should have strong
+semantic value, either with a good mneumonic or, less preferably, through
+their spatial relation to other keys of similar purpose.
+
+|j| isn't bound by any mneumonic but instead by its spatial relation to other
+similar movements keys |h|, |k|, and |l|. This gives it some value to keep it
+as it is.
+
+|+| as a symbol doesn't really have any semantic relation to going lines down.
+Typically |+| is viewed as the plus operator in mathematics, so I thought it
+would be best to relate the symbol to some task that related to it. As
+a result, I bound |+| to the same task as CTRL-A, which adds a [count] to
+a number.
 
 ------------------------------------------------------------------------------
 3.3.3 Editing Style                                         *qvim-editing-style*
+Vim's commands are generally known for having two characteristics. They are
+generally:
+
+        1. Semantically-valued or mneumonically based
+        2. Composed of sequentially-ordered keystrokes instead of using
+           modifier keys
+
 
 ==============================================================================
 4. Settings                                                       *settings.vim*
