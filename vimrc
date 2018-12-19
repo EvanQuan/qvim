@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.14.1
+" Version:    2.14.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.14.1'
+let g:vimrc_version = '2.14.2'
 
 " Path {{{
 
@@ -1450,7 +1450,9 @@ let g:DVB_TrimWS = 1
 " goyo.vim {{{
 " Repository: https://github.com/junegunn/goyo.vim
 
-nnoremap <silent> <leader>tg :Goyo<Return>
+" Toggle distract-free
+"
+nnoremap <silent> <leader>td :Goyo<Return>
 
 " Avoid line numbers changing on insert
 "
@@ -2370,8 +2372,8 @@ let g:lmap.t = {
                 \'name' : 'Toggle...',
                 \'a' : [':ALEToggle', 'ALE linting'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Comment'],
+                \'d' : ["Goyo", 'Distraction-free'],
                 \'f' : ["normal \<C-^>", 'File'],
-                \'g' : ["Goyo", 'Goyo'],
                 \'h' : {
                         \'name' : 'Highlight...',
                         \'c' : [':call ToggleCursorColumn()', 'Column'],
