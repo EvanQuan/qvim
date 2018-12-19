@@ -1,4 +1,4 @@
-*qvim.txt*      For Vim version 8.1                Last change: 2018 December 18
+*qvim.txt*            For Vim version 8.1          Last change: 2018 December 19
 
                                       _                                        ~
                                      (_)                                       ~
@@ -9,7 +9,9 @@
                              | |                                               ~
                              |_|  Begone Foul Emacs!                           ~
 
-                             Reference Manual                                  ~
+
+                              Reference Manual                                 ~
+
 
 ==============================================================================
 CONTENTS                                                         *qvim-contents*
@@ -211,7 +213,7 @@ key to press.
 barely, if ever, gets used for movement. This further justifies the remapping
 of |+| so it can be better used.
 
-Which mapping has a better menumonic/semantic value for this task?~
+Which mapping has a better mneumonic/semantic value for this task?~
 To reduce memory load and ease learning, key mappings should have strong
 semantic value, either with a good mneumonic or, less preferably, through
 their spatial relation to other keys of similar purpose.
@@ -228,25 +230,28 @@ a number.
 
 ------------------------------------------------------------------------------
 3.3.3 Editing Style                                         *qvim-editing-style*
+
 Vim's commands are generally known for having two characteristics. They are
 generally:
 
-        1. Semantically-valued or mneumonically based
+        1. Mneumonically or semantically-valued
         2. Composed of sequentially-ordered keystrokes instead of using
            modifier keys
 
+This is not true for all of Vim's key mappings, but is a general rule for its
+more common ones.
 
 ==============================================================================
 4. Settings                                                       *settings.vim*
 
-Upon installing this configuration, a file 'settings.vim' is created in your
+Upon installing this configuration, a |settings.vim| file is created in your
 '~/.vim' directory. It allows you to conveniently configure certain aspects of
 Vim to your liking without needing to modify your '.vimrc' file. As it is not
 tracked by git, you can different settings applied on different machines
 without worrying about merge conflicts when you update from the repository. It
 can be quickly accessed with the mapping:
 
-        <Space>es
+        <Space>es               `mneumonic: edit settings`
 
 which will open the file in a new buffer. Any changes will be applied by
 restarting Vim. If you have any feedback on new settings, or changes to
@@ -255,4 +260,4 @@ existing ones, feel free to post your ideas on Github here:
         https://github.com/EvanQuan/qvim/issues/new
 
 ------------------------------------------------------------------------------
-vim:tw=78:ts=8:ft=help:noet:nospell:expandtab
+vim:tw=78:ts=8:ft=help:noet:expandtab
