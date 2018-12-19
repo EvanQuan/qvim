@@ -12,3 +12,4 @@ qvim-philosophy	qvim.txt	/*qvim-philosophy*
 qvim-redundancy	qvim.txt	/*qvim-redundancy*
 qvim-why-use	qvim.txt	/*qvim-why-use*
 qvim.txt	qvim.txt	/*qvim.txt*
+settings.vim	qvim.txt	/*settings.vim*

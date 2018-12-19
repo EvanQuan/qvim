@@ -1,10 +1,13 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.0.3
+" Version:    2.0.4
 "
 " Setting values affect how Vim is configured. This file is not tracked by
-" git, allowing you to customize this differently for each machine.
+" git, allowing you to customize this differently for each machine. You can
+" learn more about it with:
+"
+"     :help settings.vim
 "
 " Press ENTER to toggle category folding.
 " ============================================================================

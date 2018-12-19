@@ -1,4 +1,4 @@
-*qvim.txt*     For Vim version 8.1       Evan Quan's personal Vim configuration.
+*qvim.txt*      For Vim version 8.1                Last change: 2018 December 18
 
                                       _                                        ~
                                      (_)                                       ~
@@ -25,6 +25,7 @@ CONTENTS                                                         *qvim-contents*
             3.3.1 Defaults......................|qvim-defaults|
             3.3.2 Redundancy....................|qvim-redundancy|
             3.3.3 Editing Style.................|qvim-editing-style|
+    4. Settings.................................|settings.vim|
 
 ==============================================================================
 1. Intro                                                            *qvim-intro*
@@ -60,26 +61,72 @@ Vim's key mapping style.
 ------------------------------------------------------------------------------
 3.1 Minimalism                                                 *qvim-minimalism*
 
+My take is to be minimalistic while I can, but prioritize functionality if
+possible. This means I'm happy to have as many plugins and customizations as
+I can that can help improve my workflow without worrying about going overboard
+or deviating too far from vanilla Vim. However, where multiple options exist
+that purport to solve the same problem or provide the same functionality,
+I will usually favor the simpler solution. Here are a couple of examples to
+demonstrate the point.
+
+Status line~
+
+A status line plugin was pretty important for me to consistently
+display important information better than Vim's native 'statusline' setting.
+With Powerline (https://github.com/powerline/powerline) and Airline
+(https://github.com/vim-airline/vim-airline) as possible options, I opted
+for |lightline|, which provides a more minimal and configurable alternative.
+
+Find and Til~
+
+Another example is introducing a plugin to improve the usability of the |f| or
+|t| commands. Easymotion (https://github.com/easymotion/vim-easymotion) is
+a fairly popular and powerful plugin that extends the funcionalities of these
+commands, as well as for substitutions. However, I found that it was a fairly
+heavy-weight plugin for in that it in that it did quite a lot for such as
+simple command. It was also very visually fairly disruptive, altering the
+colours of the whole screen and momentarily changing characters from one to
+another. I decided to go with a much simplier and subtle plugin called
+|quick-scope|, which only added a visual indicator of characters to jump to.
 
 ------------------------------------------------------------------------------
 3.2 Dependencies                                             *qvim-dependencies*
 
-With Vim's vast ecosystem of plugins, I have a lot ot choose from.
+With Vim's vast ecosystem of plugins, I have a lot ot choose from. Many
+plugins that offer a lot of functionality require external dependencies,
+especially for those that provide IDE-like features. However, as I work on
+various machines, not all of them are able to provide those dependencies. As
+a result, I have made a conscious effort to accomodate for various levels of
+dependency support, either by disabling unsupported features, or providing
+alternatives as a workaround.
 
-1. Minimize the number of external dependencies as possible.
-    - This eases the installation process.
-    - Currently violations:
-        - Vim must be installed with Python support to enable
-          [jedi-vim](https://github.com/davidhalter/jedi-vim) and
-          [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-          to work.
-        - Vim must be installed with lua or luajit support to enable
-          [neocomplete](https://github.com/Shougo/neocomplete.vim) to work.
-        - [Powerline
-          Fonts](https://powerline.readthedocs.io/en/latest/installation.html)
-          must be installed for Powerline symbols to render properly.
-    - However, failing to have Python/Lua support or Powerline fonts can all
-      be accounted for in settings.vim and the virmc so nothing breaks.
+Minimize dependencies where possible~
+
+This is mainly motived to ease the installation process. Ideally, a simple
+clone of the repository should be enough for everything, but unfortunately
+that isn't enough.
+
+Despite being aware of what these plugins offer, I have avoided plugins such
+as YouCompleteMe (https://valloric.github.io/YouCompleteMe/), and deoplete
+(https://github.com/Shougo/deoplete.nvim) as their installation requires
+a fair amount of work, or may not be possible if I don't have the required
+permissions on the machine I'm on.
+
+There are also a few fuzzy finder plugins available. |CtrlP| TODO
+
+Resolve where dependencies cannot be met~
+
+Powerline fonts provides a nice aesthetic improvement to the status line and
+buffer line. However, they require an extra installation step, and I have not
+been able to get it to work with Windows. It made sense to keep them optional,
+which is why Powerline symbols are disabled by default and can be enabled per
+device in |settings.vim|.
+
+Intellisense autocompletion is a nice feature, which requires lua support.
+For newer versions of Vim, |completor| is loaded for asycnhronous
+autocompletion, which is very responsive. Without the prequisite features,
+|neocomplete| is loaded instead, which offers synchronous autocomplete at
+a small performance cost.
 
 ------------------------------------------------------------------------------
 3.3 Mappings                                                     *qvim-mappings*
@@ -93,9 +140,9 @@ smooth as possible.
 3.3.1 Defaults                                                   *qvim-defaults*
 
 I try to respect Vim's default mappings as much as possible, with
-commonly-known mappings have a greater importance over the lesser-known
-esoteric ones. In other words, I have kept these common default mappings with
-their default behaviour. There are two reasons for this:
+commonly-known mappings have a greater importance over the lesser-known ones.
+In other words, I have kept these common default mappings with their default
+behaviour. There are two reasons for this:
 
 First, it makes working with default or minimalist Vim key-mappings easier.
 
@@ -115,6 +162,24 @@ Second, it makes others
 
 ------------------------------------------------------------------------------
 3.3.3 Editing Style                                         *qvim-editing-style*
+
+==============================================================================
+4. Settings                                                       *settings.vim*
+
+Upon installing this configuration, a file 'settings.vim' is created in your
+'~/.vim' directory. It allows you to conveniently configure certain aspects of
+Vim to your liking without needing to modify your '.vimrc' file. As it is not
+tracked by git, you can different settings applied on different machines
+without worrying about merge conflicts when you update from the repository. It
+can be quickly accessed with the mapping:
+
+        <Space>es
+
+which will open the file in a new buffer. Any changes will be applied by
+restarting Vim. If you have any feedback on new settings, or changes to
+existing ones, feel free to post your ideas on Github here:
+
+        https://github.com/EvanQuan/qvim/issues/new
 
 ------------------------------------------------------------------------------
 vim:tw=78:ts=8:ft=help:noet:nospell:expandtab
