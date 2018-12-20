@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.14.2
+" Version:    2.14.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.14.2'
+let g:vimrc_version = '2.14.3'
 
 " Path {{{
 
@@ -37,8 +37,8 @@ let $MYVIMHOME = '~/.vim'
 let $MYVIMRC = $MYVIMHOME . '/vimrc'
 let $MYPLUGINS = $MYVIMHOME . '/plugged'
 let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
-let $MYDOC = $MYVIMHOME . '/doc'
-let $MYDOCTAGS = $MYDOC . '/tags'
+let $MYQVIM = $MYGITPLUGINS . '/qvim'
+let $MYQVIMDOC = $MYQVIM . '/doc'
 let $MYVERSION = $MYVIMHOME . '/version'
 let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
@@ -129,6 +129,7 @@ filetype off
 " Load plugins with vim-plug from plugged directory
 "
 call plug#begin($MYPLUGINS)
+Plug $MYQVIM
 " Color scheme {{{
 
 Plug 'joshdick/onedark.vim'
@@ -243,18 +244,13 @@ if has('autocmd')
 endif
 
 " }}}
-" Tags {{{
-
-" This lets Windows detect qvim docs
-"
-set runtimepath+=$MYVIMHOME
-
-" }}}
 
 " }}}
 " Appearance {{{
 
 " Color Scheme {{{
+
+let g:onedark_terminal_italics = 1
 
 " When set to "dark", Vim will try to use colors that look good on a dark
 " background.
