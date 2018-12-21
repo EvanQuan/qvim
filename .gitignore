@@ -5,6 +5,9 @@
 # Plugins
 plugged
 
+# Doc tags
+tags
+
 # settings
 settings.vim
 
