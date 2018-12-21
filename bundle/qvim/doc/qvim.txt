@@ -1,4 +1,4 @@
-*qvim.txt*            For Vim version 8.1          Last change: 2018 December 19
+*qvim.txt*            For Vim version 8.1          Last change: 2018 December 21
 
                                       _                                        ~
                                      (_)                                       ~
@@ -41,9 +41,10 @@ as well as the thought process behind designing it.
 2. Configuration Philosophy                                    *qvim-philosophy*
 
 There are a few main principles I try to abide to when configuring Vim to my
-liking: account for lacking dependencies, minimize conflicts with default key
-mappings, make use of redundant default key mappings, and stay consistent with
-Vim's key mapping style.
+liking: balance functionality with minimalism, account for lacking
+dependencies, minimize conflicts with default key mappings, make use of
+redundant default key mappings, and stay consistent with Vim's key mapping
+style.
 
 ------------------------------------------------------------------------------
 2.1 Minimalism                                                 *qvim-minimalism*
