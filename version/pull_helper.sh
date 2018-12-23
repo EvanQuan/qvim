@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull_helper.sh
 # Maintainer: https://github.com/EvanQuan/qvim/
-# Version:    2.0.1
+# Version:    2.1.0
 #
 # Pull Helper
 # If pulling implementation changes are made, they are made here to allow
@@ -17,3 +17,5 @@ cd version
 # Check file versions
 bash check_version.sh
 
+# Install and update plugins with vim-plug
+vim -c ":PlugInstall" -c ":PlugUpdate" -c ":qa!"
