@@ -1,4 +1,4 @@
-*qvim.txt*            For Vim version 8.1          Last change: 2018 December 21
+*qvim.txt*            For Vim version 8.1          Last change: 2018 December 23
 
                                       _                                        ~
                                      (_)                                       ~
@@ -25,6 +25,7 @@ CONTENTS                                                         *qvim-contents*
             2.3.2 Redundancy....................|qvim-redundancy|
             2.3.3 Editing Style.................|qvim-editing-style|
     3. Settings.................................|settings.vim|
+            3.1 Settings Variables..............|settings.vim-variables|
 
 ==============================================================================
 1. Intro                                                            *qvim-intro*
@@ -248,6 +249,226 @@ restarting Vim. If you have any feedback on new settings, or changes to
 existing ones, feel free to post your ideas on Github here:
 
         https://github.com/EvanQuan/qvim/issues/new
+
+------------------------------------------------------------------------------
+3.1 Settings Variables                                  *settings.vim-variables*
+
+g:settings#truecolor                                      *g:settings#truecolor*
+
+                True Color~
+
+                Type: |Number|
+                Default: `1`
+
+                Many terminals don't support true color and will screw up the
+                color schemes if it is enabled. If there are problems with how
+                Vim is displaying color, consider disabling this.
+
+                0: Disabled
+                        Color scheme will work but the colors may appear
+                        slightly different from its intended appearance.
+                1: Enabled
+                        Color scheme will appear as it should if your terminal
+                        supports 24-bit color. Otherwise, the colors will not
+                        work properly.
+
+
+g:settings#powerline_symbols                              *g:settings#truecolor*
+
+                Powerline Symbols~
+
+                Type: |Number|
+                Default: `0`
+
+                If powerline fonts are not installed on device, unicode
+                characters for lightline will not render correctly. Disable to
+                have default lightline separators and supseparators. This is
+                automatically disabled on Windows and gVim because Powerline
+                fonts don't render correctly.
+
+                0: Disabled
+                1: Enabled
+
+
+g:settings#colorscheme                                  *g:settings#colorscheme*
+
+                Color Scheme~
+
+                Type: |Number|
+                Default: `3`
+
+                Affects overall color scheme and lightline color scheme
+                0: None
+                1: One Dark
+                        Uses vim-one plugin.
+                2: One Light
+                        Uses vim-one plugin.
+                3: One Dark Alternative
+                        Uses onedark.vim plugin.
+
+
+g:settings#italics                                          *g:settings#italics*
+
+                Italics~
+
+                Type: |Number|
+                Default: `1`
+
+                If your terminal supports italics and is configured probably,
+                then text that should be italicized will appear to be. If this
+                setting is enabled and italics are not supported, then text
+                may appear highlighted or have its colours inverted.
+
+                0: Disabled
+                1: Enabled
+
+
+g:settings#highlight_cursor_line              *g:settings#highlight_cursor_line*
+
+                Highlight Cursor Line~
+
+                Type: |Number|
+                Default: `1`
+
+                Highlight the line the cursor is currently on.
+                0: Disabled
+                1: Enabled
+
+
+g:settings#highlight_cursor_column          *g:settings#highlight_cursor_column*
+
+                Highlight Cursor Column~
+
+                Type: |Number|
+                Default: `0`
+
+                Highlight the column the cursor is currently on.
+                0: Disabled
+                1: Enabled
+
+
+g:settings#highlight_width_indicator      *g:settings#highlight_width_indicator*
+
+                Highlight Width Indicator~
+
+                Type: |Number|
+                Default: `1`
+
+                Highlight the column to indicate g:settings#wrap_width
+                0: Disabled
+                1: Enabled
+
+
+g:settings#line_numbers                                *g:settings#line_numbers*
+
+                Line Numbers~
+
+                Type: |Number|
+                Default: `2`
+
+                Set line numbers to be visible on the left margin.
+                0: Disabled
+                1: Absolute line numbers
+                        Show the line numbers relative to the the start of the
+                        file.
+                2: Relative line numbers
+                        Show the line numbers relative to the line with the
+                        cursor.
+
+
+g:settings#wrap                                                *g:settings#wrap*
+
+                Text Wrap~
+
+                Type: |Number|
+                Default: `1`
+
+                0: No wrap
+                1: Soft wrap
+                        Visually moves text to the next line once it reaches
+                        the end of window.
+                2: Hard wrap
+                        Moves text to the next line once it reaches wrap_width
+                        columns. Column at wrap_width is highlighted.
+
+
+g:settings#wrap_width                                    *g:settings#wrap_width*
+
+                Text Wrap Width~
+
+                Type: |Number|
+                Default: `78`
+
+                The number of columns for hard wrapping and highlighted
+                column.
+
+
+g:settings#whitespace                                    *g:settings#whitespace*
+
+                Show Whitespace~
+
+                Type: |Number|
+                Default: `2`
+
+                Render placeholders for invisible characters, such as tabs,
+                spaces and new lines. Whitespace can be toggled at any time
+                with the <leader>tw command. `mneumonic: toggle whitespace`
+
+                0: Off
+                        Whitespace is not visible by default.
+                1: On
+                        Whitespace is visible by default.
+                2: Minimal
+                          Only tabs and trailing whitespace is visible.
+
+
+g:settings#python3_execution                      *g:settings#python3_execution*
+
+                Python 3 Execution~
+
+                Type: |Number|
+                Default: `1`
+
+                In order for the executioner.vim plugin to work properly for
+                Python 3, it must know the right command to run in the
+                terminal. Set it according to how it works on your machine.
+                .bashrc aliases do not count.
+
+                0: if |python| executes |python3| in the terminal
+                1: if |python3| executes |python3| in the terminal
+
+
+g:settings#cursor_color                                *g:settings#cursor_color*
+
+                Cursor Color~
+
+                Type: |Number|
+                Default: `1`
+
+                On some terminals, cursor color can be changed.
+
+                0: Default
+                        Cursor color is unchanged.
+                1: Blue
+                2: Green
+                3: Red
+
+
+g:settings#escape_alternative                    *g:settings#escape_alternative*
+
+Escape Alternative~
+
+Type: |Number|
+Default: `0`
+
+Optimally, <Capslock> and <Esc> should be swapped, but when that cannot be
+done, this provides a lazy alternative.
+
+0: Disabled
+1: Enabled
+        Sets "aa" as <Esc> in |Insert|, |Replace| and |Visual| modes
+2: Enabled
+        Sets "jk" and "kj" as <Esc> in |Insert|, |Replace| and |Visual| modes
 
 ------------------------------------------------------------------------------
 vim:tw=78:ts=8:ft=help:noet:expandtab
