@@ -48,8 +48,6 @@ cd ~/.vim
 bash pull.sh
 ```
 
-Open Vim and execute `:PlugInstall`. Close and restart Vim.
-
 #### Windows
 
 Bash (`.sh`) files are not executable on Windows by default. One solution is

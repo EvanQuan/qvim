@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.14.3
+" Version:    2.14.4
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.14.3'
+let g:vimrc_version = '2.14.4'
 
 " Path {{{
 
@@ -973,18 +973,19 @@ nnoremap <leader>Cd :call ChangeDirectory()<Return>
 " Within Window {{{
 
 " Move up/down by visual lines instead of by 'literal' lines
-" Good for when there is soft wrapping
+" Good for when there is soft wrapping.
+" If using count to move up and down, revert back to 'logical' lines so that
+" wrapped lines only count as one. Mark the previous location so it can be
+" returned to with CTRL-O
 "
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count . 'j' : 'gj')
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k' : 'gk')
 
 " Non-modifier approach to moving up and down half a window. Since j and
 " k already use gj/gk, we might as well make use of these bindings.
 "
-nnoremap gj <C-d>
-vnoremap gj <C-d>
-nnoremap gk <C-u>
-vnoremap gk <C-u>
+noremap gj <C-d>
+noremap gk <C-u>
 
 " Allow backspacing over autoindent, line breaks, and start of insert action
 set backspace=indent,eol,start
@@ -2020,6 +2021,16 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 let g:closetag_close_shortcut = '<leader>>'
+" }}}
+" vim-easy-align {{{
+" Repository: https://github.com/junegunn/vim-easy-align
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " }}}
 " vim-executioner {{{
 " Repository: https://github.com/EvanQuan/vim-executioner
