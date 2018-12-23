@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.14.4
+" Version:    3.0.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '2.14.4'
+let g:vimrc_version = '3.0.0'
 
 " Path {{{
 
@@ -38,7 +38,7 @@ let $MYVIMRC = $MYVIMHOME . '/vimrc'
 let $MYPLUGINS = $MYVIMHOME . '/plugged'
 let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
 let $MYQVIM = $MYGITPLUGINS . '/qvim'
-let $MYQVIMDOC = $MYQVIM . '/doc'
+let $MYQVIMDOC = $MYQVIM . '/doc/qvim.txt'
 let $MYVERSION = $MYVIMHOME . '/version'
 let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
@@ -57,52 +57,54 @@ let $MYWINDOWSVIMRCTEMPLATE = $MYTEMPLATES . '/_vimrc'
 "
 " In case settings.vim does not exist, settings.vim template is used.
 " If that also does not exist, setting variables directly defined here.
-" Set settings to 2.0.3 defaults if settings.vim does not exist.
+" Set settings to 3.0.0 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
   source $MYSETTINGS
 elseif filereadable(expand($MYSETTINGSTEMPLATE))
   source $MYSETTINGSTEMPLATE
-else
-  if !exists('g:truecolor_enabled')
-    let g:truecolor_enabled = 1
-  endif
-  if !exists('g:special_symbols_enabled')
-    let g:special_symbols_enabled = 1
-  endif
-  if !exists('g:colorscheme_type')
-    let g:colorscheme_type = 3
-  endif
-  if !exists('g:highlight_cursor_line')
-    let g:highlight_cursor_line = 1
-  endif
-  if !exists('g:highlight_cursor_column')
-    let g:highlight_cursor_column = 0
-  endif
-  if !exists('g:highlight_width_indicator')
-    let g:highlight_width_indicator = 1
-  endif
-  if !exists('g:line_numbers')
-    let g:line_numbers = 2
-  endif
-  if !exists('g:wrap_enabled')
-    let g:wrap_enabled = 1
-  endif
-  if !exists('g:wrap_width')
-    let g:wrap_width = 78
-  endif
-  if !exists('g:show_whitespace')
-    let g:show_whitespace = 2
-  endif
-  if !exists('g:escape_alternative_enabled')
-    let g:escape_alternative_enabled = 0
-  endif
-  if !exists('g:python3_execution')
-    let g:python3_execution = 1
-  endif
-  if !exists('g:cursor_color')
-    let g:cursor_color = 1
-  endif
+endif
+if !exists('g:settings#truecolor')
+  let g:settings#truecolor = 1
+endif
+if !exists('g:settings#powerline_symbols')
+  let g:settings#powerline_symbols = 0
+endif
+if !exists('g:settings#colorscheme')
+  let g:settings#colorscheme = 3
+endif
+if !exists('g:settings#highlight_cursor_line')
+  let g:settings#highlight_cursor_line = 1
+endif
+if !exists('g:settings#highlight_cursor_column')
+  let g:settings#highlight_cursor_column = 0
+endif
+if !exists('g:settings#highlight_width_indicator')
+  let g:settings#highlight_width_indicator = 1
+endif
+if !exists('g:settings#italics')
+  let g:settings#italics = 1
+endif
+if !exists('g:settings#line_numbers')
+  let g:settings#line_numbers = 2
+endif
+if !exists('g:settings#wrap')
+  let g:settings#wrap = 1
+endif
+if !exists('g:settings#wrap_width')
+  let g:settings#wrap_width = 78
+endif
+if !exists('g:settings#whitespace')
+  let g:settings#whitespace = 2
+endif
+if !exists('g:settings#escape_alternative')
+  let g:settings#escape_alternative = 0
+endif
+if !exists('g:settings#python3_execution')
+  let g:settings#python3_execution = 1
+endif
+if !exists('g:settings#cursor_color')
+  let g:settings#cursor_color = 1
 endif
 
 " Set statusline to nothing for later commands that increment onto statusline.
@@ -250,12 +252,14 @@ endif
 
 " Color Scheme {{{
 
-let g:onedark_terminal_italics = 1
+if g:settings#italics == 1
+  let g:onedark_terminal_italics = 1
+endif
 
 " When set to "dark", Vim will try to use colors that look good on a dark
 " background.
 "
-if g:colorscheme_type == 2
+if g:settings#colorscheme == 2
   set background=light
 else
   set background=dark
@@ -264,9 +268,9 @@ endif
 " Determine color scheme based on settings.vim
 " Lightline color scheme is consistent with main color scheme
 "
-if g:colorscheme_type >= 3
+if g:settings#colorscheme >= 3
   colorscheme onedark
-elseif g:colorscheme_type >= 1
+elseif g:settings#colorscheme >= 1
   colorscheme one
 endif
 
@@ -282,8 +286,8 @@ if (has('win32') || has('win64') || has('gui_running')) && !has('gui_macvim')
   " predefined fonts, even if more fonts are installed. This makes powerline
   " fonts on  Windows not possible.
   " Git Bash for Windows does not consider itself be windows, so
-  " g:special_symbols_enabled must be manually disabled in settings.
-  let g:special_symbols_enabled = 0
+  " g:settings#powerline_symbols must be manually disabled in settings.
+  let g:settings#powerline_symbols = 0
 endif
 
 
@@ -308,7 +312,7 @@ endif
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 "
-if g:truecolor_enabled
+if g:settings#truecolor
   " if (empty($TMUX))
     if (has("nvim"))
       "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -999,10 +1003,10 @@ runtime! macros/matchit.vim
 " Applying h (move left) moves the cursor left by 2 so hl (left then right),
 " makes the behaviour the same as regular Esc
 "
-if g:escape_alternative_enabled == 1
+if g:settings#escape_alternative == 1
   inoremap aa <Esc>hl
   vnoremap aa <Esc>hl
-elseif g:escape_alternative_enabled == 2
+elseif g:settings#escape_alternative == 2
   inoremap jk <Esc>hl
   vnoremap jk <Esc>hl
   inoremap kj <Esc>hl
@@ -1171,7 +1175,7 @@ function! ToggleColorColumn() abort
     set colorcolumn=0
     echo "-- COLORCOLUMN DISABLED --"
   else
-    execute "set colorcolumn=".(g:wrap_width + 1)
+    execute "set colorcolumn=".(g:settings#wrap_width + 1)
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
@@ -1234,6 +1238,12 @@ nnoremap <silent> <leader>vew :vsplit $MYWINDOWSVIMRC<Return>
 nnoremap <silent> <leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
 nnoremap <silent> <leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
 nnoremap <silent> <leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
+
+" Edit qvim.txt help documentation
+"
+nnoremap <silent> <leader>eq :edit $MYQVIMDOC<Return>
+nnoremap <silent> <leader>heq :split $MYQVIMDOC<Return>
+nnoremap <silent> <leader>veq :vsplit $MYQVIMDOC<Return>
 
 " Edit gvimrc
 "
@@ -1587,7 +1597,7 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " Special symbols are applied to lightline
 " Purely cosmetic
-if g:special_symbols_enabled
+if g:settings#powerline_symbols == 1
   let g:lightline.separator = {'left': "\ue0b0", 'right': "\ue0b2"}
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3"}
   let g:lightline_buffer_expand_left_icon = '◀ '
@@ -1613,9 +1623,9 @@ endif
 " Set lightline color scheme
 " Whether it is light or dark is determined in one package
 "
-if g:colorscheme_type >= 3
+if g:settings#colorscheme >= 3
   let g:lightline.colorscheme = 'onedark'
-elseif g:colorscheme_type >= 1
+elseif g:settings#colorscheme >= 1
   let g:lightline.colorscheme = 'one'
 endif
 
@@ -1656,7 +1666,7 @@ endfunction
 " Describes the line and column number of the current cursor location.
 "
 function! MyLineinfo() abort
-  if g:special_symbols_enabled
+  if g:settings#powerline_symbols == 1
     let line_number = "\uE0A1 "
     " let col_number = "\uE0A3 "
     let col_number = ":"
@@ -1703,7 +1713,7 @@ endfunction
 " - signifies not modifiable
 "
 function! MyModified() abort
-  if g:special_symbols_enabled
+  if g:settings#powerline_symbols == 1
     let modified_mark = "\u00b1"
     let not_modifiable_mark = ''
   else
@@ -1780,7 +1790,7 @@ endfunction
 function! MyFugitive() abort
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
-      if g:special_symbols_enabled
+      if g:settings#powerline_symbols == 1
         let git_symbol = ' '
       else
         " let git_symbol = '⎇ '
@@ -2036,7 +2046,7 @@ nmap ga <Plug>(EasyAlign)
 " Repository: https://github.com/EvanQuan/vim-executioner
 
 let g:executioner#extensions = {}
-if g:python3_execution == 0
+if g:settings#python3_execution == 0
   let g:executioner#extensions['py'] = 'python %'
 else
   let g:executioner#extensions['py'] = 'python3 %'
@@ -2217,6 +2227,7 @@ let g:lmap.e = {
                 \'g' : [':edit $MYGVIMRC', 'gvimrc'],
                 \'m' : [':edit makefile', 'makefile'],
                 \'n' : [':edit $MYNOTES', 'Notes'],
+                \'q' : [':edit $MYQVIMDOC', 'qvim help'],
                 \'R' : [':edit README.md', 'README.md'],
                 \'r' : [':edit run.sh', 'run.sh'],
                 \'s' : [':edit $MYSETTINGS', 'settings.vim'],
@@ -2261,6 +2272,7 @@ let g:lmap.h = {
                         \'g' : [':split $MYGVIMRC', 'gvimrc'],
                         \'m' : [':split makefile', 'makefile'],
                         \'n' : [':split $MYNOTES', 'Notes'],
+                        \'q' : [':split $MYQVIMDOC', 'qvim help'],
                         \'R' : [':split README.md', 'README.md'],
                         \'r' : [':split run.sh', 'run.sh'],
                         \'s' : [':split $MYSETTINGS', 'settings.vim'],
@@ -2407,6 +2419,7 @@ let g:lmap.v = {
                         \'g' : [':vsplit $MYGVIMRC', 'gvimrc'],
                         \'m' : [':vsplit makefile', 'makefile'],
                         \'n' : [':vsplit $MYNOTES', 'Notes'],
+                        \'q' : [':vsplit $MYQVIMDOC', 'qvim help'],
                         \'R' : [':vsplit README.md', 'README.md'],
                         \'r' : [':vsplit run.sh', 'run.sh'],
                         \'s' : [':vsplit $MYSETTINGS', 'settings.vim'],
@@ -2545,12 +2558,12 @@ set scrolloff=5
 " }}}
 " Color {{{
 
-if g:cursor_color
-  if g:cursor_color == 1 " Blue
+if g:settings#cursor_color
+  if g:settings#cursor_color == 1 " Blue
     silent !echo -ne "\033]12;rgb:61/af/ef\x7\007"
-  elseif g:cursor_color == 2 " Green
+  elseif g:settings#cursor_color == 2 " Green
     silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-  elseif g:cursor_color == 3 " Red
+  elseif g:settings#cursor_color == 3 " Red
     silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
   endif
   " Reset cursor to original when vim exits
@@ -2572,11 +2585,11 @@ endif
 " }}}
 " Visibility {{{
 
-if g:highlight_cursor_line
+if g:settings#highlight_cursor_line
   set cursorline
 endif
 
-if g:highlight_cursor_column
+if g:settings#highlight_cursor_column
   set cursorcolumn
 endif
 
@@ -2616,13 +2629,13 @@ set guioptions = " No scroll bars
 " }}}
 " Line Numbers {{{
 
-if g:line_numbers
+if g:settings#line_numbers
   " Print the line number in front of each line.
   "
   set number
   " Changes the displayed number to relative to the cursor.
   "
-  if g:line_numbers == 2
+  if g:settings#line_numbers == 2
     set relativenumber
     if has('autocmd')
       " Absolute number on INSERT and REPLACE modes
@@ -2680,23 +2693,23 @@ set noshowmode
 " }}}
 " Text Wrapping {{{
 
-if g:wrap_enabled
+if g:settings#wrap
   set wrap
-  if g:wrap_enabled == 1 " soft wrap
+  if g:settings#wrap == 1 " soft wrap
     set linebreak " line breaks only occur when the user explicitly makes them
     set textwidth=0 " disable text width limit
-  elseif g:wrap_enabled == 2 " hard wrap
+  elseif g:settings#wrap == 2 " hard wrap
     set nolist " Disable linebreak if it is enabled
-    execute "set textwidth=".g:wrap_width
+    execute "set textwidth=".g:settings#wrap_width
   endif
 else
   set nowrap
   set textwidth=0
 endif
 
-if g:highlight_width_indicator
-  " wrap_width is visualized as highlighted column
-  execute "set colorcolumn=".(g:wrap_width+1)
+if g:settings#highlight_width_indicator
+  " settings#wrap_width is visualized as highlighted column
+  execute "set colorcolumn=".(g:settings#wrap_width+1)
 endif
 
 " }}}
@@ -2717,7 +2730,7 @@ set titlestring=%F
 " Also, visual indicators are not needed because tabs are already visualized
 " to distinguish them.
 "
-if g:show_whitespace == 2
+if g:settings#whitespace == 2
   set listchars=tab:»\ ,trail:·,extends:>,precedes:<,nbsp:‡
   " set listchars=tab:»\ ,eol:¬,trail:·,extends:>,precedes:<,nbsp:‡
 else
@@ -2730,7 +2743,7 @@ match ErrorMsg '\s\+$'
 
 " Only show whitespace if enabled
 "
-if g:show_whitespace
+if g:settings#whitespace
   set list
 endif
 

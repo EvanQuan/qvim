@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    2.0.4
+" Version:    3.0.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine. You can
@@ -13,7 +13,7 @@
 " ============================================================================
 
 " True Color (24-bit) {{{
-"   Many terminals don't support True color and will screw up the color
+"   Many terminals don't support true color and will screw up the color
 "   schemes if it is enabled. If there are problems with how Vim is displaying
 "   color, consider disabling this.
 "   0: Disabled
@@ -23,8 +23,8 @@
 "     Color scheme will appear as it should if your terminal supports 24-bit
 "     color. Otherwise, the colors will not work properly.
 " }}}
-let g:truecolor_enabled = 1
-" Powerline {{{
+let g:settings#truecolor = 1
+" Powerline Symbols {{{
 "   If powerline fonts are not installed on device, unicode characters for
 "   lightline will not render correctly. Disable to have default lightline
 "   separators and supseparators. This is automatically disabled on Windows
@@ -32,7 +32,7 @@ let g:truecolor_enabled = 1
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:special_symbols_enabled = 0
+let g:settings#powerline_symbols = 0
 " Color Scheme {{{
 "   Affects overall color scheme and lightline color scheme
 "   0: None
@@ -43,25 +43,34 @@ let g:special_symbols_enabled = 0
 "   3: One Dark Alternative
 "     Uses onedark.vim plugin.
 " }}}
-let g:colorscheme_type = 3
+let g:settings#colorscheme = 3
+" Italics {{{
+"   If your terminal supports italics and is configured probably, then text
+"   that should be italicized will appear to be. If this setting is enabled
+"   and italics are not supported, then text may appear highlighted or have
+"   its colours inverted.
+"   0: Disabled
+"   1: Enabled
+" }}}
+let g:settings#italics = 1
 " Highlight Cursor Line {{{
 "   Highlight the line the cursor is currently on.
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:highlight_cursor_line = 1
+let g:settings#highlight_cursor_line = 1
 " Highlight Cursor Column {{{
 "   Highlight the column the cursor is currently on.
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:highlight_cursor_column = 0
+let g:settings#highlight_cursor_column = 0
 " Highlight Width Indicator {{{
-"   Highlight the column to indicate g:wrap_width
+"   Highlight the column to indicate g:settings#wrap_width
 "   0: Disabled
 "   1: Enabled
 " }}}
-let g:highlight_width_indicator = 1
+let g:settings#highlight_width_indicator = 1
 " Line Numbers {{{
 "   Set line numbers to be visible on the left margin.
 "   0: Disabled
@@ -70,7 +79,7 @@ let g:highlight_width_indicator = 1
 "   2: Relative line numbers
 "     Show the line numbers relative to the line with the cursor.
 " }}}
-let g:line_numbers = 2
+let g:settings#line_numbers = 2
 " Text Wrap {{{
 "   0: No wrap
 "   1: Soft wrap
@@ -79,11 +88,11 @@ let g:line_numbers = 2
 "     Moves text to the next line once it reaches wrap_width columns.
 "     Column at wrap_width is highlighted.
 " }}}
-let g:wrap_enabled = 1
+let g:settings#wrap = 1
 " Text Wrap Width {{{
 "   The number of columns for hard wrapping and highlighted column.
 " }}}
-let g:wrap_width = 78
+let g:settings#wrap_width = 78
 " Show Whitespace {{{
 "   Render placeholders for invisible characters, such as tabs, spaces and
 "   new lines. Whitespace can be toggled at any time with the <leader>tw
@@ -93,9 +102,9 @@ let g:wrap_width = 78
 "   1: On
 "     Whitespace is visible by default.
 "   2: Minimal
-"     Whitespace is visible except for spaces and new line characters.
+"     Only tabs and trailing whitespace is visible.
 " }}}
-let g:show_whitespace = 2
+let g:settings#whitespace = 2
 " Python 3 Execution {{{
 "   In order for the executioner.vim plugin to work properly for Python 3, it
 "   must know the right command to run in the terminal. Set it according to
@@ -103,7 +112,7 @@ let g:show_whitespace = 2
 "   0: if `python` executes `python3` in the terminal
 "   1: if `python3` executes `python3` in the terminal
 " }}}
-let g:python3_execution = 1
+let g:settings#python3_execution = 1
 " Cursor color {{{
 "   On some terminals, cursor color can be changed.
 "   0: Default
@@ -112,7 +121,7 @@ let g:python3_execution = 1
 "   2: Green
 "   3: Red
 " }}}
-let g:cursor_color = 1
+let g:settings#cursor_color = 1
 " Escape Alternative {{{
 "   Optimally, CAPSLOCK and ESCAPE should be swapped, but when that cannot be
 "   done, this provides a lazy alternative.
@@ -122,4 +131,4 @@ let g:cursor_color = 1
 "   2: Enabled
 "     Sets "jk" and "kj" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
-let g:escape_alternative_enabled = 0
+let g:settings#escape_alternative = 0
