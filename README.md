@@ -48,14 +48,21 @@ cd ~/.vim
 bash pull.sh
 ```
 
+Hooray, that's it! You're all done!
+
 #### Windows
 
 Bash (`.sh`) files are not executable on Windows by default. One solution is
 to install [Git Bash](https://git-scm.com/downloads) or
-[Cygwin](https://cygwin.com/install.html) to run `pull.sh`. I may later make
-a `.bat` script to make things easier for Windows.
+[Cygwin](https://cygwin.com/install.html) to run `pull.sh`.
 
-Hooray, that's it! You're all done!
+Another solution is to stop using Windows entirely.
+
+![](https://static-cdn.jtvnw.net/emoticons/v1/425618/3.0)
+
+On a more serious note, I may later make a `.bat` script to make things easier
+on Windows.
+
 
 External Dependencies
 ---------------------
@@ -111,8 +118,6 @@ the newer version. Otherwise, your local `settings.vim` will be unchanged.
 cd ~/.vim
 bash pull.sh
 ```
-
-Open Vim and execute `:PlugInstall`
 
 ### Plugins
 
@@ -240,25 +245,25 @@ tic -o ~/.terminfo xterm-256color.terminfo.txt
 There are 2 solutions:
 1. Use a terminal that supports 24-bit color (also called true color).
 
-    **Mac**
+   **Mac**
 
-    I strongly recommend [iTerm2](https://www.iterm2.com/) over the default
-    terminal. It supports 24-bit color and has a bunch of other fancy stuff.
+   I strongly recommend [iTerm2](https://www.iterm2.com/) over the default
+   terminal. It supports 24-bit color and has a bunch of other fancy stuff.
 
-    **Windows**
+   **Windows**
 
-    If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
-    terminal for ssh instead, such as [Git
-    Bash](https://git-scm.com/downloads) or
-    [Mintty](https://mintty.github.io/).
+   If you're using [PuTTY](https://www.putty.org/) for ssh, use some other
+   terminal for ssh instead, such as [Git
+   Bash](https://git-scm.com/downloads) or
+   [Mintty](https://mintty.github.io/).
 
-    **Linux**
+   **Linux**
 
-    You already know what you're doing. :penguin:
+   You already know what you're doing. :penguin:
 
 2. Disable true color
 
-    Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
-    appearance will be be an altered version of the selected color scheme.
+   Go to `settings.vim` and set `g:truecolor_enabled = 0`. The resulting
+   appearance will be be an altered version of the selected color scheme.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
