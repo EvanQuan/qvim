@@ -151,6 +151,9 @@ restart Vim.
 - [vim-speeddating](https://github.com/tpope/vim-speeddating)
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
+- [vim-textobj-user](https://github.com/kana/vim-textobj-user)
+- [vim-textobj-parameter](https://github.com/sgur/vim-textobj-parameter)
+- [vim-textobj-surround](https://github.com/EvanQuan/vim-textobj-surround)
 
 ### File Navigation
 - [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)

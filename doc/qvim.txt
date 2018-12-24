@@ -138,8 +138,9 @@ There are occasional moments where I am not working with my own personally
 configured Vim. Either, I'm working with vanilla Vim/Vi, or far more likely,
 I'm working in some other editor or IDE with basic Vim emulation. Going back
 and forth between basic Vim and my own configuration can be occasionally
-disorienting when the controls don't match up. For example, for a few months,
-I used to swap |:| and |;| as such: >
+disorienting when the controls don't match up.
+
+As an example example, for a few months, I used to swap |:| and |;| as such: >
 
         noremap ; :
         noremap : ;
@@ -231,6 +232,14 @@ I want to be consistent with these characteristics to make the editing
 experience as seemless as possible. As a means to avoid overriding default
 mappings, I took advantage of Vim's <Leader> key (mapped to <Space>) to create
 a new namespace of key mappings.
+
+Building off pre-existing mneumonics~
+
+TODO
+
+Creating new mneumonics~
+
+TODO
 
 ==============================================================================
 3. Settings                                                     *settings.vim*

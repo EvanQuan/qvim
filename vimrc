@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.0.2
+" Version:    3.1.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.0.2'
+let g:vimrc_version = '3.1.0'
 
 " Path {{{
 
@@ -162,6 +162,9 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'thaerkh/vim-workspace'
 Plug 'EvanQuan/vmath-plus'
+Plug 'kana/vim-textobj-user'
+Plug 'sgur/vim-textobj-parameter'
+Plug 'EvanQuan/vim-textobj-surround'
 
 " }}}
 " File Navigation {{{
@@ -439,8 +442,8 @@ let mapleader = " "
 
 " Incrementing and decrementing numbers
 "
-nnoremap + <C-a>
-nnoremap - <C-x>
+noremap + <C-a>
+noremap - <C-x>
 
 " Change {{{
 
@@ -646,6 +649,10 @@ vnoremap aa VGo1G
 
 " }}}
 " Yank {{{
+
+" System clipboard
+"
+noremap <leader>y "+y
 
 " Around/In Line
 " Yanks whole line except for end-of-line character
@@ -1059,31 +1066,6 @@ map <leader>fd :DiffOrig<Return>
 " These are from $VIMRUNTIME/mswin.vim
 " Compatible bindings to always be on.
 "
-
-if has("clipboard")
-  " CTRL-X and SHIFT-Del are Cut
-  "
-  vnoremap <C-X> "+x
-  vnoremap <S-Del> "+x
-
-  " CTRL-C and CTRL-Insert are Copy
-  "
-  vnoremap <C-C> "+y
-  vnoremap <C-Insert> "+y
-endif
-
-" Use CTRL-S for saving, also in Insert mode
-"
-noremap <C-S>           :update<Return>
-vnoremap <C-S>          <C-C>:update<Return>
-inoremap <C-S>          <C-O>:update<Return>
-
-
-" CTRL-Z is Undo; not in cmdline though
-" NOTE: This is not compatible with default behaviour of force closing Vim.
-"
-noremap <C-Z> u
-inoremap <C-Z> <C-O>u
 
 if has("gui")
   " CTRL-F is the search and replace dialog,
@@ -2388,6 +2370,7 @@ let g:lmap.w = {
                 \ 's' : ["normal \<C-w>s", 'Horizontal split'],
                 \ 'v' : ["normal \<C-w>v", 'Vertical split'],
                 \}
+let g:lmap.y = [ "call feedkeys(\"\\\"+y\")", "Yank to clipboard" ]
 " let g:lmap.['/'][1] = 'Search next word'
 
 " Bind leader key <Space> to open leader guide prompt
