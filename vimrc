@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.0.1
+" Version:    3.0.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.0.1'
+let g:vimrc_version = '3.0.2'
 
 " Path {{{
 
@@ -37,8 +37,8 @@ let $MYVIMHOME = '~/.vim'
 let $MYVIMRC = $MYVIMHOME . '/vimrc'
 let $MYPLUGINS = $MYVIMHOME . '/plugged'
 let $MYGITPLUGINS = $MYVIMHOME . '/bundle'
-let $MYQVIM = $MYGITPLUGINS . '/qvim'
-let $MYQVIMDOC = $MYQVIM . '/doc/qvim.txt'
+let $MYDOC = $MYVIMHOME . '/doc'
+let $MYQVIMDOC = $MYDOC . '/qvim.txt'
 let $MYVERSION = $MYVIMHOME . '/version'
 let $MYTEMPLATES = $MYVERSION . '/templates'
 let $MYSETTINGS = $MYVIMHOME . '/settings.vim'
@@ -131,7 +131,7 @@ filetype off
 " Load plugins with vim-plug from plugged directory
 "
 call plug#begin($MYPLUGINS)
-Plug $MYQVIM
+Plug $MYVIMHOME
 " Color scheme {{{
 
 Plug 'joshdick/onedark.vim'
