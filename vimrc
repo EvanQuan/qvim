@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.0.0
+" Version:    3.0.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.0.0'
+let g:vimrc_version = '3.0.1'
 
 " Path {{{
 
@@ -358,16 +358,16 @@ set formatoptions=tcqrn1
 " Number of spaces that a <Tab> in the file counts for.
 " Default 8
 "
-set tabstop=4 " 2
+set tabstop=4
 
 " Number of spaces to use for each step of (auto)indent.
 "
-set shiftwidth=4 " 2
+set shiftwidth=4
 
 " Number of spaces that a <Tab> conunts for while performing editing
 " operations.
 "
-set softtabstop=4 " 2
+set softtabstop=4
 
 " In Insert mode: use the appropraiate number of spaces to insert a <Tab>.
 "
@@ -388,57 +388,6 @@ set autoindent
 " Copy the previous indentation on autoindenting
 "
 set copyindent
-
-" }}}
-" Language-Specific {{{
-
-" These are the defaults for when vim-sleuth does not detect already existing
-" whitespace styling.
-
-if has('autocmd')
-  " 2-space soft tabs
-  "
-  autocmd Filetype php setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-  autocmd Filetype tex setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-  autocmd Filetype vim setlocal expandtab tabstop=8 shiftwidth=2 softtabstop=2
-        \ textwidth=78
-
-  " 4-space soft tabs
-  "   In accordance with PEP 8
-  autocmd Filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
-  "   tabstop=4 in case tabs are being used in existing file
-  autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4
-  autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4
-
-  " 2-space hard tabs
-  "
-  autocmd Filetype html setlocal noexpandtab tabstop=2 shiftwidth=2
-  autocmd Filetype xml setlocal noexpandtab tabstop=2 shiftwidth=2
-
-  " 8-space hard tabs
-  "
-  " Make automatically defaults to hard tabs (because it doesn't allow for
-  " soft tabs, but the shiftwidth needs to be changed to be consistent)
-  autocmd Filetype make setlocal noexpandtab tabstop=8 shiftwidth=8
-  autocmd Filetype text setlocal noexpandtab tabstop=8 shiftwidth=8
-  " Console text
-  autocmd Filetype output setlocal noexpandtab tabstop=8 shiftwidth=8
-
-  " 8-space soft tabs
-  "
-  autocmd Filetype arm setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
-  autocmd Filetype jas setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
-
-  " Spell check enabled
-  autocmd Filetype markdown setlocal spell textwidth=78
-  autocmd Filetype text setlocal spell tabstop=8
-
-  " Keyword
-  " Easier browsing between pages in :help
-  autocmd Filetype help setlocal expandtab tabstop=8 shiftwidth=8 softtabstop=8
-                               \ keywordprg=:help textwidth=78
-endif
 
 " }}}
 " Auto-Detect {{{
@@ -1393,13 +1342,6 @@ nnoremap ]a :ALENextWrap<Return>
 nnoremap [a :ALEPreviousWrap<Return>
 
 "}}}
-" arm-syntax-vim {{{
-" Repository: https://github.com/ARM9/arm-syntax-vim
-
-" Recognize the correct file extensions as ARM files
-"
-autocmd BufNewFile,BufRead *.s,*.S,*.asm set filetype=arm " arm = armv6/7
-" }}}
 " betterdigraphs {{{
 
 " NOTE: Does not currently work as expected. In terms of automatically
@@ -2799,21 +2741,6 @@ set noswapfile
 " reading/writing the buffer from/to a file.
 "
 set fileformat=unix
-
-" Normally .pro files detect as idlang files. As GNU Prolog detects Prolog
-" files with .pro and .pl extensions, I have decided to override .pro as
-" I have no use for idlang and .pl is reserved for Perl files.
-"
-" I am aware that .prolog guarantees the file to be detected for Prolog, but
-" again, for the sake of convenience, .pro files work easier for GNU Prolog.
-"
-autocmd BufNewFile,BufRead *.pro set filetype=prolog
-
-" Java assembly
-"
-autocmd BufNewFile,BufRead *.jas set filetype=jas
-
-autocmd BufNewFile,BufRead *.tex set filetype=tex
 
 " }}}
 " History {{{
