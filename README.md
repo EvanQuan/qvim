@@ -1,11 +1,11 @@
-My Vim Configuration
-====================
+# My Vim Configuration
+
 This is my personal [Vim](https://www.vim.org/) configuration.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
 
-Table of Contents
------------------
+## Table of Contents
+
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
 3. [External Dependencies](#external-dependencies)
@@ -30,15 +30,14 @@ Table of Contents
     - [Italic characters are not rendering](#italic-characters-are-not-rendering)
     - [Everything is blue](#everything-is-blue)
 
-Why Use This?
-------------
+## Why Use This?
+
 If you're lazy and want to use what I'm using, feel free to. However, note
 that each person's Vim configuration is tailored to that person's workflow,
 and not necessarily anyone else's. This is why I recommend that people
 customize Vim to best fit their own needs.
 
-Installation
-------------
+## Installation
 
 Clone this repository and run `pull.sh` as follows:
 
@@ -64,8 +63,8 @@ On a more serious note, I may later make a `.bat` script to make things easier
 on Windows.
 
 
-External Dependencies
----------------------
+## External Dependencies
+
 No one likes having to install external dependencies, which is why all of mine
 are optional. That being said, installing these may improve your Vim
 experience.
@@ -105,8 +104,7 @@ If Vim is installed without Lua support (`:echo has('lua')` responds with
 [completor.vim](https://github.com/maralla/completor.vim) or
 [neocomplete](https://github.com/Shougo/neocomplete.vim) will not work.
 
-Updating
---------
+## Updating
 
 ### Vimrc configuration
 
@@ -124,8 +122,7 @@ bash pull.sh
 To update your plugins, open up Vim and execute `:PlugUpdate`. Close and
 restart Vim.
 
-Plugin List
------------
+## Plugin List
 
 ### Plugin Manager
 - [vim-plug](https://github.com/junegunn/vim-plug)
@@ -192,8 +189,7 @@ Plugin List
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 - [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
-Troubleshooting
----------------
+## Troubleshooting
 
 #### Plugins are not installed
 
