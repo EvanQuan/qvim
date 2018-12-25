@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull_helper.sh
 # Maintainer: https://github.com/EvanQuan/qvim/
-# Version:    2.2.0
+# Version:    2.3.0
 #
 # Pull Helper
 # If pulling implementation changes are made, they are made here to allow
@@ -30,7 +30,7 @@ fi
 bash check_version.sh
 
 # Install and update plugins with vim-plug
-vim -c ":PlugInstall" -c ":PlugUpdate" -c ":qa!"
+vim -c ":PlugUpdate" -c ":PlugClean!" -c ":qa!"
 
 if [ "$open_settings" = true ]; then
     vim -c ":redraw" -c "echo '-- Settings have changed since last update --' " $settings_location

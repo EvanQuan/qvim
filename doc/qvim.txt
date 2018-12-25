@@ -1,4 +1,4 @@
-*qvim.txt*            For Vim version 8.1          Last change: 2018 December 24
+*qvim.txt*            For Vim version 8.1          Last change: 2018 December 25
 
                                       _                                        ~
                                      (_)                                       ~
@@ -14,7 +14,7 @@
 
 
 ==============================================================================
-CONTENTS                                                       *qvim-contents*
+CONTENTS                                                         *qvim-contents*
 
     1. Intro....................................|qvim-intro|
     2. Configuration Philosophy.................|qvim-philosophy|
@@ -28,7 +28,7 @@ CONTENTS                                                       *qvim-contents*
         3.1 Settings Variables..................|settings.vim-variables|
 
 ==============================================================================
-1. Intro                                                          *qvim-intro*
+1. Intro                                                            *qvim-intro*
 
 You are using Evan Quan's Vim configuration files. The most updated version of
 the files can be found at:
@@ -39,7 +39,7 @@ The following documentation describes some history behind this configuration
 as well as the thought process behind designing it.
 
 ==============================================================================
-2. Configuration Philosophy                                  *qvim-philosophy*
+2. Configuration Philosophy                                    *qvim-philosophy*
 
 There are a few main principles I try to abide to when configuring Vim to my
 liking: balance functionality with minimalism, account for lacking
@@ -48,7 +48,7 @@ redundant default key mappings, and stay consistent with Vim's key mapping
 style.
 
 ------------------------------------------------------------------------------
-2.1 Minimalism                                               *qvim-minimalism*
+2.1 Minimalism                                                 *qvim-minimalism*
 
 My take is to be minimalistic while I can, but prioritize functionality if
 possible. This means I'm happy to have as many plugins and customizations as
@@ -79,7 +79,7 @@ another. I decided to go with a much simplier and subtle plugin called
 |quick-scope|, which only added a visual indicator of characters to jump to.
 
 ------------------------------------------------------------------------------
-2.2 Dependencies                                           *qvim-dependencies*
+2.2 Dependencies                                             *qvim-dependencies*
 
 With Vim's vast ecosystem of plugins, I have a lot ot choose from. Many
 plugins that offer a lot of functionality require external dependencies,
@@ -116,7 +116,7 @@ autocompletion, which is very responsive. Without the prequisite features,
 a small performance cost.
 
 ------------------------------------------------------------------------------
-2.3 Mappings                                                   *qvim-mappings*
+2.3 Mappings                                                     *qvim-mappings*
 
 I have both remapped many keys as well as created new mappings. Whether I'm
 adding new mappings in the future, or changing and deleting old ones, these
@@ -124,7 +124,7 @@ are some points I keep in mind to make my and anyone else's experience as
 smooth as possible.
 
 ------------------------------------------------------------------------------
-2.3.1 Defaults                                                 *qvim-defaults*
+2.3.1 Defaults                                                   *qvim-defaults*
 
 I try to respect Vim's default mappings as much as possible, with
 commonly-known mappings have a greater importance over the lesser-known ones.
@@ -163,7 +163,7 @@ my |vimrc|, changing everything would only serve to confuse and frustrate
 others.
 
 ------------------------------------------------------------------------------
-2.3.2 Redundancy                                             *qvim-redundancy*
+2.3.2 Redundancy                                               *qvim-redundancy*
 
 At direct odds with my goal to maintain Vim's defaults, I also strive to make
 use of Vim's redundant default key mappings. In my eyes, these keys would have
@@ -217,7 +217,7 @@ a result, I bound |+| to the same task as CTRL-A, which adds a [count] to
 a number.
 
 ------------------------------------------------------------------------------
-2.3.3 Editing Style                                       *qvim-editing-style*
+2.3.3 Editing Style                                         *qvim-editing-style*
 
 Vim's commands are generally known for having two characteristics. They are
 generally:
@@ -242,7 +242,7 @@ Creating new mneumonics~
 TODO
 
 ==============================================================================
-3. Settings                                                     *settings.vim*
+3. Settings                                                       *settings.vim*
 
 Upon installing this configuration, a |settings.vim| file is created in your
 '~/.vim' directory. It allows you to conveniently configure certain aspects of
@@ -260,9 +260,9 @@ existing ones, feel free to post your ideas on Github here:
         https://github.com/EvanQuan/qvim/issues/new
 
 ------------------------------------------------------------------------------
-3.1 Settings Variables                                *settings.vim-variables*
+3.1 Settings Variables                                  *settings.vim-variables*
 
-g:settings#truecolor                                    *g:settings#truecolor*
+g:settings#truecolor                                      *g:settings#truecolor*
 
                 True Color~
 
@@ -282,7 +282,7 @@ g:settings#truecolor                                    *g:settings#truecolor*
                         work properly.
 
 
-g:settings#powerline_symbols                            *g:settings#truecolor*
+g:settings#powerline_symbols                              *g:settings#truecolor*
 
                 Powerline Symbols~
 
@@ -368,7 +368,7 @@ g:settings#highlight_width_indicator    *g:settings#highlight_width_indicator*
                 1: Enabled
 
 
-g:settings#line_numbers                              *g:settings#line_numbers*
+g:settings#line_numbers                                *g:settings#line_numbers*
 
                 Line Numbers~
 
@@ -385,7 +385,7 @@ g:settings#line_numbers                              *g:settings#line_numbers*
                         cursor.
 
 
-g:settings#wrap                                              *g:settings#wrap*
+g:settings#wrap                                                *g:settings#wrap*
 
                 Text Wrap~
 
@@ -401,7 +401,7 @@ g:settings#wrap                                              *g:settings#wrap*
                         columns. Column at wrap_width is highlighted.
 
 
-g:settings#wrap_width                                  *g:settings#wrap_width*
+g:settings#wrap_width                                    *g:settings#wrap_width*
 
                 Text Wrap Width~
 
@@ -412,7 +412,7 @@ g:settings#wrap_width                                  *g:settings#wrap_width*
                 column.
 
 
-g:settings#whitespace                                  *g:settings#whitespace*
+g:settings#whitespace                                    *g:settings#whitespace*
 
                 Show Whitespace~
 
@@ -431,7 +431,7 @@ g:settings#whitespace                                  *g:settings#whitespace*
                           Only tabs and trailing whitespace is visible.
 
 
-g:settings#python3_execution                    *g:settings#python3_execution*
+g:settings#python3_execution                      *g:settings#python3_execution*
 
                 Python 3 Execution~
 
@@ -447,7 +447,7 @@ g:settings#python3_execution                    *g:settings#python3_execution*
                 1: if |python3| executes |python3| in the terminal
 
 
-g:settings#cursor_color                              *g:settings#cursor_color*
+g:settings#cursor_color                                *g:settings#cursor_color*
 
                 Cursor Color~
 
@@ -463,7 +463,7 @@ g:settings#cursor_color                              *g:settings#cursor_color*
                 3: Red
 
 
-g:settings#escape_alternative                  *g:settings#escape_alternative*
+g:settings#escape_alternative                    *g:settings#escape_alternative*
 
 Escape Alternative~
 
