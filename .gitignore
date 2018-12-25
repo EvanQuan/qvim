@@ -31,6 +31,7 @@ notes.txt
 # Test files
 test*
 Test*
+makefile
 
 # Run.sh
 run.sh
