@@ -32,6 +32,8 @@ notes.txt
 test*
 Test*
 makefile
+input.txt
+output.txt
 
 # Run.sh
 run.sh
