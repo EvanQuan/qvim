@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.1.0
+" Version:    3.1.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.1.0'
+let g:vimrc_version = '3.1.1'
 
 " Path {{{
 
@@ -164,7 +164,7 @@ Plug 'thaerkh/vim-workspace'
 Plug 'EvanQuan/vmath-plus'
 Plug 'kana/vim-textobj-user'
 Plug 'sgur/vim-textobj-parameter'
-Plug 'EvanQuan/vim-textobj-surround'
+Plug 'EvanQuan/vim-textobj-symbols'
 
 " }}}
 " File Navigation {{{
