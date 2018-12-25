@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.2.0
+" Version:    3.3.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.2.0'
+let g:vimrc_version = '3.3.0'
 
 " Path {{{
 
@@ -556,7 +556,7 @@ noremap <leader>tp :call TogglePasteMode()<Return>
 
 " System Clipboard
 "
-noremap <leader>ps "+p
+noremap <leader>pc "+p
 
 " Around/In Word
 "
@@ -689,6 +689,100 @@ nnoremap yH y^
 "
 nnoremap <leader>tf <C-^>
 
+" Edit vimrc
+"
+nnoremap <silent> <leader>ev :edit $MYVIMRC<Return>
+nnoremap <silent> <leader>hev :split $MYVIMRC<Return>
+nnoremap <silent> <leader>vev :vsplit $MYVIMRC<Return>
+
+" Edit Windows _vimrc
+"
+nnoremap <silent> <leader>ew :edit $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <leader>hew :split $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <leader>vew :vsplit $MYWINDOWSVIMRC<Return>
+
+" Edit Windows _vimrc template
+"
+nnoremap <silent> <leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
+
+" Edit qvim.txt help documentation
+"
+nnoremap <silent> <leader>eq :edit $MYQVIMDOC<Return>
+nnoremap <silent> <leader>heq :split $MYQVIMDOC<Return>
+nnoremap <silent> <leader>veq :vsplit $MYQVIMDOC<Return>
+
+" Edit gvimrc
+"
+nnoremap <silent> <leader>eg :edit $MYGVIMRC<Return>
+nnoremap <silent> <leader>heg :split $MYGVIMRC<Return>
+nnoremap <silent> <leader>veg :vsplit $MYGVIMRC<Return>
+
+" Reload vimrc
+"
+nnoremap <silent> <leader>Rv :source $MYVIMRC<Return>
+
+" Open settings.vim
+"
+nnoremap <silent> <leader>es :edit $MYSETTINGS<Return>
+nnoremap <silent> <leader>hes :split $MYSETTINGS<Return>
+nnoremap <silent> <leader>ves :vsplit $MYSETTINGS<Return>
+
+" Open settings.vim template
+"
+nnoremap <silent> <leader>eS :edit $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <leader>heS :split $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <leader>veS :vsplit $MYSETTINGSTEMPLATE<Return>
+
+" Open notes.txt
+"
+nnoremap <silent> <leader>en :edit $MYNOTES<Return>
+nnoremap <silent> <leader>hen :split $MYNOTES<Return>
+nnoremap <silent> <leader>ven :vsplit $MYNOTES<Return>
+
+" .tmux.conf
+"
+nnoremap <silent> <leader>et :edit ~/.tmux.conf<Return>
+nnoremap <silent> <leader>het :split ~/.tmux.conf<Return>
+nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<Return>
+
+" .bashrc
+"
+nnoremap <silent> <leader>eb :edit ~/.bashrc<Return>
+nnoremap <silent> <leader>heb :split ~/.bashrc<Return>
+nnoremap <silent> <leader>veb :vsplit ~/.bashrc<Return>
+
+" README.md
+"
+nnoremap <leader>eR :edit README.md<Return>
+nnoremap <leader>heR :split README.md<Return>
+nnoremap <leader>veR :vsplit README.md<Return>
+
+" run.sh
+"
+nnoremap <leader>er :edit run.sh<Return>
+nnoremap <leader>her :split run.sh<Return>
+nnoremap <leader>ver :vsplit run.sh<Return>
+
+" Makefile
+"
+nnoremap <leader>em :edit makefile<Return>
+nnoremap <leader>hem :split makefile<Return>
+nnoremap <leader>vem :vsplit makefile<Return>
+
+" input.txt
+"
+nnoremap <silent> <leader>ei :edit input.txt<Return>
+nnoremap <silent> <leader>hei :split input.txt<Return>
+nnoremap <silent> <leader>vei :vsplit input.txt<Return>
+
+" output.txt
+"
+nnoremap <silent> <leader>eo :edit output.txt<Return>
+nnoremap <silent> <leader>heo :split output.txt<Return>
+nnoremap <silent> <leader>veo :vsplit output.txt<Return>
+
 " }}}
 " Folding {{{
 
@@ -701,11 +795,11 @@ nnoremap <Return> za
 
 " Change fold method settings
 "
-nnoremap <leader>Cff :set fdm=manual<Return>
-nnoremap <leader>Cfi :set fdm=indent<Return>
-nnoremap <leader>Cfm :set fdm=marker<Return>
-nnoremap <leader>Cfs :set fdm=syntax<Return>
-nnoremap <leader>Cfd :set fdm=diff<Return>
+nnoremap <leader>Ff :set fdm=manual<Return>
+nnoremap <leader>Fi :set fdm=indent<Return>
+nnoremap <leader>Fm :set fdm=marker<Return>
+nnoremap <leader>Fs :set fdm=syntax<Return>
+nnoremap <leader>Fd :set fdm=diff<Return>
 
 " }}}
 " Git {{{
@@ -763,6 +857,15 @@ nnoremap <leader>gg :Git config --global -e<Return>
 "
 noremap Q @@
 
+" Remove all carriage returns (displayed as ^M) from the current file.
+" Use when the encodings gets messed up.
+"
+function! DeleteCarriageReturns() abort
+  execute "normal mmHmt:%s/\<C-V>\<Return>//ge\<Return>'tzt'm"
+  echo "-- DELETED CARRIAGE RETURNS --"
+endfunction
+noremap dc :call DeleteCarriageReturns()<Return>
+
 " Delete all trailing whitespace from the current file.
 "
 function! DeleteTrailingWhitespace() abort
@@ -780,16 +883,7 @@ function! DeleteTrailingWhitespace() abort
   call cursor(1, c)
   echo "-- DELETED TRAILING WHITESPACE --"
 endfunction
-noremap <leader>dw :call DeleteTrailingWhitespace()<Return>
-
-" Remove all carriage returns (displayed as ^M) from the current file.
-" Use when the encodings gets messed up.
-"
-function! DeleteCarriageReturns() abort
-  execute "normal mmHmt:%s/\<C-V>\<Return>//ge\<Return>'tzt'm"
-  echo "-- DELETED CARRIAGE RETURNS --"
-endfunction
-noremap <leader>dc :call DeleteCarriageReturns()<Return>
+noremap dr :call DeleteTrailingWhitespace()<Return>
 
 " }}}
 " Layout {{{
@@ -895,16 +989,17 @@ nnoremap <leader>ot :tabe<Return>
 
 " Go to tab :by number
 "
-" nnoremap <leader>1 1gt
-" nnoremap <leader>2 2gt
-" nnoremap <leader>3 3gt
-" nnoremap <leader>4 4gt
-" nnoremap <leader>5 5gt
-" nnoremap <leader>6 6gt
-" nnoremap <leader>7 7gt
-" nnoremap <leader>8 8gt
-" nnoremap <leader>9 9gt
-" nnoremap <leader>0 :tablast<Return>
+nnoremap <leader>T1 1gt
+nnoremap <leader>T2 2gt
+nnoremap <leader>T3 3gt
+nnoremap <leader>T4 4gt
+nnoremap <leader>T5 5gt
+nnoremap <leader>T6 6gt
+nnoremap <leader>T7 7gt
+nnoremap <leader>T8 8gt
+nnoremap <leader>T9 9gt
+nnoremap <leader>Tf :tabfirst<Return>
+nnoremap <leader>Tl :tablast<Return>
 
 " Go to next tab
 " Same as gt
@@ -928,7 +1023,7 @@ function! ChangeDirectory() abort
   execute ":cd %:p:h"
   echo "Changed current working directory to " . getcwd()
 endfunction
-nnoremap <leader>Cd :call ChangeDirectory()<Return>
+nnoremap cd :call ChangeDirectory()<Return>
 
 " }}}
 " Within Window {{{
@@ -1149,73 +1244,6 @@ function! ToggleSpellcheck() abort
   endif
 endfunction
 nnoremap <leader>ts :call ToggleSpellcheck()<Return>
-
-" }}}
-" Vim Configuration Editing {{{
-
-" Edit vimrc
-"
-nnoremap <silent> <leader>ev :edit $MYVIMRC<Return>
-nnoremap <silent> <leader>hev :split $MYVIMRC<Return>
-nnoremap <silent> <leader>vev :vsplit $MYVIMRC<Return>
-
-" Edit Windows _vimrc
-"
-nnoremap <silent> <leader>ew :edit $MYWINDOWSVIMRC<Return>
-nnoremap <silent> <leader>hew :split $MYWINDOWSVIMRC<Return>
-nnoremap <silent> <leader>vew :vsplit $MYWINDOWSVIMRC<Return>
-
-" Edit Windows _vimrc template
-"
-nnoremap <silent> <leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
-nnoremap <silent> <leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
-nnoremap <silent> <leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
-
-" Edit qvim.txt help documentation
-"
-nnoremap <silent> <leader>eq :edit $MYQVIMDOC<Return>
-nnoremap <silent> <leader>heq :split $MYQVIMDOC<Return>
-nnoremap <silent> <leader>veq :vsplit $MYQVIMDOC<Return>
-
-" Edit gvimrc
-"
-nnoremap <silent> <leader>eg :edit $MYGVIMRC<Return>
-nnoremap <silent> <leader>heg :split $MYGVIMRC<Return>
-nnoremap <silent> <leader>veg :vsplit $MYGVIMRC<Return>
-
-" Reload vimrc
-"
-nnoremap <silent> <leader>Rv :source $MYVIMRC<Return>
-
-" Open settings.vim
-"
-nnoremap <silent> <leader>es :edit $MYSETTINGS<Return>
-nnoremap <silent> <leader>hes :split $MYSETTINGS<Return>
-nnoremap <silent> <leader>ves :vsplit $MYSETTINGS<Return>
-
-" Open settings.vim template
-"
-nnoremap <silent> <leader>eS :edit $MYSETTINGSTEMPLATE<Return>
-nnoremap <silent> <leader>heS :split $MYSETTINGSTEMPLATE<Return>
-nnoremap <silent> <leader>veS :vsplit $MYSETTINGSTEMPLATE<Return>
-
-" Open notes.txt
-"
-nnoremap <silent> <leader>en :edit $MYNOTES<Return>
-nnoremap <silent> <leader>hen :split $MYNOTES<Return>
-nnoremap <silent> <leader>ven :vsplit $MYNOTES<Return>
-
-" .tmux.conf
-"
-nnoremap <silent> <leader>et :edit ~/.tmux.conf<Return>
-nnoremap <silent> <leader>het :split ~/.tmux.conf<Return>
-nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<Return>
-
-" .bashrc
-"
-nnoremap <silent> <leader>eb :edit ~/.bashrc<Return>
-nnoremap <silent> <leader>heb :split ~/.bashrc<Return>
-nnoremap <silent> <leader>veb :vsplit ~/.bashrc<Return>
 
 " }}}
 " Visibility {{{
@@ -1979,34 +2007,26 @@ endif
 
 " Repository: https://github.com/EvanQuan/vim-executioner
 
-" README.md
-"
-nnoremap <leader>eR :edit README.md<Return>
-nnoremap <leader>heR :split README.md<Return>
-nnoremap <leader>veR :vsplit README.md<Return>
-
 " Run current buffer
 "
 nnoremap <silent> <leader>rf :Executioner<Return>
 nnoremap <silent> <leader>hrf :ExecutionerHorizontal<Return>
 nnoremap <silent> <leader>vrf :ExecutionerVertical<Return>
 
+" Run current buffer with input.txt as input
+"
+nnoremap <silent> <leader>ri :Executioner % < input.txt<Return>
+nnoremap <silent> <leader>hri :ExecutionerHorizontal % < input.txt<Return>
+nnoremap <silent> <leader>vri :ExecutionerVertical % < input.txt<Return>
+
 " run.sh
 "
-nnoremap <leader>er :edit run.sh<Return>
-nnoremap <leader>her :split run.sh<Return>
-nnoremap <leader>ver :vsplit run.sh<Return>
-
 nnoremap <silent> <leader>rr :Executioner run.sh<Return>
 nnoremap <silent> <leader>hrr :ExecutionerHorizontal run.sh<Return>
 nnoremap <silent> <leader>vrr :ExecutionerVertical run.sh<Return>
 
 " Makefile
 "
-nnoremap <leader>em :edit makefile<Return>
-nnoremap <leader>hem :split makefile<Return>
-nnoremap <leader>vem :vsplit makefile<Return>
-
 nnoremap <silent> <leader>rm :Executioner makefile<Return>
 nnoremap <silent> <leader>hrm :ExecutionerHorizontal makefile<Return>
 nnoremap <silent> <leader>vrm :ExecutionerVertical makefile<Return>
@@ -2094,16 +2114,6 @@ let g:lmap = {}
 
 " Create new menus not based on existing mappings:
 let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
-" let g:lmap['0'] = [':tablast', 'Tab last']
-" let g:lmap['1'] = ['1gt', 'Tab 1']
-" let g:lmap['2'] = ['2gt', 'Tab 2']
-" let g:lmap['3'] = ['3gt', 'Tab 3']
-" let g:lmap['4'] = ['4gt', 'Tab 4']
-" let g:lmap['5'] = ['5gt', 'Tab 5']
-" let g:lmap['6'] = ['6gt', 'Tab 6']
-" let g:lmap['7'] = ['7gt', 'Tab 7']
-" let g:lmap['8'] = ['8gt', 'Tab 8']
-" let g:lmap['9'] = ['9gt', 'Tab 9']
 let g:lmap.a = {
                 \'name' : 'ALE...',
                 \ 'd' : [':ALEDetail', 'Detail'],
@@ -2129,23 +2139,6 @@ let g:lmap.c = {
                 \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
                 \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
                 \}
-let g:lmap.C = {
-                \ 'name' : 'Change...',
-                \ 'd' : ['call ChangeDirectory()', 'Directory'],
-                \ 'f' : {
-                          \'name' : 'Fold method...',
-                          \'d' : [':set fdm=diff', 'Diff'],
-                          \'f' : [':set fdm=manual', 'Manual'],
-                          \'i' : [':set fdm=indent', 'Indentation'],
-                          \'m' : [':set fdm=marker', 'Marker'],
-                          \'s' : [':set fdm=syntax', 'Syntax'],
-                          \}
-                \}
-let g:lmap.d = {
-                \ 'name' : 'Delete...',
-                \ 'c' : [":call DeleteCarriageReturns()", 'Carriage returns'],
-                \ 'w' : [':call DeleteTrailingWhitespace()', 'Trailing whitespace'],
-                \}
 let g:lmap.e = {
                 \'name' : 'Edit...',
                 \'b' : [':edit ~/.bashrc', 'bashrc'],
@@ -2161,6 +2154,14 @@ let g:lmap.e = {
                 \'v' : [':edit $MYVIMRC', 'vimrc'],
                 \'w' : [':edit $MYWINDOWSVIMRC', 'Windows vimrc'],
                 \'W' : [':edit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
+                \}
+let g:lmap.F = {
+                \'name' : 'Fold method...',
+                \'d' : [':set fdm=diff', 'Diff'],
+                \'f' : [':set fdm=manual', 'Manual'],
+                \'i' : [':set fdm=indent', 'Indentation'],
+                \'m' : [':set fdm=marker', 'Marker'],
+                \'s' : [':set fdm=syntax', 'Syntax'],
                 \}
 let g:lmap.f = {
                 \'name' : 'File...',
@@ -2195,8 +2196,10 @@ let g:lmap.h = {
                         \'name' : 'Edit...',
                         \'b' : [':split ~/.bashrc', 'bashrc'],
                         \'g' : [':split $MYGVIMRC', 'gvimrc'],
+                        \'i' : [':split input.txt', 'input.txt'],
                         \'m' : [':split makefile', 'makefile'],
                         \'n' : [':split $MYNOTES', 'Notes'],
+                        \'o' : [':split output.txt', 'output.txt'],
                         \'q' : [':split $MYQVIMDOC', 'qvim help'],
                         \'R' : [':split README.md', 'README.md'],
                         \'r' : [':split run.sh', 'run.sh'],
@@ -2209,8 +2212,9 @@ let g:lmap.h = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
                         \'f' : [':ExecutionerHorizontal', 'File'],
+                        \'i' : [':ExecutionerHorizontal % < input.txt', 'File with input.txt'],
+                        \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
                         \'r' : [':ExecutionerHorizontal run.sh', 'run.sh'],
                         \},
                 \}
@@ -2257,6 +2261,7 @@ let g:lmap.p = {
                         \'q' : ["normal \"_da\"P", 'Double quotes'],
                         \'w' : ["normal \"_dawP", 'Word'],
                         \},
+                \'c' : ["normal \"+p", 'Clipboard'],
                 \'i' : {
                         \'name' : 'In...',
                         \'"' : ["normal \"_di\"P", 'Double quotes'],
@@ -2277,7 +2282,6 @@ let g:lmap.p = {
                         \'t' : ["normal \"_ditP", 'Tag'],
                         \'w' : ["normal \"_diwP", 'Word'],
                         \},
-                \'s' : ["normal \"+p", 'System Clipboard'],
                 \}
 let g:lmap.q = {
                 \'name' : 'Quit...',
@@ -2294,8 +2298,9 @@ let g:lmap.R = {
                 \}
 let g:lmap.r = {
                 \'name' : 'Run...',
-                \'m' : [':Executioner makefile', 'makefile'],
                 \'f' : [":Executioner", 'File'],
+                \'i' : [':Executioner % < input.txt', 'File with input.txt'],
+                \'m' : [':Executioner makefile', 'makefile'],
                 \'r' : [':Executioner run.sh', 'run.sh'],
                 \}
 let g:lmap.s = {
@@ -2311,6 +2316,20 @@ let g:lmap.s = {
                         \'l' : ['call feedkeys(":s//\<Left>")', 'Line'],
                         \},
                 \'s' : ['normal z=', 'Spellcheck fix'],
+                \}
+let g:lmap.T = {
+                \'name' : 'Tab...',
+                \ 'f' : [':tabfirst', 'first'],
+                \ 'l' : [':tablast', 'last'],
+                \ '1' : ['1gt', '1'],
+                \ '2' : ['2gt', '2'],
+                \ '3' : ['3gt', '3'],
+                \ '4' : ['4gt', '4'],
+                \ '5' : ['5gt', '5'],
+                \ '6' : ['6gt', '6'],
+                \ '7' : ['7gt', '7'],
+                \ '8' : ['8gt', '8'],
+                \ '9' : ['9gt', '9'],
                 \}
 let g:lmap.t = {
                 \'name' : 'Toggle...',
@@ -2342,8 +2361,10 @@ let g:lmap.v = {
                         \'name' : 'Edit...',
                         \'b' : [':vsplit ~/.bashrc', 'bashrc'],
                         \'g' : [':vsplit $MYGVIMRC', 'gvimrc'],
+                        \'i' : [':vsplit input.txt', 'input.txt'],
                         \'m' : [':vsplit makefile', 'makefile'],
                         \'n' : [':vsplit $MYNOTES', 'Notes'],
+                        \'o' : [':vsplit output.txt', 'output.txt'],
                         \'q' : [':vsplit $MYQVIMDOC', 'qvim help'],
                         \'R' : [':vsplit README.md', 'README.md'],
                         \'r' : [':vsplit run.sh', 'run.sh'],
@@ -2356,8 +2377,9 @@ let g:lmap.v = {
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'m' : [':ExecutionerVertical makefile', 'makefile'],
                         \'f' : [":ExecutionerVertical", 'File'],
+                        \'i' : [':ExecutionerVertical % < input.txt', 'File with input.txt'],
+                        \'m' : [':ExecutionerVertical makefile', 'makefile'],
                         \'r' : [':ExecutionerVertical run.sh', 'run.sh'],
                         \},
                 \}
