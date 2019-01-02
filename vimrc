@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.3.0
+" Version:    3.4.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.3.0'
+let g:vimrc_version = '3.4.0'
 
 " Path {{{
 
@@ -166,6 +166,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'EvanQuan/vim-textobj-delimiters'
 Plug $MYGITPLUGINS . '/vis.vim'
+Plug 'bkad/CamelCaseMotion'
 
 " }}}
 " File Navigation {{{
@@ -492,6 +493,9 @@ nnoremap d# ?\<<C-r>=expand('<cword>')<Return>\>\C<Return>``dg
 " Around/In Line
 "
 nnoremap dal dd
+" TODO: This pauses for some reason, source not found. Mapped here prevents
+" delay. Perhaps source is plugin. Grepping shows no results.
+nnoremap dd dd
 nnoremap dil S<Esc>
 
 " Around/In Double Quotes
@@ -630,14 +634,6 @@ vnoremap iq i"
 "
 vnoremap aQ a'
 vnoremap iQ i'
-
-" Next Line
-"
-vnoremap ol <Esc>jV
-
-" Previous Line
-"
-noremap Ol <Esc>kV
 
 " Make Backspace/Delete work as expected in visual modes by deleting the
 " selected text
@@ -1364,6 +1360,12 @@ nnoremap [a :ALEPreviousWrap<Return>
 inoremap <expr> <C-K> BDG_GetDigraph ()
 
 " }}}
+" CamelCaseMotion {{{
+" Repository: https://github.com/bkad/CamelCaseMotion
+
+call camelcasemotion#CreateMotionMappings(',')
+
+" }}}
 " ctrlp.vim {{{
 " Repository: https://github.com/ctrlpvim/ctrlp.vim
 
@@ -2013,11 +2015,11 @@ nnoremap <silent> <leader>rf :Executioner<Return>
 nnoremap <silent> <leader>hrf :ExecutionerHorizontal<Return>
 nnoremap <silent> <leader>vrf :ExecutionerVertical<Return>
 
-" Run current buffer with input.txt as input
+" Run current buffer with input redirected from input.txt
 "
 nnoremap <silent> <leader>ri :Executioner % < input.txt<Return>
-nnoremap <silent> <leader>hri :ExecutionerHorizontal % < input.txt<Return>
-nnoremap <silent> <leader>vri :ExecutionerVertical % < input.txt<Return>
+nnoremap <silent> <leader>hri :ExecutionerHorizontalBuffer % < input.txt<Return>
+nnoremap <silent> <leader>vri :ExecutionerVerticalBuffer % < input.txt<Return>
 
 " run.sh
 "
@@ -2213,7 +2215,7 @@ let g:lmap.h = {
                 \'r' : {
                         \'name' : 'Run...',
                         \'f' : [':ExecutionerHorizontal', 'File'],
-                        \'i' : [':ExecutionerHorizontal % < input.txt', 'File with input.txt'],
+                        \'i' : [':ExecutionerHorizontalBuffer % < input.txt', 'File with input.txt'],
                         \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
                         \'r' : [':ExecutionerHorizontal run.sh', 'run.sh'],
                         \},
@@ -2378,7 +2380,7 @@ let g:lmap.v = {
                 \'r' : {
                         \'name' : 'Run...',
                         \'f' : [":ExecutionerVertical", 'File'],
-                        \'i' : [':ExecutionerVertical % < input.txt', 'File with input.txt'],
+                        \'i' : [':ExecutionerVerticalBuffer % < input.txt', 'File with input.txt'],
                         \'m' : [':ExecutionerVertical makefile', 'makefile'],
                         \'r' : [':ExecutionerVertical run.sh', 'run.sh'],
                         \},
