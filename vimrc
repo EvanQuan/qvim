@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.4.0
+" Version:    3.4.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.4.0'
+let g:vimrc_version = '3.4.1'
 
 " Path {{{
 
@@ -860,7 +860,7 @@ function! DeleteCarriageReturns() abort
   execute "normal mmHmt:%s/\<C-V>\<Return>//ge\<Return>'tzt'm"
   echo "-- DELETED CARRIAGE RETURNS --"
 endfunction
-noremap dc :call DeleteCarriageReturns()<Return>
+nnoremap dc :call DeleteCarriageReturns()<Return>
 
 " Delete all trailing whitespace from the current file.
 "
@@ -879,7 +879,7 @@ function! DeleteTrailingWhitespace() abort
   call cursor(1, c)
   echo "-- DELETED TRAILING WHITESPACE --"
 endfunction
-noremap dr :call DeleteTrailingWhitespace()<Return>
+nnoremap dr :call DeleteTrailingWhitespace()<Return>
 
 " }}}
 " Layout {{{
@@ -1363,7 +1363,7 @@ inoremap <expr> <C-K> BDG_GetDigraph ()
 " CamelCaseMotion {{{
 " Repository: https://github.com/bkad/CamelCaseMotion
 
-call camelcasemotion#CreateMotionMappings(',')
+call camelcasemotion#CreateMotionMappings('v')
 
 " }}}
 " ctrlp.vim {{{
