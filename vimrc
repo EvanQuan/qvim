@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.4.1
+" Version:    3.4.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.4.1'
+let g:vimrc_version = '3.4.2'
 
 " Path {{{
 
@@ -442,10 +442,15 @@ let mapleader = " "
 " }}}
 " Editing {{{
 
+" Recursive mapping due to vim-speeddating plugin
 " Incrementing and decrementing numbers
 "
-noremap + <C-a>
-noremap - <C-x>
+map + <C-a>
+map - <C-x>
+
+" Sequential increment and decrement
+map g+ g<C-a>
+map g- g<C-x>
 
 " Change {{{
 
@@ -1363,7 +1368,7 @@ inoremap <expr> <C-K> BDG_GetDigraph ()
 " CamelCaseMotion {{{
 " Repository: https://github.com/bkad/CamelCaseMotion
 
-call camelcasemotion#CreateMotionMappings('v')
+call camelcasemotion#CreateMotionMappings(',')
 
 " }}}
 " ctrlp.vim {{{
@@ -2115,16 +2120,26 @@ endif
 let g:lmap = {}
 
 " Create new menus not based on existing mappings:
+" clear highlighting {{{
+"
 let g:lmap[' '] = [':nohlsearch', 'Clear highlighting']
+
+" }}}
+" ale {{{
+
 let g:lmap.a = {
                 \'name' : 'ALE...',
-                \ 'd' : [':ALEDetail', 'Detail'],
-                \ 'g' : [':ALEGoToDefinition', 'Go to definition'],
-                \ 'h' : [':ALEHover', 'Hover'],
-                \ 'r' : [':ALEFindReferences', 'References'],
-                \ 's' : [':ALEFixSuggest', 'Suggest fix'],
-                \ 't' : [':ALEToggle', 'Toggle'],
+                \ 'd' : ['ALEDetail', 'Detail'],
+                \ 'g' : ['ALEGoToDefinition', 'Go to definition'],
+                \ 'h' : ['ALEHover', 'Hover'],
+                \ 'r' : ['ALEFindReferences', 'References'],
+                \ 's' : ['ALEFixSuggest', 'Suggest fix'],
+                \ 't' : ['ALEToggle', 'Toggle'],
                 \}
+
+" }}}
+" comment {{{
+
 let g:lmap.c = {
                 \'name' : 'Comment...',
                 \'$' : ['call feedkeys("\<plug>NERDCommenterToEOL")', 'To EOL'],
@@ -2141,108 +2156,145 @@ let g:lmap.c = {
                 \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
                 \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
                 \}
+
+" }}}
+" edit {{{
+
 let g:lmap.e = {
                 \'name' : 'Edit...',
-                \'b' : [':edit ~/.bashrc', 'bashrc'],
-                \'g' : [':edit $MYGVIMRC', 'gvimrc'],
-                \'m' : [':edit makefile', 'makefile'],
-                \'n' : [':edit $MYNOTES', 'Notes'],
-                \'q' : [':edit $MYQVIMDOC', 'qvim help'],
-                \'R' : [':edit README.md', 'README.md'],
-                \'r' : [':edit run.sh', 'run.sh'],
-                \'s' : [':edit $MYSETTINGS', 'settings.vim'],
-                \'S' : [':edit $MYSETTINGSTEMPLATE', 'settings.vim template'],
-                \'t' : [':edit ~/.tmux.conf', 'Tmux config'],
-                \'v' : [':edit $MYVIMRC', 'vimrc'],
-                \'w' : [':edit $MYWINDOWSVIMRC', 'Windows vimrc'],
-                \'W' : [':edit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
+                \'b' : ['edit ~/.bashrc', 'bashrc'],
+                \'g' : ['edit $MYGVIMRC', 'gvimrc'],
+                \'m' : ['edit makefile', 'makefile'],
+                \'n' : ['edit $MYNOTES', 'Notes'],
+                \'q' : ['edit $MYQVIMDOC', 'qvim help'],
+                \'R' : ['edit README.md', 'README.md'],
+                \'r' : ['edit run.sh', 'run.sh'],
+                \'s' : ['edit $MYSETTINGS', 'settings.vim'],
+                \'S' : ['edit $MYSETTINGSTEMPLATE', 'settings.vim template'],
+                \'t' : ['edit ~/.tmux.conf', 'Tmux config'],
+                \'v' : ['edit $MYVIMRC', 'vimrc'],
+                \'w' : ['edit $MYWINDOWSVIMRC', 'Windows vimrc'],
+                \'W' : ['edit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                 \}
+
+" }}}
+" Fold method {{{
+
+" TODO should be be replaced by something else? This doesn't get used.
 let g:lmap.F = {
                 \'name' : 'Fold method...',
-                \'d' : [':set fdm=diff', 'Diff'],
-                \'f' : [':set fdm=manual', 'Manual'],
-                \'i' : [':set fdm=indent', 'Indentation'],
-                \'m' : [':set fdm=marker', 'Marker'],
-                \'s' : [':set fdm=syntax', 'Syntax'],
+                \'d' : ['set fdm=diff', 'Diff'],
+                \'f' : ['set fdm=manual', 'Manual'],
+                \'i' : ['set fdm=indent', 'Indentation'],
+                \'m' : ['set fdm=marker', 'Marker'],
+                \'s' : ['set fdm=syntax', 'Syntax'],
                 \}
+
+" }}}
+" file {{{
+
 let g:lmap.f = {
                 \'name' : 'File...',
                 \'d' : ['!make', 'Diff'],
-                \'f' : [':CtrlP', 'Find'],
-                \'t' : [':NERDTreeToggle', 'Tree'],
+                \'f' : ['CtrlP', 'Find'],
+                \'t' : ['NERDTreeToggle', 'Tree'],
                 \}
+
+" }}}
+" git {{{
+
 let g:lmap.g = {
                 \'name' : 'Git...',
-                \'a' : [':Git add .', 'Add all'],
-                \'b' : [':Gbrowse', 'Browse on Github'],
-                \'c' : [':Gcommit', 'Commit'],
-                \'d' : [':Gdiff', 'Diff'],
-                \'e' : [':Git config -e', 'Edit config'],
-                \'g' : [':Git config --global -e', 'Edit global config'],
+                \'a' : ['Git add .', 'Add all'],
+                \'b' : ['Gbrowse', 'Browse on Github'],
+                \'c' : ['Gcommit', 'Commit'],
+                \'d' : ['Gdiff', 'Diff'],
+                \'e' : ['Git config -e', 'Edit config'],
+                \'g' : ['Git config --global -e', 'Edit global config'],
                 \'h' : {
                         \'name' : 'Hunk',
                         \'s' : ['call feedkeys("\<plug>iGitGutterStageHunk")', 'Stage'],
                         \'u' : ['call feedkeys("\<plug>iGitGutterUndoHunk")', 'Undo'],
                         \},
-                \'l' : [':Git log', 'Log'],
-                \'u' : [':Gpull',   'Pull'],
-                \'p' : [':Gpush',   'Push'],
-                \'w' : [':Gwrite',  'Write'],
-                \'s' : [':Gstatus', 'Status'],
+                \'l' : ['Git log', 'Log'],
+                \'u' : ['Gpull',   'Pull'],
+                \'p' : ['Gpush',   'Push'],
+                \'w' : ['Gwrite',  'Write'],
+                \'s' : ['Gstatus', 'Status'],
                 \}
+
+" }}}
+" horizontal {{{
+
 let g:lmap.h = {
                 \'name' : 'Horizontal...',
-                \'s' : [':call HorizontalSplit()', 'Split window'],
-                \'t' : [':terminal', 'Split Terminal'],
+                \'s' : ['call HorizontalSplit()', 'Split window'],
+                \'t' : ['terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'b' : [':split ~/.bashrc', 'bashrc'],
-                        \'g' : [':split $MYGVIMRC', 'gvimrc'],
-                        \'i' : [':split input.txt', 'input.txt'],
-                        \'m' : [':split makefile', 'makefile'],
-                        \'n' : [':split $MYNOTES', 'Notes'],
-                        \'o' : [':split output.txt', 'output.txt'],
-                        \'q' : [':split $MYQVIMDOC', 'qvim help'],
-                        \'R' : [':split README.md', 'README.md'],
-                        \'r' : [':split run.sh', 'run.sh'],
-                        \'s' : [':split $MYSETTINGS', 'settings.vim'],
-                        \'S' : [':split $MYSETTINGSTEMPLATE', 'settings.vim template'],
-                        \'t' : [':split ~/.tmux.conf', 'Tmux config'],
-                        \'v' : [':split $MYVIMRC', 'vimrc'],
-                        \'w' : [':split $MYWINDOWSVIMRC', 'Windows vimrc'],
-                        \'W' : [':split $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
+                        \'b' : ['split ~/.bashrc', 'bashrc'],
+                        \'g' : ['split $MYGVIMRC', 'gvimrc'],
+                        \'i' : ['split input.txt', 'input.txt'],
+                        \'m' : ['split makefile', 'makefile'],
+                        \'n' : ['split $MYNOTES', 'Notes'],
+                        \'o' : ['split output.txt', 'output.txt'],
+                        \'q' : ['split $MYQVIMDOC', 'qvim help'],
+                        \'R' : ['split README.md', 'README.md'],
+                        \'r' : ['split run.sh', 'run.sh'],
+                        \'s' : ['split $MYSETTINGS', 'settings.vim'],
+                        \'S' : ['split $MYSETTINGSTEMPLATE', 'settings.vim template'],
+                        \'t' : ['split ~/.tmux.conf', 'Tmux config'],
+                        \'v' : ['split $MYVIMRC', 'vimrc'],
+                        \'w' : ['split $MYWINDOWSVIMRC', 'Windows vimrc'],
+                        \'W' : ['split $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'f' : [':ExecutionerHorizontal', 'File'],
-                        \'i' : [':ExecutionerHorizontalBuffer % < input.txt', 'File with input.txt'],
-                        \'m' : [':ExecutionerHorizontal makefile', 'makefile'],
-                        \'r' : [':ExecutionerHorizontal run.sh', 'run.sh'],
+                        \'f' : ['ExecutionerHorizontal', 'File'],
+                        \'i' : ['ExecutionerHorizontalBuffer % < input.txt', 'File with input.txt'],
+                        \'m' : ['ExecutionerHorizontal makefile', 'makefile'],
+                        \'r' : ['ExecutionerHorizontal run.sh', 'run.sh'],
                         \},
                 \}
+
+" }}}
+" jedi {{{
+
 let g:lmap.j = {
                 \'name' : 'Jedi...',
-                \'a' : [':call jedi#goto_assignments()', 'Assignment'],
-                \'d' : [':call jedi#goto()', 'Definition'],
-                \'r' : [':call jedi#rename()', 'Rename'],
-                \'u' : [':call jedi#usages()', 'Usages'],
+                \'a' : ['call jedi#goto_assignments()', 'Assignment'],
+                \'d' : ['call jedi#goto()', 'Definition'],
+                \'r' : ['call jedi#rename()', 'Rename'],
+                \'u' : ['call jedi#usages()', 'Usages'],
                 \}
+
+" }}}
+" math {{{
+
 " TODO Figure out how to have it work for both normal and visual mode
 let g:lmap.m = {
                 \'name' : 'Math...',
-                \'a' : ["normal vipy:call g:vmath_plus#analyze()\<Return>", 'Analyze'],
+                \'a' : ['call feedkeys("\<Plug>(vmath_plus#normal_analyze)")', 'Analyze'],
                 \'b' : {
                         \ 'name' : 'Buffer...',
-                        \ 'a' : ["normal vipy:call g:vmath_plus#analyze_buffer()\<Return>", 'Analyze'],
-                        \ 'r' : ['call g:vmath_plus#report_buffer()', 'Report'],
+                        \ 'a' : ['call feedkeys("\<Plug>(vmath_plus#normal_analyze_buffer)")', 'Analyze'],
+                        \ 'r' : ['call feedkeys("\<Plug>(vmath_plus#report_buffer)")', 'Report'],
                         \},
-                \'r' : ['call g:vmath_plus#report()', 'Report'],
+                \'r' : ['call feedkeys("\<Plug>(vmath_plus#report)")', 'Report'],
                 \}
+
+" }}}
+" open {{{
+
 let g:lmap.o = {
                 \'name' : 'Open...',
                 \'b' : ['shell', 'Bash shell'],
                 \'t' : ['tabe', 'New Tab'],
                 \}
+
+" }}}
+" Plugin {{{
+
 let g:lmap.P = {
                 \ 'name' : 'Plugin...',
                 \ 'c' : ['PlugClean', 'Clean'],
@@ -2253,6 +2305,10 @@ let g:lmap.P = {
                 \ 's' : ['PlugStatus', 'Status'],
                 \ 'u' : ['PlugUpdate', 'Update'],
                 \}
+
+" }}}
+" paste {{{
+
 let g:lmap.p = {
                 \'name' : 'Paste...',
                 \'a' : {
@@ -2285,26 +2341,43 @@ let g:lmap.p = {
                         \'w' : ["normal \"_diwP", 'Word'],
                         \},
                 \}
+
+" }}}
+" quit {{{
+
+" TODO make into commands instead of leader mappings due to same mneumonic
 let g:lmap.q = {
                 \'name' : 'Quit...',
-                \'b' : [':call QuitCurrentBuffer()', 'Buffer'],
-                \'h' : [':call QuitHiddenBuffers()', 'Hidden buffers'],
-                \'t' : [':tabclose', 'Tab'],
-                \'w' : [':x', 'Window'],
+                \'b' : ['call QuitCurrentBuffer()', 'Buffer'],
+                \'h' : ['call QuitHiddenBuffers()', 'Hidden buffers'],
+                \'t' : ['tabclose', 'Tab'],
+                \'w' : ['x', 'Window'],
                 \}
+
+" }}}
+" Reload {{{
+
 let g:lmap.R = {
                 \'name' : 'Reload...',
-                \'h' : [":execute 'colo' colors_name<Return>:syntax sync fromstart", 'Syntax highlighting'],
-                \'v' : [':source $MYVIMRC', 'vimrc'],
-                \'t' : [':retab', 'Tabs'],
+                \'h' : ["execute 'colo' colors_name<Return>:syntax sync fromstart", 'Syntax highlighting'],
+                \'v' : ['source $MYVIMRC', 'vimrc'],
+                \'t' : ['retab', 'Tabs'],
                 \}
+
+" }}}
+" run {{{
+
 let g:lmap.r = {
                 \'name' : 'Run...',
-                \'f' : [":Executioner", 'File'],
-                \'i' : [':Executioner % < input.txt', 'File with input.txt'],
-                \'m' : [':Executioner makefile', 'makefile'],
-                \'r' : [':Executioner run.sh', 'run.sh'],
+                \'f' : ["Executioner", 'File'],
+                \'i' : ['Executioner % < input.txt', 'File with input.txt'],
+                \'m' : ['Executioner makefile', 'makefile'],
+                \'r' : ['Executioner run.sh', 'run.sh'],
                 \}
+
+" }}}
+" substitute {{{
+
 let g:lmap.s = {
                 \'name' : 'Substitute...',
                 \'g' : {
@@ -2319,10 +2392,14 @@ let g:lmap.s = {
                         \},
                 \'s' : ['normal z=', 'Spellcheck fix'],
                 \}
+
+" }}}
+" Tab {{{
+
 let g:lmap.T = {
                 \'name' : 'Tab...',
-                \ 'f' : [':tabfirst', 'first'],
-                \ 'l' : [':tablast', 'last'],
+                \ 'f' : ['tabfirst', 'first'],
+                \ 'l' : ['tablast', 'last'],
                 \ '1' : ['1gt', '1'],
                 \ '2' : ['2gt', '2'],
                 \ '3' : ['3gt', '3'],
@@ -2333,69 +2410,87 @@ let g:lmap.T = {
                 \ '8' : ['8gt', '8'],
                 \ '9' : ['9gt', '9'],
                 \}
+
+" }}}
+" toggle {{{
+
 let g:lmap.t = {
                 \'name' : 'Toggle...',
-                \'a' : [':ALEToggle', 'ALE linting'],
+                \'a' : ['ALEToggle', 'ALE linting'],
                 \'c' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Comment'],
                 \'d' : ["Goyo", 'Distraction-free'],
                 \'f' : ["normal \<C-^>", 'File'],
                 \'h' : {
                         \'name' : 'Highlight...',
-                        \'c' : [':call ToggleCursorColumn()', 'Column'],
-                        \'l' : [':call ToggleCursorLine()', 'Line'],
-                        \'w' : [':call ToggleColorColumn()', 'Width indicator'],
+                        \'c' : ['call ToggleCursorColumn()', 'Column'],
+                        \'l' : ['call ToggleCursorLine()', 'Line'],
+                        \'w' : ['call ToggleColorColumn()', 'Width indicator'],
                         \},
-                \'i' : [':call ToggleTabs()', 'Identation'],
-                \'L' : [':call ListTrans_toggle_format()', 'List'],
-                \'l' : [':call ToggleLineNumbers()', 'Line numbers'],
-                \'p' : [':call TogglePasteMode()', 'Paste mode'],
-                \'r' : [':call ToggleRelativeLineNumbers()', 'Relative line numbers'],
-                \'s' : [':call ToggleSpellcheck()', 'Spellcheck'],
-                \'t' : [':NERDTreeToggle', 'Tree'],
-                \'w' : [':call ToggleWhitespace()', 'Whitespace'],
-                \'W' : [':ToggleWorkspace', 'Workspace'],
+                \'i' : ['call ToggleTabs()', 'Identation'],
+                \'L' : ['call ListTrans_toggle_format()', 'List'],
+                \'l' : ['call ToggleLineNumbers()', 'Line numbers'],
+                \'p' : ['call TogglePasteMode()', 'Paste mode'],
+                \'r' : ['call ToggleRelativeLineNumbers()', 'Relative line numbers'],
+                \'s' : ['call ToggleSpellcheck()', 'Spellcheck'],
+                \'t' : ['NERDTreeToggle', 'Tree'],
+                \'w' : ['call ToggleWhitespace()', 'Whitespace'],
+                \'W' : ['ToggleWorkspace', 'Workspace'],
                 \}
+
+" }}}
+" vertical {{{
+
 let g:lmap.v = {
                 \'name' : 'Vertical...',
-                \'s' : [':call VerticalSplit()', 'Split window'],
-                \'t' : [':vertical terminal', 'Split Terminal'],
+                \'s' : ['call VerticalSplit()', 'Split window'],
+                \'t' : ['vertical terminal', 'Split Terminal'],
                 \'e' : {
                         \'name' : 'Edit...',
-                        \'b' : [':vsplit ~/.bashrc', 'bashrc'],
-                        \'g' : [':vsplit $MYGVIMRC', 'gvimrc'],
-                        \'i' : [':vsplit input.txt', 'input.txt'],
-                        \'m' : [':vsplit makefile', 'makefile'],
-                        \'n' : [':vsplit $MYNOTES', 'Notes'],
-                        \'o' : [':vsplit output.txt', 'output.txt'],
-                        \'q' : [':vsplit $MYQVIMDOC', 'qvim help'],
-                        \'R' : [':vsplit README.md', 'README.md'],
-                        \'r' : [':vsplit run.sh', 'run.sh'],
-                        \'s' : [':vsplit $MYSETTINGS', 'settings.vim'],
-                        \'S' : [':vsplit $MYSETTINGSTEMPLATE', 'settings.vim template'],
-                        \'t' : [':vsplit ~/.tmux.conf', 'Tmux config'],
-                        \'v' : [':vsplit $MYVIMRC', 'vimrc'],
-                        \'w' : [':vsplit $MYWINDOWSVIMRC', 'Windows vimrc'],
-                        \'W' : [':vsplit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
+                        \'b' : ['vsplit ~/.bashrc', 'bashrc'],
+                        \'g' : ['vsplit $MYGVIMRC', 'gvimrc'],
+                        \'i' : ['vsplit input.txt', 'input.txt'],
+                        \'m' : ['vsplit makefile', 'makefile'],
+                        \'n' : ['vsplit $MYNOTES', 'Notes'],
+                        \'o' : ['vsplit output.txt', 'output.txt'],
+                        \'q' : ['vsplit $MYQVIMDOC', 'qvim help'],
+                        \'R' : ['vsplit README.md', 'README.md'],
+                        \'r' : ['vsplit run.sh', 'run.sh'],
+                        \'s' : ['vsplit $MYSETTINGS', 'settings.vim'],
+                        \'S' : ['vsplit $MYSETTINGSTEMPLATE', 'settings.vim template'],
+                        \'t' : ['vsplit ~/.tmux.conf', 'Tmux config'],
+                        \'v' : ['vsplit $MYVIMRC', 'vimrc'],
+                        \'w' : ['vsplit $MYWINDOWSVIMRC', 'Windows vimrc'],
+                        \'W' : ['vsplit $MYWINDOWSVIMRCTEMPLATE', 'Windows vimrc template'],
                         \},
                 \'r' : {
                         \'name' : 'Run...',
-                        \'f' : [":ExecutionerVertical", 'File'],
-                        \'i' : [':ExecutionerVerticalBuffer % < input.txt', 'File with input.txt'],
-                        \'m' : [':ExecutionerVertical makefile', 'makefile'],
-                        \'r' : [':ExecutionerVertical run.sh', 'run.sh'],
+                        \'f' : ["ExecutionerVertical", 'File'],
+                        \'i' : ['ExecutionerVerticalBuffer % < input.txt', 'File with input.txt'],
+                        \'m' : ['ExecutionerVertical makefile', 'makefile'],
+                        \'r' : ['ExecutionerVertical run.sh', 'run.sh'],
                         \},
                 \}
+
+" }}}
+" window {{{
+
 let g:lmap.w = {
                 \ 'name' : 'Window...',
                 \ 'h' : ["normal \<C-w>h", 'Left'],
                 \ 'j' : ["normal \<C-w>j", 'Down'],
                 \ 'k' : ["normal \<C-w>k", 'Up'],
                 \ 'l' : ["normal \<C-w>l", 'Right'],
-                \ 'q' : [":x", 'Quit'],
+                \ 'q' : ["x", 'Quit'],
                 \ 's' : ["normal \<C-w>s", 'Horizontal split'],
                 \ 'v' : ["normal \<C-w>v", 'Vertical split'],
                 \}
+
+" }}}
+" yank {{{
+
 let g:lmap.y = [ "call feedkeys(\"\\\"+y\")", "Yank to clipboard" ]
+
+" }}}
 " let g:lmap.['/'][1] = 'Search next word'
 
 " Bind leader key <Space> to open leader guide prompt
@@ -2462,17 +2557,17 @@ nnoremap <leader>tW :ToggleWorkspace<Return>
 
 " Calculates math stuff based on visual selection.
 
-" Analayze
+" Analyze
 "
-xnoremap <silent> <leader>ma y:call g:vmath_plus#analyze()<Return>
-xnoremap <silent> <leader>mba y:call g:vmath_plus#analyze_buffer()<Return>
-nnoremap <silent> <leader>ma vipy:call g:vmath_plus#analyze()<Return>
-nnoremap <silent> <leader>mba vipy:call g:vmath_plus#analyze_buffer()<Return>
+nmap <silent> <leader>ma <Plug>(vmath_plus#normal_analyze)
+nmap <silent> <leader>mba <Plug>(vmath_plus#normal_analyze_buffer)
+xmap <silent> <leader>ma <Plug>(vmath_plus#visual_analyze)
+xmap <silent> <leader>mba <Plug>(vmath_plus#visual_analyze_buffer)
 
 " Report
 "
-noremap <silent> <leader>mr :call g:vmath_plus#report()<Return>
-noremap <silent> <leader>mbr :call g:vmath_plus#report_buffer()<Return>
+nmap <silent> <leader>mr <Plug>(vmath_plus#report)
+nmap <silent> <leader>mbr <Plug>(vmath_plus#report_buffer)
 
 " }}}
 
