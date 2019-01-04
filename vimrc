@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.4.2
+" Version:    3.4.3
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.4.2'
+let g:vimrc_version = '3.4.3'
 
 " Path {{{
 
@@ -282,6 +282,7 @@ endif
 " }}}
 " Font {{{
 
+" This is not placed in the gvimrc because gvimrc loads after vimrc
 " Lightline needs powerline fonts to work correctly. While this can be easily
 " set manually for terminals, configuring GUI fonts is a bit more difficult,
 " and can be done here.
@@ -305,27 +306,27 @@ endif
 "
 if &t_Co > 2 || has('gui_running')
   " Revert with ":syntax off"
-  syntax on
+  syntax enable
 endif
 
-" For Wind32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-if has('win32')
-  set guioptions-=t
-endif
 
-"Use 24-bit (true color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" Use 24-bit (true color) mode in Vim/Neovim when outside tmux. If you're
+" using tmux version 2.2 or later, you can remove the outermost $TMUX check
+" and use tmux's 24-bit color support (see
+" < http://sunaku.github.io/tmux-24bit-color.html#usage > for more
+" information.)
 "
 if g:settings#truecolor
   " if (empty($TMUX))
     if (has("nvim"))
-      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     endif
-    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    " For Neovim > 0.1.5 and Vim > patch 7.4.1799
+    " < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+    " > Based on Vim patch 7.4.1770 (`guicolors` option)
+    " < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+    " > < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
     if (has("termguicolors"))
       set termguicolors
     " endif
@@ -1156,22 +1157,6 @@ if !exists(":DiffOrig")
 endif
 " Bind it for convenience
 map <leader>fd :DiffOrig<Return>
-
-" }}}
-" Standard {{{
-
-" These are from $VIMRUNTIME/mswin.vim
-" Compatible bindings to always be on.
-"
-
-if has("gui")
-  " CTRL-F is the search and replace dialog,
-  " but in console, it might be backspace, so don't map it there
-  "
-  nnoremap <expr> <C-F> has("gui_running") ? ":promptrepl\<Return>" : "\<C-H>"
-  inoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-O>:promptrepl\<Return>" : "\<C-H>"
-  cnoremap <expr> <C-F> has("gui_running") ? "\<C-\>\<C-C>:promptrepl\<Return>" : "\<C-H>"
-endif
 
 " }}}
 " Terminal {{{
@@ -2580,19 +2565,10 @@ nmap <silent> <leader>mbr <Plug>(vmath_plus#report_buffer)
 " or pressing escape in normal mode
 "
 set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
-endif
 
 " }}}
 " Cursor {{{
 
-" GUI {{{
-
-" Disable all blinking
-set guicursor+=a:blinkon0
-
-" }}}
 " Scrolling {{{
 
 " Determines the number of context lines you want to see above and below the
@@ -2663,13 +2639,6 @@ set fileencodings=utf-8
 " are different.
 "
 scriptencoding utf-8
-
-" }}}
-" GUI {{{
-
-" No scroll bars
-"
-set guioptions = " No scroll bars
 
 " }}}
 " Line Numbers {{{
