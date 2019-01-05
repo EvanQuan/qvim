@@ -6,6 +6,9 @@ This is my personal [Vim](https://www.vim.org/) configuration.
 
 ## Table of Contents
 
+<details>
+<summary>Click here to show.</summary>
+
 1. [Why Use This?](#why-use-this?)
 2. [Installation](#installation)
 3. [External Dependencies](#external-dependencies)
@@ -29,6 +32,8 @@ This is my personal [Vim](https://www.vim.org/) configuration.
     - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
     - [Italic characters are not rendering](#italic-characters-are-not-rendering)
     - [Everything is blue](#everything-is-blue)
+
+</details>
 
 ## Why Use This?
 
@@ -140,6 +145,7 @@ restart Vim.
 - [neocomplete](https://github.com/Shougo/neocomplete.vim)
 - [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 - [tabular](https://github.com/godlygeek/tabular)
+- [targets.vim](https://github.com/wellle/targets.vim)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-easy-align](https://github.com/junegunn/vim-easy-align)
 - [vim-endwise](https://github.com/tpope/vim-endwise)
@@ -150,10 +156,9 @@ restart Vim.
 - [vim-sensible](https://github.com/tpope/vim-sensible)
 - [vim-speeddating](https://github.com/tpope/vim-speeddating)
 - [vim-surround](https://github.com/tpope/vim-surround)
-- [vim-workspace](https://github.com/thaerkh/vim-workspace)
-- [vim-textobj-user](https://github.com/kana/vim-textobj-user)
 - [vim-textobj-parameter](https://github.com/sgur/vim-textobj-parameter)
-- [vim-textobj-delimiters](https://github.com/EvanQuan/vim-textobj-delimiters)
+- [vim-textobj-user](https://github.com/kana/vim-textobj-user)
+- [vim-workspace](https://github.com/thaerkh/vim-workspace)
 
 ### File Navigation
 - [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
