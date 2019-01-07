@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.9.0
+" Version:    3.9.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.9.0'
+let g:vimrc_version = '3.9.1'
 
 " Path {{{
 
@@ -1911,8 +1911,8 @@ endfunction
 " <TAB>: completion.
 " Selects further options beyond initial one. Must press <Return> to actually
 " finish completion.
-inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-N>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-P>" : "\<C-d>"
 
 " }}}
 " nerdcommeter {{{
