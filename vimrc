@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.6.0
+" Version:    3.7.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.6.0'
+let g:vimrc_version = '3.7.0'
 
 " Path {{{
 
@@ -618,6 +618,12 @@ nnoremap <leader>pit "_ditP
 " Line
 "
 nnoremap <leader>pil "_ddP
+
+" }}}
+" Underline {{{
+
+nnoremap <leader>u- yypVr-j
+nnoremap <leader>u= yypVr=j
 
 " }}}
 " Visual {{{
@@ -1994,6 +2000,8 @@ nmap ga <Plug>(EasyAlign)
 let g:executioner#extensions = {}
 if g:settings#python3_execution == 0
   let g:executioner#extensions['py'] = 'python %'
+elseif filereadable(expand('/anaconda3/bin/python'))
+  let g:executioner#extensions['py'] = '/anaconda3/bin/python %'
 else
   let g:executioner#extensions['py'] = 'python3 %'
 endif
@@ -2429,6 +2437,15 @@ let g:lmap.t = {
                 \'t' : ['NERDTreeToggle', 'Tree'],
                 \'w' : ['call ToggleWhitespace()', 'Whitespace'],
                 \'W' : ['ToggleWorkspace', 'Workspace'],
+                \}
+
+" }}}
+" underline {{{
+
+let g:lmap.u = {
+                \'name': 'Underline...',
+                \'-' : ['normal yypVr-j', '-'],
+                \'=' : ['normal yypVr=j', '='],
                 \}
 
 " }}}
