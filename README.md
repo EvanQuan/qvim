@@ -168,6 +168,7 @@ restart Vim.
 ### Language Support
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [prolog.vim](https://github.com/adimit/prolog.vim)
+- [vim-instant-markdown](https://github.com/suan/vim-instant-markdown)
 - [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
 - [vim-polyglot](https://github.com/sheerun/vim-polyglot)
 - [vim-prolog](https://github.com/mxw/vim-prolog)

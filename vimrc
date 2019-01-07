@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.5.0
+" Version:    3.6.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.5.0'
+let g:vimrc_version = '3.6.0'
 
 " Path {{{
 
@@ -184,6 +184,7 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'sheerun/vim-polyglot'
 Plug 'mxw/vim-prolog', { 'for': 'prolog' }
 Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 
 " }}}
 " Linting {{{
@@ -1996,8 +1997,8 @@ if g:settings#python3_execution == 0
 else
   let g:executioner#extensions['py'] = 'python3 %'
 endif
-
-" Repository: https://github.com/EvanQuan/vim-executioner
+let g:executioner#extensions['markdown'] = ':InstantMarkdownPreview'
+let g:executioner#extensions['md'] = ':InstantMarkdownPreview'
 
 " Run current buffer
 "
@@ -2041,6 +2042,14 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap <leader>ghs <Plug>GitGutterStageHunk
 nmap <leader>ghu <Plug>GitGutterUndoHunk
 
+
+" }}}
+" vim-instant-markdown {{{
+" Repository: https://github.com/suan/vim-instant-markdown
+
+" Don't open automatically
+"
+let g:instant_markdown_autostart = 0
 
 " }}}
 " vim-javacomplete2 {{{
