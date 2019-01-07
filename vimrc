@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.7.0
+" Version:    3.8.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.7.0'
+let g:vimrc_version = '3.8.0'
 
 " Path {{{
 
@@ -47,6 +47,8 @@ let $MYNOTES = $MYVIMHOME . '/notes.txt'
 let $MYGVIMRC = $MYVIMHOME . '/gvimrc'
 let $MYWINDOWSVIMRC = '~/_vimrc'
 let $MYWINDOWSVIMRCTEMPLATE = $MYTEMPLATES . '/_vimrc'
+
+let $ANACONDA_PYTHON = '/anaconda3/bin/python'
 
 " }}}
 " Settings {{{
@@ -185,6 +187,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mxw/vim-prolog', { 'for': 'prolog' }
 Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
 
 " }}}
 " Linting {{{
@@ -2000,13 +2003,14 @@ nmap ga <Plug>(EasyAlign)
 let g:executioner#extensions = {}
 if g:settings#python3_execution == 0
   let g:executioner#extensions['py'] = 'python %'
-elseif filereadable(expand('/anaconda3/bin/python'))
-  let g:executioner#extensions['py'] = '/anaconda3/bin/python %'
+elseif filereadable(expand($ANACONDA_PYTHON))
+  let g:executioner#extensions['py'] = $ANACONDA_PYTHON . ' %'
 else
   let g:executioner#extensions['py'] = 'python3 %'
 endif
 let g:executioner#extensions['markdown'] = ':InstantMarkdownPreview'
 let g:executioner#extensions['md'] = ':InstantMarkdownPreview'
+let g:executioner#extensions['tex'] = ':VimtexCompile'
 
 " Run current buffer
 "
@@ -2444,8 +2448,8 @@ let g:lmap.t = {
 
 let g:lmap.u = {
                 \'name': 'Underline...',
-                \'-' : ['normal yypVr-j', '-'],
-                \'=' : ['normal yypVr=j', '='],
+                \'-' : ['normal yypVr-j', 'Dashes'],
+                \'=' : ['normal yypVr=j', 'Equal signs'],
                 \}
 
 " }}}
@@ -2530,7 +2534,7 @@ noremap <leader>Pg :PlugUpgrade<Return>
 " indentLine conflicts with this, as it automatically sets conceallevel=2
 " To resolve this, indentLine takes precidence.
 "
-let g:polyglot_disabled = ['markdown', 'tex']
+let g:polyglot_disabled = ['markdown', 'latex']
 
 " }}}
 " vim-togglecursor {{{
