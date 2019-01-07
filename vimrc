@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.8.0
+" Version:    3.9.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.8.0'
+let g:vimrc_version = '3.9.0'
 
 " Path {{{
 
@@ -155,7 +155,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'alvan/vim-closetag'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-endwise'
 Plug 'tommcdo/vim-exchange'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
@@ -169,6 +168,8 @@ Plug 'sgur/vim-textobj-parameter'
 Plug 'wellle/targets.vim'
 Plug $MYGITPLUGINS . '/vis.vim'
 Plug 'bkad/CamelCaseMotion'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " }}}
 " File Navigation {{{
@@ -1130,7 +1131,7 @@ noremap N Nzz
 " clear highlighting
 "
 " Cannot directy nnoremap <Esc>. Workaround.
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader><space> :nohlsearch<Return>
 " Source: https://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizarre-arrow-behaviour
 " TODO this is causing bugs
 " if has('gui_running')
@@ -1150,7 +1151,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 " augroup END
 
 " function! s:setupEscapeMap()
-"   nnoremap <Esc> :noh<CR><Esc>
+"   nnoremap <Esc> :noh<Return><Esc>
 " endfunction"
 
 
@@ -1913,7 +1914,6 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<Up>" : "\<C-d>"
 
-
 " }}}
 " nerdcommeter {{{
 " Repository: https://github.com/scrooloose/nerdcommenter
@@ -1959,6 +1959,28 @@ nnoremap <silent> <leader>tt :NERDTreeToggle<Return>
 " File tree
 "
 nnoremap <silent> <leader>ft :NERDTreeToggle<Return>
+
+" }}}
+" ultisnips {{{
+" Repository: https://github.com/SirVer/ultisnips
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<NUL>"
+let g:ulti_expand_or_jump_res = 0
+function! <SID>ExpandSnippetOrReturn()
+  let snippet = UltiSnips#ExpandSnippetOrJump()
+  if g:ulti_expand_or_jump_res > 0
+    return snippet
+  else
+    return "\<Return>"
+  endif
+endfunction
+inoremap <expr> <Return> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<Return>" : "\<Return>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " }}}
 " vim-closetag {{{
