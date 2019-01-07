@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.9.1
+" Version:    3.9.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.9.1'
+let g:vimrc_version = '3.9.2'
 
 " Path {{{
 
@@ -2596,15 +2596,15 @@ nnoremap <leader>tW :ToggleWorkspace<Return>
 
 " Analyze
 "
-nmap <silent> <leader>ma <Plug>(vmath_plus#normal_analyze)
-nmap <silent> <leader>mba <Plug>(vmath_plus#normal_analyze_buffer)
-xmap <silent> <leader>ma <Plug>(vmath_plus#visual_analyze)
-xmap <silent> <leader>mba <Plug>(vmath_plus#visual_analyze_buffer)
+nmap <leader>ma <Plug>(vmath_plus#normal_analyze)
+nmap <leader>mba <Plug>(vmath_plus#normal_analyze_buffer)
+xmap <leader>ma <Plug>(vmath_plus#visual_analyze)
+xmap <leader>mba <Plug>(vmath_plus#visual_analyze_buffer)
 
 " Report
 "
-nmap <silent> <leader>mr <Plug>(vmath_plus#report)
-nmap <silent> <leader>mbr <Plug>(vmath_plus#report_buffer)
+nmap <leader>mr <Plug>(vmath_plus#report)
+nmap <leader>mbr <Plug>(vmath_plus#report_buffer)
 
 " }}}
 
