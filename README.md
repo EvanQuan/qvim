@@ -2,7 +2,7 @@
 
 This is my personal [Vim](https://www.vim.org/) configuration.
 
-![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/screenshot.png)
+![](https://raw.githubusercontent.com/wiki/EvanQuan/qvim/screenshot.png)
 
 ## Table of Contents
 
@@ -27,11 +27,6 @@ This is my personal [Vim](https://www.vim.org/) configuration.
     - [User Interface](#user-interface)
     - [Version Control](#version-control)
 6. [Troubleshooting](#troubleshooting)
-    - [Plugins are not installed](#plugins-are-not-installed)
-    - [Vimrc is not detected](#vimrc-is-not-detected)
-    - [Some characters in the UI are not rendering properly](#some-characters-in-the-ui-are-not-rendering-properly)
-    - [Italic characters are not rendering](#italic-characters-are-not-rendering)
-    - [Everything is blue](#everything-is-blue)
 
 </details>
 
@@ -74,13 +69,13 @@ No one likes having to install external dependencies, which is why all of mine
 are optional. That being said, installing these may improve your Vim
 experience.
 
-### Powerline Fonts
+#### Powerline Fonts
 
 By default, Powerline symbols are disabled in `settings.vim`. But if you want
 to make your status line look fancy, you can install them
 [here](https://powerline.readthedocs.io/en/latest/installation.html).
 
-### Python Language Server
+#### Python Language Server
 
 [ale](https://github.com/w0rp/ale) requires some extra stuff to do its linting
 for Python. You can install the [Language Server
@@ -102,7 +97,7 @@ where `<version>` is the Python version you have installed, such as `3.4` or
 `3.7`. If running `python` in your terminal already runs some version of
 Python 3, then no version number needs to be included.
 
-### Lua Support
+#### Lua Support
 
 If Vim is installed without Lua support (`:echo has('lua')` responds with
 `1`), then autocomplete features from
@@ -111,7 +106,7 @@ If Vim is installed without Lua support (`:echo has('lua')` responds with
 
 ## Updating
 
-### Vimrc configuration
+#### Vimrc configuration
 
 To update your configuration, run `bash pull.sh`. If there is a new version of
 `settings.vim` available, your local copy will be replaced with a template of
@@ -122,21 +117,24 @@ cd ~/.vim
 bash pull.sh
 ```
 
-### Plugins
+#### Plugins
 
 To update your plugins, open up Vim and execute `:PlugUpdate`. Close and
 restart Vim.
 
 ## Plugin List
 
-### Plugin Manager
+<details>
+<summary>Click here to show.</summary>
+
+#### Plugin Manager
 - [vim-plug](https://github.com/junegunn/vim-plug)
 
-### Color Schemes
+#### Color Schemes
 - [onedark.vim](https://github.com/joshdick/onedark.vim)
 - [vim-one](https://github.com/rakr/vim-one)
 
-### Editing
+#### Editing
 - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 - [betterdigraphs.vim](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/hudigraphs_utf8.vim)
 - [completor.vim](https://github.com/maralla/completor.vim)
@@ -161,12 +159,12 @@ restart Vim.
 - [vim-textobj-user](https://github.com/kana/vim-textobj-user)
 - [vim-workspace](https://github.com/thaerkh/vim-workspace)
 
-### File Navigation
+#### File Navigation
 - [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
 - [nerdtree](https://github.com/scrooloose/nerdtree)
 - [vim-mkdir](https://github.com/pbrisbin/vim-mkdir)
 
-### Language Support
+#### Language Support
 - [arm-syntax-vim](https://github.com/ARM9/arm-syntax-vim)
 - [prolog.vim](https://github.com/adimit/prolog.vim)
 - [vim-instant-markdown](https://github.com/suan/vim-instant-markdown)
@@ -175,14 +173,14 @@ restart Vim.
 - [vim-prolog](https://github.com/mxw/vim-prolog)
 - [vim-pythonsense](https://github.com/jeetsukumaran/vim-pythonsense)
 
-### Linting
+#### Linting
 - [ale](https://github.com/w0rp/ale)
 - [jedi-vim](https://github.com/davidhalter/jedi-vim)
 
-### Programming
+#### Programming
 - [vim-executioner](https://github.com/EvanQuan/vim-executioner)
 
-### User Interface
+#### User Interface
 - [goyo.vim](https://github.com/junegunn/goyo.vim)
 - [indentLine](https://github.com/Yggdroot/indentLine)
 - [lightline-buffer](https://github.com/taohexxx/lightline-buffer)
@@ -192,21 +190,28 @@ restart Vim.
 - [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
 
-### Version Control
+#### Version Control
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-gitbranch](https://github.com/itchyny/vim-gitbranch)
 - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 - [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
+</details>
+
 ## Troubleshooting
 
-#### Plugins are not installed
+<details>
+<summary>Plugins are not installed</summary>
 
 [vim-plug](https://github.com/junegunn/vim-plug) manages the installation of
 all the plugins. Open Vim and execute `:PlugInstall`. Close and restart Vim.
 
-#### Vimrc is not detected
+</details>
+
+<details>
+<summary>Vimrc is not detected</summary>
+
 For Vim versions 7.4 (or late versions of 7.3) onwards, Vim automatically
 detects `~/.vim/vimrc` as a secondary vimrc so nothing needs to be done. For
 earlier versions of Vim, create a dummy `~/.vimrc` file in your home directory
@@ -215,8 +220,10 @@ that links to `~/.vim/vimrc`:
 echo "source ~/.vim/vimrc" > ~/.vimrc
 ```
 Better yet, just update Vim.
+</details>
 
-#### Some characters in the UI are not rendering properly
+<details>
+<summary>Some characters in the UI are not rendering properly</summary>
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_powerline_error.png)
 
@@ -234,7 +241,11 @@ appearance will be:
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_powerline_fixed.png)
 
-#### Italic characters are not rendering
+</details>
+
+<details>
+<summary>Italic characters are not rendering</summary>
+<!-- #### Italic characters are not rendering -->
 
 If for some reason your terminal does not support italics, enable them:
 ```bash
@@ -243,8 +254,10 @@ echo "xterm-256color|xterm with 256 colors and italic,
   use=xterm-256color," >> xterm-256color.terminfo.txt
 tic -o ~/.terminfo xterm-256color.terminfo.txt
 ```
+</details>
 
-#### Everything is blue
+<details>
+<summary>Everything is blue</summary>
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_error.png)
 
@@ -273,3 +286,4 @@ There are 2 solutions:
    appearance will be be an altered version of the selected color scheme.
 
 ![](https://raw.githubusercontent.com/wiki/EvanQuan/.vim/no_truecolor_fixed.png)
+</details>
