@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       gvimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    1.0.6
+" Version:    1.0.7
 "
 " Contains optional runtime configuration settings to initialize GUI Vim when
 " it starts. For Vim versions before 7.4, this should be linked to the
@@ -13,11 +13,8 @@
 
 " Fonts fall back to next on list if not available.
 "
-set guifont=Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
-
-" For Wind32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-if has('win32')
-  set guioptions-=t
+if has('win32') || has('win64') || has('gui_macvim')
+  set guifont=Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
 endif
 
 " No scroll bars
