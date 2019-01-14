@@ -172,6 +172,7 @@ restart Vim.
 - [vim-polyglot](https://github.com/sheerun/vim-polyglot)
 - [vim-prolog](https://github.com/mxw/vim-prolog)
 - [vim-pythonsense](https://github.com/jeetsukumaran/vim-pythonsense)
+- [vimtex](https://github.com/lervag/vimtex)
 
 #### Linting
 - [ale](https://github.com/w0rp/ale)
