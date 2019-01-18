@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.10.0
+" Version:    3.11.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.10.0'
+let g:vimrc_version = '3.11.0'
 
 " Path {{{
 
@@ -1077,6 +1077,11 @@ elseif g:settings#escape_alternative == 2
   inoremap kj <Esc>hl
   vnoremap kj <Esc>hl
 endif
+
+" Search for TODO comments
+"
+nnoremap ]T /TODO<Return>
+nnoremap [T ?TODO<Return>
 
 " }}}
 
