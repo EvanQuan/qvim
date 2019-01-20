@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.11.0
+" Version:    3.12.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.11.0'
+let g:vimrc_version = '3.12.0'
 
 " Path {{{
 
@@ -170,6 +170,7 @@ Plug $MYGITPLUGINS . '/vis.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'EvanQuan/victionary'
 
 " }}}
 " File Navigation {{{
@@ -2017,6 +2018,16 @@ inoremap <expr> <Return> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<Retu
 let g:UltiSnipsEditSplit="vertical"
 
 " }}}
+" victionary {{{
+" Repository: https://github.com/EvanQuan/victionary
+
+let g:victionary#map_defaults = 0
+nmap <leader>dw <Plug>(victionary#define_under_cursor)
+nmap <leader>dW <Plug>(victionary#define_prompt)
+nmap <leader>ds <Plug>(victionary#synonym_under_cursor)
+nmap <leader>dS <Plug>(victionary#synonym_prompt)
+
+" }}}
 " vim-closetag {{{
 " Repository: https://github.com/alvan/vim-closetag
 
@@ -2217,6 +2228,17 @@ let g:lmap.c = {
                 \'t' : ['call feedkeys("\<plug>NERDCommenterToggle")', 'Toggle'],
                 \'u' : ['call feedkeys("\<plug>NERDCommenterUncomment")', 'Uncomment'],
                 \'y' : ['call feedkeys("\<plug>NERDCommenterYank")', 'Yank'],
+                \}
+
+" }}}
+" define {{{
+
+let g:lmap.d = {
+                \'name' : 'Define...',
+                \'w' : ['call feedkeys("\<Plug>(victionary#define_under_cursor)")', 'Word'],
+                \'s' : ['call feedkeys("\<Plug>(victionary#synonym_under_cursor)")', 'Synonym'],
+                \'W' : ['call feedkeys("\<Plug>(victionary#define_prompt)")', 'Word prompt'],
+                \'S' : ['call feedkeys("\<Plug>(victionary#synonym_prompt)")', 'Synonym prompt'],
                 \}
 
 " }}}

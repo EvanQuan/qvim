@@ -145,6 +145,7 @@ restart Vim.
 - [tabular](https://github.com/godlygeek/tabular)
 - [targets.vim](https://github.com/wellle/targets.vim)
 - [ultisnips](https://github.com/SirVer/ultisnips)
+- [victionary](https://github.vom/EvanQuan/victionary)
 - [vim-closetag](https://github.com/alvan/vim-closetag)
 - [vim-easy-align](https://github.com/junegunn/vim-easy-align)
 - [vim-exchange](https://github.com/tommcdo/vim-exchange)
