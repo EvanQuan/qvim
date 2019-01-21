@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.12.0
+" Version:    3.13.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.12.0'
+let g:vimrc_version = '3.13.0'
 
 " Path {{{
 
@@ -818,10 +818,12 @@ nnoremap <leader>Fd :set fdm=diff<Return>
 " }}}
 " Git {{{
 
+nnoremap <leader>gb :Gblame<Return>
+
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
 "
-nnoremap <leader>gb :Gbrowse<Return>
+nnoremap <leader>gx :Gbrowse<Return>
 
 " Diff
 "
@@ -977,6 +979,10 @@ nnoremap <leader>wh <C-w>h
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Go to next window
 "
@@ -2290,7 +2296,7 @@ let g:lmap.f = {
 let g:lmap.g = {
                 \'name' : 'Git...',
                 \'a' : ['Git add .', 'Add all'],
-                \'b' : ['Gbrowse', 'Browse on Github'],
+                \'b' : ['Gblame', 'Blame'],
                 \'c' : ['Gcommit', 'Commit'],
                 \'d' : ['Gdiff', 'Diff'],
                 \'e' : ['Git config -e', 'Edit config'],
@@ -2303,8 +2309,9 @@ let g:lmap.g = {
                 \'l' : ['Git log', 'Log'],
                 \'u' : ['Gpull',   'Pull'],
                 \'p' : ['Gpush',   'Push'],
-                \'w' : ['Gwrite',  'Write'],
                 \'s' : ['Gstatus', 'Status'],
+                \'w' : ['Gwrite',  'Write'],
+                \'x' : ['Gbrowse', 'Browse on Github'],
                 \}
 
 " }}}
