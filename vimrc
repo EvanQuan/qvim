@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.13.1
+" Version:    3.13.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.13.1'
+let g:vimrc_version = '3.13.2'
 
 " Path {{{
 
@@ -1206,12 +1206,16 @@ noremap <Leader>ob :shell<Return>
 
 " Toggle colorcolumn visibility
 "
+let s:colorcolumn_visible = g:settings#highlight_width_indicator
 function! ToggleColorColumn() abort
-  if &colorcolumn
+  if s:colorcolumn_visible
+    let s:colorcolumn_visible = 0
     set colorcolumn=0
     echo "-- COLORCOLUMN DISABLED --"
   else
-    execute "set colorcolumn=".(g:settings#wrap_width + 1)
+    let s:colorcolumn_visible = 1
+    set colorcolumn=+1
+    " execute "set colorcolumn=".(g:settings#wrap_width + 1)
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
@@ -2843,7 +2847,8 @@ endif
 
 if g:settings#highlight_width_indicator
   " settings#wrap_width is visualized as highlighted column
-  execute "set colorcolumn=".(g:settings#wrap_width+1)
+  set colorcolumn=+1
+  " execute "set colorcolumn=".(g:settings#wrap_width+1)
 endif
 
 " }}}
