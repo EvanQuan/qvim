@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.13.0
+" Version:    3.13.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.13.0'
+let g:vimrc_version = '3.13.1'
 
 " Path {{{
 
@@ -525,26 +525,26 @@ nnoremap diQ di'
 
 " Suggest spellcheck fixes for current word
 "
-noremap <leader>ss z=
+noremap <Leader>ss z=
 
 " }}}
 " Substitute {{{
 
 " Globally in File
 "
-noremap <leader>sgf :%s//g<Left><Left>
+noremap <Leader>sgf :%s//g<Left><Left>
 
 " First in File
 "
-noremap <leader>sff :%s//<Left>
+noremap <Leader>sff :%s//<Left>
 
 " Globally in Line
 "
-noremap <leader>sgl :s//g<Left><Left>
+noremap <Leader>sgl :s//g<Left><Left>
 
 " In Line
 "
-noremap <leader>sfl :s//<Left>
+noremap <Leader>sfl :s//<Left>
 
 " }}}
 " Paste {{{
@@ -562,7 +562,7 @@ function! TogglePasteMode() abort
     echo "-- PASTE OFF --"
   endif
 endfunction
-noremap <leader>tp :call TogglePasteMode()<Return>
+noremap <Leader>tp :call TogglePasteMode()<Return>
 
 " Similar to yanking
 
@@ -572,63 +572,63 @@ noremap <leader>tp :call TogglePasteMode()<Return>
 
 " System Clipboard
 "
-noremap <leader>pc "+p
+noremap <Leader>pc "+p
 
 " Around/In Word
 "
-nnoremap <leader>paw "_dawP
-nnoremap <leader>piw "_diwP
+nnoremap <Leader>paw "_dawP
+nnoremap <Leader>piw "_diwP
 
 " Around/In Braces
 "
-nnoremap <leader>pi{ "_di{P
-nnoremap <leader>pi} "_di}P
-nnoremap <leader>piB "_di{P
-nnoremap <leader>piB "_di}P
+nnoremap <Leader>pi{ "_di{P
+nnoremap <Leader>pi} "_di}P
+nnoremap <Leader>piB "_di{P
+nnoremap <Leader>piB "_di}P
 
 " Around/In Brackets
 "
-nnoremap <leader>pi[ "_di[P
-nnoremap <leader>pi] "_di]P
+nnoremap <Leader>pi[ "_di[P
+nnoremap <Leader>pi] "_di]P
 
 " Around/In Double Quotes
 "
-nnoremap <leader>pa" "_da"P
-nnoremap <leader>paq "_da"P
-nnoremap <leader>pi" "_di"P
-nnoremap <leader>piq "_di"P
+nnoremap <Leader>pa" "_da"P
+nnoremap <Leader>paq "_da"P
+nnoremap <Leader>pi" "_di"P
+nnoremap <Leader>piq "_di"P
 
 " Around/In Single Quotes
 "
-nnoremap <leader>pa' "_da'P
-nnoremap <leader>paQ "_da'P
-nnoremap <leader>pi' "_di'P
-nnoremap <leader>piQ "_di"P
+nnoremap <Leader>pa' "_da'P
+nnoremap <Leader>paQ "_da'P
+nnoremap <Leader>pi' "_di'P
+nnoremap <Leader>piQ "_di"P
 
 " Parens
 "
-nnoremap <leader>pi( "_di(P
-nnoremap <leader>pi) "_di)P
-nnoremap <leader>pib "_di(P
-nnoremap <leader>pib "_di)P
+nnoremap <Leader>pi( "_di(P
+nnoremap <Leader>pi) "_di)P
+nnoremap <Leader>pib "_di(P
+nnoremap <Leader>pib "_di)P
 
 " Greater/less than
-nnoremap <leader>pi< "_di<P
-nnoremap <leader>pi> "_di>P
+nnoremap <Leader>pi< "_di<P
+nnoremap <Leader>pi> "_di>P
 
 " Tag
 "
-nnoremap <leader>pit "_ditP
+nnoremap <Leader>pit "_ditP
 
 " Line
 "
-nnoremap <leader>pil "_ddP
+nnoremap <Leader>pil "_ddP
 
 " }}}
 " Underline {{{
 
-nnoremap <leader>u- yypVr-j
-nnoremap <leader>u= yypVr=j
+nnoremap <Leader>u- yypVr-j
+nnoremap <Leader>u= yypVr=j
 
 " }}}
 " Visual {{{
@@ -667,7 +667,7 @@ vnoremap aa VGo1G
 
 " System clipboard
 "
-noremap <leader>y "+y
+noremap <Leader>y "+y
 
 " Around/In Line
 " Yanks whole line except for end-of-line character
@@ -701,101 +701,101 @@ nnoremap yH y^
 
 " Toggle between the last two files opened in current session.
 "
-nnoremap <leader>tf <C-^>
+nnoremap <Leader>tf <C-^>
 
 " Edit vimrc
 "
-nnoremap <silent> <leader>ev :edit $MYVIMRC<Return>
-nnoremap <silent> <leader>hev :split $MYVIMRC<Return>
-nnoremap <silent> <leader>vev :vsplit $MYVIMRC<Return>
+nnoremap <silent> <Leader>ev :edit $MYVIMRC<Return>
+nnoremap <silent> <Leader>hev :split $MYVIMRC<Return>
+nnoremap <silent> <Leader>vev :vsplit $MYVIMRC<Return>
 
 " Edit Windows _vimrc
 "
-nnoremap <silent> <leader>ew :edit $MYWINDOWSVIMRC<Return>
-nnoremap <silent> <leader>hew :split $MYWINDOWSVIMRC<Return>
-nnoremap <silent> <leader>vew :vsplit $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <Leader>ew :edit $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <Leader>hew :split $MYWINDOWSVIMRC<Return>
+nnoremap <silent> <Leader>vew :vsplit $MYWINDOWSVIMRC<Return>
 
 " Edit Windows _vimrc template
 "
-nnoremap <silent> <leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
-nnoremap <silent> <leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
-nnoremap <silent> <leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <Leader>eW :edit $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <Leader>heW :split $MYWINDOWSVIMRCTEMPLATE<Return>
+nnoremap <silent> <Leader>veW :vsplit $MYWINDOWSVIMRCTEMPLATE<Return>
 
 " Edit qvim.txt help documentation
 "
-nnoremap <silent> <leader>eq :edit $MYQVIMDOC<Return>
-nnoremap <silent> <leader>heq :split $MYQVIMDOC<Return>
-nnoremap <silent> <leader>veq :vsplit $MYQVIMDOC<Return>
+nnoremap <silent> <Leader>eq :edit $MYQVIMDOC<Return>
+nnoremap <silent> <Leader>heq :split $MYQVIMDOC<Return>
+nnoremap <silent> <Leader>veq :vsplit $MYQVIMDOC<Return>
 
 " Edit gvimrc
 "
-nnoremap <silent> <leader>eg :edit $MYGVIMRC<Return>
-nnoremap <silent> <leader>heg :split $MYGVIMRC<Return>
-nnoremap <silent> <leader>veg :vsplit $MYGVIMRC<Return>
+nnoremap <silent> <Leader>eg :edit $MYGVIMRC<Return>
+nnoremap <silent> <Leader>heg :split $MYGVIMRC<Return>
+nnoremap <silent> <Leader>veg :vsplit $MYGVIMRC<Return>
 
 " Reload vimrc
 "
-nnoremap <silent> <leader>Rv :source $MYVIMRC<Return>
+nnoremap <silent> <Leader>Rv :source $MYVIMRC<Return>
 
 " Open settings.vim
 "
-nnoremap <silent> <leader>es :edit $MYSETTINGS<Return>
-nnoremap <silent> <leader>hes :split $MYSETTINGS<Return>
-nnoremap <silent> <leader>ves :vsplit $MYSETTINGS<Return>
+nnoremap <silent> <Leader>es :edit $MYSETTINGS<Return>
+nnoremap <silent> <Leader>hes :split $MYSETTINGS<Return>
+nnoremap <silent> <Leader>ves :vsplit $MYSETTINGS<Return>
 
 " Open settings.vim template
 "
-nnoremap <silent> <leader>eS :edit $MYSETTINGSTEMPLATE<Return>
-nnoremap <silent> <leader>heS :split $MYSETTINGSTEMPLATE<Return>
-nnoremap <silent> <leader>veS :vsplit $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <Leader>eS :edit $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <Leader>heS :split $MYSETTINGSTEMPLATE<Return>
+nnoremap <silent> <Leader>veS :vsplit $MYSETTINGSTEMPLATE<Return>
 
 " Open notes.txt
 "
-nnoremap <silent> <leader>en :edit $MYNOTES<Return>
-nnoremap <silent> <leader>hen :split $MYNOTES<Return>
-nnoremap <silent> <leader>ven :vsplit $MYNOTES<Return>
+nnoremap <silent> <Leader>en :edit $MYNOTES<Return>
+nnoremap <silent> <Leader>hen :split $MYNOTES<Return>
+nnoremap <silent> <Leader>ven :vsplit $MYNOTES<Return>
 
 " .tmux.conf
 "
-nnoremap <silent> <leader>et :edit ~/.tmux.conf<Return>
-nnoremap <silent> <leader>het :split ~/.tmux.conf<Return>
-nnoremap <silent> <leader>vet :vsplit ~/.tmux.conf<Return>
+nnoremap <silent> <Leader>et :edit ~/.tmux.conf<Return>
+nnoremap <silent> <Leader>het :split ~/.tmux.conf<Return>
+nnoremap <silent> <Leader>vet :vsplit ~/.tmux.conf<Return>
 
 " .bashrc
 "
-nnoremap <silent> <leader>eb :edit ~/.bashrc<Return>
-nnoremap <silent> <leader>heb :split ~/.bashrc<Return>
-nnoremap <silent> <leader>veb :vsplit ~/.bashrc<Return>
+nnoremap <silent> <Leader>eb :edit ~/.bashrc<Return>
+nnoremap <silent> <Leader>heb :split ~/.bashrc<Return>
+nnoremap <silent> <Leader>veb :vsplit ~/.bashrc<Return>
 
 " README.md
 "
-nnoremap <leader>eR :edit README.md<Return>
-nnoremap <leader>heR :split README.md<Return>
-nnoremap <leader>veR :vsplit README.md<Return>
+nnoremap <Leader>eR :edit README.md<Return>
+nnoremap <Leader>heR :split README.md<Return>
+nnoremap <Leader>veR :vsplit README.md<Return>
 
 " run.sh
 "
-nnoremap <leader>er :edit run.sh<Return>
-nnoremap <leader>her :split run.sh<Return>
-nnoremap <leader>ver :vsplit run.sh<Return>
+nnoremap <Leader>er :edit run.sh<Return>
+nnoremap <Leader>her :split run.sh<Return>
+nnoremap <Leader>ver :vsplit run.sh<Return>
 
 " Makefile
 "
-nnoremap <leader>em :edit makefile<Return>
-nnoremap <leader>hem :split makefile<Return>
-nnoremap <leader>vem :vsplit makefile<Return>
+nnoremap <Leader>em :edit makefile<Return>
+nnoremap <Leader>hem :split makefile<Return>
+nnoremap <Leader>vem :vsplit makefile<Return>
 
 " input.txt
 "
-nnoremap <silent> <leader>ei :edit input.txt<Return>
-nnoremap <silent> <leader>hei :split input.txt<Return>
-nnoremap <silent> <leader>vei :vsplit input.txt<Return>
+nnoremap <silent> <Leader>ei :edit input.txt<Return>
+nnoremap <silent> <Leader>hei :split input.txt<Return>
+nnoremap <silent> <Leader>vei :vsplit input.txt<Return>
 
 " output.txt
 "
-nnoremap <silent> <leader>eo :edit output.txt<Return>
-nnoremap <silent> <leader>heo :split output.txt<Return>
-nnoremap <silent> <leader>veo :vsplit output.txt<Return>
+nnoremap <silent> <Leader>eo :edit output.txt<Return>
+nnoremap <silent> <Leader>heo :split output.txt<Return>
+nnoremap <silent> <Leader>veo :vsplit output.txt<Return>
 
 " }}}
 " Folding {{{
@@ -809,60 +809,60 @@ nnoremap <Return> za
 
 " Change fold method settings
 "
-nnoremap <leader>Ff :set fdm=manual<Return>
-nnoremap <leader>Fi :set fdm=indent<Return>
-nnoremap <leader>Fm :set fdm=marker<Return>
-nnoremap <leader>Fs :set fdm=syntax<Return>
-nnoremap <leader>Fd :set fdm=diff<Return>
+nnoremap <Leader>Ff :set fdm=manual<Return>
+nnoremap <Leader>Fi :set fdm=indent<Return>
+nnoremap <Leader>Fm :set fdm=marker<Return>
+nnoremap <Leader>Fs :set fdm=syntax<Return>
+nnoremap <Leader>Fd :set fdm=diff<Return>
 
 " }}}
 " Git {{{
 
-nnoremap <leader>gb :Gblame<Return>
+nnoremap <Leader>gb :Gblame<Return>
 
 " Open current file, blob, tree, commit, or tag in browser at upstream
 " hosting provider.
 "
-nnoremap <leader>gx :Gbrowse<Return>
+nnoremap <Leader>gx :Gbrowse<Return>
 
 " Diff
 "
-nnoremap <leader>gd :Gdiff<Return>
+nnoremap <Leader>gd :Gdiff<Return>
 
 " Status
 "
-nnoremap <leader>gs :Gstatus<Return>
+nnoremap <Leader>gs :Gstatus<Return>
 
 " Add/Stage all in current directory
 "
-nnoremap <leader>ga :Git add .<Return>
+nnoremap <Leader>ga :Git add .<Return>
 
 " Write to the current file's path and stage the results.
 "
-nnoremap <leader>gw :Gwrite<Return>
+nnoremap <Leader>gw :Gwrite<Return>
 
 " Commit
 "
-nnoremap <leader>gc :Gcommit<Return>
+nnoremap <Leader>gc :Gcommit<Return>
 
 " Push
 "
-nnoremap <leader>gp :Git push<Return>
+nnoremap <Leader>gp :Git push<Return>
 
 " Pull
 "
-nnoremap <leader>gl :Git pull<Return>
+nnoremap <Leader>gl :Git pull<Return>
 
 " Log
-nnoremap <leader>gl :Git log<Return>
+nnoremap <Leader>gl :Git log<Return>
 
 " Edit config
 "
-nnoremap <leader>ge :Git config -e<Return>
+nnoremap <Leader>ge :Git config -e<Return>
 
 " Edit global config
 "
-nnoremap <leader>gg :Git config --global -e<Return>
+nnoremap <Leader>gg :Git config --global -e<Return>
 
 " }}}
 " Formatting {{{
@@ -932,7 +932,7 @@ function! QuitCurrentBuffer() abort
   execute "bprevious|split|bnext|bdelete"
   echo "-- QUIT BUFFER --"
 endfunction
-nnoremap <leader>qb :call QuitCurrentBuffer()<Return>
+nnoremap <Leader>qb :call QuitCurrentBuffer()<Return>
 
 " Quit all buffers except the currently focused one.
 " Convenient when hidden buffers accumulate over time.
@@ -945,7 +945,7 @@ function! QuitHiddenBuffers() abort
   endfor
   echo "-- QUIT HIDDEN BUFFERS --"
 endfunction
-nnoremap <silent> <leader>qh :call QuitHiddenBuffers()<Return>
+nnoremap <silent> <Leader>qh :call QuitHiddenBuffers()<Return>
 
 " }}}
 " Windows {{{
@@ -963,7 +963,7 @@ function! HorizontalSplit() abort
   " This function exists for vim-leader-guide compatibility
   call feedkeys(":split ")
 endfunction
-nnoremap <leader>hs :split<space>
+nnoremap <Leader>hs :split<space>
 
 " Vertical
 "
@@ -971,14 +971,14 @@ function! VerticalSplit() abort
   " This function exists for vim-leader-guide compatibility
   call feedkeys(":vsplit ")
 endfunction
-nnoremap <leader>vs :vsplit<space>
+nnoremap <Leader>vs :vsplit<space>
 
 " Directional movement
 "
-nnoremap <leader>wh <C-w>h
-nnoremap <leader>wj <C-w>j
-nnoremap <leader>wk <C-w>k
-nnoremap <leader>wl <C-w>l
+nnoremap <Leader>wh <C-w>h
+nnoremap <Leader>wj <C-w>j
+nnoremap <Leader>wk <C-w>k
+nnoremap <Leader>wl <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -994,32 +994,32 @@ nnoremap [w <C-w>W
 
 " Quit window
 "
-nnoremap <leader>qw :x<Return>
-nnoremap <leader>wq :x<Return>
+nnoremap <Leader>qw :x<Return>
+nnoremap <Leader>wq :x<Return>
 
 " Split
-nnoremap <leader>ws <C-w>s
-nnoremap <leader>wv <C-w>v
+nnoremap <Leader>ws <C-w>s
+nnoremap <Leader>wv <C-w>v
 
 " }}}
 " Tabs {{{
 
 " Open new tab
-nnoremap <leader>ot :tabe<Return>
+nnoremap <Leader>ot :tabe<Return>
 
 " Go to tab :by number
 "
-nnoremap <leader>T1 1gt
-nnoremap <leader>T2 2gt
-nnoremap <leader>T3 3gt
-nnoremap <leader>T4 4gt
-nnoremap <leader>T5 5gt
-nnoremap <leader>T6 6gt
-nnoremap <leader>T7 7gt
-nnoremap <leader>T8 8gt
-nnoremap <leader>T9 9gt
-nnoremap <leader>Tf :tabfirst<Return>
-nnoremap <leader>Tl :tablast<Return>
+nnoremap <Leader>T1 1gt
+nnoremap <Leader>T2 2gt
+nnoremap <Leader>T3 3gt
+nnoremap <Leader>T4 4gt
+nnoremap <Leader>T5 5gt
+nnoremap <Leader>T6 6gt
+nnoremap <Leader>T7 7gt
+nnoremap <Leader>T8 8gt
+nnoremap <Leader>T9 9gt
+nnoremap <Leader>Tf :tabfirst<Return>
+nnoremap <Leader>Tl :tablast<Return>
 
 " Go to next tab
 " Same as gt
@@ -1033,7 +1033,7 @@ nnoremap [t :tabprevious<Return>
 
 " Quit tab
 "
-nnoremap <leader>qt tabclose
+nnoremap <Leader>qt tabclose
 
 " }}}
 " Session {{{
@@ -1116,13 +1116,13 @@ function! ToggleTabs() abort
     echo "-- HARD TABS (" . &tabstop . " SPACES) --"
   endif
 endfunction
-nnoremap <leader>ti :call ToggleTabs()<Return>
+nnoremap <Leader>ti :call ToggleTabs()<Return>
 
 " Replace all sequences of white-space containing a <Tab> with new strings of
 " white-space using the new tabstop value given. If you do not specify a new
 " tabstop size or it is zero, Vim uses the current value of 'tabstop'.
 "
-nnoremap <leader>Rt :retab<Return>
+nnoremap <Leader>Rt :retab<Return>
 
 " }}}
 " Searching {{{
@@ -1143,7 +1143,7 @@ noremap N Nzz
 " clear highlighting
 "
 " Cannot directy nnoremap <Esc>. Workaround.
-nnoremap <leader><space> :nohlsearch<Return>
+nnoremap <Leader><space> :nohlsearch<Return>
 " Source: https://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizarre-arrow-behaviour
 " TODO this is causing bugs
 " if has('gui_running')
@@ -1179,7 +1179,7 @@ if !exists(":DiffOrig")
     \ | wincmd p | diffthis
 endif
 " Bind it for convenience
-map <leader>fd :DiffOrig<Return>
+noremap <Leader>fd :DiffOrig<Return>
 
 " }}}
 " Terminal {{{
@@ -1187,19 +1187,19 @@ map <leader>fd :DiffOrig<Return>
 if has("terminal")
   " in-editor terminal only works with some terminals
   " Vertical split with terminal
-  noremap <leader>vt :vertical terminal<Return>
+  noremap <Leader>vt :vertical terminal<Return>
   " Horizontal split with terminal
-  noremap <leader>ht :terminal<Return>
+  noremap <Leader>ht :terminal<Return>
 else
   " Default to shell when terminal is not available
-  noremap <leader>vt :shell<Return>
-  noremap <leader>ht :shell<Return>
+  noremap <Leader>vt :shell<Return>
+  noremap <Leader>ht :shell<Return>
 endif
 " There is a terminal which is available for earlier versions of Vim,
 " which opens the terminal in a new buffer.
 " It can be closed with "exit" or "Ctrl-D".
 "
-noremap <leader>ob :shell<Return>
+noremap <Leader>ob :shell<Return>
 
 " }}}
 " User Interface {{{
@@ -1215,7 +1215,7 @@ function! ToggleColorColumn() abort
     echo "-- COLORCOLUMN ENABLED --"
   endif
 endfunction
-nnoremap <leader>thw :call ToggleColorColumn()<Return>
+nnoremap <Leader>thw :call ToggleColorColumn()<Return>
 
 " Toggle cursorcolumn visibility
 "
@@ -1227,7 +1227,7 @@ function! ToggleCursorColumn() abort
     echo "-- CURSORCOLUMN DISABLED --"
   endif
 endfunction
-nnoremap <leader>thc :call ToggleCursorColumn()<Return>
+nnoremap <Leader>thc :call ToggleCursorColumn()<Return>
 
 
 " Toggle cursorline visibility
@@ -1240,7 +1240,7 @@ function! ToggleCursorLine() abort
     echo "-- CURSORLINE DISABLED --"
   endif
 endfunction
-nnoremap <leader>thl :call ToggleCursorLine()<Return>
+nnoremap <Leader>thl :call ToggleCursorLine()<Return>
 
 " Toggle spell check
 "
@@ -1252,7 +1252,7 @@ function! ToggleSpellcheck() abort
     echo "-- SPELLCHECK DISABLED --"
   endif
 endfunction
-nnoremap <leader>ts :call ToggleSpellcheck()<Return>
+nnoremap <Leader>ts :call ToggleSpellcheck()<Return>
 
 " }}}
 " Visibility {{{
@@ -1267,12 +1267,12 @@ function! ToggleWhitespace() abort
     echo "-- WHITESPACE OFF --"
   endif
 endfunction
-noremap <leader>tw :call ToggleWhitespace()<Return>
+noremap <Leader>tw :call ToggleWhitespace()<Return>
 
 " Refresh syntax highlighting in case it gets messed up
 " TODO: Never actually tested this. Doesn't work?
 "
-nnoremap <leader>Rh :execute 'colo' colors_name<Return>:syntax sync fromstart<Return>
+nnoremap <Leader>Rh :execute 'colo' colors_name<Return>:syntax sync fromstart<Return>
 
 " Toggle absolute and relative line numbers
 "
@@ -1285,7 +1285,7 @@ function! ToggleRelativeLineNumbers() abort
     echo "-- RELATIVE LINE NUMBERS --"
   endif
 endfunction
-noremap <leader>tr :call ToggleRelativeLineNumbers()<Return>
+noremap <Leader>tr :call ToggleRelativeLineNumbers()<Return>
 
 " Toggle line number visibility
 "
@@ -1298,7 +1298,7 @@ function! ToggleLineNumbers() abort
     echo "-- LINE NUMBERS ON --"
   endif
 endfunction
-noremap <leader>tl :call ToggleLineNumbers()<Return>
+noremap <Leader>tl :call ToggleLineNumbers()<Return>
 
 " }}}
 
@@ -1347,14 +1347,14 @@ set ttyfast
 " Enable or disable ALE linting, including all of its autocmd events, loclist
 " items, quickfix items, signs, current jobs, etc., globally.
 "
-nnoremap <leader>ta :ALEToggle<Return>
+nnoremap <Leader>ta :ALEToggle<Return>
 
-nnoremap <leader>ad :ALEDetail<Return>
-nnoremap <leader>ag :ALEGoToDefinition<Return>
-nnoremap <leader>ah :ALEHover<Return>
-nnoremap <leader>ar :ALEFindReferences<Return>
-nnoremap <leader>as :ALEFixSuggest<Return>
-nnoremap <leader>at :ALEToggle<Return>
+nnoremap <Leader>ad :ALEDetail<Return>
+nnoremap <Leader>ag :ALEGoToDefinition<Return>
+nnoremap <Leader>ah :ALEHover<Return>
+nnoremap <Leader>ar :ALEFindReferences<Return>
+nnoremap <Leader>as :ALEFixSuggest<Return>
+nnoremap <Leader>at :ALEToggle<Return>
 
 " Move between ale linting errors
 "
@@ -1412,7 +1412,7 @@ call camelcasemotion#CreateMotionMappings(',')
 " Repository: https://github.com/ctrlpvim/ctrlp.vim
 
 " Fuzzy find OR find file
-nnoremap <silent> <leader>ff :CtrlP<Return>
+nnoremap <silent> <Leader>ff :CtrlP<Return>
 
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
@@ -1456,7 +1456,7 @@ let g:DVB_TrimWS = 1
 
 " Toggle distract-free
 "
-nnoremap <silent> <leader>td :Goyo<Return>
+nnoremap <silent> <Leader>td :Goyo<Return>
 
 " Avoid line numbers changing on insert
 "
@@ -1505,8 +1505,11 @@ let g:haskell_indent_guard = 4 " 2
 " Disabling no filetype ('') also disables nerdtree.
 "
 let g:indentLine_fileTypeExclude = ['help', 'text', '']
-" let g:indentLine_char = '┆'
 let g:indentLine_char = '│'
+
+" Concealing is annoying while editing, but is fine for reading
+"
+let g:indentLine_concealcursor=0
 
 " }}}
 " jedi-vim {{{
@@ -1517,13 +1520,13 @@ let g:indentLine_char = '│'
 " don't load the plugin.
 "
 if has('python3') || has('python')
-  let g:jedi#goto_command = "<leader>jd"
-  let g:jedi#goto_assignments_command = "<leader>ja"
+  let g:jedi#goto_command = "<Leader>jd"
+  let g:jedi#goto_assignments_command = "<Leader>ja"
   let g:jedi#goto_definitions_command = ""
   let g:jedi#documentation_command = "K"
-  let g:jedi#usages_command = "<leader>ju"
+  let g:jedi#usages_command = "<Leader>ju"
   let g:jedi#completions_command = "<C-Space>"
-  let g:jedi#rename_command = "<leader>jr"
+  let g:jedi#rename_command = "<Leader>jr"
 else
   let g:jedi#auto_initialization = 0
   let g:jedi#squelch_py_warning = 1
@@ -1913,8 +1916,8 @@ let g:lightline_buffer_reservelen = 20
 " listtrans {{{
 
 " Toggles between a list and a bullet points.
-nnoremap <silent> <leader>tL :call ListTrans_toggle_format()<Return>
-vnoremap <silent> <leader>tL :call ListTrans_toggle_format('visual')<Return>
+nnoremap <silent> <Leader>tL :call ListTrans_toggle_format()<Return>
+vnoremap <silent> <Leader>tL :call ListTrans_toggle_format('visual')<Return>
 
 " }}}
 " neocomplete {{{
@@ -1973,8 +1976,8 @@ let g:NERDDefaultAlign = 'left'
 " (tcc) toggle cursor line (tcl), and toggle color column (tcw) commands.
 " May need to rebind those in the future as they are not commonly used.
 "
-map <leader>ct <plug>NERDCommenterToggle
-map <leader>tc <plug>NERDCommenterToggle
+map <Leader>ct <plug>NERDCommenterToggle
+map <Leader>tc <plug>NERDCommenterToggle
 " For some reason, Vim registers <C-/> as <C-_>
 map <C-_> <plug>NERDCommenterToggle
 
@@ -1995,11 +1998,11 @@ nnoremap <silent> <C-\> :NERDTreeToggle<Return>
 
 " Toggle tree
 "
-nnoremap <silent> <leader>tt :NERDTreeToggle<Return>
+nnoremap <silent> <Leader>tt :NERDTreeToggle<Return>
 
 " File tree
 "
-nnoremap <silent> <leader>ft :NERDTreeToggle<Return>
+nnoremap <silent> <Leader>ft :NERDTreeToggle<Return>
 
 " }}}
 " ultisnips {{{
@@ -2028,10 +2031,10 @@ let g:UltiSnipsEditSplit="vertical"
 " Repository: https://github.com/EvanQuan/victionary
 
 let g:victionary#map_defaults = 0
-nmap <leader>dw <Plug>(victionary#define_under_cursor)
-nmap <leader>dW <Plug>(victionary#define_prompt)
-nmap <leader>ds <Plug>(victionary#synonym_under_cursor)
-nmap <leader>dS <Plug>(victionary#synonym_prompt)
+nmap <Leader>dw <Plug>(victionary#define_under_cursor)
+nmap <Leader>dW <Plug>(victionary#define_prompt)
+nmap <Leader>ds <Plug>(victionary#synonym_under_cursor)
+nmap <Leader>dS <Plug>(victionary#synonym_prompt)
 
 " }}}
 " vim-closetag {{{
@@ -2058,7 +2061,7 @@ let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
 "
-let g:closetag_close_shortcut = '<leader>>'
+let g:closetag_close_shortcut = '<Leader>>'
 " }}}
 " vim-easy-align {{{
 " Repository: https://github.com/junegunn/vim-easy-align
@@ -2087,27 +2090,27 @@ let g:executioner#extensions['tex'] = ':VimtexCompile'
 
 " Run current buffer
 "
-nnoremap <silent> <leader>rf :Executioner<Return>
-nnoremap <silent> <leader>hrf :ExecutionerHorizontal<Return>
-nnoremap <silent> <leader>vrf :ExecutionerVertical<Return>
+nnoremap <silent> <Leader>rf :Executioner<Return>
+nnoremap <silent> <Leader>hrf :ExecutionerHorizontal<Return>
+nnoremap <silent> <Leader>vrf :ExecutionerVertical<Return>
 
 " Run current buffer with input redirected from input.txt
 "
-nnoremap <silent> <leader>ri :Executioner % < input.txt<Return>
-nnoremap <silent> <leader>hri :ExecutionerHorizontalBuffer % < input.txt<Return>
-nnoremap <silent> <leader>vri :ExecutionerVerticalBuffer % < input.txt<Return>
+nnoremap <silent> <Leader>ri :Executioner % < input.txt<Return>
+nnoremap <silent> <Leader>hri :ExecutionerHorizontalBuffer % < input.txt<Return>
+nnoremap <silent> <Leader>vri :ExecutionerVerticalBuffer % < input.txt<Return>
 
 " run.sh
 "
-nnoremap <silent> <leader>rr :Executioner run.sh<Return>
-nnoremap <silent> <leader>hrr :ExecutionerHorizontal run.sh<Return>
-nnoremap <silent> <leader>vrr :ExecutionerVertical run.sh<Return>
+nnoremap <silent> <Leader>rr :Executioner run.sh<Return>
+nnoremap <silent> <Leader>hrr :ExecutionerHorizontal run.sh<Return>
+nnoremap <silent> <Leader>vrr :ExecutionerVertical run.sh<Return>
 
 " Makefile
 "
-nnoremap <silent> <leader>rm :Executioner makefile<Return>
-nnoremap <silent> <leader>hrm :ExecutionerHorizontal makefile<Return>
-nnoremap <silent> <leader>vrm :ExecutionerVertical makefile<Return>
+nnoremap <silent> <Leader>rm :Executioner makefile<Return>
+nnoremap <silent> <Leader>hrm :ExecutionerHorizontal makefile<Return>
+nnoremap <silent> <Leader>vrm :ExecutionerVertical makefile<Return>
 
 " }}}
 " vim-gitgutter {{{
@@ -2124,8 +2127,8 @@ nmap [h <Plug>GitGutterPrevHunk
 
 " Stage and undo hunks
 "
-nmap <leader>ghs <Plug>GitGutterStageHunk
-nmap <leader>ghu <Plug>GitGutterUndoHunk
+nmap <Leader>ghs <Plug>GitGutterStageHunk
+nmap <Leader>ghu <Plug>GitGutterUndoHunk
 
 
 " }}}
@@ -2157,39 +2160,39 @@ endif
 " nnoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 " inoremap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
-" nnoremap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-" nnoremap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-" nnoremap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-" nnoremap <leader>jii <Plug>(JavaComplete-Imports-Add)
+" nnoremap <Leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+" nnoremap <Leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+" nnoremap <Leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+" nnoremap <Leader>jii <Plug>(JavaComplete-Imports-Add)
 
 " inoremap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
 " inoremap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
 " inoremap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
 " inoremap <C-j>ii <Plug>(JavaComplete-Imports-Add)
 
-" nnoremap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+" nnoremap <Leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
 " inoremap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
 
-" nnoremap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-" nnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-" nnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-" nnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-" nnoremap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-" nnoremap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-" nnoremap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-" nnoremap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+" nnoremap <Leader>jA <Plug>(JavaComplete-Generate-Accessors)
+" nnoremap <Leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" nnoremap <Leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" nnoremap <Leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" nnoremap <Leader>jts <Plug>(JavaComplete-Generate-ToString)
+" nnoremap <Leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+" nnoremap <Leader>jc <Plug>(JavaComplete-Generate-Constructor)
+" nnoremap <Leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
 
 " inoremap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
 " inoremap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
 " inoremap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-" vnoremap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-" vnoremap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-" vnoremap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+" vnoremap <Leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+" vnoremap <Leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+" vnoremap <Leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-" nnoremap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-" nnoremap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+" nnoremap <silent> <buffer> <Leader>jn <Plug>(JavaComplete-Generate-NewClass)
+" nnoremap <silent> <buffer> <Leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 " }}}
 " vim-leader-guide {{{
@@ -2596,20 +2599,20 @@ let g:lmap.y = [ "call feedkeys(\"\\\"+y\")", "Yank to clipboard" ]
 " Bind leader key <Space> to open leader guide prompt
 "
 call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<Return>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<Return>
+nnoremap <silent> <Leader> :<c-u>LeaderGuide '<Space>'<Return>
+vnoremap <silent> <Leader> :<c-u>LeaderGuideVisual '<Space>'<Return>
 
 " }}}
 " vim-plug {{{
 " Repository: https://github.com/junegunn/vim-plug
 
-noremap <leader>Pc :PlugClean<Return>
-noremap <leader>Pi :PlugInstall<Return>
-noremap <leader>Pd :PlugDiff<Return>
-noremap <leader>Pn :PlugSnapshot<Return>
-noremap <leader>Ps :PlugStatus<Return>
-noremap <leader>Pu :PlugUpdate<Return>
-noremap <leader>Pg :PlugUpgrade<Return>
+noremap <Leader>Pc :PlugClean<Return>
+noremap <Leader>Pi :PlugInstall<Return>
+noremap <Leader>Pd :PlugDiff<Return>
+noremap <Leader>Pn :PlugSnapshot<Return>
+noremap <Leader>Ps :PlugStatus<Return>
+noremap <Leader>Pu :PlugUpdate<Return>
+noremap <Leader>Pg :PlugUpgrade<Return>
 
 " }}}
 " vim-polyglot {{{
@@ -2649,7 +2652,7 @@ let g:togglecursor_leave = 'block' " Not blinking
 let g:workspace_autosave_always = 0
 
 " Toggle enable/disable workspace
-nnoremap <leader>tW :ToggleWorkspace<Return>
+nnoremap <Leader>tW :ToggleWorkspace<Return>
 
 " }}}
 " vmath-plus {{{
@@ -2659,15 +2662,15 @@ nnoremap <leader>tW :ToggleWorkspace<Return>
 
 " Analyze
 "
-nmap <leader>ma <Plug>(vmath_plus#normal_analyze)
-nmap <leader>mba <Plug>(vmath_plus#normal_analyze_buffer)
-xmap <leader>ma <Plug>(vmath_plus#visual_analyze)
-xmap <leader>mba <Plug>(vmath_plus#visual_analyze_buffer)
+nmap <Leader>ma <Plug>(vmath_plus#normal_analyze)
+nmap <Leader>mba <Plug>(vmath_plus#normal_analyze_buffer)
+xmap <Leader>ma <Plug>(vmath_plus#visual_analyze)
+xmap <Leader>mba <Plug>(vmath_plus#visual_analyze_buffer)
 
 " Report
 "
-nmap <leader>mr <Plug>(vmath_plus#report)
-nmap <leader>mbr <Plug>(vmath_plus#report_buffer)
+nmap <Leader>mr <Plug>(vmath_plus#report)
+nmap <Leader>mbr <Plug>(vmath_plus#report_buffer)
 
 " }}}
 
@@ -2728,6 +2731,8 @@ endif
 if g:settings#highlight_cursor_column
   set cursorcolumn
 endif
+
+set concealcursor=
 
 " }}}
 

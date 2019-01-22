@@ -11,15 +11,16 @@
 " Press ENTER or za to toggle category folding/unfolding.
 " ============================================================================
 
-" Fonts fall back to next on list if not available.
+" Fonts fall back to next on list if not available. Exclude Linux, which
+" doesn't seem to work.
 "
 if has('win32') || has('win64') || has('gui_macvim')
-  set guifont=Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
+  set guifont=Fira\ Code\ Regular:h12,Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
 endif
 
 " No scroll bars
 "
-set guioptions = " No scroll bars
+set guioptions= " No scroll bars
 
 " Disable all cursor blinking
 set guicursor+=a:blinkon0
