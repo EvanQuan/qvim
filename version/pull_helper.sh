@@ -1,7 +1,7 @@
 #!/bin/bash
 # File:       pull_helper.sh
 # Maintainer: https://github.com/EvanQuan/qvim/
-# Version:    2.3.0
+# Version:    2.4.0
 #
 # Pull Helper
 # If pulling implementation changes are made, they are made here to allow
@@ -14,6 +14,7 @@ settings_location=$(pwd)/settings.vim
 
 # Change directory to make changes path relative so it works for both
 # ~/.vimrc and ~/vimfiles
+vim -c ":helptags doc"
 cd version
 
 settings_local_version=$(pwd)/local/settings.vim
