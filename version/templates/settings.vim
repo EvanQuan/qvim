@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.0.0
+" Version:    3.1.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine. You can
@@ -132,3 +132,10 @@ let g:settings#cursor_color = 1
 "     Sets "jk" and "kj" as ESCAPE in INSERT, REPLACE and VISUAL modes
 " }}}
 let g:settings#escape_alternative = 0
+" Developer mode {{{
+"   Loads plugins for developing Vim plugins. Should be disabled otherwise.
+"   0: Disabled
+"   1: Enabled
+"     Loads in-development plugins, and Vim testing plugins.
+" }}}
+let g:settings#dev_mode = 0
