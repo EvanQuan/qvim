@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.13.4
+" Version:    3.15.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.13.4'
+let g:vimrc_version = '3.15.0'
 
 " Path {{{
 
@@ -59,7 +59,7 @@ let $ANACONDA_PYTHON = '/anaconda3/bin/python'
 "
 " In case settings.vim does not exist, settings.vim template is used.
 " If that also does not exist, setting variables directly defined here.
-" Set settings to 3.0.0 defaults if settings.vim does not exist.
+" Set settings to 3.1.0 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
   source $MYSETTINGS
@@ -107,6 +107,9 @@ if !exists('g:settings#python3_execution')
 endif
 if !exists('g:settings#cursor_color')
   let g:settings#cursor_color = 1
+endif
+if !exists('g:settings#dev_mode')
+  let g:settings#dev_mode = 0
 endif
 
 " Set statusline to nothing for later commands that increment onto statusline.
@@ -223,6 +226,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
+
+" }}}
+" Dev {{{
+
+if g:settings#dev_mode
+  Plug 'EvanQuan/vim-AAAAAAAAAAAAAA'
+  Plug 'EvanQuan/vim-dna-sharp'
+  Plug 'EvanQuan/vim-scene'
+  Plug 'EvanQuan/vim-verbose'
+  Plug 'junegunn/vader.vim'
+endif
 
 " }}}
 call plug#end()
@@ -1574,6 +1588,7 @@ let g:lightline = {
     \ 'bufferbefore': 'lightline#buffer#bufferbefore',
     \ 'bufferafter': 'lightline#buffer#bufferafter',
     \ 'bufferinfo': 'lightline#buffer#bufferinfo',
+    \ 'devmode': 'MyDevMode',
     \ },
   \ 'tab_component_function': {
     \ 'filename': 'MyTabFilename'
@@ -1586,7 +1601,7 @@ let g:lightline = {
   \ },
   \ 'tabline': {
       \ 'left': [ [ 'bufferinfo' ], [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \ 'right': [ [ 'vimversion', 'vimrcversion'], [ 'time' ], ],
+      \ 'right': [ [ 'devmode', 'vimversion', 'vimrcversion'], [ 'time' ], ],
       \ },
 \ }
 
@@ -1849,6 +1864,11 @@ function! MyMode() abort
     \ winwidth(0) > 75 ? lightline#mode() : ''
 endfunction
 
+" Indicates in tabline if in dev mode
+function! MyDevMode() abort
+  return g:settings#dev_mode ? 'dev' : ''
+endfunction
+
 " Signifies currently in CtrlP search mode.
 "
 function! CtrlPMark() abort
@@ -2083,9 +2103,6 @@ elseif filereadable(expand($ANACONDA_PYTHON))
 else
   let g:executioner#extensions['py'] = 'python3 %'
 endif
-let g:executioner#extensions['markdown'] = ':InstantMarkdownPreview'
-let g:executioner#extensions['md'] = ':InstantMarkdownPreview'
-let g:executioner#extensions['tex'] = ':VimtexCompile'
 
 " Run current buffer
 "

@@ -181,6 +181,7 @@ restart Vim.
 
 #### Programming
 - [vim-executioner](https://github.com/EvanQuan/vim-executioner)
+- [vader.vim](https://github.com/junegunn/vader.vim)
 
 #### User Interface
 - [goyo.vim](https://github.com/junegunn/goyo.vim)
