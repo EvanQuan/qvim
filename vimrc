@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.15.0
+" Version:    3.16.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.15.0'
+let g:vimrc_version = '3.16.0'
 
 " Path {{{
 
@@ -235,6 +235,7 @@ if g:settings#dev_mode
   Plug 'EvanQuan/vim-dna-sharp'
   Plug 'EvanQuan/vim-scene'
   Plug 'EvanQuan/vim-verbose'
+  Plug 'EvanQuan/vim-indent-with-semicolons'
   Plug 'junegunn/vader.vim'
 endif
 
