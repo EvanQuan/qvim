@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.15.0
+" Version:    3.17.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.15.0'
+let g:vimrc_version = '3.16.0'
 
 " Path {{{
 
@@ -205,6 +205,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Programming {{{
 
 Plug 'EvanQuan/vim-executioner'
+Plug 'tpope/vim-classpath'
 
 " }}}
 " User Interface {{{
@@ -235,6 +236,7 @@ if g:settings#dev_mode
   Plug 'EvanQuan/vim-dna-sharp'
   Plug 'EvanQuan/vim-scene'
   Plug 'EvanQuan/vim-verbose'
+  Plug 'EvanQuan/vim-indent-with-semicolons'
   Plug 'junegunn/vader.vim'
 endif
 
@@ -2024,6 +2026,12 @@ nnoremap <silent> <Leader>tt :NERDTreeToggle<Return>
 nnoremap <silent> <Leader>ft :NERDTreeToggle<Return>
 
 " }}}
+" quickscope {{{
+" Repository: https://github.com/unblevable/quick-scope
+"
+nmap <leader>tq <Plug>(QuickScopeToggle)
+
+" }}}
 " ultisnips {{{
 " Repository: https://github.com/SirVer/ultisnips
 
@@ -2540,6 +2548,7 @@ let g:lmap.t = {
                 \'L' : ['call ListTrans_toggle_format()', 'List'],
                 \'l' : ['call ToggleLineNumbers()', 'Line numbers'],
                 \'p' : ['call TogglePasteMode()', 'Paste mode'],
+                \'q' : ['call feedkeys("\<Plug>(QuickScopeToggle)")', 'Quickscope'],
                 \'r' : ['call ToggleRelativeLineNumbers()', 'Relative line numbers'],
                 \'s' : ['call ToggleSpellcheck()', 'Spellcheck'],
                 \'t' : ['NERDTreeToggle', 'Tree'],
