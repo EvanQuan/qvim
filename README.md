@@ -192,6 +192,7 @@ restart Vim.
 - [vim-leader-guide](https://github.com/hecal3/vim-leader-guide)
 - [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [vim-togglecursor](https://github.com/jszakmeister/vim-togglecursor)
+- [vim-startify](https://github.com/mhinz/vim-startify)
 
 #### Version Control
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
