@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.17.0
+" Version:    3.18.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.16.0'
+let g:vimrc_version = '3.18.0'
 
 " Path {{{
 
@@ -218,6 +218,7 @@ Plug 'unblevable/quick-scope'
 Plug 'hecal3/vim-leader-guide'
 Plug 'tpope/vim-sleuth'
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'mhinz/vim-startify'
 
 " }}}
 " Version Control {{{
