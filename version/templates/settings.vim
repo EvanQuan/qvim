@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.1.0
+" Version:    3.2.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine. You can
@@ -137,5 +137,7 @@ let g:settings#escape_alternative = 0
 "   0: Disabled
 "   1: Enabled
 "     Loads in-development plugins, and Vim testing plugins.
+"   2: Enabled with Unstable Plugins
+"     This adds extra experimental stuff that is not stable.
 " }}}
 let g:settings#dev_mode = 0
