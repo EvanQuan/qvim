@@ -1,4 +1,4 @@
-*qvim.txt*            For Vim version 8.1          Last change: 2018 December 25
+*qvim.txt*            For Vim version 8.1          Last change: 2019 February 19
 
                                       _                                        ~
                                      (_)                                       ~
@@ -262,7 +262,7 @@ existing ones, feel free to post your ideas on Github here:
 ------------------------------------------------------------------------------
 3.1 Settings Variables                                  *settings.vim-variables*
 
-g:settings#truecolor                                      *g:settings#truecolor*
+TRUE COLOR                                                *g:settings#truecolor*
 
                 True Color~
 
@@ -282,7 +282,7 @@ g:settings#truecolor                                      *g:settings#truecolor*
                         work properly.
 
 
-g:settings#powerline_symbols                              *g:settings#truecolor*
+POWERLINE SYMBOLS                                 *g:settings#powerline_symbols*
 
                 Powerline Symbols~
 
@@ -299,7 +299,7 @@ g:settings#powerline_symbols                              *g:settings#truecolor*
                 1: Enabled
 
 
-g:settings#colorscheme                                *g:settings#colorscheme*
+COLOR SCHEME                                            *g:settings#colorscheme*
 
                 Color Scheme~
 
@@ -316,7 +316,7 @@ g:settings#colorscheme                                *g:settings#colorscheme*
                         Uses onedark.vim plugin.
 
 
-g:settings#italics                                        *g:settings#italics*
+ITALICS                                                     *g:settings#italics*
 
                 Italics~
 
@@ -332,7 +332,7 @@ g:settings#italics                                        *g:settings#italics*
                 1: Enabled
 
 
-g:settings#highlight_cursor_line            *g:settings#highlight_cursor_line*
+HIGHLIGHT CURSOR LINE                         *g:settings#highlight_cursor_line*
 
                 Highlight Cursor Line~
 
@@ -344,7 +344,7 @@ g:settings#highlight_cursor_line            *g:settings#highlight_cursor_line*
                 1: Enabled
 
 
-g:settings#highlight_cursor_column        *g:settings#highlight_cursor_column*
+HIGHLIGHT CURSOR COLUMN                     *g:settings#highlight_cursor_column*
 
                 Highlight Cursor Column~
 
@@ -356,7 +356,7 @@ g:settings#highlight_cursor_column        *g:settings#highlight_cursor_column*
                 1: Enabled
 
 
-g:settings#highlight_width_indicator    *g:settings#highlight_width_indicator*
+HIGHLIGHT WIDTH INDICATOR                 *g:settings#highlight_width_indicator*
 
                 Highlight Width Indicator~
 
@@ -368,7 +368,7 @@ g:settings#highlight_width_indicator    *g:settings#highlight_width_indicator*
                 1: Enabled
 
 
-g:settings#line_numbers                                *g:settings#line_numbers*
+LINE NUMBERS                                           *g:settings#line_numbers*
 
                 Line Numbers~
 
@@ -385,7 +385,7 @@ g:settings#line_numbers                                *g:settings#line_numbers*
                         cursor.
 
 
-g:settings#wrap                                                *g:settings#wrap*
+TEXT WRAP                                                      *g:settings#wrap*
 
                 Text Wrap~
 
@@ -401,7 +401,7 @@ g:settings#wrap                                                *g:settings#wrap*
                         columns. Column at wrap_width is highlighted.
 
 
-g:settings#wrap_width                                    *g:settings#wrap_width*
+TEXT WRAP WIDTH                                          *g:settings#wrap_width*
 
                 Text Wrap Width~
 
@@ -412,7 +412,7 @@ g:settings#wrap_width                                    *g:settings#wrap_width*
                 column.
 
 
-g:settings#whitespace                                    *g:settings#whitespace*
+SHOW WHITESPACE                                          *g:settings#whitespace*
 
                 Show Whitespace~
 
@@ -431,7 +431,7 @@ g:settings#whitespace                                    *g:settings#whitespace*
                           Only tabs and trailing whitespace is visible.
 
 
-g:settings#python3_execution                      *g:settings#python3_execution*
+PYTHON 3 EXECUTION                                *g:settings#python3_execution*
 
                 Python 3 Execution~
 
@@ -447,7 +447,7 @@ g:settings#python3_execution                      *g:settings#python3_execution*
                 1: if |python3| executes |python3| in the terminal
 
 
-g:settings#cursor_color                                *g:settings#cursor_color*
+CURSOR COLOR                                           *g:settings#cursor_color*
 
                 Cursor Color~
 
@@ -463,7 +463,7 @@ g:settings#cursor_color                                *g:settings#cursor_color*
                 3: Red
 
 
-g:settings#escape_alternative                    *g:settings#escape_alternative*
+ESCAPE ALTERNATIVE                               *g:settings#escape_alternative*
 
 Escape Alternative~
 
