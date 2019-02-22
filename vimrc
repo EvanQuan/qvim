@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.18.1
+" Version:    3.19.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.18.1'
+let g:vimrc_version = '3.19.0'
 
 " Path {{{
 
@@ -2650,6 +2650,15 @@ noremap <Leader>Pg :PlugUpgrade<Return>
 " To resolve this, indentLine takes precidence.
 "
 let g:polyglot_disabled = ['markdown', 'latex']
+
+" }}}
+" vim-startify {{{
+" Repository: https://github.com/mhinz/vim-startify
+
+let g:startify_bookmarks = [
+      \ {'V': $MYVIMRC},
+      \ {'S': $MYSETTINGS},
+      \ ]
 
 " }}}
 " vim-togglecursor {{{
