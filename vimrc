@@ -11,7 +11,7 @@
 "
 "     :help qvim
 "
-" Press ENTER or za to toggle category folding/unfolding.
+" Press \ or za to toggle category folding/unfolding.
 " ============================================================================
 " Initial Setup {{{
 

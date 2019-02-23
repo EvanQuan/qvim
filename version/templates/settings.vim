@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.2.0
+" Version:    3.2.1
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine. You can
@@ -9,7 +9,7 @@
 "
 "     :help settings.vim
 "
-" Press ENTER to toggle category folding.
+" Press \ or za to toggle category folding.
 " ============================================================================
 
 " True Color (24-bit) {{{
