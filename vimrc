@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.19.0
+" Version:    3.20.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -455,6 +455,9 @@ set copyindent
 " }}}
 " Mappings {{{
 
+" Easier commands
+nnoremap <Return> :
+
 " Leader Key {{{
 
 " This key is used in combination with other keys to perform many customizable
@@ -822,7 +825,6 @@ nnoremap <silent> <Leader>veo :vsplit output.txt<Return>
 " Enter doesn't do anything in normal mode. Use it for folding.
 "
 nnoremap \ za
-nnoremap <Return> za
 
 " Change fold method settings
 "
