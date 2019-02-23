@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.20.0
+" Version:    3.21.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.19.0'
+let g:vimrc_version = '3.21.0'
 
 " Path {{{
 
@@ -2660,6 +2660,7 @@ let g:polyglot_disabled = ['markdown', 'latex']
 let g:startify_bookmarks = [
       \ {'V': $MYVIMRC},
       \ {'S': $MYSETTINGS},
+      \ {'n': $MYNOTES},
       \ ]
 
 " }}}
