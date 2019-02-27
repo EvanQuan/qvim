@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.21.0
+" Version:    3.22.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.21.0'
+let g:vimrc_version = '3.22.0'
 
 " Path {{{
 
@@ -59,7 +59,7 @@ let $ANACONDA_PYTHON = '/anaconda3/bin/python'
 "
 " In case settings.vim does not exist, settings.vim template is used.
 " If that also does not exist, setting variables directly defined here.
-" Set settings to 3.1.0 defaults if settings.vim does not exist.
+" Set settings to 3.3.0 defaults if settings.vim does not exist.
 "
 if filereadable(expand($MYSETTINGS))
   source $MYSETTINGS
@@ -71,6 +71,9 @@ if !exists('g:settings#truecolor')
 endif
 if !exists('g:settings#powerline_symbols')
   let g:settings#powerline_symbols = 0
+endif
+if !exists('g:settings#nerdfont_symbols')
+  let g:settings#nerdfont_symbols = 0
 endif
 if !exists('g:settings#colorscheme')
   let g:settings#colorscheme = 3
@@ -219,6 +222,12 @@ Plug 'hecal3/vim-leader-guide'
 Plug 'tpope/vim-sleuth'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'mhinz/vim-startify'
+if g:settings#nerdfont_symbols
+  Plug 'ryanoasis/vim-devicons'
+endif
+
+" Causes lag, so not enabled
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " }}}
 " Version Control {{{

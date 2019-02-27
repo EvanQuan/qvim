@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       gvimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    1.0.7
+" Version:    1.1.0
 "
 " Contains optional runtime configuration settings to initialize GUI Vim when
 " it starts. For Vim versions before 7.4, this should be linked to the
@@ -15,7 +15,7 @@
 " doesn't seem to work.
 "
 if has('win32') || has('win64') || has('gui_macvim')
-  set guifont=Fira\ Code\ Regular:h12,Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
+  set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12,Fira\ Code\ Regular:h12,Iosevka:h12,Meslo_LG_M_for_Powerline:h12,Consolas:h12
 endif
 
 " No scroll bars

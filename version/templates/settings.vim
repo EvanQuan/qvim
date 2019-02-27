@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       settings.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.2.1
+" Version:    3.3.0
 "
 " Setting values affect how Vim is configured. This file is not tracked by
 " git, allowing you to customize this differently for each machine. You can
@@ -33,6 +33,13 @@ let g:settings#truecolor = 1
 "   1: Enabled
 " }}}
 let g:settings#powerline_symbols = 0
+" NERD Font {{{
+"   If a NERD Font is used, then special NERD font symbols will render for
+"   file icons.
+"   0: Disabled
+"   1: Enabled
+" }}}
+ let g:settings#nerdfont_symbols = 0
 " Color Scheme {{{
 "   Affects overall color scheme and lightline color scheme
 "   0: None
