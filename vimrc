@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.22.0'
+let g:vimrc_version = '3.22.1'
 
 " Path {{{
 
@@ -122,6 +122,11 @@ endif
 set statusline=
 
 " }}}
+" Feature Support {{{
+
+let has_python = has('python') || has('python3')
+
+" }}}
 " Plugins {{{
 
 " Use Vim settings, rather than  Vi settings.
@@ -149,7 +154,7 @@ Plug 'rakr/vim-one'
 
 Plug 'jiangmiao/auto-pairs'
 Plug $MYGITPLUGINS . '/betterdigraphs'
-if (has('python') || has('python3')) && has('job') && has('timers') && has('lambda')
+if has_python && has('job') && has('timers') && has('lambda')
   Plug 'maralla/completor.vim'
 else
   Plug 'Shougo/neocomplete.vim'
@@ -173,7 +178,9 @@ Plug 'sgur/vim-textobj-parameter'
 Plug 'wellle/targets.vim'
 Plug $MYGITPLUGINS . '/vis.vim'
 Plug 'bkad/CamelCaseMotion'
-Plug 'SirVer/ultisnips'
+if has_python
+  Plug 'SirVer/ultisnips'
+endif
 Plug 'honza/vim-snippets'
 Plug 'EvanQuan/victionary'
 
