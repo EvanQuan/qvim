@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.22.0
+" Version:    3.23.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.22.1'
+let g:vimrc_version = '3.23.0'
 
 " Path {{{
 
@@ -2011,6 +2011,10 @@ let g:NERDSpaceDelims = 1
 " indentation
 "
 let g:NERDDefaultAlign = 'left'
+
+let g:NERDCustomDelimiters = {}
+
+let g:NERDCustomDelimiters['scene'] = {'left' : '#'}
 
 " NOTE: May need to remove one of these in the future for namespace.
 " NOTE: tc currently hangs because it is overloaded with toggle cursor column
