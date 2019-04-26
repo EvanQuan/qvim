@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.27.0
+" Version:    3.28.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.27.0'
+let g:vimrc_version = '3.28.0'
 
 " Path {{{
 
@@ -2709,6 +2709,11 @@ let g:togglecursor_replace = 'underline' " Not blinking
 "
 let g:togglecursor_leave = 'block' " Not blinking
 
+" Match One dark colors
+let g:togglecursor#insert_color = [61, 175, 239]
+let g:togglecursor#replace_color = [224, 108, 75]
+let g:togglecursor#default_color = [98, 195, 79]
+
 " }}}
 " vim-workspace {{{
 " Repository: https://github.com/thaerkh/vim-workspace
@@ -2759,33 +2764,6 @@ set noerrorbells visualbell t_vb=
 " cursor. Helpful for scrolling.
 "
 set scrolloff=5
-
-" }}}
-" Color {{{
-
-if g:settings#cursor_color
-  if g:settings#cursor_color == 1 " Blue
-    silent !echo -ne "\033]12;rgb:61/af/ef\x7\007"
-  elseif g:settings#cursor_color == 2 " Green
-    silent !echo -ne "\033]12;rgb:98/c3/79\x7\007"
-  elseif g:settings#cursor_color == 3 " Red
-    silent !echo -ne "\033]12;rgb:e0/6c/75\x7\007"
-  endif
-  " Reset cursor to original when vim exits
-  if has('autocmd')
-    autocmd VimLeave * silent !echo -ne "\033]112\007"
-  endif
-endif
-" TODO: Cursor changes color depending on the mode
-" These get overridden by vim-togglecursor settings
-" Can be done by changing vim-togglecursor plugin
-" Find a work around that does not alter vim-togglecursor plugin
-" INSERT mode - blue
-" let &t_SI =+ "\<Esc>]12;rgb:61/af/ef\x7"
-" REPLACE mode - red
-" let &t_SR =+ "\<Esc>]12;rgb:e0/6c/75\x7"
-" NORMAL and VISUAL modes - green
-" let &t_EI =+ "\<Esc>]12;rgb:98/c3/79\x7"
 
 " }}}
 " Visibility {{{
