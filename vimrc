@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.28.1
+" Version:    3.28.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.28.1'
+let g:vimrc_version = '3.28.2'
 
 " Path {{{
 
@@ -2709,10 +2709,10 @@ let g:togglecursor_replace = 'underline' " Not blinking
 "
 let g:togglecursor_leave = 'block' " Not blinking
 
-" Match One dark colors
-let g:togglecursor_insert_color = [61, 175, 239]
-let g:togglecursor_replace_color = [224, 108, 75]
-let g:togglecursor_default_color = [98, 195, 79]
+" Match onedark.vim colors
+let g:togglecursor_insert_color = [97, 175, 239] " Blue
+let g:togglecursor_replace_color = [224, 108, 117] " Red
+let g:togglecursor_default_color = [152, 195, 121] " Green
 
 " }}}
 " vim-workspace {{{
