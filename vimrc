@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.29.0
+" Version:    3.30.0
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.29.0'
+let g:vimrc_version = '3.30.0'
 
 " Path {{{
 
@@ -704,6 +704,12 @@ nnoremap <silent> <Leader>vei :vsplit input.txt<Return>
 nnoremap <silent> <Leader>eo :edit output.txt<Return>
 nnoremap <silent> <Leader>heo :split output.txt<Return>
 nnoremap <silent> <Leader>veo :vsplit output.txt<Return>
+
+" plugins.vim
+"
+nnoremap <silent> <Leader>ep :edit $MYPLUGINCONFIG<Return>
+nnoremap <silent> <Leader>hep :split $MYPLUGINCONFIG<Return>
+nnoremap <silent> <Leader>vep :vsplit $MYPLUGINCONFIG<Return>
 
 " }}}
 " Folding {{{
@@ -2181,6 +2187,7 @@ let g:lmap.e = {
                 \'g' : ['edit $MYGVIMRC', 'gvimrc'],
                 \'m' : ['edit makefile', 'makefile'],
                 \'n' : ['edit $MYNOTES', 'Notes'],
+                \'p' : ['edit $MYPLUGINCONFIG', 'Plugins'],
                 \'q' : ['edit $MYQVIMDOC', 'qvim help'],
                 \'R' : ['edit README.md', 'README.md'],
                 \'r' : ['edit run.sh', 'run.sh'],
@@ -2254,6 +2261,7 @@ let g:lmap.h = {
                         \'m' : ['split makefile', 'makefile'],
                         \'n' : ['split $MYNOTES', 'Notes'],
                         \'o' : ['split output.txt', 'output.txt'],
+                        \'p' : ['split $MYPLUGINCONFIG', 'Plugins'],
                         \'q' : ['split $MYQVIMDOC', 'qvim help'],
                         \'R' : ['split README.md', 'README.md'],
                         \'r' : ['split run.sh', 'run.sh'],
@@ -2479,6 +2487,7 @@ let g:lmap.v = {
                         \'m' : ['vsplit makefile', 'makefile'],
                         \'n' : ['vsplit $MYNOTES', 'Notes'],
                         \'o' : ['vsplit output.txt', 'output.txt'],
+                        \'p' : ['vsplit $MYPLUGINCONFIG', 'Plugins'],
                         \'q' : ['vsplit $MYQVIMDOC', 'qvim help'],
                         \'R' : ['vsplit README.md', 'README.md'],
                         \'r' : ['vsplit run.sh', 'run.sh'],
