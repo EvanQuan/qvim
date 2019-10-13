@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       plugins.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    0.1.0
+" Version:    0.2.0
 "
 " Contains all plugins, managed with vim-plug.
 "
@@ -87,6 +87,7 @@ Plug 'mxw/vim-prolog', { 'for': 'prolog' }
 Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 
 " }}}
 " Linting {{{
