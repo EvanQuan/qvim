@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.30.0
+" Version:    3.30.1
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.30.0'
+let g:vimrc_version = '3.30.1'
 
 " Path {{{
 
@@ -50,6 +50,11 @@ let $MYWINDOWSVIMRC = '~/_vimrc'
 let $MYWINDOWSVIMRCTEMPLATE = $MYTEMPLATES . '/_vimrc'
 
 let $ANACONDA_PYTHON = '/anaconda3/bin/python'
+
+" Get windows to use .vim over vimfiles
+if has('win32') || has('win64')
+  set runtimepath+=$MYVIMHOME
+endif
 
 " }}}
 " Settings {{{
@@ -252,12 +257,8 @@ endif
 " Enable folding
 "
 set foldenable
-
-" After setting fold method to identation by default for a while, I have found
-" that I have never actually used folding in my work. However, I find that
-" "{{{", "}}}" delimited auto-folding to be very useful in for arbitrary
-" projects of different langauges.
-"
+" Set marker folding by default. Cannot be overridden by ftplugin as vimrc
+" loads first.
 set foldmethod=marker
 set foldlevel=0
 
@@ -2587,9 +2588,11 @@ let g:togglecursor_replace = 'underline' " Not blinking
 let g:togglecursor_leave = 'block' " Not blinking
 
 " Match onedark.vim colors
-let g:togglecursor_insert_color = [97, 175, 239] " Blue
+" let g:togglecursor_insert_color = [97, 175, 239] " Blue
+" let g:togglecursor_replace_color = [224, 108, 117] " Red
+" let g:togglecursor_default_color = [152, 195, 121] " Green
+let g:togglecursor_default_color = [97, 175, 239] " Blue
 let g:togglecursor_replace_color = [224, 108, 117] " Red
-let g:togglecursor_default_color = [152, 195, 121] " Green
 
 " }}}
 " vim-workspace {{{
