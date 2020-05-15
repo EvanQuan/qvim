@@ -1,0 +1,14 @@
+" (Un)Indent in Normal mode with Shift/Tab
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+
+" (Un)Indent in Visual mode with Shift/Tab
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Enable "very magic" search mode
+" All chracters except 0-9, a-z, A-Z, and _ have special meaning
+" Allow for searching with regex
+" Type ":help \v" for more information
+nnoremap / /\v
+vnoremap / /\v
