@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       plugins.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    0.2.0
+" Version:    0.3.0
 "
 " Contains all plugins, managed with vim-plug.
 "
@@ -31,6 +31,7 @@ filetype off
 call plug#begin($MYPLUGINS)
 " Color scheme {{{
 
+Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 
@@ -138,6 +139,7 @@ Plug 'tpope/vim-rhubarb'
 " Dev {{{
 
 if g:settings#dev_mode == 1
+  Plug 'vim/killersheep'
   Plug 'EvanQuan/vim-AAAAAAAAAAAAAA'
   Plug 'EvanQuan/vim-dna-sharp'
   Plug 'EvanQuan/vim-chef'

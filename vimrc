@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       vimrc
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    3.30.1
+" Version:    3.30.2
 "
 " Contains optional runtime configuration settings to initialize Vim when it
 " starts. For Vim versions before 7.4, this should be linked to the ~/.vimrc
@@ -20,7 +20,7 @@
 " Version
 " Displayed with lightline-buffer.
 "
-let g:vimrc_version = '3.30.1'
+let g:vimrc_version = '3.30.2'
 
 " Path {{{
 
@@ -180,19 +180,18 @@ endif
 " When set to "dark", Vim will try to use colors that look good on a dark
 " background.
 "
-if g:settings#colorscheme == 2
-  set background=light
-else
-  set background=dark
-endif
-
 " Determine color scheme based on settings.vim
 " Lightline color scheme is consistent with main color scheme
 "
-if g:settings#colorscheme >= 3
-  colorscheme onedark
-elseif g:settings#colorscheme >= 1
+if g:settings#colorscheme == 3
+  set background=dark
+  colorscheme codedark
+elseif g:settings#colorscheme == 2
+  set background=light
   colorscheme one
+elseif g:settings#colorscheme == 1
+  set background=dark
+  colorscheme onedark
 endif
 
 " }}}
@@ -1540,10 +1539,12 @@ endif
 " Set lightline color scheme
 " Whether it is light or dark is determined in one package
 "
-if g:settings#colorscheme >= 3
-  let g:lightline.colorscheme = 'onedark'
-elseif g:settings#colorscheme >= 1
+if g:settings#colorscheme == 3
+  let g:lightline.colorscheme = 'codedark'
+elseif g:settings#colorscheme == 2
   let g:lightline.colorscheme = 'one'
+elseif g:settings#colorscheme == 1
+  let g:lightline.colorscheme = 'onedark'
 endif
 
 " }}}
