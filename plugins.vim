@@ -1,7 +1,7 @@
 " ============================================================================
 " File:       plugins.vim
 " Maintainer: https://github.com/EvanQuan/qvim/
-" Version:    0.3.0
+" Version:    0.4.0
 "
 " Contains all plugins, managed with vim-plug.
 "
@@ -89,6 +89,7 @@ Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
+Plug 'lesliev/vim-inform7', { 'for' : 'ni' }
 
 " }}}
 " Linting {{{
